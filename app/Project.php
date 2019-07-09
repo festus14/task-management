@@ -1,0 +1,75 @@
+<?php
+
+namespace App;
+
+use App\Traits\Auditable;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Project extends Model
+{
+    use SoftDeletes, Auditable;
+
+    public $table = 'projects';
+
+    protected $dates = [
+        'deadline',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'starting_date',
+    ];
+
+    protected $fillable = [
+        'name',
+        'deadline',
+        'client_id',
+        'manager_id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'starting_date',
+        'project_type_id',
+    ];
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function project_type()
+    {
+        return $this->belongsTo(ProjectType::class, 'project_type_id');
+    }
+
+    public function getStartingDateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
+    }
+
+    public function setStartingDateAttribute($value)
+    {
+        $this->attributes['starting_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function getDeadlineAttribute($value)
+    {
+        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+    }
+
+    public function setDeadlineAttribute($value)
+    {
+        $this->attributes['deadline'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+    }
+
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    public function team_members()
+    {
+        return $this->belongsToMany(Document::class);
+    }
+}
