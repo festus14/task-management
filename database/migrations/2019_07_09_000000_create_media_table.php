@@ -20,6 +20,7 @@ class CreateMediaTable extends Migration
             $table->longText('manipulations');
             $table->longText('custom_properties');
             $table->longText('responsive_images');
+
 //            $table->json('manipulations');
 //            $table->json('custom_properties');
 //            $table->json('responsive_images');
