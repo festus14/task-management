@@ -22,16 +22,11 @@ import ExitToApp from '@material-ui/icons/ExitToApp';
 import Assignment from '@material-ui/icons/Assignment';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Build from '@material-ui/icons/Build';
-
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-
-
-
 //import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-
 // import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -432,7 +427,10 @@ export default function MiniDrawer() {
           tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
+
+
         </Typography>
+        
       </main>
     </div>
   );
