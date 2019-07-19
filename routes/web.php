@@ -6,6 +6,17 @@ Route::redirect('/home', '/admin');
 
 Auth::routes(['register' => false]);
 
+
+
+
+Route::get('/', function () { return redirect('/admin/home'); });
+
+// Authentication Routes...
+$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+$this->post('login', 'Auth\LoginController@login')->name('auth.login');
+$this->post('logout', 'Auth\LoginController@logout')->name('auth.logout');
+
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
