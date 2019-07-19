@@ -2,13 +2,11 @@
 
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-<!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8"/>
-    <title>@yield('title')</title>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Latest updates and statistic charts">
+
+    <title></title>
+    <meta name="description" content="Layout builder">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
@@ -23,25 +21,23 @@
         });
     </script>
     <!--end::Web font -->
-    <!--begin::Page Vendors Styles -->
-    <link href="{{ url('/keen_accets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet') }}"
-          type="text/css"/>
-    <!--end::Page Vendors Styles -->
 
 
     <!--begin::Global Theme Styles -->
-    <link href="{{ url('vendors/base/vendors.bundle.css" rel="stylesheet') }}" type="text/css"/>
-    <link href="{{ url('accests/base/style.bundle.css" rel="stylesheet') }}" type="text/css"/>
+    <link href="taskmgtKeen/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css"/>
+    <link href="taskmgtKeen/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css"/>
     <!--end::Global Theme Styles -->
 
     <!--begin::Layout Skins -->
-    <link href="{{ url('accests/skins/header/base/light.css" rel="stylesheet') }}" type="text/css"/>
-    <link href="{{ url('accests/skins/header/menu/light.css" rel="stylesheet') }}" type="text/css"/>
-    <link href="{{ url('accests/skins/brand/navy.css" rel="stylesheet') }}" type="text/css"/>
-    <link href="{{ url('accests/skins/aside/navy.css" rel="stylesheet') }}" type="text/css"/><!--end::Layout Skins -->
-    @yield('css')
+    <link href="taskmgtKeen/assets/demo/default/skins/header/base/light.css" rel="stylesheet" type="text/css"/>
+    <link href="taskmgtKeen/assets/demo/default/skins/header/menu/light.css" rel="stylesheet" type="text/css"/>
+    <link href="taskmgtKeen/assets/demo/default/skins/brand/navy.css" rel="stylesheet" type="text/css"/>
+    <link href="taskmgtKeen/assets/demo/default/skins/aside/navy.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="taskmgtKeen/fontawesome/fontawesome-free/css/all.min.css">
+    <!--end::Layout Skins -->
 
-    <link rel="shortcut icon" href="{{ url('media/logos/favicon.ico') }}"/>
+
+    <link rel="shortcut icon" href="taskmgtKeen/assets/media/logos/favicon.ico"/>
 </head>
 <!-- end::Head -->
 
@@ -53,7 +49,7 @@
 <div id="k_header_mobile" class="k-header-mobile  k-header-mobile--fixed ">
     <div class="k-header-mobile__logo">
         <a href="index-2.html">
-            <img alt="Logo" src=" {{ url('taskmgtKeen/assets/media/logos/logo-6.png') }}"/>
+            <img alt="Logo" src="taskmgtKeen/assets/media/logos/logo-6.png"/>
         </a>
     </div>
     <div class="k-header-mobile__toolbar">
@@ -62,7 +58,7 @@
 
         <button class="k-header-mobile__toolbar-toggler" id="k_header_mobile_toggler"><span></span></button>
         <button class="k-header-mobile__toolbar-topbar-toggler" id="k_header_mobile_topbar_toggler"><i
-                class="flaticon-more"></i></button>
+            class="flaticon-more"></i></button>
     </div>
 </div>
 <!-- end:: Header Mobile -->
@@ -77,7 +73,7 @@
             <div class="k-aside__brand	k-grid__item " id="k_aside_brand">
                 <div class="k-aside__brand-logo">
                     <a href="index-2.html">
-                        <img alt="Logo" src="{{ url('taskmgtKeen/assets/media/logos/logo-6.png') }}"/>
+                        <img alt="Logo" src="taskmgtKeen/assets/media/logos/logo-6.png"/>
                     </a>
                 </div>
                 <div class="k-aside__brand-tools">
@@ -87,10 +83,210 @@
             </div>
             <!-- end:: Aside -->    <!-- begin:: Aside Menu -->
             <div class="k-aside-menu-wrapper	k-grid__item k-grid__item--fluid" id="k_aside_menu_wrapper">
-                <div id="k_aside_menu" class="k-aside-menu " data-kmenu-vertical="1" data-kmenu-scroll="1"
-                     data-kmenu-dropdown-timeout="500">
+                <div
+                    id="k_aside_menu"
+                    class="k-aside-menu "
+                    data-kmenu-vertical="1"
+                    data-kmenu-scroll="1" data-kmenu-dropdown-timeout="500"
+                >
+
                     <ul class="k-menu__nav ">
-                        @yield('drawer')
+
+                        <li class="k-menu__item " aria-haspopup="true"><a href="builder.html" class="k-menu__link ">
+                            <i class="k-menu__link-icon fa fa-dashboard"></i><span
+                            class="k-menu__link-text">Dashboard</span></a>
+                        </li>
+                        <li class="k-menu__item  k-menu__item--submenu k-menu__item--open k-menu__item--here"
+                            aria-haspopup="true" data-kmenu-submenu-toggle="hover">
+                            <a href="javascript:;" class="k-menu__link k-menu__toggle">
+                                <i class="k-menu__link-icon fa fa-users"></i>
+                                <span class="k-menu__link-text">User management</span>
+                                <i class="k-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="k-menu__submenu ">
+                                <span class="k-menu__arrow"></span>
+                                <ul class="k-menu__subnav">
+                                    <li class="k-menu__item  k-menu__item--parent" aria-haspopup="true"><span
+                                        class="k-menu__link"><span class="k-menu__link-text">Dashboards</span></span>
+                                    </li>
+                                    <li class="k-menu__item  k-menu__item--active" aria-haspopup="true">
+                                        <a href="index-2.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i><span class="k-menu__link-text">Permissions</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Roles</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/navy-header.html" class="k-menu__link "><i
+                                            class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i>
+                                            <span class="k-menu__link-text">Users</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/light-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i>
+                                            <span class="k-menu__link-text">Audit Logs</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="k-menu__item  k-menu__item--submenu k-menu__item--open k-menu__item--here"
+                            aria-haspopup="true" data-kmenu-submenu-toggle="hover">
+                            <a href="javascript:;" class="k-menu__link k-menu__toggle">
+                                <i class="k-menu__link-icon fa fa-user"></i>
+                                <span class="k-menu__link-text">Client management</span>
+                                <i class="k-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="k-menu__submenu ">
+                                <span class="k-menu__arrow"></span>
+                                <ul class="k-menu__subnav">
+                                    <li class="k-menu__item  k-menu__item--parent" aria-haspopup="true"><span
+                                        class="k-menu__link"><span class="k-menu__link-text">Dashboards</span></span>
+                                    </li>
+                                    <li class="k-menu__item  k-menu__item--active" aria-haspopup="true">
+                                        <a href="index-2.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i><span class="k-menu__link-text">Client</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Client Portal</span>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="k-menu__item  k-menu__item--submenu k-menu__item--open k-menu__item--here"
+                            aria-haspopup="true" data-kmenu-submenu-toggle="hover">
+                            <a href="javascript:;" class="k-menu__link k-menu__toggle">
+                                <i class="k-menu__link-icon  fa fa-tasks"> </i>
+                                <span class="k-menu__link-text">Project management</span>
+                                <i class="k-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="k-menu__submenu ">
+                                <span class="k-menu__arrow"></span>
+                                <ul class="k-menu__subnav">
+                                    <li class="k-menu__item  k-menu__item--parent" aria-haspopup="true"><span
+                                        class="k-menu__link"><span class="k-menu__link-text">Dashboards</span></span>
+                                    </li>
+                                    <li class="k-menu__item  k-menu__item--active" aria-haspopup="true">
+                                        <a href="index-2.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i><span class="k-menu__link-text">Project Type</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Project Sub-type</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Documents</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Project</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Project Comments</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Project Report</span>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="k-menu__item  k-menu__item--submenu k-menu__item--open k-menu__item--here"
+                            aria-haspopup="true" data-kmenu-submenu-toggle="hover">
+                            <a href="javascript:;" class="k-menu__link k-menu__toggle">
+                                <i class="k-menu__link-icon flaticon2-graphic"></i>
+                                <span class="k-menu__link-text">Task management</span>
+                                <i class="k-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="k-menu__submenu ">
+                                <span class="k-menu__arrow"></span>
+                                <ul class="k-menu__subnav">
+                                    <li class="k-menu__item  k-menu__item--parent" aria-haspopup="true"><span
+                                        class="k-menu__link"><span class="k-menu__link-text">Dashboards</span></span>
+                                    </li>
+                                    <li class="k-menu__item  k-menu__item--active" aria-haspopup="true">
+                                        <a href="index-2.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i><span class="k-menu__link-text">Task Portal</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Task Category</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Task</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Task Status</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Comments</span>
+                                        </a>
+                                    </li>
+                                    <li class="k-menu__item " aria-haspopup="true">
+                                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
+                                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
+                                            class="k-menu__link-text">Comment Reply</span>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="k-menu__item " aria-haspopup="true"><a href="builder.html" class="k-menu__link ">
+                            <i class="k-menu__link-icon fa fa-calendar"></i><span
+                            class="k-menu__link-text">Calendar</span></a>
+                        </li>
+                        <li class="k-menu__item " aria-haspopup="true"><a href="builder.html" class="k-menu__link ">
+                            <i class="k-menu__link-icon fa fa-sign-out"></i><span
+                            class="k-menu__link-text">Logout</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -104,7 +300,7 @@
 
                 <!-- begin: Header Menu -->
                 <button class="k-header-menu-wrapper-close" id="k_header_menu_mobile_close_btn"><i
-                        class="la la-close"></i></button>
+                    class="la la-close"></i></button>
                 <div class="k-header-menu-wrapper" id="k_header_menu_wrapper">
                     <div id="k_header_menu" class="k-header-menu k-header-menu-mobile ">
                     </div>
@@ -143,7 +339,7 @@
                         <div
                             class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-md">
                             <div class="k-user-card k-margin-b-50 k-margin-b-30-tablet-and-mobile"
-                                 style="background-image: {{ url('taskmgtKeen/assets/media/misc/head_bg_sm.jpg') }})">
+                                 style="background-image: url(taskmgtKeen/assets/media/misc/head_bg_sm.jpg)">
                                 <div class="k-user-card__wrapper">
                                     <div class="k-user-card__pic">
                                         <img alt="Pic" src="taskmgtKeen/assets/media/users/300_21.jpg"/>
@@ -193,14 +389,13 @@
                     <!--begin: Quick panel toggler -->
                     <div class="k-header__topbar-item k-header__topbar-item--quick-panel" data-toggle="k-tooltip"
                          title="Quick panel" data-placement="right">
-                        <span class="k-header__topbar-icon" id="k_quick_panel_toggler_btn">
-                            <i class="flaticon2-grids"></i>
-                        </span>
+	<span class="k-header__topbar-icon" id="k_quick_panel_toggler_btn">
+					<i class="flaticon2-grids"></i>
+					
+	</span>
                     </div>
-                    <!--end: Quick panel toggler -->
-                </div>
-                <!-- end:: Header Topbar -->
-            </div>
+                    <!--end: Quick panel toggler --></div>
+                <!-- end:: Header Topbar --></div>
             <!-- end:: Header -->
 
             <!-- begin:: Content -->
@@ -208,12 +403,21 @@
                 <!-- begin:: Content Head -->
                 <div class="k-content__head	k-grid__item">
                     <div class="k-content__head-main">
-                        @yield('content_header')
+                        <h3 class="k-content__head-title">Template Title</h3>
+                        <div class="k-content__head-breadcrumbs">
+                            <a href="#" class="k-content__head-breadcrumb-home"><i class="flaticon2-shelter"></i></a>
+                            <span class="k-content__head-breadcrumb-separator"></span>
+                            <a href="#" class="k-content__head-breadcrumb-link">Parent Link</a>
+                            <span class="k-content__head-breadcrumb-separator"></span>
+                            <a href="#" class="k-content__head-breadcrumb-link">Current Page</a>
+                            <!-- <span class="k-content__head-breadcrumb-link k-content__head-breadcrumb-link--active">Active link</span> -->
+                        </div>
                     </div>
                 </div>
                 <!-- end:: Content Head -->    <!-- begin:: Content Body -->
                 <div class="k-content__body	k-grid__item k-grid__item--fluid" id="k_content_body">
-                    @yield('content')
+
+
                 </div>
                 <!-- end:: Content Body -->
             </div>
@@ -230,8 +434,7 @@
                     <a href="#" target="_blank" class="k-footer__menu-link k-link">Contact</a>
                 </div>
             </div>
-            <!-- end:: Footer -->
-        </div>
+            <!-- end:: Footer -->            </div>
 
     </div>
 </div>
@@ -246,7 +449,7 @@
             Search
         </h3>
         <a href="#" class="k-offcanvas-panel__close" id="k_offcanvas_toolbar_search_close"><i
-                class="flaticon2-delete"></i></a>
+            class="flaticon2-delete"></i></a>
     </div>
     <div class="k-offcanvas-panel__body">
         <div class="k-search">
@@ -350,7 +553,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img">
-                        <img src="{{ url('taskmgtKeen/assets/media/users/300_21.jpg') }}" alt=""/>
+                        <img src="taskmgtKeen/assets/media/users/300_21.jpg" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -364,7 +567,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img">
-                        <img src="{{ url('taskmgtKeen/assets/media/users/300_2.jpg') }}" alt=""/>
+                        <img src="taskmgtKeen/assets/media/users/300_2.jpg" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -448,7 +651,7 @@
             Quick Actions
         </h3>
         <a href="#" class="k-offcanvas-panel__close" id="k_offcanvas_toolbar_quick_actions_close"><i
-                class="flaticon2-delete"></i></a>
+            class="flaticon2-delete"></i></a>
     </div>
     <div class="k-offcanvas-panel__body">
         <div class="k-grid-nav-v2">
@@ -978,21 +1181,22 @@
 <!-- end::Global Config -->
 
 <!--begin::Global Theme Bundle -->
-<script src="keen_acce/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
-<script src="{{ url('keen_accets/accets/base/scripts.bundle.js') }}" type="text/javascript"></script>
+<script src="taskmgtKeen/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+<script src="taskmgtKeen/assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
 <!--end::Global Theme Bundle -->
 
 
 <!--begin::Page Scripts -->
-<script src="{{ url('keen_accets/app/scripts/custom/layout-builder.js') }}" type="text/javascript"></script>
+<script src="taskmgtKeen/assets/app/scripts/custom/layout-builder.js" type="text/javascript"></script>
 <!--end::Page Scripts -->
 
 
 <!--begin::Global App Bundle -->
-<script src="{{ url('keen_accets/app/scripts/bundle/app.bundle.js') }}" type="text/javascript"></script>
+<script src="taskmgtKeen/assets/app/scripts/bundle/app.bundle.js" type="text/javascript"></script>
 <!--end::Global App Bundle -->
 
 </body>
 <!-- end::Body -->
-<!-- Mirrored from keenthemes.com/keen/preview/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Dec 2018 06:24:03 GMT -->
+
+<!-- Mirrored from keenthemes.com/keen/preview/default/builder.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Dec 2018 06:24:23 GMT -->
 </html>
