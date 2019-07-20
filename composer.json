@@ -14,9 +14,10 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "yajra/laravel-datatables-oracle": "~9.0",
+        "laravelcollective/html": "^5.8",
+        "nuovo/spreadsheet-reader": "^0.5.11",
         "spatie/laravel-medialibrary": "^7.0.0",
-        "nuovo/spreadsheet-reader": "^0.5.11"
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

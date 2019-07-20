@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Client;
-use App\Document;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
@@ -33,7 +32,7 @@ class ProjectController extends Controller
 
         $managers = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $team_members = Document::all()->pluck('name', 'id');
+        $team_members = User::all()->pluck('name', 'id');
 
         return view('admin.projects.create', compact('clients', 'project_types', 'managers', 'team_members'));
     }
@@ -58,7 +57,7 @@ class ProjectController extends Controller
 
         $managers = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $team_members = Document::all()->pluck('name', 'id');
+        $team_members = User::all()->pluck('name', 'id');
 
         $project->load('client', 'project_type', 'manager', 'team_members');
 

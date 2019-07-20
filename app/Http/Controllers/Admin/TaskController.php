@@ -21,7 +21,7 @@ class TaskController extends Controller
 
         $tasks = Task::all();
 
-        return view('admin.tasks.index', compact('tasks'));
+        return view('theme.laravel.task.index', compact('tasks'));
     }
 
     public function create()

@@ -70,6 +70,6 @@ class Project extends Model
 
     public function team_members()
     {
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(User::class);
     }
 }

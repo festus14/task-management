@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "name": "TEST",
+        "address": "Lagos",
+        "website": null,
+        "email": "tunde.awopegba@stransact.com",
+        "created_at": "2018-07-04 03:23:15",
+        "updated_at": "2018-07-04 03:23:15",
+        "created_by_id": null,
+        "created_by_team_id": null
+    },
+    {
+        "id": 2,
+        "name": "Lamido Sanusi",
+        "address": "39, Garki, Lamido Sanusi Street",
+        "website": null,
+        "email": "sanusi@admin.com",
+        "created_at": "2018-08-01 01:14:36",
+        "updated_at": "2018-08-01 01:14:36",
+        "created_by_id": "1",
+        "created_by_team_id": null
+    },
+    {
+        "id": 3,
+        "name": "Niger Delta Petroleum Resources Limited",
+        "address": "19 Babatunde Jose, Victoria Island, Lagos",
+        "website": "www.ngdelta.com",
+        "email": "info@tforensic.com.ng",
+        "created_at": "2018-08-29 11:26:20",
+        "updated_at": "2018-09-22 07:10:49",
+        "created_by_id": "1",
+        "created_by_team_id": "1"
+    },
+    {
+        "id": 4,
+        "name": "IPaySuite",
+        "address": "4B, Kehinde Odusote, Anthony Village",
+        "website": "https://ipaysuite.com",
+        "email": "info@ipaysuite.com",
+        "created_at": "2018-10-26 07:50:29",
+        "updated_at": "2018-10-26 07:50:29",
+        "created_by_id": "1",
+        "created_by_team_id": "1"
+    }
+]

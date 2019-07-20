@@ -1,47 +1,50 @@
-<!DOCTYPE html>
+<?php
+/**
+ * Created by IntelliJ IDEA.
+ * User: tunde
+ * Date: 2/21/2019
+ * Time: 3:58 PM
+ */
 
+?>
+@inject('request', 'Illuminate\Http\Request')
+    <!DOCTYPE html>
 <html lang="en">
-<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-<!-- /Added by HTTrack -->
+<!-- begin::Head -->
 <head>
     <meta charset="utf-8"/>
-    <title>@yield('title')</title>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Latest updates and statistic charts">
+    @yield('title')
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    @if(Auth::check()) @else
+        <script type="text/javascript">
+            window.location = "{{ url('/login') }}";
+        </script> @endif
+<!--begin::Page Vendors Styles -->
+    <link href="{{ url('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url('assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url('assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
 
-    <!--begin::Web font -->
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-    <script>
-        WebFont.load({
-            google: {"families": ["Poppins:300,400,500,600,700"]},
-            active: function () {
-                sessionStorage.fonts = true;
-            }
-        });
-    </script>
-    <!--end::Web font -->
-    <!--begin::Page Vendors Styles -->
-    <link href="{{ url('/keen_accets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet') }}"
-          type="text/css"/>
     <!--end::Page Vendors Styles -->
 
-
     <!--begin::Global Theme Styles -->
-    <link href="{{ url('vendors/base/vendors.bundle.css" rel="stylesheet') }}" type="text/css"/>
-    <link href="{{ url('accests/base/style.bundle.css" rel="stylesheet') }}" type="text/css"/>
+    <link href="{{ url('assets/app/css/bundle/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <!--end::Global Theme Styles -->
 
-    <!--begin::Layout Skins -->
-    <link href="{{ url('accests/skins/header/base/light.css" rel="stylesheet') }}" type="text/css"/>
-    <link href="{{ url('accests/skins/header/menu/light.css" rel="stylesheet') }}" type="text/css"/>
-    <link href="{{ url('accests/skins/brand/navy.css" rel="stylesheet') }}" type="text/css"/>
-    <link href="{{ url('accests/skins/aside/navy.css" rel="stylesheet') }}" type="text/css"/><!--end::Layout Skins -->
-    @yield('css')
+<!--begin::Layout Skins -->
+    <link href="{{ url('assets/skins/header/base/light.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url('assets/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url('assets/skins/brand/navy.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url('assets/skins/aside/navy.css') }}" rel="stylesheet" type="text/css"/>
 
-    <link rel="shortcut icon" href="{{ url('media/logos/favicon.ico') }}"/>
+    <!--Begin other Styles -->
+    @yield('style')
+
+<!--end::Layout Skins -->
+
+    <link href="{{ url('assets/app/css/app.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="{{ url('assets/media/logos/logo.png') }}"/>
 </head>
 <!-- end::Head -->
 
@@ -50,19 +53,15 @@
 
 <!-- begin:: Page -->
 <!-- begin:: Header Mobile -->
-<div id="k_header_mobile" class="k-header-mobile  k-header-mobile--fixed ">
+<div id="k_header_mobile" class="k-header-mobile  k-header-mobile--fixed">
     <div class="k-header-mobile__logo">
-        <a href="index-2.html">
-            <img alt="Logo" src=" {{ url('taskmgtKeen/assets/media/logos/logo-6.png') }}"/>
+        <a>
+            <img alt="Logo" src="{{ url('assets/media/logos/logo_white.png') }}"/>
         </a>
     </div>
     <div class="k-header-mobile__toolbar">
-        <button class="k-header-mobile__toolbar-toggler k-header-mobile__toolbar-toggler--left"
-                id="k_aside_mobile_toggler"><span></span></button>
-
-        <button class="k-header-mobile__toolbar-toggler" id="k_header_mobile_toggler"><span></span></button>
-        <button class="k-header-mobile__toolbar-topbar-toggler" id="k_header_mobile_topbar_toggler"><i
-                class="flaticon-more"></i></button>
+        <button class="k-header-mobile__toolbar-toggler k-header-mobile__toolbar-toggler--left" id="k_aside_mobile_toggler"><span></span></button>
+        <button class="k-header-mobile__toolbar-topbar-toggler" id="k_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
     </div>
 </div>
 <!-- end:: Header Mobile -->
@@ -70,44 +69,52 @@
 <div class="k-grid k-grid--hor k-grid--root">
     <div class="k-grid__item k-grid__item--fluid k-grid k-grid--ver k-page">
         <!-- begin:: Aside -->
-        <button class="k-aside-close " id="k_aside_close_btn"><i class="la la-close"></i></button>
-
-        <div class="k-aside  k-aside--fixed 	k-grid__item k-grid k-grid--desktop k-grid--hor-desktop" id="k_aside">
-            <!-- begin:: Aside -->
-            <div class="k-aside__brand	k-grid__item " id="k_aside_brand">
+        <div class="k-aside k-aside--fixed k-grid__item k-grid k-grid--desktop k-grid--hor-desktop" id="k_aside">
+            <!-- begin:: Aside Brand -->
+            <div class="k-aside__brand k-grid__item" id="k_aside_brand">
                 <div class="k-aside__brand-logo">
-                    <a href="index-2.html">
-                        <img alt="Logo" src="{{ url('taskmgtKeen/assets/media/logos/logo-6.png') }}"/>
-                    </a>
+                    <a><img alt="Logo" src="{{ url('assets/media/logos/logo_white.png') }}" width="120px"/></a>
                 </div>
                 <div class="k-aside__brand-tools">
-                    <button class="k-aside__brand-aside-toggler k-aside__brand-aside-toggler--left"
-                            id="k_aside_toggler"><span></span></button>
+                    <button class="k-aside__brand-aside-toggler k-aside__brand-aside-toggler--left" id="k_aside_toggler"><span></span></button>
                 </div>
             </div>
-            <!-- end:: Aside -->    <!-- begin:: Aside Menu -->
-            <div class="k-aside-menu-wrapper	k-grid__item k-grid__item--fluid" id="k_aside_menu_wrapper">
-                <div id="k_aside_menu" class="k-aside-menu " data-kmenu-vertical="1" data-kmenu-scroll="1"
-                     data-kmenu-dropdown-timeout="500">
-                    <ul class="k-menu__nav ">
-                        @yield('drawer')
-                    </ul>
-                </div>
-            </div>
-            <!-- end:: Aside Menu -->
+            <!-- end:: Aside Brand -->
 
+            <!-- begin:: Aside Menu -->
+        @yield('drawer')
+        <!-- end:: Aside Menu -->
+            <!-- begin:: Aside Footer -->
+            <div class="k-aside__footer k-grid__item" id="k_aside_footer">
+                <div class="k-aside__footer-nav">
+                    <div class="k-aside__footer-item">
+                        <a href="{{ url('/') }}" class="btn btn-icon"><i class="flaticon2-graph-1"></i></a>
+                    </div>
+                    <div class="k-aside__footer-item">
+                        <a href="{{ route('admin.tasks.index') }}" class="btn btn-icon"><i class="flaticon2-calendar-3"></i></a>
+                    </div>
+                    <div class="k-aside__footer-item">
+                        <a href="{{ route('admin.projects.index') }}" class="btn btn-icon"><i class="flaticon2-open-text-book"></i></a>
+                    </div>
+                    <div class="k-aside__footer-item">
+                        <a href="{{ url('/') }}" class="btn btn-icon"><i class="flaticon2-pie-chart-4"></i></a>
+                    </div>
+                    <div class="k-aside__footer-item">
+                        <a href="{{ url('/') }}" class="btn btn-icon"><i class="flaticon2-gear"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- end:: Aside Footer -->
         </div>
         <!-- end:: Aside -->
+
         <div class="k-grid__item k-grid__item--fluid k-grid k-grid--hor k-wrapper" id="k_wrapper">
             <!-- begin:: Header -->
-            <div id="k_header" class="k-header k-grid__item  k-header--fixed ">
-
+            <div id="k_header" class="k-header k-grid__item k-header--fixed">
                 <!-- begin: Header Menu -->
-                <button class="k-header-menu-wrapper-close" id="k_header_menu_mobile_close_btn"><i
-                        class="la la-close"></i></button>
+                <button class="k-header-menu-wrapper-close" id="k_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
                 <div class="k-header-menu-wrapper" id="k_header_menu_wrapper">
-                    <div id="k_header_menu" class="k-header-menu k-header-menu-mobile ">
-                    </div>
+                    @yield('topmenu')
                 </div>
                 <!-- end: Header Menu -->
 
@@ -120,6 +127,187 @@
                         </div>
                     </div>
                     <!--end: Search -->
+
+                    <!--begin: Notifications -->
+                    <div class="k-header__topbar-item dropdown">
+                        <div class="k-header__topbar-wrapper" data-toggle="dropdown" data-offset="30px -2px">
+                            <span class="k-header__topbar-icon"><i class="flaticon2-bell-alarm-symbol"></i></span>
+                            <span class="k-badge k-badge--dot k-badge--notify k-badge--sm k-badge--brand"></span>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+                            <div class="k-head" style="background-image: url(/assets/media/misc/head_bg_sm.jpg)">
+                                <h3 class="k-head__title">User Notifications</h3>
+                                <div class="k-head__sub"><span class="k-head__desc">
+{{--                                        @php($notificationCount = \Auth::user()->internalNotifications()->where('read_at', null)->count())--}}
+                                        {{--                                        @if($notificationCount > 0)--}}
+                                        {{--                                            {{ $notificationCount. ' new notifications' }}--}}
+                                        {{--                                            @else{{ 'No new notifications' }}--}}
+                                        {{--                                        @endif--}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="k-notification k-margin-t-30 k-margin-b-20 k-scroll" data-scroll="true"
+                                 data-height="270" data-mobile-height="220">
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-line-chart k-font-success"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            New order has been received
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            2 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-box-1 k-font-brand"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            New customer is registered
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            3 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-chart2 k-font-danger"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            Application has been approved
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            3 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-image-file k-font-warning"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            New file has been uploaded
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            5 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-bar-chart k-font-info"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            New user feedback received
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            8 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-pie-chart-2 k-font-success"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            System reboot has been successfully completed
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            12 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-favourite k-font-focus"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            New order has been placed
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            15 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item k-notification__item--read">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-safe k-font-primary"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            Company meeting canceled
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            19 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-psd k-font-success"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            New report has been received
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            23 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon-download-1 k-font-danger"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            Finance report has been generated
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            25 hrs ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon-security k-font-warning"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            New customer comment recieved
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            2 days ago
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="k-notification__item">
+                                    <div class="k-notification__item-icon">
+                                        <i class="flaticon2-pie-chart k-font-focus"></i>
+                                    </div>
+                                    <div class="k-notification__item-details">
+                                        <div class="k-notification__item-title">
+                                            New customer is registered
+                                        </div>
+                                        <div class="k-notification__item-time">
+                                            3 days ago
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end: Notifications -->
 
                     <!--begin: Quick actions -->
                     <div class="k-header__topbar-item dropdown">
@@ -134,56 +322,64 @@
                         <div class="k-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px -2px">
                             <div class="k-header__topbar-user">
                                 <span class="k-header__topbar-welcome k-hidden-mobile">Hi,</span>
-                                <span class="k-header__topbar-username k-hidden-mobile">Alex</span>
-                                <img alt="Pic" src="taskmgtKeen/assets/media/users/300_25.jpg"/>
+                                <span class="k-header__topbar-username k-hidden-mobile">{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
+                                <img alt="Pic" src="{{ url('assets/media/users/default.png') }}"/>
                                 <!--use below badge element instead the user avatar to display username's first letter(remove k-hidden class to display it) -->
-                                <span class="k-badge k-badge--username k-badge--lg k-badge--brand k-hidden">A</span>
+                                <span class="k-badge k-badge--username k-badge--lg k-badge--brand k-hidden">D</span>
                             </div>
                         </div>
-                        <div
-                            class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-md">
+                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-md">
                             <div class="k-user-card k-margin-b-50 k-margin-b-30-tablet-and-mobile"
-                                 style="background-image: {{ url('taskmgtKeen/assets/media/misc/head_bg_sm.jpg') }})">
+                                 style="background-image: url(/assets/media/misc/head_bg_sm.jpg)">
                                 <div class="k-user-card__wrapper">
                                     <div class="k-user-card__pic">
-                                        <img alt="Pic" src="taskmgtKeen/assets/media/users/300_21.jpg"/>
+                                        <img alt="Pic" src="{{ url('assets/media/users/default.png') }}"/>
                                     </div>
                                     <div class="k-user-card__details">
-                                        <div class="k-user-card__name">Alex Stone</div>
-                                        <div class="k-user-card__position">CTO, Loop Inc.</div>
+                                        <div class="k-user-card__name">{{ Auth::user()->name }}</div>
+                                        <div class="k-user-card__position">@if(isset(Auth::user()->email))
+                                                {{ Auth::user()->email }}
+                                            @else {{ Auth::user()->name }} @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <ul class="k-nav k-margin-b-10">
                                 <li class="k-nav__item">
-                                    <a href="taskmgtKeen/custom/user/profile-v1.html" class="k-nav__link">
+                                    <a href="{{ url('') }}" class="k-nav__link">
                                         <span class="k-nav__link-icon"><i class="flaticon2-calendar-3"></i></span>
                                         <span class="k-nav__link-text">My Profile</span>
                                     </a>
                                 </li>
                                 <li class="k-nav__item">
-                                    <a href="taskmgtKeen/custom/user/profile-v1.html" class="k-nav__link">
+                                    <a href="{{ url('/') }}" class="k-nav__link">
                                         <span class="k-nav__link-icon"><i class="flaticon2-browser-2"></i></span>
                                         <span class="k-nav__link-text">My Tasks</span>
                                     </a>
                                 </li>
                                 <li class="k-nav__item">
-                                    <a href="taskmgtKeen/custom/user/profile-v1.html" class="k-nav__link">
+                                    <a href="{{ url('/') }}" class="k-nav__link">
                                         <span class="k-nav__link-icon"><i class="flaticon2-mail"></i></span>
                                         <span class="k-nav__link-text">Messages</span>
                                     </a>
                                 </li>
                                 <li class="k-nav__item">
-                                    <a href="taskmgtKeen/custom/user/profile-v1.html" class="k-nav__link">
+                                    <a href="{{ url('/') }}" class="k-nav__link">
                                         <span class="k-nav__link-icon"><i class="flaticon2-gear"></i></span>
                                         <span class="k-nav__link-text">Settings</span>
                                     </a>
                                 </li>
+                                {{--                                <li class="k-nav__item k-nav__item--custom k-margin-t-15">--}}
+                                {{--                                    <a href="#logout" onclick="$('#logout').submit();" class="btn btn-outline-metal btn-hover-brand btn-upper btn-font-dark btn-sm btn-bold">Sign Out</a>--}}
+                                {{--                                </li>--}}
                                 <li class="k-nav__item k-nav__item--custom k-margin-t-15">
-                                    <a href="taskmgtKeen/custom/user/login-v2.html" target="_blank"
-                                       class="btn btn-outline-metal btn-hover-brand btn-upper btn-font-dark btn-sm btn-bold">Sign
-                                        Out</a>
+                                    <a href="#logout" onclick="$('#logout').submit();"
+                                       class="btn btn-outline-metal btn-hover-brand btn-upper btn-font-dark btn-sm btn-bold">
+                                        <i class="fa fa-lock"></i>
+                                        <span class="title">@lang('global.app_logout')</span>
+                                    </a>
+                                    {{--<a href="#" target="_blank" class="btn btn-outline-metal btn-hover-brand btn-upper btn-font-dark btn-sm btn-bold">Sign Out</a>--}}
                                 </li>
                             </ul>
                         </div>
@@ -205,38 +401,46 @@
 
             <!-- begin:: Content -->
             <div class="k-content	k-grid__item k-grid__item--fluid k-grid k-grid--hor" id="k_content">
-                <!-- begin:: Content Head -->
-                <div class="k-content__head	k-grid__item">
-                    <div class="k-content__head-main">
-                        @yield('content_header')
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (Session::has('message'))
+                            <?php \RealRashid\SweetAlert\Facades\Alert::info('Error!!!', Session::get('message'))
+                                ->showCloseButton()
+                                ->autoClose(5000) ?>
+                        @endif
+
+                        @if ($errors->count() > 0)
+                            @foreach($errors->all() as $error)
+                                <?php \RealRashid\SweetAlert\Facades\Alert::error('Error!!!', $error)
+                                    ->showCloseButton()
+                                    ->autoClose(5000) ?>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
-                <!-- end:: Content Head -->    <!-- begin:: Content Body -->
-                <div class="k-content__body	k-grid__item k-grid__item--fluid" id="k_content_body">
-                    @yield('content')
-                </div>
-                <!-- end:: Content Body -->
+                @yield('content')
             </div>
             <!-- end:: Content -->
 
             <!-- begin:: Footer -->
-            <div class="k-footer	k-grid__item k-grid k-grid--desktop k-grid--ver-desktop">
+            <div class="k-footer k-grid__item k-grid k-grid--desktop k-grid--ver-desktop">
                 <div class="k-footer__copyright">
-                    2018&nbsp;&copy;&nbsp;<a href="#" target="_blank" class="k-link">Task Manager</a>
+                    <script>d = new Date();
+                        document.write(d.getFullYear().toString());</script> &copy;&nbsp
+                    <a href="" target="_blank" class="k-link">ipaySuite</a>
                 </div>
                 <div class="k-footer__menu">
-                    <a href="#" target="_blank" class="k-footer__menu-link k-link">About</a>
-                    <a href="#" target="_blank" class="k-footer__menu-link k-link">Team</a>
-                    <a href="#" target="_blank" class="k-footer__menu-link k-link">Contact</a>
+                    <a href="" target="_blank" class="k-footer__menu-link k-link">About</a>
+                    <a href="" target="_blank" class="k-footer__menu-link k-link">Team</a>
+                    <a href="" target="_blank" class="k-footer__menu-link k-link">Contact</a>
                 </div>
             </div>
             <!-- end:: Footer -->
         </div>
-
     </div>
 </div>
-
 <!-- end:: Page -->
+
 
 <!-- begin:: Topbar Offcanvas Panels -->
 <!-- begin::Offcanvas Toolbar Search -->
@@ -262,7 +466,7 @@
                 </div>
                 <div class="k-search__item">
                     <div class="k-search__item-img k-search__item-img--file">
-                        <img src="taskmgtKeen/assets/media/files/doc.svg" alt=""/>
+                        <img src="{{ url('assets/media/files/doc.svg') }}" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -276,7 +480,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img k-search__item-img--file">
-                        <img src="taskmgtKeen/assets/media/files/pdf.svg" alt=""/>
+                        <img src="{{ url('assets/media/files/pdf.svg') }}" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -290,7 +494,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img k-search__item-img--file">
-                        <img src="taskmgtKeen/assets/media/files/zip.svg" alt=""/>
+                        <img src="{{ url('assets/media/files/zip.svg') }}" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -304,7 +508,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img k-search__item-img--file">
-                        <img src="taskmgtKeen/assets/media/files/xml.svg" alt=""/>
+                        <img src="{{ url('assets/media/files/xml.svg') }}" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -322,7 +526,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img">
-                        <img src="taskmgtKeen/assets/media/users/300_14.jpg" alt=""/>
+                        <img src="{{ url('assets/media/users/300_14.jpg') }}" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -336,7 +540,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img">
-                        <img src="taskmgtKeen/assets/media/users/300_20.jpg" alt=""/>
+                        <img src="{{ url('assets/media/users/300_20.jpg') }}" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -350,7 +554,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img">
-                        <img src="{{ url('taskmgtKeen/assets/media/users/300_21.jpg') }}" alt=""/>
+                        <img src="{{ url('assets/media/users/300_21.jpg') }}" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -364,7 +568,7 @@
 
                 <div class="k-search__item">
                     <div class="k-search__item-img">
-                        <img src="{{ url('taskmgtKeen/assets/media/users/300_2.jpg') }}" alt=""/>
+                        <img src="{{ url('assets/media/users/300_2.jpg') }}" alt=""/>
                     </div>
                     <div class="k-search__item-wrapper">
                         <a href="#" class="k-search__item-title">
@@ -454,7 +658,7 @@
         <div class="k-grid-nav-v2">
             <a href="#" class="k-grid-nav-v2__item">
                 <div class="k-grid-nav-v2__item-icon"><i class="flaticon2-box"></i></div>
-                <div class="k-grid-nav-v2__item-title">Orders</div>
+                <div class="k-grid-nav-v2__item-title">Payrolls</div>
             </a>
             <a href="#" class="k-grid-nav-v2__item">
                 <div class="k-grid-nav-v2__item-icon"><i class="flaticon-download-1"></i></div>
@@ -466,7 +670,7 @@
             </a>
             <a href="#" class="k-grid-nav-v2__item">
                 <div class="k-grid-nav-v2__item-icon"><i class="flaticon2-avatar"></i></div>
-                <div class="k-grid-nav-v2__item-title">Customers</div>
+                <div class="k-grid-nav-v2__item-title">Employees</div>
             </a>
             <a href="#" class="k-grid-nav-v2__item">
                 <div class="k-grid-nav-v2__item-icon"><i class="flaticon2-list"></i></div>
@@ -479,7 +683,8 @@
         </div>
     </div>
 </div>
-<!-- end::Offcanvas Toolbar Quick Actions --><!-- end:: Topbar Offcanvas Panels -->
+<!-- end::Offcanvas Toolbar Quick Actions -->
+<!-- end:: Topbar Offcanvas Panels -->
 
 <!-- begin::Quick Panel -->
 <div id="k_quick_panel" class="k-quick-panel">
@@ -516,7 +721,7 @@
                         </div>
 
                         <a href="#" class="k-timeline__item-text">
-                            KeenThemes created new layout whith tens of new options for Keen Admin panel
+                            ipaySuite created new layout whith tens of new options for Admin panel
                         </a>
                         <div class="k-timeline__item-info">
                             HTML,CSS,VueJS
@@ -597,7 +802,7 @@
                         </div>
 
                         <a href="#" class="k-timeline__item-text">
-                            KeenThemes created new layout whith tens of new options for Keen Admin panel
+                            ipaySuite created new layout with tens of new options for Admin panel
                         </a>
                         <div class="k-timeline__item-info">
                             HTML,CSS,VueJS
@@ -617,14 +822,13 @@
                         </div>
 
                         <a href="#" class="k-timeline__item-text">
-                            New secyrity alert by Firewall & order to take aktion on User Preferences
+                            New secyrity alert by Firewall & order to take action on User Preferences
                         </a>
                         <div class="k-timeline__item-info">
                             Security, Fieewall
                         </div>
                     </div>
                     <!--End::Item -->
-
                 </div>
                 <!--End::Timeline -->
             </div>
@@ -675,7 +879,7 @@
                     <div class="k-portlet__head">
                         <div class="k-portlet__head-label">
                             <span class="k-portlet__head-icon k-hide"><i class="flaticon-stopwatch"></i></span>
-                            <h3 class="k-portlet__head-title">Latest Orders</h3>
+                            <h3 class="k-portlet__head-title">Latest Payrolls</h3>
                         </div>
                         <div class="k-portlet__head-toolbar">
                             <div class="k-portlet__head-group">
@@ -838,126 +1042,133 @@
                     <div class="form-group form-group-xs row">
                         <label class="col-8 col-form-label">Enable notifications:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm">
-								<label>
-									<input type="checkbox" checked="checked" name="quick_panel_notifications_1">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_1">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-xs row">
                         <label class="col-8 col-form-label">Enable audit log:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm">
-								<label>
-									<input type="checkbox" name="quick_panel_notifications_2">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm">
+                                <label>
+                                    <input type="checkbox" name="quick_panel_notifications_2">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-last form-group-xs row">
-                        <label class="col-8 col-form-label">Notify on new orders:</label>
+                        <label class="col-8 col-form-label">Notify on new Payrolls:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm">
-								<label>
-									<input type="checkbox" checked="checked" name="quick_panel_notifications_2">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_2">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
 
                     <div class="k-separator k-separator--space-md k-separator--border-dashed"></div>
 
-                    <div class="k-heading k-heading--space-sm">Orders</div>
+                    <div class="k-heading k-heading--space-sm">Payrolls</div>
 
                     <div class="form-group form-group-xs row">
-                        <label class="col-8 col-form-label">Enable order tracking:</label>
+                        <label class="col-8 col-form-label">Enable Payrolls tracking:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm k-switch--danger">
-								<label>
-									<input type="checkbox" checked="checked" name="quick_panel_notifications_3">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm k-switch--danger">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_3">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-xs row">
-                        <label class="col-8 col-form-label">Enable orders reports:</label>
+                        <label class="col-8 col-form-label">Enable Payrolls reports:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm k-switch--danger">
-								<label>
-									<input type="checkbox" name="quick_panel_notifications_3">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm k-switch--danger">
+                                <label>
+                                    <input type="checkbox" name="quick_panel_notifications_3">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-last form-group-xs row">
                         <label class="col-8 col-form-label">Allow order status auto update:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm k-switch--danger">
-								<label>
-									<input type="checkbox" checked="checked" name="quick_panel_notifications_4">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm k-switch--danger">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_4">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
 
                     <div class="k-separator k-separator--space-md k-separator--border-dashed"></div>
 
-                    <div class="k-heading k-heading--space-sm">Customers</div>
+                    <div class="k-heading k-heading--space-sm">Employees</div>
 
                     <div class="form-group form-group-xs row">
                         <label class="col-8 col-form-label">Enable customer singup:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm k-switch--success">
-								<label>
-									<input type="checkbox" checked="checked" name="quick_panel_notifications_5">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm k-switch--success">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_5">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-xs row">
-                        <label class="col-8 col-form-label">Enable customers reporting:</label>
+                        <label class="col-8 col-form-label">Enable Employees reporting:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm k-switch--success">
-								<label>
-									<input type="checkbox" name="quick_panel_notifications_5">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm k-switch--success">
+                                <label>
+                                    <input type="checkbox" name="quick_panel_notifications_5">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-last form-group-xs row">
                         <label class="col-8 col-form-label">Notifiy on new customer registration:</label>
                         <div class="col-4 k-align-right">
-							<span class="k-switch k-switch--sm k-switch--success">
-								<label>
-									<input type="checkbox" checked="checked" name="quick_panel_notifications_6">
-									<span></span>
-								</label>
-							</span>
+                            <span class="k-switch k-switch--sm k-switch--success">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_6">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 </div>
 <!-- end::Quick Panel -->
+<form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
+    {{ csrf_field() }}
+</form>
+<!-- begin::Scrolltop -->
+<div id="k_scrolltop" class="k-scrolltop">
+    <i class="la la-arrow-up"></i>
+</div>
+<!-- end::Scrolltop -->
 
 <!-- begin::Global Config -->
 <script>
     var KAppOptions = {
         "colors": {
             "state": {
-                "brand": "#5d78ff",
+                "brand": "#478a66",
                 "metal": "#c4c5d6",
                 "light": "#ffffff",
                 "accent": "#00c5dc",
@@ -978,21 +1189,32 @@
 <!-- end::Global Config -->
 
 <!--begin::Global Theme Bundle -->
-<script src="keen_acce/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
-<script src="{{ url('keen_accets/accets/base/scripts.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/app/scripts/bundle/scripts.bundle.js') }}" type="text/javascript"></script>
 <!--end::Global Theme Bundle -->
 
+<!--begin::Page Vendors -->
+<script src="{{ url('assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
+{{--<script src="{{ url('assets/vendors/custom/datatables/dataTables.buttons.min.js') }}" type="text/javascript"></script>--}}
+<script src="{{ url('assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/vendors/custom/mustache/mustache.min.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/vendors/custom/moment/moment.min.js') }}" type="text/javascript"></script>
+<!--end::Page Vendors -->
 
 <!--begin::Page Scripts -->
-<script src="{{ url('keen_accets/app/scripts/custom/layout-builder.js') }}" type="text/javascript"></script>
+@yield('script')
+
 <!--end::Page Scripts -->
 
-
 <!--begin::Global App Bundle -->
-<script src="{{ url('keen_accets/app/scripts/bundle/app.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/app/scripts/bundle/app.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/js/dataTables.hideEmptyColumns.min.js') }}"></script>
 <!--end::Global App Bundle -->
-
+<script>
+    window._token = '{{ csrf_token() }}';
+</script>
 </body>
 <!-- end::Body -->
-<!-- Mirrored from keenthemes.com/keen/preview/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Dec 2018 06:24:03 GMT -->
+
 </html>
