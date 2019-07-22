@@ -24,6 +24,7 @@ class Project extends Model
     protected $fillable = [
         'name',
         'deadline',
+        'status_id',
         'client_id',
         'manager_id',
         'created_at',
@@ -32,16 +33,6 @@ class Project extends Model
         'starting_date',
         'project_type_id',
     ];
-
-    public function client()
-    {
-        return $this->belongsTo(Client::class, 'client_id');
-    }
-
-    public function project_type()
-    {
-        return $this->belongsTo(ProjectType::class, 'project_type_id');
-    }
 
     public function getStartingDateAttribute($value)
     {
@@ -63,6 +54,15 @@ class Project extends Model
         $this->attributes['deadline'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function project_type()
+    {
+        return $this->belongsTo(ProjectType::class, 'project_type_id');
+    }
     public function manager()
     {
         return $this->belongsTo(User::class, 'manager_id');
@@ -70,6 +70,16 @@ class Project extends Model
 
     public function team_members()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_project');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'project_id', 'id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(TaskStatus::class, 'status_id');
     }
 }

@@ -72,6 +72,7 @@
                     {{ trans('cruds.project.fields.deadline_helper') }}
                 </p>
             </div>
+
             <div class="form-group {{ $errors->has('manager_id') ? 'has-error' : '' }}">
                 <label for="manager">{{ trans('cruds.project.fields.manager') }}</label>
                 <select name="manager_id" id="manager" class="form-control select2">
@@ -102,6 +103,20 @@
                 <p class="helper-block">
                     {{ trans('cruds.project.fields.team_members_helper') }}
                 </p>
+            </div>
+
+            <div class="form-group {{ $errors->has('status_id') ? 'has-error' : '' }}">
+                <label for="status">{{ trans('cruds.task.fields.status') }}*</label>
+                <select name="status_id" id="status" class="form-control select2" required>
+                    @foreach($statuses as $id => $status)
+                        <option value="{{ $id }}" {{ (isset($task) && $task->status ? $task->status->id : old('status_id')) == $id ? 'selected' : '' }}>{{ $status }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('status_id'))
+                    <p class="help-block">
+                        {{ $errors->first('status_id') }}
+                    </p>
+                @endif
             </div>
             <div>
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">

@@ -103,6 +103,7 @@
                     </p>
                 @endif
             </div>
+
             <div class="form-group {{ $errors->has('project_id') ? 'has-error' : '' }}">
                 <label for="project">{{ trans('cruds.task.fields.project') }}</label>
                 <select name="project_id" id="project" class="form-control select2">
@@ -116,6 +117,22 @@
                     </p>
                 @endif
             </div>
+
+
+            <div class="form-group {{ $errors->has('project_subtype_id') ? 'has-error' : '' }}">
+                <label for="project"> Sub Project Type</label>
+                <select name="project_subtype_id" id="project_subtype_id" class="form-control select2">
+                    @foreach($projects_sub_type as $id => $project_sub_type)
+                        <option value="{{ $id }}" {{ (isset($task) && $task->project_sub_type ? $task->project_sub_type->id : old('project_subtype_id')) == $id ? 'selected' : '' }}>{{ $project_sub_type }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('project_subtype_id'))
+                    <p class="help-block">
+                        {{ $errors->first('project_subtype_id') }}
+                    </p>
+                @endif
+            </div>
+
             <div class="form-group {{ $errors->has('client_id') ? 'has-error' : '' }}">
                 <label for="client">{{ trans('cruds.task.fields.client') }}</label>
                 <select name="client_id" id="client" class="form-control select2">

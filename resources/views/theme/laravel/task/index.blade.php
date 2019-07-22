@@ -1,207 +1,105 @@
 
-@extends('layouts.ken')
+@extends('layouts.metro')
 @section('title')
     <title>Task</title>
 @endsection
-@section('drawer')
-    <ul class="k-menu__nav ">
-
-        <li class="k-menu__item " aria-haspopup="true"><a href="builder.html" class="k-menu__link ">
-                <i class="k-menu__link-icon fa fa-dashboard"></i><span
-                    class="k-menu__link-text">Dashboard</span></a>
-        </li>
-        <li class="k-menu__item  k-menu__item--submenu k-menu__item--open k-menu__item--here"
-            aria-haspopup="true" data-kmenu-submenu-toggle="hover">
-            <a href="javascript:;" class="k-menu__link k-menu__toggle">
-                <i class="k-menu__link-icon fa fa-users"></i>
-                <span class="k-menu__link-text">User management</span>
-                <i class="k-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="k-menu__submenu ">
-                <span class="k-menu__arrow"></span>
-                <ul class="k-menu__subnav">
-                    <li class="k-menu__item  k-menu__item--parent" aria-haspopup="true"><span
-                            class="k-menu__link"><span class="k-menu__link-text">Dashboards</span></span>
-                    </li>
-                    <li class="k-menu__item  k-menu__item--active" aria-haspopup="true">
-                        <a href="index-2.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot">
-                                <span></span>
-                            </i><span class="k-menu__link-text">Permissions</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Roles</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/navy-header.html" class="k-menu__link "><i
-                                class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i>
-                            <span class="k-menu__link-text">Users</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/light-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i>
-                            <span class="k-menu__link-text">Audit Logs</span>
-                        </a>
-                    </li>
-
-                </ul>
+@section('subheader')
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">
+                Task
+            </h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            Actions
+                        </span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            Generate Reports
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+                <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+                    <i class="la la-plus m--hide"></i>
+                    <i class="la la-ellipsis-h"></i>
+                </a>
+                <div class="m-dropdown__wrapper">
+                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                    <div class="m-dropdown__inner">
+                        <div class="m-dropdown__body">
+                            <div class="m-dropdown__content">
+                                <ul class="m-nav">
+                                    <li class="m-nav__section m-nav__section--first m--hide">
+                                        <span class="m-nav__section-text">
+                                            Quick Actions
+                                        </span>
+                                    </li>
+                                    <li class="m-nav__item">
+                                        <a href="" class="m-nav__link">
+                                            <i class="m-nav__link-icon flaticon-share"></i>
+                                            <span class="m-nav__link-text">
+                                                Activity
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="m-nav__item">
+                                        <a href="" class="m-nav__link">
+                                            <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                            <span class="m-nav__link-text">
+                                                Messages
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="m-nav__item">
+                                        <a href="" class="m-nav__link">
+                                            <i class="m-nav__link-icon flaticon-info"></i>
+                                            <span class="m-nav__link-text">
+                                                FAQ
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="m-nav__item">
+                                        <a href="" class="m-nav__link">
+                                            <i class="m-nav__link-icon flaticon-lifebuoy"></i>
+                                            <span class="m-nav__link-text">
+                                                Support
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="m-nav__separator m-nav__separator--fit"></li>
+                                    <li class="m-nav__item">
+                                        <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
+                                            Submit
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </li>
-        <li class="k-menu__item  k-menu__item--submenu k-menu__item--open k-menu__item--here"
-            aria-haspopup="true" data-kmenu-submenu-toggle="hover">
-            <a href="javascript:;" class="k-menu__link k-menu__toggle">
-                <i class="k-menu__link-icon fa fa-user"></i>
-                <span class="k-menu__link-text">Client management</span>
-                <i class="k-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="k-menu__submenu ">
-                <span class="k-menu__arrow"></span>
-                <ul class="k-menu__subnav">
-                    <li class="k-menu__item  k-menu__item--parent" aria-haspopup="true"><span
-                            class="k-menu__link"><span class="k-menu__link-text">Dashboards</span></span>
-                    </li>
-                    <li class="k-menu__item  k-menu__item--active" aria-haspopup="true">
-                        <a href="index-2.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot">
-                                <span></span>
-                            </i><span class="k-menu__link-text">Client</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Client Portal</span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </div>
-        </li>
-        <li class="k-menu__item  k-menu__item--submenu k-menu__item--open k-menu__item--here"
-            aria-haspopup="true" data-kmenu-submenu-toggle="hover">
-            <a href="javascript:;" class="k-menu__link k-menu__toggle">
-                <i class="k-menu__link-icon  fa fa-tasks"> </i>
-                <span class="k-menu__link-text">Project management</span>
-                <i class="k-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="k-menu__submenu ">
-                <span class="k-menu__arrow"></span>
-                <ul class="k-menu__subnav">
-                    <li class="k-menu__item  k-menu__item--parent" aria-haspopup="true"><span
-                            class="k-menu__link"><span class="k-menu__link-text">Dashboards</span></span>
-                    </li>
-                    <li class="k-menu__item  k-menu__item--active" aria-haspopup="true">
-                        <a href="index-2.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot">
-                                <span></span>
-                            </i><span class="k-menu__link-text">Project Type</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Project Sub-type</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Documents</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Project</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Project Comments</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Project Report</span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </div>
-        </li>
-        <li class="k-menu__item  k-menu__item--submenu k-menu__item--open k-menu__item--here"
-            aria-haspopup="true" data-kmenu-submenu-toggle="hover">
-            <a href="javascript:;" class="k-menu__link k-menu__toggle">
-                <i class="k-menu__link-icon flaticon2-graphic"></i>
-                <span class="k-menu__link-text">Task management</span>
-                <i class="k-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="k-menu__submenu ">
-                <span class="k-menu__arrow"></span>
-                <ul class="k-menu__subnav">
-                    <li class="k-menu__item  k-menu__item--parent" aria-haspopup="true"><span
-                            class="k-menu__link"><span class="k-menu__link-text">Dashboards</span></span>
-                    </li>
-                    <li class="k-menu__item  k-menu__item--active" aria-haspopup="true">
-                        <a href="index-2.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot">
-                                <span></span>
-                            </i><span class="k-menu__link-text">Task Portal</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Task Category</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Task</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Task Status</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Comments</span>
-                        </a>
-                    </li>
-                    <li class="k-menu__item " aria-haspopup="true">
-                        <a href="taskmgtKeen/dashboards/brand-aside.html" class="k-menu__link ">
-                            <i class="k-menu__link-bullet k-menu__link-bullet--dot"><span></span></i><span
-                                class="k-menu__link-text">Comment Reply</span>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </div>
-        </li>
-        <li class="k-menu__item " aria-haspopup="true"><a href="builder.html" class="k-menu__link ">
-                <i class="k-menu__link-icon fa fa-calendar"></i><span
-                    class="k-menu__link-text">Calendar</span></a>
-        </li>
-        <li class="k-menu__item " aria-haspopup="true"><a href="builder.html" class="k-menu__link ">
-                <i class="k-menu__link-icon fa fa-sign-out"></i><span
-                    class="k-menu__link-text">Logout</span></a>
-        </li>
-    </ul>
+        </div>
+    </div>
 @endsection
 @section('content')
     @can('task_create')
@@ -251,6 +149,9 @@
                             {{ trans('cruds.task.fields.project') }}
                         </th>
                         <th>
+                            Project Sub Type
+                        </th>
+                        <th>
                             {{ trans('cruds.task.fields.client') }}
                         </th>
                         <th>
@@ -289,6 +190,8 @@
                             </td>
                             <td>
                                 {{ $task->project->name ?? '' }}
+                            </td> <td>
+                                {{ $task->project_sub_type->name ?? '' }}
                             </td>
                             <td>
                                 {{ $task->client->name ?? '' }}
@@ -321,7 +224,8 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@section('javascript')
+    <script src="metro/assets/app/js/dashboard.js" type="text/javascript"></script>
     @parent
     <script>
         $(function () {
@@ -337,7 +241,6 @@
 
                     if (ids.length === 0) {
                         alert('{{ trans('global.datatables.zero_selected') }}')
-
                         return
                     }
 
@@ -360,4 +263,5 @@
         })
 
     </script>
+
 @endsection

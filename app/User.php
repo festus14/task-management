@@ -34,6 +34,7 @@ class User extends Authenticatable implements HasMedia
     protected $fillable = [
         'name',
         'email',
+        'status',
         'password',
         'created_at',
         'updated_at',
@@ -45,11 +46,9 @@ class User extends Authenticatable implements HasMedia
     public function getpictureAttribute()
     {
         $file = $this->getMedia('picture')->last();
-
         if ($file) {
             $file->url = $file->getUrl();
         }
-
         return $file;
     }
 

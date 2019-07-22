@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroyTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Project;
+use App\ProjectSubType;
 use App\Task;
 use App\TaskStatus;
 use App\TastCategory;
@@ -38,9 +39,11 @@ class TaskController extends Controller
 
         $projects = Project::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $projects_sub_type = ProjectSubType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.tasks.create', compact('categories', 'assinged_tos', 'managers', 'statuses', 'projects', 'clients'));
+        return view('admin.tasks.create', compact('categories', 'assinged_tos', 'managers', 'statuses', 'projects', 'projects_sub_type', 'clients'));
     }
 
     public function store(StoreTaskRequest $request)
@@ -67,11 +70,13 @@ class TaskController extends Controller
 
         $projects = Project::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $projects_sub_type = ProjectSubType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $task->load('category', 'assinged_tos', 'manager', 'status', 'project', 'client');
 
-        return view('admin.tasks.edit', compact('categories', 'assinged_tos', 'managers', 'statuses', 'projects', 'clients', 'task'));
+        return view('admin.tasks.edit', compact('categories', 'assinged_tos', 'managers', 'statuses', 'projects', 'projects_sub_type', 'clients', 'task'));
     }
 
     public function update(UpdateTaskRequest $request, Task $task)

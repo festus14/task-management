@@ -27,6 +27,7 @@ class Task extends Model
         'client_id',
         'manager_id',
         'project_id',
+        'project_subtype_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -34,11 +35,6 @@ class Task extends Model
         'ending_date',
         'starting_date',
     ];
-
-    public function category()
-    {
-        return $this->belongsTo(TastCategory::class, 'category_id');
-    }
 
     public function getStartingDateAttribute($value)
     {
@@ -60,6 +56,11 @@ class Task extends Model
         $this->attributes['ending_date'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
+    public function category()
+    {
+        return $this->belongsTo(TastCategory::class, 'category_id');
+    }
+
     public function assinged_tos()
     {
         return $this->belongsToMany(User::class);
@@ -78,6 +79,11 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo(Project::class, 'project_id');
+    }
+
+    public function project_sub_type()
+    {
+        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id');
     }
 
     public function client()
