@@ -38,28 +38,6 @@ function mapComment() {
     data.map((elem, i) => {
         console.log(elem.comment)
         var html = elem.id === 1 ?
-            //     `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-            //     <div class="m-messenger__message m-messenger__message--out">
-            //     <div class="m-messenger__message-pic">
-            //     <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
-            // </div>
-            //         <div class="m-messenger__message-body">
-            //             <div class="m-messenger__message-arrow"></div>
-            //             <div class="m-messenger__message-content">
-            //             <div class="m-messenger__message-username">
-            //                 <div class="m-messenger__message-text" style="  max-width: 440px; max-height: 4000px;>
-            //                     <span id="datee" style="float: right;"></span>
-            //                      ${elem.comment}
-            //                      </br>
-            //                      <i class="fa fa-reply" aria-hidden="true" style="float:right; margin-top:1px; margin-bottom: 2px; height:1px;"></i>
-            //                 </div>
-            //                 <div class="m-messenger__message-text">
-            //                 <span id="datee" style="float: right;"></span> ${elem.comment}
-            //             </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>` 
             `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
     <div class="m-messenger__message m-messenger__message--out">
     
@@ -67,16 +45,13 @@ function mapComment() {
             <div class="m-messenger__message-arrow"></div>
             <div class="m-messenger__message-content">
             <div class="m-messenger__message-username">
-            <span class="secondary"><strong>${elem.name}</strong></span>
-            <span class="datee" style="float: right;">${formattedDate}</span>
+            <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
+            <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
                
                 </div>
                 <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
                     ${elem.comment}
                 </div>
-                </br>
-                <i class="fa fa-reply" aria-hidden="true" style="float:right; margin-top:1px; margin-bottom: 2px; height:1px;"></i>
-           </br>
             </div>
         </div>
         <div class="m-messenger__message-pic">
@@ -91,16 +66,13 @@ function mapComment() {
             <div class="m-messenger__message-arrow"></div>
             <div class="m-messenger__message-content">
             <div class="m-messenger__message-username">
-            <span class="secondary"><strong>${elem.name}</strong></span>
-            <span class="datee" style="float: right;">${formattedDate}</span>
+            <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
+            <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
                
                 </div>
                 <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
                     ${elem.comment}
                 </div>
-                </br>
-                <i class="fa fa-reply" aria-hidden="true" style="float:right; margin-top:1px; margin-bottom: 2px; height:1px;"></i>
-           </br>
             </div>
         </div>
         <div class="m-messenger__message-pic">
@@ -135,8 +107,8 @@ function addReply() {
             <div class="m-messenger__message-arrow"></div>
             <div class="m-messenger__message-content">
             <div class="m-messenger__message-username">
-            <span class="secondary" style="float: left;"><strong>Dammy</strong></span>
-            <span class="datee" style="float: right;">${formattedDate}</span>
+            <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
+            <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
                
                 </div>
 
