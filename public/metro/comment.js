@@ -1,16 +1,22 @@
-var d = new Date();
-// d.toISOString().slice(0, 5);
-document.getElementById("datee").innerHTML = getFormattedDate(d);
-document.getElementsByClassName("datee").innerHTML = d;
+// var d = new Date();
+// // d.toISOString().slice(0, 5);
+// document.getElementsByClass("datee").innerHTML = getFormattedDate(d);
+// // document.getElementsByClassName("datee").innerHTML = getFormattedDate(d);
 
-function getFormattedDate(date) {
-    var year = date.getFullYear();
-    var month = (1 + date.getMonth()).toString();
-    month = month.length > 1 ? month : '0' + month;
-    var day = date.getDate().toString();
-    day = day.length > 1 ? day : '0' + day;
-    return year + '/' + month + '/' + day;
-}
+// function getFormattedDate(date) {
+//     var year = date.getFullYear();
+//     var month = (1 + date.getMonth()).toString();
+//     month = month.length > 1 ? month : '0' + month;
+//     var day = date.getDate().toString();
+//     day = day.length > 1 ? day : '0' + day;
+//     return year + '/' + month + '/' + day;
+// }
+
+//pagefile
+var date = new Date();
+var formattedDate = (date.toString().slice(0, 25));
+document.getElementById("datee").innerHTML = formattedDate;
+
 
 var data = [{
         "id": 2,
@@ -62,7 +68,7 @@ function mapComment() {
             <div class="m-messenger__message-content">
             <div class="m-messenger__message-username">
             <span class="secondary"><strong>${elem.name}</strong></span>
-            <span id="datee" style="float: right;">${elem.date}</span>
+            <span class="datee" style="float: right;">${formattedDate}</span>
                
                 </div>
                 <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
@@ -86,7 +92,7 @@ function mapComment() {
             <div class="m-messenger__message-content">
             <div class="m-messenger__message-username">
             <span class="secondary"><strong>${elem.name}</strong></span>
-            <span id="datee" style="float: right;">${elem.date}</span>
+            <span class="datee" style="float: right;">${formattedDate}</span>
                
                 </div>
                 <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
@@ -130,7 +136,7 @@ function addReply() {
             <div class="m-messenger__message-content">
             <div class="m-messenger__message-username">
             <span class="secondary" style="float: left;"><strong>Dammy</strong></span>
-            <span id="datee" style="float: right;">12/2/2019</span>
+            <span class="datee" style="float: right;">${formattedDate}</span>
                
                 </div>
 
