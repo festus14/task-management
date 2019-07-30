@@ -457,7 +457,8 @@
                                                 class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                             <div class="m-dropdown__inner">
                                                 <div class="m-dropdown__header m--align-center"
-                                                     style="background: {{ url('assets/app/media/img/misc/quick_actions_bg.jpg') }}); background-size: cover;">
+                                                     style="background: 
+                                                     {{ url('assets/app/media/img/misc/quick_actions_bg.jpg') }}; background-size: cover;">
                                                     <span class="m-dropdown__header-title">
                                                         Quick Actions
                                                     </span>
@@ -826,8 +827,8 @@
                                                                 Campaigns
                                                             </span>
                                                             <span class="m-menu__link-badge">
-                                                                <pan class="m-badge m-badge--success">3
-                                                                </pan>
+                                                                <span class="m-badge m-badge--success">3
+                                                                </span>
                                                             </span>
                                                         </span>
                                                     </span>

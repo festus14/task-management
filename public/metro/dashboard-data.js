@@ -5,15 +5,45 @@ var data = [
         project: [
             {
                 name: 'Payroll',
-                progress: '40%'
+                progress: '40%',
+                task: [
+                    {
+                        task_name: 'Ise Task',
+                        task_status: 'Holding',
+                    },
+                    {
+                        task_name: 'Moore Task',
+                        task_status: 'Priortize',
+                    }
+                ]
             },
             {
                 name: 'Audit',
-                progress: '50%'
+                progress: '50%',
+                task: [
+                    {
+                        task_name: 'Ise Task',
+                        task_status: 'Holding',
+                    },
+                    {
+                        task_name: 'Moore Task',
+                        task_status: 'Priortize',
+                    }
+                ]
             },
             {
                 name: 'Account',
-                progress: '89%'
+                progress: '89%',
+                task: [
+                    {
+                        task_name: 'Ise Task',
+                        task_status: 'Holding',
+                    },
+                    {
+                        task_name: 'Moore Task',
+                        task_status: 'Priortize',
+                    }
+                ]
             }
         ]
     },
@@ -22,15 +52,45 @@ var data = [
         image: "assets/app/media/img/users/100_14.jpg",
         project: [{
             name: 'Payroll',
-            progress: '33%'
+            progress: '33%',
+            task: [
+                {
+                    task_name: 'Ise Task',
+                    task_status: 'Holding',
+                },
+                {
+                    task_name: 'Moore Task',
+                    task_status: 'Priortize',
+                }
+            ]
         },
         {
             name: 'Tax',
-            progress: '30%'
+            progress: '30%',
+            task: [
+                {
+                    task_name: 'Ise Task',
+                    task_status: 'Holding',
+                },
+                {
+                    task_name: 'Moore Task',
+                    task_status: 'Priortize',
+                }
+            ]
         },
         {
             name: 'Account',
-            progress: '83%'
+            progress: '83%',
+            task: [
+                {
+                    task_name: 'Ise Task',
+                    task_status: 'Holding',
+                },
+                {
+                    task_name: 'Moore Task',
+                    task_status: 'Priortize',
+                }
+            ]
         }
         ]
     },
@@ -39,11 +99,31 @@ var data = [
         image: "assets/app/media/img/users/100_4.jpg",
         project: [{
             name: 'Payroll',
-            progress: '99%'
+            progress: '99%',
+            task: [
+                {
+                    task_name: 'Ise Task',
+                    task_status: 'Completed',
+                },
+                {
+                    task_name: 'Moore Task',
+                    task_status: 'Completed',
+                }
+            ]
         },
         {
             name: 'Audit',
-            progress: '40%'
+            progress: '40%',
+            task: [
+                {
+                    task_name: 'Ise Task',
+                    task_status: 'Holding',
+                },
+                {
+                    task_name: 'Moore Task',
+                    task_status: 'Priortize',
+                }
+            ]
         },
         ]
     },
@@ -72,15 +152,36 @@ data.map((datum, i) => {
 
             <ul>
 
-                ${datum.project.map(elem => `<li>
+                ${datum.project.map((elem, idx) => `<li>
                     <span>${elem.name}</span>
                     <div class="m--space-10"></div>
-                    <span class="m-widget24__change">
-                        Task Progress
-                    </span>
-                    <span class="m-widget24__number">
-                        ${elem.progress}
-                    </span>
+                    <div style="margin-bottom: -15px">
+                        <span class="m-widget24__change">
+                            Task Progress
+                        </span>
+                        <span class="m-widget24__number">
+                            ${elem.progress}
+                        </span>
+                    </div>
+                    <p>
+                        <a style="margin-top: -15px;" class="btn btn-sm m-btn--pill btn-secondary m-btn m-btn--label-brand" data-toggle="collapse" href="#${"collapseExample" + idx + '-' + i}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            View Task Status
+                        </a>
+                    </p>
+                    <div class="collapse" id="${"collapseExample" + idx + '-' + i}">
+                        <div style="margin-bottom: -15px">
+                           ${elem.task.map(task => (`
+                            <div>
+                                <span syle="margin-bottom: -10px;" class="m-widget24__change">
+                                    ${task.task_name}
+                                </span>
+                                <span class="m-widget24__number">
+                                    ${task.task_status}
+                                </span>
+                            </div>`
+                           ))}
+                        </div>
+                    </div>
                 </li>`)}
 
 
