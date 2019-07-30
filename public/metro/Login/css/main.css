@@ -196,7 +196,7 @@ label {
 }
 
 .wrap-login100 {
-    width: 390px;
+    width: 470px;
     border-radius: 10px;
     overflow: hidden;
     background: transparent;
@@ -438,6 +438,12 @@ label {
 
 .login100-form-btn:hover:before {
     opacity: 1;
+}
+
+#logCheck {
+    margin-left: 37px;
+    margin-top: 25px;
+    margin-bottom: -25px;
 }
 
 
