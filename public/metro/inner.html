@@ -818,23 +818,175 @@
         </header>
         <!-- end::Header -->
                 <!-- begin::Body -->
-            <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop
-            m-container m-container--responsive m-container--xxl m-page__container m-body">
-            <div class="m-grid__item m-grid__item--fluid m-wrapper">
-
-                <!-- BEGIN: Subheader -->
-                <div class="m-subheader ">
-                    @yield('subheader')
+                <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop
+                m-container m-container--responsive m-container--xxl m-page__container m-body">
+                <!-- BEGIN: Left Aside -->
+                <button class="m-aside-left-close m-aside-left-close--skin-light" id="m_aside_left_close_btn">
+                        <i class="la la-close"></i>
+                    </button>
+                <div id="m_aside_left" class="m-grid__item m-aside-left ">
+                    <!-- BEGIN: Aside Menu -->
+                    <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
+                        <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+                            <li class="m-menu__section">
+                                <h4 class="m-menu__section-text">
+                                    Departments
+                                </h4>
+                                <i class="m-menu__section-icon flaticon-more-v3"></i>
+                            </li>
+                            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+                                <a href="#" class="m-menu__link m-menu__toggle">
+                                    <i class="m-menu__link-icon flaticon-user"></i>
+                                    <span class="m-menu__link-text">
+                                            User Mgt
+                                        </span>
+                                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                                </a>
+                                <div class="m-menu__submenu ">
+                                    <span class="m-menu__arrow"></span>
+                                    <ul class="m-menu__subnav">
+                                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                                            <span class="m-menu__link">
+                                                    <span class="m-menu__link-text">
+                                                        Permissions
+                                                    </span>
+                                            </span>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                            <a href="inner.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                        <span></span>
+                                                    </i>
+                                                <span class="m-menu__link-text">
+                                                        Roles
+                                                    </span>
+                                            </a>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                            <a href="inner.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                        <span></span>
+                                                    </i>
+                                                <span class="m-menu__link-text">
+                                                        Users
+                                                    </span>
+                                            </a>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                            <a href="inner.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                        <span></span>
+                                                    </i>
+                                                <span class="m-menu__link-text">
+                                                        Register Member
+                                                    </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" data-redirect="true">
+                                <a href="#" class="m-menu__link m-menu__toggle">
+                                    <i class="m-menu__link-icon flaticon-users"></i>
+                                    <span class="m-menu__link-text">
+                                            Client Mgt
+                                        </span>
+                                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                                </a>
+                                <div class="m-menu__submenu ">
+                                    <span class="m-menu__arrow"></span>
+                                    <ul class="m-menu__subnav">
+    
+                                        <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                            <a href="inner.html" class="m-menu__link ">
+                                                <span class="m-menu__link-text">
+                                                        Create Client
+                                                    </span>
+                                            </a>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                            <a href="inner.html" class="m-menu__link ">
+                                                <span class="m-menu__link-text">
+                                                        View Client(s)
+                                                    </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                <a href="inner.html" class="m-menu__link ">
+                                    <i class="m-menu__link-icon flaticon-calendar"></i>
+                                    <span class="m-menu__link-text">
+                                            Calendar
+                                        </span>
+                                </a>
+                            </li>
+                            <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                <a href="inner.html" class="m-menu__link ">
+                                    <i class="m-menu__link-icon flaticon-logout"></i>
+                                    <span class="m-menu__link-text">
+                                            Logout
+                                        </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END: Aside Menu -->
                 </div>
-                <!-- END: Subheader -->
-                <div class="m-content">
-                    @yield('content')
-                </div>
+                <!-- END: Left Aside -->
+                <div class="m-grid__item m-grid__item--fluid m-wrapper">
+                    <!-- BEGIN: Subheader -->
+                    <div class="m-subheader ">
+                        <div class="d-flex align-items-center">
+                            <div class="mr-auto">
+                                <h3 class="m-subheader__title m-subheader__title--separator">
+                                    @yield('header')
+                                </h3>
+                                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                                    
+                                    <li class="m-nav__item">
+                                        <a href="" class="m-nav__link">
+                                            <span class="m-nav__link-text">
+                                                    @yield('header_sub')
+                                                </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Subheader -->
+    
+                        <div class="m-content">
+                            <!-- Inner page content goes here -->
+                            @yield('content')
+                            <!-- <div>
+            
+                                <form id="postData">
+                        
+                                    <div class="form-group">
+                                        <label>Select Project</label>
+                                        <select id="project-list" class="form-control"></select>
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        <label for="create-project-subtype">Create Project Subtype</label>
+                                        <input type="text" class="form-control" id="create-project-subtype" placeholder="Enter Project Subtype">
+                                    </div>
+                        
+                                    
+                                    <input type="submit" class="btn btn-primary" value="Submit">
+                        
+                                </form>
+                        
+                            </div> -->
+                        </div>
+                    </div>
             </div>
-            <!--
-                </div>
-                -->
-        </div>
         <!-- end::Body -->
       <!-- begin::Footer -->
     <footer class="m-grid__item m-footer ">
@@ -1316,30 +1468,7 @@
         <i class="la la-arrow-up"></i>
     </div>
     <!-- end::Scroll Top -->
-<<<<<<< HEAD
-
-=======
-    <!-- begin::Quick Nav -->
-    <ul class="m-nav-sticky" style="margin-top: 30px;">
-        
-        <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Purchase" data-placement="left">
-            <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" target="_blank">
-                <i class="la la-cart-arrow-down"></i>
-            </a>
-        </li>
-        <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Documentation" data-placement="left">
-            <a href="https://keenthemes.com/metronic/documentation.html" target="_blank">
-                <i class="la la-code-fork"></i>
-            </a>
-        </li>
-        <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Support" data-placement="left">
-            <a href="https://keenthemes.com/forums/forum/support/metronic5/" target="_blank">
-                <i class="la la-life-ring"></i>
-            </a>
-        </li>
-    </ul>
-    <!-- begin::Quick Nav -->
->>>>>>> cc0dfcd4809ec8c64ad26d83d5426b1bf39d6148
+    
     <!--begin::Base Scripts -->
     <script src="assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
     <script src="assets/demo/demo2/base/scripts.bundle.js" type="text/javascript"></script>
