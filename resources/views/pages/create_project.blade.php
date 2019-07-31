@@ -2,7 +2,6 @@
 
 @section('title', 'Project')
     
-
 @section('header', 'Project Management')
 
 @section('sub_header', 'Create Project')
@@ -49,8 +48,3 @@
 
 </div>
 @endsection
-
-@section('scripts')
-    
-@endsection  
-
