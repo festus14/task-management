@@ -22,7 +22,8 @@ class TaskPagesController extends Controller
     //create Task
 
     public function createTask(){
-        return view('pages.create_task');
+        $projects = Project::all()->toArray();
+        return view('pages.create_task', compact('projects') );
     }
     public function getProjects(Request $request, $client_id){
        return Project::where('client_id', '=', $client_id)->get();

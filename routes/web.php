@@ -132,6 +132,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/create_task', 'TaskPagesController@createTask')->name('create_task');
     Route::get('/get_single_comment/{id}', 'TaskPagesController@getSingleComment')->name('get_single_comment');
     Route::get('/get_comment_by_task_id/{task_id}', 'TaskPagesController@getAllTaskComments')->name('get_comment_by_task_id');
+    Route::get('/get_single_project', 'TaskPagesController@getProject/{client_id}')->name('get_single_project');
+    Route::get('/get_all_project', 'TaskPagesController@getProjects')->name('get_all_projects');
 
     Route::get('/project_dashboard', 'TaskPagesController@projectDashboard')->name('project_dashboard');
 
