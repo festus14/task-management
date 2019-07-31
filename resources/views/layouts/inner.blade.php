@@ -14,20 +14,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
     <script>
         WebFont.load({
-            google: {
-                "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]
-            },
-            active: function() {
+            google: {"families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]},
+            active: function () {
                 sessionStorage.fonts = true;
             }
         });
     </script>
     <!--end::Web font -->
     <!--begin::Base Styles -->
-    <link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
+    <!--begin::Page Vendors -->
+    <link href="{{ url('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
+          type="text/css"/>
+    <!--end::Page Vendors -->
+    <link href="{{ url('metro/assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url('metro/assets/demo/demo2/base/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <!--end::Base Styles -->
-    <link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" />
+    <link rel="shortcut icon" href="{{ url('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
+    @yield('css')
 </head>
 <!-- end::Head -->
 <!-- end::Body -->
@@ -41,39 +44,31 @@
                 <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
                     <div class="m-stack m-stack--ver m-stack--desktop">
                         <!-- begin::Brand -->
-                        <div class="m-stack__item m-brand">
-                            <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
-                                <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                    <a href="index.html" class="m-brand__logo-wrapper">
-                                        <!-- <img alt="" src="assets/demo/demo2/media/img/logo/logo.png" height="80"/> -->
-                                    </a>
-                                </div>
-                                <div class="m-stack__item m-stack__item--middle m-brand__tools">
-                                    <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-left m-dropdown--align-push" data-dropdown-toggle="click" aria-expanded="true">
-                                        <a href="#" class="dropdown-toggle m-dropdown__toggle btn btn-outline-metal m-btn  m-btn--icon m-btn--pill">
-                                            <span>
-													Logo
-												</span>
-                                        </a>
-                                    </div>
-                                    <!-- BEGIN: Responsive Aside Left Menu Toggler -->
-                                    <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
-                                        <span></span>
-                                    </a>
-                                    <!-- END -->
-                                    <!-- begin::Responsive Header Menu Toggler-->
-                                    <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
-                                        <span></span>
-                                    </a>
-                                    <!-- end::Responsive Header Menu Toggler-->
-                                    <!-- begin::Topbar Toggler-->
-                                    <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
-                                        <i class="flaticon-more"></i>
-                                    </a>
-                                    <!--end::Topbar Toggler-->
-                                </div>
+                        <!-- begin::Brand -->
+                    <div class="m-stack__item m-brand">
+                        <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
+                            <div class="m-stack__item m-stack__item--middle m-brand__logo">
+                                <a href="{{ url('/admin') }}" class="m-brand__logo-wrapper">
+                                    <img alt="" src="{{ url('metro/assets/demo/demo2/media/img/logo/logo_white.png') }}"
+                                         height="80"/>
+                                </a>
+                            </div>
+                            <div class="m-stack__item m-stack__item--middle m-brand__tools">
+                                <!-- begin::Responsive Header Menu Toggler-->
+                                <a id="m_aside_header_menu_mobile_toggle" href="javascript:;"
+                                   class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
+                                    <span></span>
+                                </a>
+                                <!-- end::Responsive Header Menu Toggler-->
+                                <!-- begin::Topbar Toggler-->
+                                <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;"
+                                   class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                                    <i class="flaticon-more"></i>
+                                </a>
+                                <!--end::Topbar Toggler-->
                             </div>
                         </div>
+                    </div>
                         <!-- end::Brand -->
                         <!-- begin::Topbar -->
                         <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
@@ -83,7 +78,7 @@
                                         <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
                                             <a href="#" class="m-nav__link m-dropdown__toggle">
                                                 <span class="m-topbar__userpic m--hide">
-														<img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless m--img-centered" alt=""/>
+														<img src="{{ url('metro/assets/app/media/img/users/user4.jpg') }}" class="m--img-rounded m--marginless m--img-centered" alt=""/>
 													</span>
                                                 <span class="m-topbar__welcome">
 														Hello,&nbsp;
@@ -95,10 +90,10 @@
                                             <div class="m-dropdown__wrapper">
                                                 <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                                 <div class="m-dropdown__inner">
-                                                    <div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
+                                                    <div class="m-dropdown__header m--align-center" style="background: {{ url('assets/app/media/img/misc/user_profile_bg.jpg') }}; background-size: cover;">
                                                         <div class="m-card-user m-card-user--skin-dark">
                                                             <div class="m-card-user__pic">
-                                                                <img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="" />
+                                                                <img src={{ url("assets/app/media/img/users/user4.jpg") }} class="m--img-rounded m--marginless" alt="" />
                                                             </div>
                                                             <div class="m-card-user__details">
                                                                 <span class="m-card-user__name m--font-weight-500">
@@ -1468,17 +1463,23 @@
         <i class="la la-arrow-up"></i>
     </div>
     <!-- end::Scroll Top -->
-    
-    <!--begin::Base Scripts -->
-    <script src="assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
-    <script src="assets/demo/demo2/base/scripts.bundle.js" type="text/javascript"></script>
-    <!--end::Base Scripts -->
-    <!--begin::Page Snippets -->
-    <script src="assets/app/js/dashboard.js" type="text/javascript"></script>
-    <!--end::Page Snippets -->
+<!-- begin::Quick Nav -->
 
-    
-
+<form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
+    {{ csrf_field() }}
+</form>
+<!-- begin::Quick Nav -->
+<!--begin::Base Scripts -->
+<script src="{{ asset('metro/assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ asset('metro/assets/demo/demo2/base/scripts.bundle.js') }}" type="text/javascript"></script>
+<!--end::Base Scripts -->
+<!--begin::Page Vendors -->
+<script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
+<!--end::Page Vendors -->
+<script src="{{ asset('js/main.js') }}"></script>
+<!--begin::Page Snippets -->
+@yield('javascript')
+<!--end::Page Snippets -->
 </body>
 <!-- end::Body -->
 

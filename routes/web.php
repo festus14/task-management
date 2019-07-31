@@ -125,6 +125,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
 
-    Route::get('task-management', 'TaskPagesController@create_task')->name('create_task');
+
+
+    // Extra Routes
+
+    Route::get('create_task', 'TaskPagesController@createTask')->name('create_task');
 
 });
+
+

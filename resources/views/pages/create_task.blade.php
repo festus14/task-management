@@ -1,8 +1,11 @@
-@extends('inner')
+@extends('layouts.inner')
 
-@section('title', 'Create Task')
+@section('title', 'Task')
+    
 
 @section('header', 'Task Management')
+
+@section('sub_header', 'Create Task')
 
 @section('content')
     
