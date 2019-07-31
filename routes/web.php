@@ -124,4 +124,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('project-reports/media', 'ProjectReportController@storeMedia')->name('project-reports.storeMedia');
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
+
+    Route::get('task-management', 'TaskPagesController@create_task')->name('create_task');
+
 });
