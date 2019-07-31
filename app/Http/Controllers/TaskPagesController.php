@@ -11,4 +11,6 @@ class TaskPagesController extends Controller
     public function createTask(){
         return view('pages.create_task');
     }
+
+    
 }
