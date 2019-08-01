@@ -8,9 +8,10 @@
 
 @section('content')
 <div class="row">
-    <div class="col-sm-6 offset-sm-0">
-        <form>
-
+    
+        <form action="" method="POST" enctype="multipart/form-data">
+            @csrf
+                <div class="col-sm-6 col-md-6 offset-sm-0">
                     <div class="form-group mt-3">
                         <label>Select Client</label>
                         <select id="client-list" class="selectDesign form-control"></select>

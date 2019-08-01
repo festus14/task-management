@@ -17,16 +17,9 @@ use App\TastCategory;
 use App\User;
 use App\TaskComment;
 
-class ProjectPagesController extends Controller
+class ClientDashboardPages extends Controller
 {
-    //create Project
-
-    public function createProject(){
-        return view('pages.create_project');
-    }
-
-    //create Project
-    public function uploadDocument(){
-        return view('pages.upload_documents');
+    public function clientDashboard(){
+        return view('pages.client_dashboard');
     }
 }

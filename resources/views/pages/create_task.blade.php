@@ -15,7 +15,7 @@
       
       <!-- Modal -->
       <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -25,7 +25,8 @@
             </div>
             <div class="modal-body">
                     <div class="container-fluid">
-                      <form action="">
+                      <form action="" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6 col-sm-6 ml-auto">
                                     <div class="form-group">
@@ -77,7 +78,7 @@
 @endsection
 
 
-{{-- @section('javascript')
+@section('javascript')
 <script>
     const subtypeList = [
         {
@@ -137,6 +138,47 @@
         let option = document.createElement('option');
         option.text = elem.name;
         add(dropdownTwo, option)
+
+        // Trying xmlhttp request
+
+        // var request = new XMLHttpRequest()
+
+        // request.open('GET', 'http://127.0.0.1:8000/admin/get_comment_by_task_id/1', true)
+        // request.onload = function() {
+        // // Begin accessing JSON data here
+        // var data = JSON.parse(this.response)
+
+        // console.log(data)
+
+        // if (request.status >= 200 && request.status < 400) {
+        //     data.forEach(movie => {
+        //     console.log(movie.title)
+        //     })
+        // } else {
+        //     console.log('error')
+        // }
+        // }
+
+        // request.send()
+        // Fetch style
+        // const url = 'https://api/project';
+
+    fetch('http://127.0.0.1:8000/admin/get_comment_by_task_id/1')
+    .then((resp) => resp.json())
+    .then(function(data){
+        return data.map(function(i){
+            let option = document.createElement('option');
+            option.text = i.name;
+            option.value = i.id;
+
+            add(dropdown, option)
+        })
+        console.log(data)
+    })
+
+    .catch(function(error){
+        console.log(error);
+    });
     })
 </script>
-@endsection --}}
+@endsection
