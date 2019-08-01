@@ -7,69 +7,75 @@
 @section('sub_header', 'Create Task')
 
 @section('content')
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTask">
+    
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTaskModal">
         Create Task
       </button>
       
       <!-- Modal -->
-      <div class="modal fade" id="createTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+      <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-                <div>
-        
-                    <form>
-            
-                        <div class="form-group">
-                            <label>Select Project</label>
-                            <select id="project-list" class="selectDesign form-control"></select>
-                        </div>
-            
-                        <div class="form-group">
-                            <label>Select Project Subtype</label>
-                            <select id="project-subtype-list" class="selectDesign form-control"></select>
+                    <div class="container-fluid">
+                      <form action="">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 ml-auto">
+                                    <div class="form-group">
+                                            <label>Select Project</label>
+                                            <select id="project-list" class="selectDesign form-control"></select>
+                                        </div>
+                                
+                                        <div class="form-group">
+                                            <label>Select Project Subtype</label>
+                                            <select id="project-subtype-list" class="selectDesign form-control"></select>
+                                            </div>
+                                
+                                        <div class="form-group">
+                                            <label for="create-task">Create Task</label>
+                                            <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
+                                        </div>
+                                
                             </div>
-            
-                        <div class="form-group">
-                            <label for="create-task">Create Task</label>
-                            <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
+                            <div class="col-md-6 col-sm-6 ml-auto">
+                                    <div class="form-group">
+                                            <label for="assign-task">Assign task to</label>
+                                            <input type="text" class="form-control" id="assign-task" placeholder="Enter Name">
+                                        </div>
+                                
+                                        <div class="form-group">
+                                            <label for="starting-date">Start Date</label>
+                                            <input type="date" class="form-control" id="starting-date">
+                                        </div>
+                                
+                                        <div class="form-group">
+                                            <label for="deadline">Deadline</label>
+                                            <input type="date" class="form-control" id="deadline">
+                                        </div>
+                            </div>
                         </div>
-            
-                        <div class="form-group">
-                            <label for="assign-task">Assign task to</label>
-                            <input type="text" class="form-control" id="assign-task" placeholder="Enter Name">
-                        </div>
-            
-                        <div class="form-group">
-                            <label for="starting-date">Start Date</label>
-                            <input type="date" class="form-control" id="starting-date">
-                        </div>
-            
-                        <div class="form-group">
-                            <label for="deadline">Deadline</label>
-                            <input type="date" class="form-control" id="deadline">
-                        </div>
-                        
-                        <input type="submit" class="btn btn-primary" value="Submit">
-            
-                    </form>
-            
-                </div>
-            </div>
+                      </form>
+                      
+                      
+                    </div>
+                  </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary">Add Task</button>
             </div>
           </div>
         </div>
       </div>
+
 @endsection
+
 
 {{-- @section('javascript')
 <script>
