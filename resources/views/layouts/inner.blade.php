@@ -494,9 +494,10 @@
                                             <span class="m-menu__arrow m-menu__arrow--adjust"></span>
                                             <ul class="m-menu__subnav">
                                                 <li class="m-menu__item  m-menu__item--active " aria-haspopup="true">
-                                                    <a href="inner.html" class="m-menu__link ">
+                                                    {{-- <a href="{{ route('/')}}" class="m-menu__link "> --}}
+                                                        <a href="" class="m-menu__link ">
                                                         <i class="m-menu__link-icon flaticon-folder"></i>
-                                                        <span class="m-menu__link-title">
+                                                       <span class="m-menu__link-title">
 																<span class="m-menu__link-wrap">
 																	<span class="m-menu__link-text">
 																		Create Project
@@ -505,6 +506,7 @@
                                                         </span>
                                                     </a>
                                                 </li>
+                                                
                                                 <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
                                                     <a href="#" class="m-menu__link m-menu__toggle">
                                                         <i class="m-menu__link-icon flaticon-map"></i>
@@ -1035,6 +1037,42 @@
     <!-- end::Footer -->
     </div>
     <!-- end:: Page -->
+
+    <!--begin create project modal -->
+    <div class="modal fade bd-example-modal-lg"   style="margin-top:80px;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create Project</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form id="postData">
+  
+                  <div class="form-group">
+                      <label>Select Project</label>
+                      <select id="project-list" class="form-control"></select>
+                  </div>
+          
+                  <div class="form-group">
+                      <label for="create-project-subtype">Create Project Subtype</label>
+                      <input type="text" class="form-control" id="create-project-subtype" placeholder="Enter Project Subtype">
+                  </div>
+          
+                  
+                  <input type="submit" class="btn btn-primary  float-right" value="Submit">
+          
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+          </div>
+        </div>
+      </div>
+    <!--end create project modal -->
     <!-- begin::Quick Sidebar -->
     <div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
         <div class="m-quick-sidebar__content m--hide">
