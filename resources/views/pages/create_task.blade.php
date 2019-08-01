@@ -7,97 +7,75 @@
 @section('sub_header', 'Create Task')
 
 @section('content')
-
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTask">
-            Create Task
-        </button>
+    
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTaskModal">
+        Create Task
+      </button>
       
       <!-- Modal -->
-      <div style="" class="modal fade" id="createTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div style="" class="modal-dialog modal-xl modal-dialog-centered" role="document">
-          <div style="margin: auto; width: 100vw" class="modal-content">
+      <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+          <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                    <div class="col-md-6 ml-auto">
-                            <form action="{{ route("admin.tasks.store") }}" method="POST" enctype="multipart/form-data">
-        
-                                @csrf
-        
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                    <label for="name">{{ trans('cruds.task.fields.name') }}*</label>
-                                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($task) ? $task->name : '') }}" required>
-                                    @if($errors->has('name'))
-                                        <p class="help-block">
-                                            {{ $errors->first('name') }}
-                                        </p>
-                                    @endif
-                                    <p class="helper-block">
-                                        {{ trans('cruds.task.fields.name_helper') }}
-                                    </p>
-                                </div>
+                    <div class="container-fluid">
+                      <form action="">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 ml-auto">
+                                    <div class="form-group">
+                                            <label>Select Project</label>
+                                            <select id="project-list" class="selectDesign form-control"></select>
+                                        </div>
                                 
-                                            <div class="form-group">
-                                                <label>Select Project</label>
-                                                <select id="project-list" class="selectDesign form-control">
-                                                    @foreach ($projects as $option=>$name)
-                                                        <option value="{{ $option }}">{{ $option['name'] }}</option>
-                                                    @endforeach
-                                                </select>
-                                                
+                                        <div class="form-group">
+                                            <label>Select Project Subtype</label>
+                                            <select id="project-subtype-list" class="selectDesign form-control"></select>
                                             </div>
                                 
-                                            <div class="form-group">
-                                                <label>Select Project Subtype</label>
-                                                <select id="project-subtype-list" class="selectDesign form-control"></select>
-                                                </div>
+                                        <div class="form-group">
+                                            <label for="create-task">Create Task</label>
+                                            <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
+                                        </div>
                                 
-                                            <div class="form-group">
-                                                <label for="create-task">Create Task</label>
-                                                <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
-                                            </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 ml-auto">
+                                    <div class="form-group">
+                                            <label for="assign-task">Assign task to</label>
+                                            <input type="text" class="form-control" id="assign-task" placeholder="Enter Name">
+                                        </div>
                                 
-                    </div>
-        
-                    <div class="col-md-6 ml-auto">
-                            <div class="form-group">
-                                    <label for="assign-task">Assign task to</label>
-                                    <input type="text" class="form-control" id="assign-task" placeholder="Enter Name">
-                                </div>
-                    
-                                <div class="form-group">
-                                    <label for="starting-date">Start Date</label>
-                                    <input type="date" class="form-control" id="starting-date">
-                                </div>
-                    
-                                <div class="form-group">
-                                    <label for="deadline">Deadline</label>
-                                    <input type="date" class="form-control" id="deadline">
-                                </div>
+                                        <div class="form-group">
+                                            <label for="starting-date">Start Date</label>
+                                            <input type="date" class="form-control" id="starting-date">
+                                        </div>
                                 
-                                <input type="submit" class="btn btn-primary" value="Submit">
-                    
-                            </form>
+                                        <div class="form-group">
+                                            <label for="deadline">Deadline</label>
+                                            <input type="date" class="form-control" id="deadline">
+                                        </div>
+                            </div>
+                        </div>
+                      </form>
+                      
+                      
                     </div>
-                    </div>
-                    
-                </div>
                   </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary">Add Task</button>
             </div>
           </div>
         </div>
       </div>
+
 @endsection
+
 
 {{-- @section('javascript')
 <script>
