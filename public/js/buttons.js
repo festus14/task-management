@@ -29,9 +29,11 @@ var KTDatatablesExtensionButtons = {
                     return void 0 === s[t] ? t : '<span class="kt-badge kt-badge--' + s[t].state + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + s[t].state + '">' + s[t].title + "</span>"
                 }
             }]
-        }),
+        }
+        ),
 
-            t = $("#kt_table_2").DataTable({
+            t = $("#kt_table_2").DataTable(
+                {
             responsive: !0,
             buttons: ["print", "copyHtml5", "excelHtml5", "csvHtml5", "pdfHtml5"],
             processing: !0,
@@ -67,7 +69,9 @@ var KTDatatablesExtensionButtons = {
                     return void 0 === s[t] ? t : '<span class="kt-badge kt-badge--' + s[t].state + ' kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-' + s[t].state + '">' + s[t].title + "</span>"
                 }
             }]
-        }), $("#export_print").on("click", function (e) {
+        }),
+
+            $("#export_print").on("click", function (e) {
             e.preventDefault(), t.button(0).trigger()
         }), $("#export_copy").on("click", function (e) {
             e.preventDefault(), t.button(1).trigger()
