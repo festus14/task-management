@@ -32,4 +32,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('task-documents', 'TaskDocumentApiController');
 
     Route::apiResource('project-reports', 'ProjectReportApiController');
+
+    Route::get('calendar', 'CalendarApiController@index');
 });

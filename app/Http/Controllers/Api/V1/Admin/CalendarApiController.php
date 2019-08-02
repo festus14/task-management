@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\V1\Admin;
 
-use App\Client;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Project;
-use App\Task;
-use App\User;
-use Illuminate\Support\Facades\Request;
 
-class HomeController
+class CalendarApiController extends Controller
 {
-    private $sources = [
+
+    public $sources = [
         [
             'model'      => '\\App\\Project',
             'date_field' => 'starting_date',
@@ -60,22 +60,9 @@ class HomeController
             'route'      => 'admin.task-comment-replies.edit',
         ],
     ];
-    public function index(Request $request)
+
+    public function index()
     {
-
-        $projects = Project::with('tasks')
-            ->with('team_members')
-            ->with('team_members')
-            ->get();
-
-        $tasks = Task::all();
-
-        $users = User::all();
-
-        $clients = Client::all();
-
-       $completed_task = $tasks->where('status_id', 4);
-
         $events = [];
 
         foreach ($this->sources as $source) {
@@ -106,6 +93,7 @@ class HomeController
                 ];
             }
         }
-        return view('theme.laravel.dashboard', compact('tasks', 'projects', 'users', 'clients', 'events' ));
+        return response()->json($events, 200);
+
     }
 }
