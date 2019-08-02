@@ -9,7 +9,7 @@
 @section('content')
     
     <!-- Button trigger modal -->
-<button type="button" class="btn btn" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
+{{-- <button type="button" class="btn btn" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
         Create Task
       </button>
       
@@ -74,8 +74,55 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
 
+     {{-- The real page content --}}
+      <div class="container-fluid">
+            <form action="">
+              <div class="row">
+                  <div class="col-md-6 col-sm-6 ml-auto">
+                          <div class="form-group">
+                                  <label>Select Project</label>
+                                  <select id="project-list" class="selectDesign form-control"></select>
+                              </div>
+                      
+                              <div class="form-group">
+                                  <label>Select Project Subtype</label>
+                                  <select id="project-subtype-list" class="selectDesign form-control"></select>
+                                  </div>
+                      
+                              <div class="form-group">
+                                  <label for="create-task">Create Task</label>
+                                  <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
+                              </div>
+                      
+                  </div>
+                  <div class="col-md-6 col-sm-6 ml-auto">
+                          <div class="form-group">
+                                  <label for="assign-task">Assign task to</label>
+                                  <input type="text" class="form-control" id="assign-task" placeholder="Enter Name">
+                              </div>
+                      
+                              <div class="form-group">
+                                  <label for="starting-date">Start Date</label>
+                                  <input type="date" class="form-control" id="starting-date">
+                              </div>
+                      
+                              <div class="form-group">
+                                  <label for="deadline">Deadline</label>
+                                  <input type="date" class="form-control" id="deadline">
+                              </div>
+                  </div>
+                  <div class="row col-md-12">
+                        <div class="col-md-2 form-group mt-3">
+                <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                        </div>
+        </div>
+              </div>
+            </form>
+            
+            
+          </div>
 @endsection
 
 

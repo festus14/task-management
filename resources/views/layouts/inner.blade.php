@@ -945,7 +945,7 @@
                                     <li class="m-nav__item">
                                         <a href="" class="m-nav__link">
                                             <span class="m-nav__link-text">
-                                                    @yield('sub_header')
+                                                    <strong>@yield('sub_header')</strong>
                                                 </span>
                                         </a>
                                     </li>
