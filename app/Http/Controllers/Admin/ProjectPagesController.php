@@ -25,8 +25,15 @@ class ProjectPagesController extends Controller
         return view('pages.create_project');
     }
 
-    //create Project
+
+    //upload document
+
     public function uploadDocument(){
         return view('pages.upload_documents');
+    }
+    
+    // project report
+    public function projectReport(){
+        return view('pages.project_report');
     }
 }

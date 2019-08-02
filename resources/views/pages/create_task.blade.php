@@ -104,38 +104,27 @@
     dropdownTwo.add(defaultOption);
     dropdownTwo.selectedIndex = 0;
 
-    projectList.map(elem => {
-        let option = document.createElement('option');
-        option.text = elem.name;
-        add(dropdown, option)
-    })
-
-    subtypeList.map(elem => {
-        let option = document.createElement('option');
-        option.text = elem.name;
-        add(dropdownTwo, option)
-
         // Trying xmlhttp request
 
         var request = new XMLHttpRequest()
 
         request.open('GET', 'http://127.0.0.1:8000/admin/get_comment_by_task_id/1', true)
         request.onload = function() {
-        // Begin accessing JSON data here
-        var data = JSON.parse(this.response)
+          // Begin accessing JSON data here
+          var data = JSON.parse(this.response)
 
-        console.log(data)
-
-        if (request.status >= 200 && request.status < 400) {
-            data.forEach(movie => {
-            console.log(movie.title)
+          if (request.status >= 200 && request.status < 400) {
+            data.map(elem => {
+              let option = document.createElement('option');
+              option.text = elem.client.name;
+              add(dropdown, option)
             })
-        } else {
+          } else {
             console.log('error')
-        }
+          }
         }
 
         request.send()
-    })
+
 </script>
 @endsection

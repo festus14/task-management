@@ -40,12 +40,12 @@ dropdown.selectedIndex = 0;
 // fetch(url)
 // .then((resp) => resp.json())
 // .then(function(data){
-//     return data.map(function(i){
-//         let option = document.createElement('option');
-//         option.text = i.name;
-//         option.value = i.id;
+    // return data.map(function(i){
+    //     let option = document.createElement('option');
+    //     option.text = i.name;
+    //     option.value = i.id;
 
-//         add(dropdown, option)
+    //     add(dropdown, option)
 //     })
 // })
 

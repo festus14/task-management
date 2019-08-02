@@ -26,15 +26,18 @@
                 <select id="task-list" class="selectDesign form-control"></select>
                 </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
                     <input style="background: #f1f1f1" type="file" name="files[]" multiple />
-                {{-- <label for="file">Choose a file</label> --}}
             </div>
 
             
-            <input type="submit" class="btn btn-primary" value="Save">
+            <input type="submit" class="btn btn-primary mt-3" value="Save">
 
         </form>
     </div>
 </div>
+@endsection
+
+@section('javascript')
+    
 @endsection

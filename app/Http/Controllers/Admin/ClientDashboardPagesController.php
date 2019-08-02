@@ -17,7 +17,7 @@ use App\TastCategory;
 use App\User;
 use App\TaskComment;
 
-class ClientDashboardPages extends Controller
+class ClientDashboardPagesController extends Controller
 {
     public function clientDashboard(){
         return view('pages.client_dashboard');
