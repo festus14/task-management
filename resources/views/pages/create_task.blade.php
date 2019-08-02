@@ -80,30 +80,6 @@
 
 @section('javascript')
 <script>
-    const subtypeList = [
-        {
-            name: 'Account'
-        },
-        {
-            name: 'Bussiness'
-        },
-        {
-            name: 'Econs'
-        },
-    ]
-
-    const projectList = [
-        {
-            name: 'Audit'
-        },
-        {
-            name: 'Tax'
-        },
-        {
-            name: 'Payroll'
-        },
-    ]
-
     function add(parent, el) {
         return parent.add(el);
     }
@@ -141,44 +117,25 @@
 
         // Trying xmlhttp request
 
-        // var request = new XMLHttpRequest()
+        var request = new XMLHttpRequest()
 
-        // request.open('GET', 'http://127.0.0.1:8000/admin/get_comment_by_task_id/1', true)
-        // request.onload = function() {
-        // // Begin accessing JSON data here
-        // var data = JSON.parse(this.response)
+        request.open('GET', 'http://127.0.0.1:8000/admin/get_comment_by_task_id/1', true)
+        request.onload = function() {
+        // Begin accessing JSON data here
+        var data = JSON.parse(this.response)
 
-        // console.log(data)
-
-        // if (request.status >= 200 && request.status < 400) {
-        //     data.forEach(movie => {
-        //     console.log(movie.title)
-        //     })
-        // } else {
-        //     console.log('error')
-        // }
-        // }
-
-        // request.send()
-        // Fetch style
-        // const url = 'https://api/project';
-
-    fetch('http://127.0.0.1:8000/admin/get_comment_by_task_id/1')
-    .then((resp) => resp.json())
-    .then(function(data){
-        return data.map(function(i){
-            let option = document.createElement('option');
-            option.text = i.name;
-            option.value = i.id;
-
-            add(dropdown, option)
-        })
         console.log(data)
-    })
 
-    .catch(function(error){
-        console.log(error);
-    });
+        if (request.status >= 200 && request.status < 400) {
+            data.forEach(movie => {
+            console.log(movie.title)
+            })
+        } else {
+            console.log('error')
+        }
+        }
+
+        request.send()
     })
 </script>
 @endsection
