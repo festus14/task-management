@@ -127,5 +127,5 @@
 
         request.send()
 
-</script>
+      </script>
 @endsection
