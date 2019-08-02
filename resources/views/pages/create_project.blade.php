@@ -8,16 +8,10 @@
 
 @section('content')
 <div class="row">
-    
-        <form action="" method="POST" enctype="multipart/form-data">
-            @csrf
-                <div class="col-sm-6 col-md-6 offset-sm-0">
-                    <div class="form-group mt-3">
     <div class="col-md-12 ">
         <form>
             <div class="row col-md-12">
                     <div class="col-md-6 form-group mt-3">
-
                         <label>Select Client</label>
                         <select id="client-list" class="selectDesign form-control"></select>
                     </div>
@@ -83,10 +77,8 @@
                                         </div>
                                         </div>
                                     </div>
-                                    <div class="row col-md-12">
-                                            <div class="col-md-2 form-group mt-3">
-                                    <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                                            </div>
+                                    <div class="col-md-3 form-group mt-3">
+                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>   
                             </div>
                  </div>
                          

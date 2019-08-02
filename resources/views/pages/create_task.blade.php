@@ -86,12 +86,12 @@
                                   <select id="project-list" class="selectDesign form-control"></select>
                               </div>
                       
-                              <div class="form-group">
+                              <div class="form-group mt-3">
                                   <label>Select Project Subtype</label>
                                   <select id="project-subtype-list" class="selectDesign form-control"></select>
                                   </div>
                       
-                              <div class="form-group">
+                              <div class="form-group mt-3">
                                   <label for="create-task">Create Task</label>
                                   <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
                               </div>
@@ -103,12 +103,12 @@
                                   <input type="text" class="form-control" id="assign-task" placeholder="Enter Name">
                               </div>
                       
-                              <div class="form-group">
+                              <div class="form-group mt-3">
                                   <label for="starting-date">Start Date</label>
                                   <input type="date" class="form-control" id="starting-date">
                               </div>
                       
-                              <div class="form-group">
+                              <div class="form-group mt-7">
                                   <label for="deadline">Deadline</label>
                                   <input type="date" class="form-control" id="deadline">
                               </div>
