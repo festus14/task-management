@@ -83,6 +83,11 @@
               <div class="row">
                   <div class="col-md-6 col-sm-6 ml-auto">
 
+                      <div class="form-group">
+                          <label for="client-list">Select Client</label>
+                          <select id="client-list" class="selectDesign form-control"></select>
+                      </div>
+
                           <div class="form-group">
                                   <label>Select Project</label>
                                   <select id="project-list" class="selectDesign form-control"></select>
