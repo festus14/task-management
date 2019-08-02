@@ -15,7 +15,7 @@
       
       <!-- Modal -->
       <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -25,7 +25,8 @@
             </div>
             <div class="modal-body">
                     <div class="container-fluid">
-                      <form action="">
+                      <form action="" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6 col-sm-6 ml-auto">
                                     <div class="form-group">
@@ -125,32 +126,8 @@
 @endsection
 
 
-{{-- @section('javascript')
+@section('javascript')
 <script>
-    const subtypeList = [
-        {
-            name: 'Account'
-        },
-        {
-            name: 'Bussiness'
-        },
-        {
-            name: 'Econs'
-        },
-    ]
-
-    const projectList = [
-        {
-            name: 'Audit'
-        },
-        {
-            name: 'Tax'
-        },
-        {
-            name: 'Payroll'
-        },
-    ]
-
     function add(parent, el) {
         return parent.add(el);
     }
@@ -175,16 +152,27 @@
     dropdownTwo.add(defaultOption);
     dropdownTwo.selectedIndex = 0;
 
-    projectList.map(elem => {
-        let option = document.createElement('option');
-        option.text = elem.name;
-        add(dropdown, option)
-    })
+        // Trying xmlhttp request
 
-    subtypeList.map(elem => {
-        let option = document.createElement('option');
-        option.text = elem.name;
-        add(dropdownTwo, option)
-    })
+        var request = new XMLHttpRequest()
+
+        request.open('GET', 'http://127.0.0.1:8000/admin/get_comment_by_task_id/1', true)
+        request.onload = function() {
+          // Begin accessing JSON data here
+          var data = JSON.parse(this.response)
+
+          if (request.status >= 200 && request.status < 400) {
+            data.map(elem => {
+              let option = document.createElement('option');
+              option.text = elem.client.name;
+              add(dropdown, option)
+            })
+          } else {
+            console.log('error')
+          }
+        }
+
+        request.send()
+
 </script>
-@endsection --}}
+@endsection

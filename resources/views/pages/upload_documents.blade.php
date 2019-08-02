@@ -9,34 +9,35 @@
 @section('content')
 <div class="row">
     <div class="col-sm-6 offset-sm-0">
-        <form>
-
+        <form action="" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
-                    <label>Client Name</label>
+                    <label for="client-list">Select Client</label>
                     <select id="client-list" class="selectDesign form-control"></select>
                 </div>
 
             <div class="form-group">
-                <label>Project Name</label>
+                <label for="project-list">Select Project Name</label>
                 <select id="project-list" class="selectDesign form-control"></select>
             </div>
 
             <div class="form-group">
-                <div class="file-field">
-                    <div class="btn btn-primary btn-sm float-left">
-                    <span>Choose file</span>
-                    <input type="file">
-                    </div>
-                    <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" placeholder="Upload your file">
-                    </div>
-                </div>
+                <label for="task-list">Select Task</label>
+                <select id="task-list" class="selectDesign form-control"></select>
                 </div>
 
+            <div class="form-group mt-3">
+                    <input style="background: #f1f1f1" type="file" name="files[]" multiple />
+            </div>
+
             
-            <input type="submit" class="btn btn-primary" value="Save">
+            <input type="submit" class="btn btn-primary mt-3" value="Save">
 
         </form>
     </div>
 </div>
+@endsection
+
+@section('javascript')
+    
 @endsection
