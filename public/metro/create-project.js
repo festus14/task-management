@@ -36,11 +36,11 @@ dropdown.selectedIndex = 0;
 // .then((resp) => resp.json())
 // .then(data => {
 //     console.log(data)
-//     data.map(elem => {
-//         let option = document.createElement('option');
-//         option.text = elem.name;
-//         add(dropdown, option)
-//     })
+    // data.map(elem => {
+        // let option = document.createElement('option');
+        // option.text = elem.name;
+        // add(dropdown, option)
+    // })
 // })
 // .catch(function(error){
 //     console.log(error);
