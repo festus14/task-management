@@ -157,9 +157,11 @@
     dropdown.length = 0;
 
     let defaultOption = document.createElement('option');
+    // defaultOption.text = '--Select Project--';
 
     dropdown.add(defaultOption);
     dropdown.selectedIndex = 0;
+
 
     // Dropdown for Project Subtype
 
@@ -167,6 +169,7 @@
     dropdownTwo.length = 0;
 
     defaultOption = document.createElement('option');
+    // defaultOption.text = '--Select Project Subtype--';
 
     dropdownTwo.add(defaultOption);
     dropdownTwo.selectedIndex = 0;
@@ -176,7 +179,7 @@
         type: "GET",
         url: '{{ url("/api/v1/projects") }}',
         success: function (data) {
-          console.log('data')
+          console.log('data1', data)
           data.map(elem => {
               let option = document.createElement('option');
               option.text = elem.name;
@@ -192,14 +195,15 @@
         type: "GET",
         url: '{{ url("/api/v1/project-sub-types") }}',
         success: function (dataTwo) {
+          console.log('data2', dataTwo)
           dataTwo.map(elem => {
               let option = document.createElement('option');
               option.text = elem.name;
               add(dropdownTwo, option)
             })
         },
-        error: function (data) {
-            console.log('Error:', data);
+        error: function (dataTwo) {
+            console.log('Error:', dataTwo);
         }
       });
 
