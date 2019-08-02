@@ -150,6 +150,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('create_project', 'ProjectPagesController@createProject')->name('create_project');
     Route::get('project_report', 'ProjectPagesController@projectReport')->name('project_report');
+    Route::get('create_client', 'ClientDashboardPagesController@createClient')->name('create_client');
 
 });
 
