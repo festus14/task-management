@@ -9,7 +9,7 @@
 @section('content')
     
     <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTaskModal">
+<button type="button" class="btn btn" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
         Create Task
       </button>
       
@@ -68,7 +68,8 @@
                   </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Add Task</button>
+              <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
+              
             </div>
           </div>
         </div>

@@ -77,8 +77,10 @@
                                         </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 form-group mt-4">
-                            <button type="submit" class="btn btn-primary btn-block center-block">Submit</button>   
+                                    <div class="row col-md-12">
+                                            <div class="col-md-2 form-group mt-3">
+                                    <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                                            </div>
                             </div>
                  </div>
                          
