@@ -66,7 +66,7 @@
                                                     <button type="submit">Upload Files</button>
                                                 </div>
                                      <div id="messages">
-                                                <p>Status Messages</p>
+                                                
                                             </div>
                                             </fieldset>
                                            
