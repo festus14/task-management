@@ -121,7 +121,6 @@
 
       if (ids.length === 0) {
         alert('{{ trans('global.datatables.zero_selected') }}')
-
         return
       }
 
@@ -135,7 +134,7 @@
       }
     }
   }
-  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
 @can('project_delete')
   dtButtons.push(deleteButton)
 @endcan

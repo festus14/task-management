@@ -146,22 +146,6 @@
     dom: 'lBfrtip<"actions">',
     buttons: [
       {
-        extend: 'copy',
-        className: 'btn-default',
-        text: copyButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'csv',
-        className: 'btn-default',
-        text: csvButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
         extend: 'excel',
         className: 'btn-default',
         text: excelButtonTrans,
@@ -177,22 +161,14 @@
           columns: ':visible'
         }
       },
-      {
-        extend: 'print',
-        className: 'btn-default',
-        text: printButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'colvis',
-        className: 'btn-default',
-        text: colvisButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      }
+      // {
+      //   extend: 'colvis',
+      //   className: 'btn-default',
+      //   text: colvisButtonTrans,
+      //   exportOptions: {
+      //     columns: ':visible'
+      //   }
+      // }
     ]
   });
 

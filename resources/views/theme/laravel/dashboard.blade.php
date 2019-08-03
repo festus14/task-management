@@ -1,6 +1,5 @@
-
 @extends('layouts.metro')
-@section('title')
+@section('name')
     <title>Task Management | Dashboard</title>
 @endsection
 @section('subheader')
@@ -66,7 +65,8 @@
                             <div class="m--space-10"></div>
                             <div class="progress m-progress--sm">
                                 <div class="progress-bar m--bg-brand" role="progressbar"
-                                     style="width: {{ ($projects->where('status_id', 4)->count() * 100)/ count($projects) }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                     style="width: {{ ($projects->where('status_id', 4)->count() * 100)/ count($projects) }}%;"
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                 </div>
                             </div>
                             <span class="m-widget24__change">Completed</span>
@@ -85,7 +85,8 @@
                             <span class="m-widget24__stats m--font-info">{{ count($tasks) }}</span>
                             <div class="m--space-10"></div>
                             <div class="progress m-progress--sm">
-                                <div class="progress-bar m--bg-info" role="progressbar" style="width: {{ ($tasks->where('status_id', 4)->count() * 100)/ count($projects) }}%;"
+                                <div class="progress-bar m--bg-info" role="progressbar"
+                                     style="width: {{ ($tasks->where('status_id', 4)->count() * 100)/ count($projects) }}%;"
                                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <span class="m-widget24__change">Completed</span>
@@ -107,7 +108,8 @@
                             <div class="m--space-10"></div>
                             <div class="progress m-progress--sm">
                                 <div class="progress-bar m--bg-danger" role="progressbar"
-                                     style="width: {{ ($clients->where('date_of_engagement', date('Y'))->count() * 100)/ count($clients) }}%;" aria-valuenow="50" aria-valuemin="0"
+                                     style="width: {{ ($clients->where('date_of_engagement', date('Y'))->count() * 100)/ count($clients) }}%;"
+                                     aria-valuenow="50" aria-valuemin="0"
                                      aria-valuemax="100"></div>
                             </div>
                             <span class="m-widget24__change">New Addition</span>
@@ -121,7 +123,7 @@
                     <div class="m-widget24">
                         <div class="m-widget24__item">
                             <h4 class="m-widget24__title">
-                               Staff Members
+                                Staff Members
                             </h4>
                             <br>
                             <span class="m-widget24__desc">Total User</span>
@@ -150,9 +152,9 @@
                 <div class="m-portlet__head">
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
-												<span class="m-portlet__head-icon">
-													<i class="flaticon-map-location"></i>
-												</span>
+                            <span class="m-portlet__head-icon">
+                                <i class="flaticon-map-location"></i>
+                            </span>
                             <h3 class="m-portlet__head-text">
                                 Calendar
                             </h3>
@@ -161,14 +163,13 @@
                     <div class="m-portlet__head-tools">
                         <ul class="m-portlet__nav">
                             <li class="m-portlet__nav-item">
-                                <a href="#"
-                                   class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
-														<span>
-															<i class="la la-plus"></i>
-															<span>
-																Add Event
-															</span>
-														</span>
+                                <a href="#" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
+                                    <span>
+                                        <i class="la la-plus"></i>
+                                        <span>
+                                            Add Event
+                                        </span>
+                                    </span>
                                 </a>
                             </li>
                         </ul>
@@ -198,14 +199,16 @@
                     <div class="m-portlet__head-tools">
                         <ul class="m-portlet__nav">
                             <li class="m-portlet__nav-item">
-                                <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
-                                     data-dropdown-toggle="hover" aria-expanded="true">
+                                <div
+                                    class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+                                    data-dropdown-toggle="hover" aria-expanded="true">
                                     <a href="#"
                                        class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
                                         <i class="la la-ellipsis-h m--font-brand"></i>
                                     </a>
                                     <div class="m-dropdown__wrapper">
-                                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                        <span
+                                            class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                         <div class="m-dropdown__inner">
                                             <div class="m-dropdown__body">
                                                 <div class="m-dropdown__content">
@@ -286,197 +289,448 @@
         </div>
     </div>
     <!-- End: Client Datatable -->
+    <!-- Begin: Task Datatable --->
+    <div class="row">
+        <div class="col-xl-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet " id="m_portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon">
+                                <i class="flaticon-list-2"> </i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                                Tasks
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <a href="{{ url('admin/tasks/create') }}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
+                                    <span>
+                                        <i class="la la-plus"></i>
+                                        <span>
+                                            Add Task
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <table id="kt_table_task_temple" class="table table-striped table-hover datatable">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Client</th>
+                            <th>Status</th>
+                            <th>Manager</th>
+                            <th>Project</th>
+                            <th>Project Subtype</th>
+                            <th>Category</th>
+                            <th>Starting</th>
+                            <th>Ending</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @php  $counter = 1; @endphp
+                        @foreach($tasks as $task)
+                            <tr data-entry-id="{{ $task->id }}">
+                                <td> </td>
+                                <td>{{ $task->name }}</td>
+                                <td>{{ $task->client->name }}</td>
+                                <td>{{ $task->status_id }}</td>
+                                <td>{{ $task->manager->email }}</td>
+                                <td>{{ $task->project->name }}</td>
+                                <td>{{ $task->project_sub_type->name }}</td>
+                                <td>{{ $task->category->name }}</td>
+                                <td>{{ $task->starting_date }}</td>
+                                <td>{{ $task->ending_date }}</td>
+                            </tr>
+                            @php  $counter ++; @endphp
+                        @endforeach
+                        @php  $counter = 1; @endphp
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet " id="m_portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon">
+                                <i class="flaticon-list-2"> </i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                                Tasks Datatable
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <a href="{{ url('admin/tasks/create') }}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
+                                    <span>
+                                        <i class="la la-plus"></i>
+                                        <span>
+                                            Add Task
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <table id="kt_table_task" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Status ID</th>
+                                <th>manager_id</th>
+                                <th>manager</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+
+    </div>
+    <!-- End: Task Datatable -->
 @endsection
 @section('javascript')
-{{--    <script src="metro/assets/app/js/dashboard.js" type="text/javascript"></script>--}}
+    {{--    <script src="metro/assets/app/js/dashboard.js" type="text/javascript"></script>--}}
+
     @parent
-<script>
-    $(document).ready(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost/task-management/public/api/v1/tasks',
-            success: function (data) {
-
+    <script>
+        let languages = {
+            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+        };
+        var taskDataTable = $('#kt_table_task').DataTable({
+            ajax: "{{ url('/api/v1/tasks') }}",
+            columns: [
+                { "data": "id" },
+                { "data": "name" },
+                { "data": "status.name" },
+                { "data": "manager_id" },
+                { "data": "manager.email" }
+            ],
+            dom: 'lBfrtip<"actions">',
+            language: {
+                url: languages.{{ app()->getLocale() }}
             },
-            error: function (data) {
-                console.log('Error:', data);
-            }
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }, {
+                orderable: false,
+                searchable: false,
+                targets: -1
+            }],
         });
 
-        //delete user login
-        $('body').on('click', '.delete-user', function () {
-            var user_id = $(this).data("id");
-            confirm("Are You sure want to delete !");
+        new $.fn.dataTable.Buttons( taskDataTable, {
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ],
+        } );
 
+        $(function () {
+
+            let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
+            let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
+            let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
+            let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
+            let printButtonTrans = '{{ trans('global.datatables.print') }}';
+            let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
+            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
+            $.extend(true, $.fn.dataTable.defaults, {
+                language: {
+                    url: languages.{{ app()->getLocale() }}
+                },
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                }],
+                select: {
+                    style:    'multi+shift',
+                    selector: 'td:first-child'
+                },
+                order: [],
+                pageLength: 10,
+                dom: 'lBfrtip<"actions">',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        className: 'btn-primary',
+                        text: excelButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn-success',
+                        text: pdfButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        className: 'btn-accent',
+                        text: csvButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+                ]
+            });
+
+            $.fn.dataTable.ext.classes.sPageButton = '';
+            let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
+            let deleteButton = {
+                text: deleteButtonTrans,
+                url: "{{ route('admin.tasks.massDestroy') }}",
+                className: 'btn-danger',
+                action: function (e, dt, node, config) {
+                    var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+                        return $(entry).data('entry-id')
+                    });
+
+                    if (ids.length === 0) {
+                        alert('{{ trans('global.datatables.zero_selected') }}');
+                        return
+                    }
+
+                    if (confirm('{{ trans('global.areYouSure') }}')) {
+                        $.ajax({
+                            headers: {'x-csrf-token': _token},
+                            method: 'POST',
+                            url: config.url,
+                            data: { ids: ids, _method: 'DELETE' }})
+                            .done(function () { location.reload() })
+                    }
+                }
+            }
+            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+            @can('task_delete')
+            dtButtons.push(deleteButton);
+            @endcan
+
+            $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+        })
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
-                type: "DELETE",
-                url: "{{ url('ajax-crud')}}"+'/'+user_id,
+                type: "GET",
+                url: '{{ url("/api/v1/projects") }}',
                 success: function (data) {
-                    $("#user_id_" + user_id).remove();
+
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
-        });
-    });
 
-    var datatableClient = function() {
-        if ($('#m_datatable_clients_list').length === 0) {
-            return;
-        }
+            //delete user login
+            $('body').on('click', '.delete-user', function () {
+                var user_id = $(this).data("id");
+                confirm("Are You sure want to delete !");
 
-        var datatable = $('.m_datatable').mDatatable({
-            data: {
-                type: 'remote',
-                source: {
-                    read: {
-                        url: 'http://localhost/task-management/public/api/v1/clients/',
-                        method: 'GET',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        },
-                        contentType: 'application/json',
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('ajax-crud')}}" + '/' + user_id,
+                    success: function (data) {
+                        $("#user_id_" + user_id).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
                     }
-                },
-                pageSize: 10,
-                saveState: {
-                    cookie: false,
-                    webstorage: true
-                },
-                serverPaging: true,
-                serverFiltering: true,
-                serverSorting: true
-            },
+                });
+            });
+        });
 
-            layout: {
-                theme: 'default',
-                class: '',
-                scroll: true,
-                height: 380,
-                footer: false
-            },
+        var datatableClient = function () {
+            if ($('#m_datatable_clients_list').length === 0) {
+                return;
+            }
 
-            sortable: true,
-
-            filterable: false,
-
-            pagination: true,
-            search: {
-                input: $('#generalSearch'),
-                onEnter: true,
-            },
-            toolbar: {
-                layout: ['pagination', 'info']
-            },buttons: [
-                'copy', 'excel', 'pdf'
-            ],
-            columns: [
+            var datatable = $('.m_datatable').mDatatable(
                 {
-                field: "id",
-                title: "#",
-                sortable: false,
-                width: 40,
-                selector: {
-                    class: 'm-checkbox--solid m-checkbox--brand'
+                data: {
+                    type: 'remote',
+                    source: {
+                        read: {
+                            url: '{{ url("/api/v1/clients/") }}',
+                            method: 'GET',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                            contentType: 'application/json',
+                        }
+                    },
+                    pageSize: 10,
+                    saveState: {
+                        cookie: false,
+                        webstorage: true
+                    },
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true
                 },
-                textAlign: 'center'
-            }, {
-                field: "name",
-                title: "Client",
-                sortable: 'asc',
-                filterable: true,
-                width: 150,
-            }, {
-                field: "phone",
-                title: "Phone",
-                width: 150,
-            }, {
-                field: "email",
-                title: "Email",
-                width: 150,
-                responsive: {
-                    visible: 'lg'
-                }
-            },{
-                field: "address",
-                title: "Address",
-                width: 150,
-                responsive: {
-                    visible: 'lg'
-                }
-            },{
-                field: "date_of_engagement",
-                title: "Engaged",
-                width: 100,
-            }, {
-                field: "expiry_date",
-                title: "Expire",
-                width: 100,
-            },  {
-                field: "Actions",
-                width: 110,
-                title: "Actions",
-                sortable: false,
-                overflow: 'visible',
-                template: function(row) {
-                    var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
-                    return '\<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
+
+                layout: {
+                    theme: 'default',
+                    class: '',
+                    scroll: true,
+                    height: 380,
+                    footer: false
+                },
+
+                sortable: true,
+
+                filterable: false,
+
+                pagination: true,
+                search: {
+                    input: $('#generalSearch'),
+                    onEnter: true,
+                },
+                toolbar: {
+                    layout: ['pagination', 'info']
+                }, buttons: [
+                    'copy', 'excel', 'pdf'
+                ],
+                columns: [
+                    {
+                        field: "id",
+                        title: "#",
+                        sortable: false,
+                        width: 40,
+                        selector: {
+                            class: 'm-checkbox--solid m-checkbox--brand'
+                        },
+                        textAlign: 'center'
+                    }, {
+                        field: "name",
+                        title: "Client",
+                        sortable: 'asc',
+                        filterable: true,
+                        width: 150,
+                    }, {
+                        field: "phone",
+                        title: "Phone",
+                        width: 150,
+                    }, {
+                        field: "email",
+                        title: "Email",
+                        width: 150,
+                        responsive: {
+                            visible: 'lg'
+                        }
+                    }, {
+                        field: "address",
+                        title: "Address",
+                        width: 150,
+                        responsive: {
+                            visible: 'lg'
+                        }
+                    }, {
+                        field: "date_of_engagement",
+                        title: "Engaged",
+                        width: 100,
+                    }, {
+                        field: "expiry_date",
+                        title: "Expire",
+                        width: 100,
+                    }, {
+                        field: "Actions",
+                        width: 110,
+                        title: "Actions",
+                        sortable: false,
+                        overflow: 'visible',
+                        template: function (row) {
+                            var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
+                            return '\<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
                             <i class="la la-edit"></i>\
                         </a>\
                         <a href="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
                             <i class="la la-trash"></i>\
                         </a>\
                     ';
-                }
-            }],
-        });
-    };
-    // datatables for Clients
-    datatableClient();
+                        }
+                    }],
+            });
 
-    var calendarInit = function() {
-        if ($('#m_calendar').length === 0) {
-            return;
+        };
+        // datatables for Clients
+        datatableClient();
+
+        var calendarInit = function () {
+            if ($('#m_calendar').length === 0) {
+                return;
+            }
+
+            var todayDate = moment().startOf('day');
+            var YM = todayDate.format('YYYY-MM');
+            var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
+            var TODAY = todayDate.format('YYYY-MM-DD');
+            var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
+            let events = {!! json_encode($events) !!};
+            $('#m_calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listWeek'
+                },
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                navLinks: true,
+                defaultDate: moment(),
+                events: events,
+
+                eventRender: function (event, element) {
+                    if (element.hasClass('fc-day-grid-event')) {
+                        element.data('content', event.description);
+                        element.data('placement', 'top');
+                        mApp.initPopover(element);
+                    } else if (element.hasClass('fc-time-grid-event')) {
+                        element.find('.fc-title').append('<div class="fc-description">' + event.description + '</div>');
+                    } else if (element.find('.fc-list-item-title').lenght !== 0) {
+                        element.find('.fc-list-item-title').append('<div class="fc-description">' + event.description + '</div>');
+                    }
+                }
+            });
         }
 
-        var todayDate = moment().startOf('day');
-        var YM = todayDate.format('YYYY-MM');
-        var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
-        var TODAY = todayDate.format('YYYY-MM-DD');
-        var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
-        let events = {!! json_encode($events) !!};
-        $('#m_calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay,listWeek'
-            },
-            editable: true,
-            eventLimit: true, // allow "more" link when too many events
-            navLinks: true,
-            defaultDate: moment(),
-            events : events,
-
-            eventRender: function(event, element) {
-                if (element.hasClass('fc-day-grid-event')) {
-                    element.data('content', event.description);
-                    element.data('placement', 'top');
-                    mApp.initPopover(element);
-                } else if (element.hasClass('fc-time-grid-event')) {
-                    element.find('.fc-title').append('<div class="fc-description">' + event.description + '</div>');
-                } else if (element.find('.fc-list-item-title').lenght !== 0) {
-                    element.find('.fc-list-item-title').append('<div class="fc-description">' + event.description + '</div>');
-                }
-            }
-        });
-    }
-
-    calendarInit();
-</script>
+        calendarInit();
+    </script>
 @endsection

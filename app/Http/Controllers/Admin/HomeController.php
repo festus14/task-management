@@ -68,13 +68,19 @@ class HomeController
             ->with('team_members')
             ->get();
 
-        $tasks = Task::all();
+        $tasks = Task::with('client')
+            ->with('project_sub_type')
+            ->with('project')
+            ->with('status')
+            ->with('manager')
+            ->with('assinged_tos')
+            ->with('category')
+            ->get();
 
         $users = User::all();
 
         $clients = Client::all();
 
-       $completed_task = $tasks->where('status_id', 4);
 
         $events = [];
 

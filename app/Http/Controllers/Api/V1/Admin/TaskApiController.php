@@ -11,9 +11,16 @@ class TaskApiController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::with('client')
+        ->with('project_sub_type')
+        ->with('project')
+        ->with('status')
+        ->with('manager')
+        ->with('assinged_tos')
+        ->with('category')
+        ->get();
 
-        return $tasks;
+        return response()->json(['data'=>$tasks], 200);
     }
 
     public function store(StoreTaskRequest $request)
