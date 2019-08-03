@@ -22,4 +22,9 @@ class ClientDashboardPagesController extends Controller
     public function clientDashboard(){
         return view('pages.client_dashboard');
     }
+
+    public function createClient(){
+        return view('pages.create_client');
+    }
+    
 }

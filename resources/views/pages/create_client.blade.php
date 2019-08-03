@@ -1,10 +1,10 @@
 @extends('layouts.inner')
 
-@section('title', 'Project')
+@section('title', 'Create client')
     
-@section('header', 'Project Management')
+@section('header', 'Clients Portal')
 
-@section('sub_header', 'Create Project')
+@section('sub_header', 'Create client')
 
 @section('content')
 <div class="row">
@@ -12,41 +12,38 @@
         <form>
             <div class="row col-md-12">
                     <div class="col-md-6 form-group mt-3">
-                        <label>Select Client</label>
+                        <label>Company Name</label>
                         <select id="client-list" class="selectDesign form-control"></select>
                     </div>
             
                     <div class="col-md-6 form-group mt-3">
-                        <label for="create-project">Project Name</label>
-                        <input type="text" class="form-control" id="create-project" placeholder="">
+                        <label for="create-project">Date Of Engagement</label>
+                        <input type="date" class="form-control" id="create-project" placeholder="">
                     </div>
             </div>
             <div class="row col-md-12">
                     <div class="col-md-6 form-group mt-3">
-                        <label for="create-project-type">Project Type</label>
+                        <label for="create-project-type">Address</label>
                         <input type="text" class="form-control" id="create-project-type" placeholder="">
                     </div>
 
                             
                     <div class="col-md-6 form-group mt-3">
-                                <label for="exampleFormControlSelect1">Project Sub-type</label>
-                                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#exampleModal"style="float:right;"></i>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                  <option>1</option>
-                                </select>
+                                <label for="exampleFormControlSelect1">Expiry Date</label>
+                                <input type="date" class="form-control" id="create-project" placeholder="">
                      </div>
                     
             </div>
              <div class="row col-md-12 ">
                         
                             <div class="col-md-6 form-group mt-3">
-                                <label for="starting-date">Start Date</label>
-                                <input type="date" class="form-control" id="starting-date">
+                                <label for="starting-date">Email</label>
+                                <input type="email" class="form-control" id="starting-date">
                             </div>
                         
                             <div class="col-md-6 form-group mt-3">
-                                    <label for="Deadline">Deadline</label>
-                                    <input type="date" class="form-control" id="Deadline">
+                                    <label for="Deadline">Phone Number</label>
+                                    <input type="" class="form-control" id="Deadline">
                             </div>
                            
                                          <!-- Modal -->
@@ -84,4 +81,3 @@
     </div>
     </div>
 @endsection
- 
