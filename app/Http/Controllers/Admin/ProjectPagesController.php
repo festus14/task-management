@@ -36,4 +36,8 @@ class ProjectPagesController extends Controller
     public function projectReport(){
         return view('pages.project_report');
     }
+
+    public function projectComment(){
+        return view('pages.project_comment');
+    }
 }
