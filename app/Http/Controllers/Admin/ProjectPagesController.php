@@ -36,4 +36,11 @@ class ProjectPagesController extends Controller
     public function projectReport(){
         return view('pages.project_report');
     }
+
+    // project subtype
+    public function projectSubtype(){
+        $tasks = Task::with('client')->with('project_sub_type')->with('manager')->with('status')->with('project')->with('category')->get();
+    
+        return view('pages.create_subtype', compact('tasks'));
+    }
 }

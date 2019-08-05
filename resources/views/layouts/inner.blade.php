@@ -23,6 +23,8 @@
     <!--end::Web font -->
     <!--begin::Base Styles -->
     <!--begin::Page Vendors -->
+    <link href="{{ url('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ url('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
           type="text/css"/>
     <!--end::Page Vendors -->
@@ -1514,6 +1516,10 @@
 <!--begin::Page Vendors -->
 <script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
 <!--end::Page Vendors -->
+<script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
+
 <script src="{{ asset('js/main.js') }}"></script>
 <!--begin::Page Snippets -->
 @yield('javascript')

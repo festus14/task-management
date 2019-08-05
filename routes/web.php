@@ -147,6 +147,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('/project_dashboard', 'TaskPagesController@projectDashboard')->name('project_dashboard');
 
+    Route::get('/project_subtype', 'ProjectPagesController@projectSubtype')->name('project_subtype');
+
 
     Route::get('create_project', 'ProjectPagesController@createProject')->name('create_project');
     Route::get('project_report', 'ProjectPagesController@projectReport')->name('project_report');
