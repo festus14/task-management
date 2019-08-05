@@ -35,25 +35,6 @@ defaultOption.text = '--Select Project--';
 dropdown.add(defaultOption);
 dropdown.selectedIndex = 0;
 
-// const url = 'https://api/project';
-
-// fetch(url)
-// .then((resp) => resp.json())
-// .then(function(data){
-    // return data.map(function(i){
-    //     let option = document.createElement('option');
-    //     option.text = i.name;
-    //     option.value = i.id;
-
-    //     add(dropdown, option)
-//     })
-// })
-
-// .catch(function(error){
-//     console.log(error);
-// });
-
-
 
 // Dropdown for Project Subtype
 
