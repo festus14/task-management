@@ -7,34 +7,51 @@
 @section('sub_header', 'Project Subtype')
 
 @section('content')
+{{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right">
+        Add Subtype
+      </button> --}}
 
-<div class="container-fluid">
-    <form action="" >
-        <div class="row">
-                <div class="col-md-6 col-sm-6 ">
+      <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Subtype</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form action="" >
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 ">
+            
+                                <div class="form-group">
+                                    <label for="project-type">Select Project Type</label>
+                                    <select id="project-type" class="selectDesign form-control"></select>
+                                </div>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="project-type">Select Project Type</label>
-                        <select id="project-type" class="selectDesign form-control"></select>
-                    </div>
-
-                    <div class="form-group mt-3">
-                        <label for="create-task">Subtype Name</label>
-                        <input type="text" class="form-control" id="subtype" placeholder="Enter Subtype Name">
-                    </div>
-
-                </div>
-
-                <div class="row col-md-12">
-                        <div class="col-md-2 form-group mt-3">
-                          <button class="btn btn-block mt-2" style="background-color:#8a2a2b; color:white;">Save</button>
+                            <div class="col-md-6 col-sm-6 ">
+                                <div class="form-group">
+                                    <label for="create-task">Subtype Name</label>
+                                    <input type="text" class="form-control" id="subtype" placeholder="Enter Subtype Name">
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
         </div>
-    </form>
-</div>
+      </div>
+
 <section class="row">
     <div class="col-xl-12">
+        
             <table id="kt_table_task_temple" class="table table-striped table-hover datatable">
                     <thead>
                     <tr>
@@ -83,7 +100,7 @@
 
 @section('javascript')
 <script>
-     $(function () {
+$(function () {
 
 let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
 let csvButtonTrans = '{{ trans('global.datatables.csv') }}';

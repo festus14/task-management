@@ -133,8 +133,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('/create_task', 'TaskPagesController@createTask')->name('create_task');
 
-    Route::get('/view_task', 'TaskPagesController@createTask')->name('view_task');
-
     Route::get('/create_project', 'ProjectPagesController@createProject')->name('create_project');
 
     Route::get('/upload_document', 'ProjectPagesController@uploadDocument')->name('upload_document');
