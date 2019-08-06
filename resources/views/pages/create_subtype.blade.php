@@ -23,27 +23,22 @@
             </div>
             <div class="modal-body">
                     <form action="" >
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 ">
             
                                 <div class="form-group">
                                     <label for="project-type">Select Project Type</label>
                                     <select id="project-type" class="selectDesign form-control"></select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6 col-sm-6 ">
                                 <div class="form-group">
                                     <label for="create-task">Subtype Name</label>
                                     <input type="text" class="form-control" id="subtype" placeholder="Enter Subtype Name">
                                 </div>
-                            </div>
-                        </div>
+                            
                         </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Save</button>
             </div>
           </div>
         </div>
@@ -395,6 +390,11 @@ $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
         })
 
     </script>
+
+    <script>
+        
+    </script>
+
 
     
 @endsection

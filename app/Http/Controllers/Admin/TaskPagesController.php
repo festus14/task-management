@@ -25,7 +25,7 @@ class TaskPagesController extends Controller
         return view('pages.create_task');
     }
     public function getProjects(Request $request, $client_id){
-       return Project::where('client_id', '=', $client_id)->get();
+        return Project::where('client_id', '=', $client_id)->get();
     }
     public function getProject($project_type){
         return Project::where('project_type_id', $project_type)->get();
