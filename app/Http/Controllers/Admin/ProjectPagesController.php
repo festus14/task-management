@@ -43,4 +43,9 @@ class ProjectPagesController extends Controller
     
         return view('pages.create_subtype', compact('tasks'));
     }
+
+    // project report
+    public function viewProject(){
+        return view('pages.view_project');
+    }
 }

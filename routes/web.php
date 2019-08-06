@@ -156,6 +156,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('task_category', 'TaskPagesController@createTaskCategory')->name('task_category');
     Route::get('project_comment', 'ProjectPagesController@projectComment')->name('project_comment');
+    Route::get('view_project', 'ProjectPagesController@viewProject')->name('view_project');
+    
     
 
 });
