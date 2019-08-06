@@ -42,4 +42,9 @@ class ProjectPagesController extends Controller
         $projectSubTypes = ProjectSubType::with('project_type')->get();
         return view('pages.create_subtype', compact('projectSubTypes'));
     }
+
+    // project report
+    public function viewProject(){
+        return view('pages.view_project');
+    }
 }

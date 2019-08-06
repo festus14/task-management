@@ -72,4 +72,10 @@ class TaskPagesController extends Controller
         $tasks = Task::all();
         return view('pages.project_dashboard', compact('projects', 'tasks'));
     }
+
+    public function createTaskCategory(){
+        return view('pages.task_category');
+    }
+
+    
 }

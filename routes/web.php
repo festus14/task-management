@@ -154,6 +154,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('project_report', 'ProjectPagesController@projectReport')->name('project_report');
     Route::get('create_client', 'ClientDashboardPagesController@createClient')->name('create_client');
 
+    Route::get('task_category', 'TaskPagesController@createTaskCategory')->name('task_category');
+    Route::get('project_comment', 'ProjectPagesController@projectComment')->name('project_comment');
+    Route::get('view_project', 'ProjectPagesController@viewProject')->name('view_project');
+    
+    
+
 });
 
 

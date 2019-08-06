@@ -31,6 +31,10 @@
     <!--end::Page Vendors -->
     <link href="{{ url('metro/assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ url('metro/assets/demo/demo2/base/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
+    
+<script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="{{ url('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
     @yield('css')

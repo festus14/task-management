@@ -362,8 +362,164 @@
             dtButtons.push(deleteButton);
             @endcan
 
+<<<<<<< HEAD
             $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
         })
+=======
+        $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+    })
+
+</script>
+<script>
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: '{{ url("/api/v1/projects") }}',
+                success: function (data) {
+
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+
+            //delete user login
+            $('body').on('click', '.delete-user', function () {
+                var user_id = $(this).data("id");
+                confirm("Are You sure want to delete !");
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('ajax-crud')}}" + '/' + user_id,
+                    success: function (data) {
+                        $("#user_id_" + user_id).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            });
+        });
+        var datatableClient = function () {
+            if ($('#m_datatable_clients_list').length === 0) {
+                return;
+            }
+
+            var datatable = $('.m_datatable').mDatatable(
+                {
+                data: {
+                    type: 'remote',
+                    source: {
+                        read: {
+                            url: '{{ url("/api/v1/clients/") }}',
+                            method: 'GET',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                            contentType: 'application/json',
+                        }
+                    },
+                    pageSize: 10,
+                    saveState: {
+                        cookie: false,
+                        webstorage: true
+                    },
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true
+                },
+
+                layout: {
+                    theme: 'default',
+                    class: '',
+                    scroll: true,
+                    height: 380,
+                    footer: false
+                },
+
+                sortable: true,
+
+                filterable: false,
+
+                pagination: true,
+                search: {
+                    input: $('#generalSearch'),
+                    onEnter: true,
+                },
+                toolbar: {
+                    layout: ['pagination', 'info']
+                }, buttons: [
+                    'copy', 'excel', 'pdf'
+                ],
+                columns: [
+                    {
+                        field: "id",
+                        title: "#",
+                        sortable: false,
+                        width: 40,
+                        selector: {
+                            class: 'm-checkbox--solid m-checkbox--brand'
+                        },
+                        textAlign: 'center'
+                    }, {
+                        field: "name",
+                        title: "Client",
+                        sortable: 'asc',
+                        filterable: true,
+                        width: 150,
+                    }, {
+                        field: "phone",
+                        title: "Phone",
+                        width: 150,
+                    }, {
+                        field: "email",
+                        title: "Email",
+                        width: 150,
+                        responsive: {
+                            visible: 'lg'
+                        }
+                    }, {
+                        field: "address",
+                        title: "Address",
+                        width: 150,
+                        responsive: {
+                            visible: 'lg'
+                        }
+                    }, {
+                        field: "date_of_engagement",
+                        title: "Engaged",
+                        width: 100,
+                    }, {
+                        field: "expiry_date",
+                        title: "Expire",
+                        width: 100,
+                    }, {
+                        field: "Actions",
+                        width: 110,
+                        title: "Actions",
+                        sortable: false,
+                        overflow: 'visible',
+                        template: function (row) {
+                            var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : '';
+                            return '\<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
+                            <i class="la la-edit"></i>\
+                        </a>\
+                        <a href="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
+                            <i class="la la-trash"></i>\
+                        </a>\
+                    ';
+                        }
+                    }],
+            });
+
+        };
+</script>
+>>>>>>> ed494f2548a6576312db5a222e416a18d85c378e
 
    
 
