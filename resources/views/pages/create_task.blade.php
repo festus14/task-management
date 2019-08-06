@@ -4,11 +4,9 @@
 
 @section('header', 'Task Management')
 
-@section('sub_header', 'Create Task')
+@section('sub_header', 'Tasks')
 
 @section('content')
-          </div>
-
           <div class="row">
               <div class="col-xl-12">
                   <!--begin::Portlet-->
@@ -27,7 +25,7 @@
                           <div class="m-portlet__head-tools">
                               <ul class="m-portlet__nav">
                                   <li class="m-portlet__nav-item">
-                                      <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#createTaskModal">
+                                      <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
                                           <span>
                                               <i class="la la-plus"></i>
                                               <span>
@@ -69,8 +67,8 @@
                 </button>
               </div>
               <div class="modal-body">
-                        <form action="">
-                <div class="row">
+                <form action="">
+                  <div class="row">
                     <div class="col-md-6 col-sm-6">
   
                         <div class="form-group">
@@ -79,67 +77,72 @@
                         </div>
   
                         <div class="form-group">
-                                    <label>Select Project</label>
-                                    <select id="project-list" class="selectDesign form-control"></select>
-                                </div>
-                    </div>
-                    <div class="form-group mt-3">
-                      <label>Select Project Subtype</label>
-                      <select id="project-subtype-list" class="selectDesign form-control"></select>
-                      </div>
-          
-                      <div class="form-group mt-3">
-                          <label for="create-task">Task Name</label>
-                          <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
-                      </div>
-  
-                      <div class="form-group mt-3">
-                        <label for="create-task">Task category</label>
-                        <input type="text" class="form-control" id="task-category" placeholder="Enter Task Category">
-                    </div>
-                        
+                            <label>Select Project</label>
+                            <select id="project-list" class="selectDesign form-control"></select>
+                        </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                    <label for="assign-task">Assign task to</label>
-                                    <select id="assign-to" multiple="multiple" required class="form-control select2">
-                                      <option>1</option>
-                                      <option>2s</option>
-                                    </select>
-                                </div>
-  
-                                <div class="form-group">
-                                    <label>Select Manager</label>
-                                    <select id="manager" class="selectDesign form-control"></select>
-                                </div>
+                      <div class="form-group">
+                        <label>Select Project Subtype</label>
+                        <select id="project-subtype-list" class="selectDesign form-control"></select>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="create-task">Task Name</label>
+                            <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
+                        </div>
                         
-                                <div class="form-group mt-3">
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="create-task">Task category</label>
+                            <input type="text" class="form-control" id="task-category" placeholder="Enter Task Category">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                                <label for="assign-task">Assign task to</label>
+                                <br>
+                                <select  style="width: 100%" id="assign-task" multiple="multiple" required class="form-control select2">
+                                  <option>1</option>
+                                  <option>2s</option>
+                                </select>
+                            </div>
+                      </div>
+                          <div class="col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <label>Select Manager</label>
+                                <select id="manager" class="selectDesign form-control"></select>
+                            </div>
+                          </div>
+                          <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
                                     <label for="starting-date">Starting Date</label>
                                     <input type="date" class="form-control" id="starting-date">
                                 </div>
+                          </div>
                         
-                                <div class="form-group mt-3">
+                          <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
                                     <label for="deadline">Deadline</label>
                                     <input type="date" class="form-control" id="deadline">
                                 </div>
-  
-                                <div class="form-group">
-                                    <label>Task Status</label>
-                                    <select id="task-status" class="selectDesign form-control"></select>
-                                </div>
-                    </div>
-                    <div class="row col-md-12">
-                        <div class="col-md-2 form-group mt-3">
-                          <button class="btn btn-block mt-2" style="background-color:#8a2a2b; color:white;">Save</button>
                         </div>
-                    </div>
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <label>Task Status</label>
+                                <select id="task-status" class="selectDesign form-control"></select>
+                            </div>
+                        </div>
+                    
                 </div>
           </form>
                       </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
                     </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
                 
               </div>
             </div>
@@ -366,5 +369,3 @@
 
 
 @endsection
-
-

@@ -40,26 +40,36 @@
                     <tr>
                         <th>SN</th>
                         <th>Name</th>
-                        <th>Client</th>
-                        <th>Status</th>
-                        <th>Starting</th>
-                        <th>Ending</th>
+                        <th>Project Type</th>
+                        <th>Tools</th>
                     </tr>
                     </thead>
                     <tbody>
                     @php  $counter = 1; @endphp
-                    @foreach($tasks as $task)
-                        <tr data-entry-id="{{ $task->id }}">
+                    @foreach($projectSubTypes as $projectSubType)
+                        <tr data-entry-id="{{ $projectSubType->id }}">
                             <td> </td>
-                            <td>{{ $task->name }}</td>
-                            <td>{{ $task->client->name ?? '' }}</td>
-                            <td>{{ $task->status_id }}</td>
-                            {{-- <td>{{ $task->manager->email ?? ''}}</td>
-                            <td>{{ $task->project->name }}</td>
-                            <td>{{ $task->project_sub_type->name }}</td>
-                            <td>{{ $task->category->name }}</td> --}}
-                            <td>{{ $task->starting_date }}</td>
-                            <td>{{ $task->ending_date }}</td>
+                            <td>{{  $projectSubType->name }}</td>
+                            <td>{{  $projectSubType->project_type->name }}</td>
+                            <td>
+                                 @can('project_sub_type_show')
+                                    <a class="link" href="{{ route('admin.project-sub-types.show', $projectSubType->id) }}">
+                                       <i class="flaticon-view"> </i>
+                                    </a>
+                                @endcan
+                                @can('project_sub_type_edit')
+                                    <a class="link" href="{{ route('admin.project-sub-types.edit', $projectSubType->id) }}">
+                                            <i class="flaticon-edit"> </i>
+                                    </a>
+                                @endcan
+                                @can('project_sub_type_delete')
+                                    <form action="{{ route('admin.project-sub-types.destroy', $projectSubType->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                       <button type="submit" class="link"> <i class="flaticon-delete"> </i></button>
+                                    </form>
+                                @endcan
+                            </td>
                         </tr>
                         @php  $counter ++; @endphp
                     @endforeach
@@ -105,7 +115,7 @@ $.extend(true, $.fn.dataTable.defaults, {
     buttons: [
         {
             extend: 'excel',
-            className: 'btn-primary',
+            className: 'btn-default',
             text: excelButtonTrans,
             exportOptions: {
                 columns: ':visible'
@@ -113,7 +123,7 @@ $.extend(true, $.fn.dataTable.defaults, {
         },
         {
             extend: 'pdf',
-            className: 'btn-success',
+            className: 'btn-default',
             text: pdfButtonTrans,
             exportOptions: {
                 columns: ':visible'
@@ -121,7 +131,7 @@ $.extend(true, $.fn.dataTable.defaults, {
         },
         {
             extend: 'csv',
-            className: 'btn-accent',
+            className: 'btn-default',
             text: csvButtonTrans,
             exportOptions: {
                 columns: ':visible'
@@ -134,7 +144,7 @@ $.fn.dataTable.ext.classes.sPageButton = '';
 let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
 let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.tasks.massDestroy') }}",
+    url: "{{ route('admin.project-sub-types.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
         var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -259,7 +269,7 @@ $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
             let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
             let deleteButton = {
                 text: deleteButtonTrans,
-                url: "{{ route('admin.tasks.massDestroy') }}",
+                url: "{{ route('admin.project-sub-types.massDestroy') }}",
                 className: 'btn-danger',
                 action: function (e, dt, node, config) {
                     var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

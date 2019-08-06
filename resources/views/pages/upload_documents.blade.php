@@ -26,7 +26,7 @@
             </div>
 
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 col-md-6">
                 <div class="form-group">
                     <label for="project-list">Project Name</label>
                     <select id="project-list" class="selectDesign form-control"></select>
