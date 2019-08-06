@@ -503,11 +503,11 @@
                                                 <li class="m-menu__item  m-menu__item--active " aria-haspopup="true">
                                                     {{-- <a href="{{ route('/')}}" class="m-menu__link "> --}}
                                                         <a href="" class="m-menu__link ">
-                                                        <i class="m-menu__link-icon flaticon-folder"></i>
+                                                        <i class="m-menu__link-icon flaticon-graphic"></i>
                                                        <span class="m-menu__link-title">
 																<span class="m-menu__link-wrap">
 																	<span class="m-menu__link-text">
-																		Create Project
+																		Project Mgt
 																	</span>
                                                         </span>
                                                         </span>
@@ -521,14 +521,6 @@
 																Project Sub-type
 															</span>
                                                         <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="inner.html" class="m-menu__link ">
-                                                        <i class="m-menu__link-icon flaticon-graphic"></i>
-                                                        <span class="m-menu__link-text">
-																View Project(s)
-															</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
@@ -573,11 +565,11 @@
                                             <ul class="m-menu__subnav">
                                                 <li class="m-menu__item  m-menu__item--active " aria-haspopup="true">
                                                     <a href="" class="m-menu__link ">
-                                                        <i class="m-menu__link-icon flaticon-folder"></i>
+                                                        <i class="m-menu__link-icon flaticon-graphic"></i>
                                                         <span class="m-menu__link-title">
 																<span class="m-menu__link-wrap">
 																	<span class="m-menu__link-text">
-																		Create Task
+																		Task Mgt
 																	</span>
                                                         </span>
                                                         </span>
@@ -588,15 +580,6 @@
                                                         <i class="m-menu__link-icon flaticon-map"></i>
                                                         <span class="m-menu__link-text">
 																Task Category
-															</span>
-                                                        <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-                                                    <a href="#" class="m-menu__link m-menu__toggle">
-                                                        <i class="m-menu__link-icon flaticon-graphic"></i>
-                                                        <span class="m-menu__link-text">
-																View Task
 															</span>
                                                         <i class="m-menu__ver-arrow la la-angle-right"></i>
                                                     </a>

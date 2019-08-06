@@ -7,6 +7,18 @@
 @section('sub_header', 'Project Subtype')
 
 @section('content')
+@section('css')
+<style>
+.deletebtn:hover{
+    background-color:red;
+    color:white;
+    
+}
+#kt_table_task_temple_wrapper > div.dt-buttons.btn-group{
+    width: 700px;
+}
+</style>
+@endsection
 {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right">
         Add Subtype
       </button> --}}
@@ -116,7 +128,7 @@
             <div class="m-portlet__head-tools">
                 <ul class="m-portlet__nav">
                     <li class="m-portlet__nav-item">
-                        <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#exampleModal">
+                        <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#exampleModal">
                             <span>
                                 <i class="la la-plus"></i>
                                 <span>
@@ -365,7 +377,7 @@ $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
             let deleteButton = {
                 text: deleteButtonTrans,
                 url: "{{ route('admin.project-sub-types.massDestroy') }}",
-                className: 'btn-danger',
+                className: 'deletebtn',
                 action: function (e, dt, node, config) {
                     var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
                         return $(entry).data('entry-id')
