@@ -26,7 +26,7 @@ class ProjectSubTypeApiController extends Controller
         return $projectSubType->update($request->all());
     }
 
-    public function show(ProjectSusbType $projectSubType)
+    public function show(ProjectSubType $projectSubType)
     {
         return $projectSubType;
     }
