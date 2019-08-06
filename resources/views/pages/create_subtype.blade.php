@@ -49,7 +49,7 @@
         </div>
       </div>
 
-<section class="row">
+{{-- <section class="row">
     <div class="col-xl-12">
         
             <table id="kt_table_task_temple" class="table table-striped table-hover datatable">
@@ -94,7 +94,85 @@
                     </tbody>
                 </table>
     </div>
-</section>
+</section> --}}
+
+
+
+
+
+
+<div class="m-portlet " id="m_portlet">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon">
+                        <i class="flaticon-list-2"> </i>
+                    </span>
+                    <h3 class="m-portlet__head-text">
+                        Project Subtypes Datatable
+                    </h3>
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+                <ul class="m-portlet__nav">
+                    <li class="m-portlet__nav-item">
+                        <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#exampleModal">
+                            <span>
+                                <i class="la la-plus"></i>
+                                <span>
+                                    Add Subtype
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-portlet__body">
+                <table id="kt_table_task_temple" class="table table-striped table-hover datatable">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Project Type</th>
+                            <th>Tools</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @php  $counter = 1; @endphp
+                        @foreach($projectSubTypes as $projectSubType)
+                            <tr data-entry-id="{{ $projectSubType->id }}">
+                                <td> </td>
+                                <td>{{  $projectSubType->name }}</td>
+                                <td>{{  $projectSubType->project_type->name }}</td>
+                                <td>
+                                     @can('project_sub_type_show')
+                                        <a class="link" href="{{ route('admin.project-sub-types.show', $projectSubType->id) }}">
+                                           <i class="flaticon-view"> </i>
+                                        </a>
+                                    @endcan
+                                    @can('project_sub_type_edit')
+                                        <a class="link" href="{{ route('admin.project-sub-types.edit', $projectSubType->id) }}">
+                                                <i class="flaticon-edit"> </i>
+                                        </a>
+                                    @endcan
+                                    @can('project_sub_type_delete')
+                                        <form action="{{ route('admin.project-sub-types.destroy', $projectSubType->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                           <button type="submit" class="link"> <i class="flaticon-delete"> </i></button>
+                                        </form>
+                                    @endcan
+                                </td>
+                            </tr>
+                            @php  $counter ++; @endphp
+                        @endforeach
+                        @php  $counter = 1; @endphp
+                        </tbody>
+                    </table>
+        </div>
+    </div>
+    <!--end::Portlet-->
 
 @endsection
 
