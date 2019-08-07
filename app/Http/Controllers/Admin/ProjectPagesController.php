@@ -45,6 +45,31 @@ class ProjectPagesController extends Controller
 
     // project report
     public function viewProject(){
-        return view('pages.view_project');
+        // 'name',
+        // 'deadline',
+        // 'status_id',
+        // 'client_id',
+        // 'manager_id',
+        // 'created_at',
+        // 'updated_at',
+        // 'deleted_at',
+        // 'starting_date',
+        // 'project_type_id',
+        $projects =  Project::with('status')
+            ->with('client')
+            ->with('manager')
+            ->with('project_type')
+            ->with('team_members')
+            ->with('tasks')
+            ->with('status')            
+            ->get();
+        
+        return view('pages.view_project', compact('projects'));
     }
+   public function projectTypeAPI(Request $request, $project_id) {
+    $projectSubTypes = ProjectSubType::with('project_type')
+    ->where('project_type_id', $project_id)
+    ->get();
+    return response()->json(['data' => $projectSubTypes], 200);
+   }
 }
