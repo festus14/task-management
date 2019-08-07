@@ -72,4 +72,10 @@ class ProjectPagesController extends Controller
     ->get();
     return response()->json(['data' => $projectSubTypes], 200);
    }
+
+
+   public function projectComment(){
+    return view('pages.project_comment');
+}
+
 }
