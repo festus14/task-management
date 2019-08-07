@@ -185,141 +185,111 @@
 
 @section('javascript')
 <script>
-$(function () {
+    $(function () {
 
-let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
-let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
-let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
-let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
-let printButtonTrans = '{{ trans('global.datatables.print') }}';
-let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
-$.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
-$.extend(true, $.fn.dataTable.defaults, {
-    language: {
-        url: languages.{{ app()->getLocale() }}
-    },
-    columnDefs: [{
-        orderable: false,
-        className: 'select-checkbox',
-        targets: 0
-    }, {
-        orderable: false,
-        searchable: false,
-        targets: -1
-    }],
-    select: {
-        style:    'multi+shift',
-        selector: 'td:first-child'
-    },
-    order: [],
-    pageLength: 10,
-    dom: 'lBfrtip<"actions">',
-    buttons: [
-        {
-            extend: 'excel',
-            className: 'btn-default',
-            text: excelButtonTrans,
-            exportOptions: {
-                columns: ':visible'
-            }
+    let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
+    let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
+    let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
+    let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
+    let printButtonTrans = '{{ trans('global.datatables.print') }}';
+    let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
+    $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
+    $.extend(true, $.fn.dataTable.defaults, {
+        language: {
+            url: languages.{{ app()->getLocale() }}
         },
-        {
-            extend: 'pdf',
-            className: 'btn-default',
-            text: pdfButtonTrans,
-            exportOptions: {
-                columns: ':visible'
-            }
+        columnDefs: [{
+            orderable: false,
+            className: 'select-checkbox',
+            targets: 0
+        }, {
+            orderable: false,
+            searchable: false,
+            targets: -1
+        }],
+        select: {
+            style:    'multi+shift',
+            selector: 'td:first-child'
         },
-        {
-            extend: 'csv',
-            className: 'btn-default',
-            text: csvButtonTrans,
-            exportOptions: {
-                columns: ':visible'
+        order: [],
+        pageLength: 10,
+        dom: 'lBfrtip<"actions">',
+        buttons: [
+            {
+                extend: 'excel',
+                className: 'btn-default',
+                text: excelButtonTrans,
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdf',
+                className: 'btn-default',
+                text: pdfButtonTrans,
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csv',
+                className: 'btn-default',
+                text: csvButtonTrans,
+                exportOptions: {
+                    columns: ':visible'
+                }
             }
-        }
-    ]
-});
+        ]
+    });
 
-$.fn.dataTable.ext.classes.sPageButton = '';
-let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
-let deleteButton = {
-    text: deleteButtonTrans,
-    url: "{{ route('admin.project-sub-types.massDestroy') }}",
-    className: 'btn-danger',
-    action: function (e, dt, node, config) {
-        var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-            return $(entry).data('entry-id')
-        });
+    $.fn.dataTable.ext.classes.sPageButton = '';
+    let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
+    let deleteButton = {
+        text: deleteButtonTrans,
+        url: "{{ route('admin.project-sub-types.massDestroy') }}",
+        className: 'btn-danger',
+        action: function (e, dt, node, config) {
+            var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+                return $(entry).data('entry-id')
+            });
 
-        if (ids.length === 0) {
-            alert('{{ trans('global.datatables.zero_selected') }}');
-            return
-        }
+            if (ids.length === 0) {
+                alert('{{ trans('global.datatables.zero_selected') }}');
+                return
+            }
 
-        if (confirm('{{ trans('global.areYouSure') }}')) {
-            $.ajax({
-                headers: {'x-csrf-token': _token},
-                method: 'POST',
-                url: config.url,
-                data: { ids: ids, _method: 'DELETE' }})
-                .done(function () { location.reload() })
+            if (confirm('{{ trans('global.areYouSure') }}')) {
+                $.ajax({
+                    headers: {'x-csrf-token': _token},
+                    method: 'POST',
+                    url: config.url,
+                    data: { ids: ids, _method: 'DELETE' }})
+                    .done(function () { location.reload() })
+            }
         }
     }
-}
-let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-@can('task_delete')
-dtButtons.push(deleteButton);
-@endcan
+    let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+    @can('task_delete')
+    dtButtons.push(deleteButton);
+    @endcan
 
-$('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-})
+    $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+    })
 
 
-        let languages = {
-            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
-        };
-        var taskDataTable = $('#kt_table_task').DataTable({
-            ajax: "{{ url('/api/v1/tasks') }}",
-            columns: [
-                { "data": "id" },
-                { "data": "name" },
-                { "data": "status.name" },
-                { "data": "manager_id" },
-                { "data": "manager.email" }
-            ],
-            dom: 'lBfrtip<"actions">',
-            language: {
-                url: languages.{{ app()->getLocale() }}
-            },
-            columnDefs: [{
-                orderable: false,
-                className: 'select-checkbox',
-                targets: 0
-            }, {
-                orderable: false,
-                searchable: false,
-                targets: -1
-            }],
-        });
-
-        new $.fn.dataTable.Buttons( taskDataTable, {
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ],
-        } );
-
-        $(function () {
-
-            let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
-            let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
-            let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
-            let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
-            let printButtonTrans = '{{ trans('global.datatables.print') }}';
-            let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
-            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
-            $.extend(true, $.fn.dataTable.defaults, {
+            let languages = {
+                'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+            };
+            var taskDataTable = $('#kt_table_task').DataTable({
+                ajax: "{{ url('/api/v1/tasks') }}",
+                columns: [
+                    { "data": "id" },
+                    { "data": "name" },
+                    { "data": "status.name" },
+                    { "data": "manager_id" },
+                    { "data": "manager.email" }
+                ],
+                dom: 'lBfrtip<"actions">',
                 language: {
                     url: languages.{{ app()->getLocale() }}
                 },
@@ -332,74 +302,104 @@ $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
                     searchable: false,
                     targets: -1
                 }],
-                select: {
-                    style:    'multi+shift',
-                    selector: 'td:first-child'
-                },
-                order: [],
-                pageLength: 10,
-                dom: 'lBfrtip<"actions">',
-                buttons: [
-                    {
-                        extend: 'excel',
-                        className: 'btn-primary',
-                        text: excelButtonTrans,
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'btn-success',
-                        text: pdfButtonTrans,
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        className: 'btn-accent',
-                        text: csvButtonTrans,
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    }
-                ]
             });
 
-            $.fn.dataTable.ext.classes.sPageButton = '';
-            let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
-            let deleteButton = {
-                text: deleteButtonTrans,
-                url: "{{ route('admin.project-sub-types.massDestroy') }}",
-                className: 'deletebtn',
-                action: function (e, dt, node, config) {
-                    var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-                        return $(entry).data('entry-id')
-                    });
+            new $.fn.dataTable.Buttons( taskDataTable, {
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ],
+            } );
 
-                    if (ids.length === 0) {
-                        alert('{{ trans('global.datatables.zero_selected') }}');
-                        return
-                    }
+            $(function () {
 
-                    if (confirm('{{ trans('global.areYouSure') }}')) {
-                        $.ajax({
-                            headers: {'x-csrf-token': _token},
-                            method: 'POST',
-                            url: config.url,
-                            data: { ids: ids, _method: 'DELETE' }})
-                            .done(function () { location.reload() })
+                let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
+                let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
+                let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
+                let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
+                let printButtonTrans = '{{ trans('global.datatables.print') }}';
+                let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
+                $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
+                $.extend(true, $.fn.dataTable.defaults, {
+                    language: {
+                        url: languages.{{ app()->getLocale() }}
+                    },
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0
+                    }, {
+                        orderable: false,
+                        searchable: false,
+                        targets: -1
+                    }],
+                    select: {
+                        style:    'multi+shift',
+                        selector: 'td:first-child'
+                    },
+                    order: [],
+                    pageLength: 10,
+                    dom: 'lBfrtip<"actions">',
+                    buttons: [
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: excelButtonTrans,
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: pdfButtonTrans,
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-accent',
+                            text: csvButtonTrans,
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                    ]
+                });
+
+                $.fn.dataTable.ext.classes.sPageButton = '';
+                let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
+                let deleteButton = {
+                    text: deleteButtonTrans,
+                    url: "{{ route('admin.project-sub-types.massDestroy') }}",
+                    className: 'deletebtn',
+                    action: function (e, dt, node, config) {
+                        var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+                            return $(entry).data('entry-id')
+                        });
+
+                        if (ids.length === 0) {
+                            alert('{{ trans('global.datatables.zero_selected') }}');
+                            return
+                        }
+
+                        if (confirm('{{ trans('global.areYouSure') }}')) {
+                            $.ajax({
+                                headers: {'x-csrf-token': _token},
+                                method: 'POST',
+                                url: config.url,
+                                data: { ids: ids, _method: 'DELETE' }})
+                                .done(function () { location.reload() })
+                        }
                     }
                 }
-            }
-            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-            @can('task_delete')
-            dtButtons.push(deleteButton);
-            @endcan
+                let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+                @can('task_delete')
+                dtButtons.push(deleteButton);
+                @endcan
 
-            $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-        })
+                $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+            })
 
     </script>
 

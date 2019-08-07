@@ -91,7 +91,7 @@
     <div class="m-portlet__body  m-portlet__body--no-padding">
         <div class="row m-row--no-padding m-row--col-separator-xl">
 
-                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 10px;">
+                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                         <!--begin::Total Profit-->
                         <div class="m-widget24">
                             <div class="m-widget24__item">
@@ -113,7 +113,7 @@
                                     <p>08156401454</p>
                                 </div>
 
-                                <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#view_client_project">
                                     View Projects
                                 </button>
                                 <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
@@ -124,7 +124,7 @@
                         <!--end::Total Profit-->
                 </div>
 
-                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 10px;">
+                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                         <!--begin::Total Profit-->
                         <div class="m-widget24">
                             <div class="m-widget24__item">
@@ -146,7 +146,73 @@
                                     <p>090564054625</p>
                                 </div>
 
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#view_client_project">
+                                    View Projects
+                                </button>
                                 <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                    View Tasks
+                                </button>
+                            </div>
+                        </div>
+                        <!--end::Total Profit-->
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
+                        <!--begin::Total Profit-->
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <div class="body-header" style="">
+                                    <div class="" style=" float: left">
+                                        <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt width="80px" height="80px" style="border-radius: 1000px">
+                                    </div>
+                                    <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
+                                        Oil and Gas
+                                    </h1>
+                                    <br>
+                                </div>
+
+                                <div class="m--space-10"></div>
+
+                                <div id="client-details" style="">
+                                    <p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>
+                                    <p>stransact@gmail.com</p>
+                                    <p>090564054625</p>
+                                </div>
+
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#view_client_project">
+                                    View Projects
+                                </button>
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                    View Tasks
+                                </button>
+                            </div>
+                        </div>
+                        <!--end::Total Profit-->
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
+                        <!--begin::Total Profit-->
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <div class="body-header" style="">
+                                    <div class="" style=" float: left">
+                                        <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt width="80px" height="80px" style="border-radius: 1000px">
+                                    </div>
+                                    <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
+                                        Oil and Gas
+                                    </h1>
+                                    <br>
+                                </div>
+
+                                <div class="m--space-10"></div>
+
+                                <div id="client-details" style="">
+                                    <p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>
+                                    <p>stransact@gmail.com</p>
+                                    <p>090564054625</p>
+                                </div>
+
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#view_client_project">
                                     View Projects
                                 </button>
                                 <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
@@ -161,8 +227,8 @@
     </div>
 </div>
 
-     <!-- Modal -->
-     <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <!-- View Project Modal Begin-->
+    <div class="modal fade" id="view_client_project" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -177,43 +243,70 @@
                                 <div class="col-xl-12">
                                     <!--begin::Portlet-->
                                     <div class="m-portlet " id="m_portlet">
-                                        <div class="m-portlet__head">
-                                            <div class="m-portlet__head-caption">
-                                                <div class="m-portlet__head-title">
-                                                    <span class="m-portlet__head-icon">
-                                                        <i class="flaticon-list-2"> </i>
-                                                    </span>
-                                                    <h3 class="m-portlet__head-text">
-                                                        Tasks Datatable
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                            <div class="m-portlet__head-tools">
-                                                <ul class="m-portlet__nav">
-                                                    <li class="m-portlet__nav-item">
-                                                        <a href="{{ route('admin.tasks.create') }}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
-                                                            <span>
-                                                                <i class="la la-plus"></i>
-                                                                <span>
-                                                                    Add Task
-                                                                </span>
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="m-portlet__body">
-                                            <table id="kt_table_task" class="table table-striped table-hover">
+                                            <table id="kt_table_projects" class="table table-striped table-hover" style="width: 100%">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Name</th>
-                                                        <th>Status ID</th>
-                                                        <th>manager_id</th>
-                                                        <th>manager</th>
+                                                        <th>Manager</th>
+                                                        <th>Type</th>
+                                                        <th>Subtypes</th>
+                                                        <th>Status</th>
+                                                        <th>Members</th>
+                                                        <th>Deadline</th>
+                                                        <th>Tools</th>
                                                     </tr>
                                                 </thead>
+                                                <tbody>
+                                                    @php $counter = 1; @endphp @foreach($projects as $project)
+                                                    <tr data-entry-id="{{ $project->id }}">
+                                                        <td> </td>
+                                                        <td>{{ $project->name }}</td> 
+                                                        <td>{{ $project->manager->email ?? '' }}</td>
+                                                        <td>{{ $project->project_type->name ?? '' }}</td>                                        
+                                                        <td>{{ $project->subtype->name ?? '' }}</td>
+                                                        <td>{{ $project->status->name ?? '' }}</td>
+                                                        <td>
+                                                            @foreach ($project->team_members as $menber)
+                                                                <span class="m-badge m-badge--success"> {{ $menber->email }} </span>
+                                                            @endforeach  
+                                                        </td>           
+                                                        <td>{{ $project->deadline }}</td>                
+                                                        <td>
+                                                            @can('project_sub_type_show')
+                                                            <a class="link" href="{{ route('admin.project-sub-types.show', $project->id) }}">
+                                                                <i class="flaticon-eye"> </i>
+                                                            </a>
+                                                            @endcan
+                                                            
+                                                            @can('project_sub_type_edit')
+                                                            <a class="link" href="{{ route('admin.project-sub-types.edit', $project->id) }}">
+                                                                <i class="flaticon-edit"> </i>
+                                                            </a>
+                                                            @endcan 
+                                                        
+                                                            
+                                                            @can('project_sub_type_edit')
+                                                            <a class="link" href="#" id="project_subtype_{{  $project->id }}" data-project_type_id="{{  $project->id }}">
+                                                                <i class="flaticon-graphic"> </i>
+                                                            </a>
+                                                            @endcan 
+                                    
+                                                            @can('project_sub_type_delete')
+                                                            <form action="{{ route('admin.project-sub-types.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                <button type="submit" class="link"> <i class="flaticon-delete"> </i></button>
+                                                            </form>
+                                                            @endcan
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp 
+                                                      
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -221,25 +314,114 @@
                                 </div>
                         
                             </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <!-- View Project Modal End-->
+    <div class="modal fade" id="view_client_project" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
 
+                        <div class="row">
+                                <div class="col-xl-12">
+                                    <!--begin::Portlet-->
+                                    <div class="m-portlet " id="m_portlet">
+                                        
+                                        <div class="m-portlet__body">
+                                            <table id="kt_table_tasks" class="table table-striped table-hover" style="width: 100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Manager</th>
+                                                        <th>Type</th>
+                                                        <th>Subtypes</th>
+                                                        <th>Status</th>
+                                                        <th>Members</th>
+                                                        <th>Deadline</th>
+                                                        <th>Tools</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php $counter = 1; @endphp @foreach($projects as $project)
+                                                    <tr data-entry-id="{{ $project->id }}">
+                                                        <td> </td>
+                                                        <td>{{ $project->name }}</td> 
+                                                        <td>{{ $project->manager->email ?? '' }}</td>
+                                                        <td>{{ $project->project_type->name ?? '' }}</td>                                        
+                                                        <td>{{ $project->subtype->name ?? '' }}</td>
+                                                        <td>{{ $project->status->name ?? '' }}</td>
+                                                        <td>
+                                                            @foreach ($project->team_members as $menber)
+                                                                <span class="m-badge m-badge--success"> {{ $menber->email }} </span>
+                                                            @endforeach  
+                                                        </td>           
+                                                        <td>{{ $project->deadline }}</td>                
+                                                        <td>
+                                                            @can('project_sub_type_show')
+                                                            <a class="link" href="{{ route('admin.project-sub-types.show', $project->id) }}">
+                                                                <i class="flaticon-eye"> </i>
+                                                            </a>
+                                                            @endcan
+                                                            
+                                                            @can('project_sub_type_edit')
+                                                            <a class="link" href="{{ route('admin.project-sub-types.edit', $project->id) }}">
+                                                                <i class="flaticon-edit"> </i>
+                                                            </a>
+                                                            @endcan 
+                                                        
+                                                            
+                                                            @can('project_sub_type_edit')
+                                                            <a class="link" href="#" id="project_subtype_{{  $project->id }}" data-project_type_id="{{  $project->id }}">
+                                                                <i class="flaticon-graphic"> </i>
+                                                            </a>
+                                                            @endcan 
+                                    
+                                                            @can('project_sub_type_delete')
+                                                            <form action="{{ route('admin.project-sub-types.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                <button type="submit" class="link"> <i class="flaticon-delete"> </i></button>
+                                                            </form>
+                                                            @endcan
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp 
+                                                      
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--end::Portlet-->
+                                </div>
+                        
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
-                </div>
-                  
-                </div>
-              </div>
-            </div>
+    </div>
+    <!-- View Task Modal Begin-->
+
+    <!-- View Task Modal End-->
 
 @endsection
 
 @section('javascript')
-<script>
+
+{{-- <script>
         let languages = {
             'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
         };
-        var taskDataTable = $('#kt_table_task').DataTable({
+        var clientDataTable = $('#kt_client_dashboard').DataTable({
             ajax: "{{ url('/api/v1/tasks') }}",
             columns: [
                 { "data": "id" },
@@ -361,5 +543,162 @@
         })
 
     
-    </script>
+</script> --}}
+
+
+{{-- Script for Project View Begin--}}
+<script>
+
+    var kt_table_projectsDataTable = $('#kt_table_projects').DataTable({
+            dom: 'lBfrtip<"actions">',
+            language: {
+                url: languages.{{ app()->getLocale() }}
+            },
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }, {
+                orderable: false,
+                searchable: false,
+                targets: -1
+            }],
+            select: {
+                style: 'multi+shift',
+                selector: 'td:first-child'
+            },
+            scrollX: true,
+            order: [],
+            pageLength: 10,
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ]
+        });
+
+        $.fn.dataTable.ext.classes.sPageButton = '';
+        let deleteButtonTrans = 'Delete Selected';
+        let deleteProjectButton = {
+            text: deleteButtonTrans,
+            url: "{{ route('admin.project-sub-types.massDestroy') }}",
+            className: 'btn-danger',
+            action: function(e, dt, node, config) {
+                var ids = $.map(dt.rows({
+                    selected: true
+                }).nodes(), function(entry) {
+                    return $(entry).data('entry-id')
+                });
+
+                if (ids.length === 0) {
+                    alert('{{ trans('global.datatables.zero_selected ') }}');
+                    return
+                }
+
+                if (confirm('{{ trans('global.areYouSure ') }}')) {
+                    $.ajax({
+                            headers: {
+                                'x-csrf-token': _token
+                            },
+                            method: 'POST',
+                            url: config.url,
+                            data: {
+                                ids: ids,
+                                _method: 'DELETE'
+                            }
+                        })
+                        .done(function() {
+                            location.reload()
+                        })
+                }
+            }
+        }
+        let dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+        @can('project_delete')
+        dtProjectButtons.push(deleteProjectButton);
+        @endcan
+
+        $('.datatable:not(.ajaxTable)').DataTable({
+            buttons: dtProjectButtons
+        })
+
+</script>
+{{-- Script for Project View End--}}
+
+
+{{-- Script for Task View Begin--}}
+<script>
+
+    var kt_table_projectsDataTable = $('#kt_table_tasks').DataTable({
+    dom: 'lBfrtip<"actions">',
+    language: {
+        url: languages.{{ app()->getLocale() }}
+    },
+    columnDefs: [{
+        orderable: false,
+        className: 'select-checkbox',
+        targets: 0
+    }, {
+        orderable: false,
+        searchable: false,
+        targets: -1
+    }],
+    select: {
+        style: 'multi+shift',
+        selector: 'td:first-child'
+    },
+    scrollX: true,
+    order: [],
+    pageLength: 10,
+    buttons: [
+        'copy', 'excel', 'pdf'
+    ]
+});
+
+$.fn.dataTable.ext.classes.sPageButton = '';
+let deleteButtonTrans = 'Delete Selected';
+let deleteProjectButton = {
+    text: deleteButtonTrans,
+    url: "{{ route('admin.project-sub-types.massDestroy') }}",
+    className: 'btn-danger',
+    action: function(e, dt, node, config) {
+        var ids = $.map(dt.rows({
+            selected: true
+        }).nodes(), function(entry) {
+            return $(entry).data('entry-id')
+        });
+
+        if (ids.length === 0) {
+            alert('{{ trans('global.datatables.zero_selected ') }}');
+            return
+        }
+
+        if (confirm('{{ trans('global.areYouSure ') }}')) {
+            $.ajax({
+                    headers: {
+                        'x-csrf-token': _token
+                    },
+                    method: 'POST',
+                    url: config.url,
+                    data: {
+                        ids: ids,
+                        _method: 'DELETE'
+                    }
+                })
+                .done(function() {
+                    location.reload()
+                })
+        }
+    }
+}
+let dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+@can('project_delete')
+dtProjectButtons.push(deleteProjectButton);
+@endcan
+
+$('.datatable:not(.ajaxTable)').DataTable({
+    buttons: dtProjectButtons
+})
+    
+</script>
+    {{-- Script for Project View End--}}
+
 @endsection
