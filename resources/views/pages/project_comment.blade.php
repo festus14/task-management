@@ -18,16 +18,13 @@
                     </div>
                     <div class="m-card-profile__pic">
                         <div class="m-card-profile__pic-wrapper">
-                                <img alt="" src="{{ url('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded"/>
+                                <img alt="" src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded"/>
                         </div>
                     </div>
                     <div class="m-card-profile__details">
                         <span class="m-card-profile__name">
-                                    Tobi boy
+                                    Project Name
                                 </span>
-                        <a href="" class="m-card-profile__email m-link">
-                                    tobi@gmail.com
-                                </a>
                     </div>
                 </div>
 
@@ -57,13 +54,13 @@
                             <div class="m-messenger__messages mCS-autoHide" style="height: 356px; max-height: auto; position: relative; overflow: hidden;">
                                 <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; scrollbar-width: thin;">
                                     <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-                                        </br>
+                                        <br>
                                         <span id="filler"> </span>
 
                                         <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                             <div class="m-messenger__message m-messenger__message--in">
                                                 <div class="m-messenger__message-pic">
-                                                    <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+                                                    <img alt="" src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
                                                 </div>
                                                 <div class="m-messenger__message-body">
                                                     <div class="m-messenger__message-arrow"></div>
@@ -78,11 +75,11 @@
                                                             <br/>
                                                             <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                             </div>
-                                                            </br>
+                                                            <br>
                                                             <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
 
                                                             <div class="collapse" id="collapseReply">
-                                                                </br>
+                                                                <br>
                                                                 <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
                                                                 <button type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
                                                             </div>

@@ -32,7 +32,7 @@
 <div class="container">
         <div class="col-md-12 ">
             <form>
-                <div class="row col-md-12">
+                <div class="row">
                         <div class="col-md-6 form-group mt-3">
                             <label>Client</label>
                             <select id="client-list" class="selectDesign form-control"></select>
@@ -84,7 +84,7 @@
                 </div>
             </form>
         </div>
-        </div>
+</div>
 
 @endsection
 
