@@ -24,20 +24,25 @@
     <!--end::Web font -->
     <!--begin::Base Styles -->
     <!--begin::Page Vendors -->
-    <link href="{{ url('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ url('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
-          type="text/css"/>
+
     <!--end::Page Vendors -->
-    <link href="{{ url('metro/assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ url('metro/assets/demo/demo2/base/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('metro/assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('metro/assets/demo/demo2/base/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     
 <script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
     <!--end::Base Styles -->
-    <link rel="shortcut icon" href="{{ url('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
+    <link rel="shortcut icon" href="{{ asset('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
+
     @yield('css')
+    <style> 
+        .dataTables_filter{
+            float: right !important;
+            width: 40% !important;
+        }
+    </style>
 </head>
 <!-- end::Head -->
 <!-- end::Body -->
@@ -85,7 +90,7 @@
                                         <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
                                             <a href="#" class="m-nav__link m-dropdown__toggle">
                                                 <span class="m-topbar__userpic m--hide">
-														<img src="{{ url('metro/assets/app/media/img/users/user4.jpg') }}" class="m--img-rounded m--marginless m--img-centered" alt=""/>
+														<img src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="m--img-rounded m--marginless m--img-centered" alt=""/>
 													</span>
                                                 <span class="m-topbar__welcome">
 														Hello,&nbsp;
@@ -100,7 +105,7 @@
                                                     <div class="m-dropdown__header m--align-center" style="background: {{ url('assets/app/media/img/misc/user_profile_bg.jpg') }}; background-size: cover;">
                                                         <div class="m-card-user m-card-user--skin-dark">
                                                             <div class="m-card-user__pic">
-                                                                <img src={{ url("assets/app/media/img/users/user4.jpg") }} class="m--img-rounded m--marginless" alt="" />
+                                                                <img src={{ asset("assets/app/media/img/users/user4.jpg") }} class="m--img-rounded m--marginless" alt="" />
                                                             </div>
                                                             <div class="m-card-user__details">
                                                                 <span class="m-card-user__name m--font-weight-500">
@@ -513,16 +518,6 @@
                                                         </span>
                                                     </a>
                                                 </li>
-                                                
-                                                <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-                                                        <a href="#" class="m-menu__link m-menu__toggle">
-                                                        <i class="m-menu__link-icon flaticon-map"></i>
-                                                        <span class="m-menu__link-text">
-																Project Sub-type
-															</span>
-                                                        <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                                    </a>
-                                                </li>
                                                 <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
                                                     <a href="#" class="m-menu__link m-menu__toggle">
                                                         <i class="m-menu__link-icon flaticon-file"></i>
@@ -811,10 +806,10 @@
                 <button class="m-aside-left-close m-aside-left-close--skin-light" id="m_aside_left_close_btn">
                         <i class="la la-close"></i>
                     </button>
-                <div id="m_aside_left" class="m-grid__item m-aside-left ">
+                <div  id="m_aside_left" class="m-grid__item m-aside-left ">
                     <!-- BEGIN: Aside Menu -->
-                    <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
-                        <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+                    <div id="m_ver_menu"   class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
+                        <ul  class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
                             <li class="m-menu__section">
                                 <h4 class="m-menu__section-text">
                                     Departments

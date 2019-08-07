@@ -43,32 +43,57 @@
         </div>
     </div>
     <div class="m-portlet__body">
-        <table id="kt_table_task_temple" class="table table-striped table-hover datatable">
+        <table id="kt_table_projects" class="table table-striped table-hover table-responsive">
             <thead>
                 <tr>
                     <th>SN</th>
+                    <th>Client</th>
                     <th>Name</th>
-                    <th>Project Type</th>
+                    <th>Manager</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Members</th>
+                    <th>Deadline</th>
                     <th>Tools</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @php $counter = 1; @endphp @foreach($projectSubTypes as $projectSubType)
-                <tr data-entry-id="{{ $projectSubType->id }}">
-                    <td> </td>
-                    <td>{{ $projectSubType->name }}</td>
-                    <td>{{ $projectSubType->project_type->name }}</td>
+                @php $counter = 1; @endphp @foreach($projects as $project)
+                <tr data-entry-id="{{ $project->id }}">
+                    <td> </td>                                        
+                    <td>{{ $project->client->name ?? '' }}</td>
+                    <td>{{ $project->name }}</td> 
+                    <td>{{ $project->manager->email ?? '' }}</td>
+                    <td>{{ $project->project_type->name ?? '' }}</td>
+                    <td>{{ $project->status->name ?? '' }}</td>
+                    <td>
+                        @foreach ($project->team_members as $menber)
+                            <span class="m-badge m-badge--success"> {{ $menber->email }} </span>
+                        @endforeach  
+                    </td>           
+                    <td>{{ $project->deadline }}</td>                
                     <td>
                         @can('project_sub_type_show')
-                        <a class="link" href="{{ route('admin.project-sub-types.show', $projectSubType->id) }}">
-                            <i class="flaticon-view"> </i>
+                        <a class="link" href="{{ route('admin.project-sub-types.show', $project->id) }}">
+                            <i class="flaticon-eye"> </i>
                         </a>
-                        @endcan @can('project_sub_type_edit')
-                        <a class="link" href="{{ route('admin.project-sub-types.edit', $projectSubType->id) }}">
+                        @endcan
+                        
+                        @can('project_sub_type_edit')
+                        <a class="link" href="{{ route('admin.project-sub-types.edit', $project->id) }}">
                             <i class="flaticon-edit"> </i>
                         </a>
-                        @endcan @can('project_sub_type_delete')
-                        <form action="{{ route('admin.project-sub-types.destroy', $projectSubType->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                        @endcan 
+                    
+                        
+                        @can('project_sub_type_edit')
+                        <a class="link" href="#" id="project_subtype_{{  $project->id }}" data-project_type_id="{{  $project->id }}">
+                            <i class="flaticon-graphic"> </i>
+                        </a>
+                        @endcan 
+
+                        @can('project_sub_type_delete')
+                        <form action="{{ route('admin.project-sub-types.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <button type="submit" class="link"> <i class="flaticon-delete"> </i></button>
@@ -77,13 +102,8 @@
                     </td>
                 </tr>
                
-                @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp  --}}
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                </tr>
+                @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp 
+              
             </tbody>
         </table>
     </div>
@@ -164,7 +184,13 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="create-project-subtype" placeholder="Input name">
+                                                <label for="project-type">Select Project Type</label>
+                                                <select id="project-type" class="selectDesign form-control"></select>
+                                            </div>
+            
+                                            <div class="form-group">
+                                                <label for="create-task">Subtype Name</label>
+                                                <input type="text" class="form-control" id="subtype" placeholder="">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -229,18 +255,18 @@
                                     <i class="flaticon-list-2"> </i>
                                 </span>
                             <h3 class="m-portlet__head-text">
-                                Project table
+                                Project Subtype table
                             </h3>
                         </div>
                     </div>
                     <div class="m-portlet__head-tools">
                         <ul class="m-portlet__nav">
                             <li class="m-portlet__nav-item">
-                                <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#createProjectModal">
+                                <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#subtypeModalla">
                                     <span>
                                             <i class="la la-plus"></i>
                                             <span>
-                                                Add Project
+                                                Add Subtype
                                             </span>
                                     </span>
                                 </a>
@@ -249,47 +275,19 @@
                     </div>
                 </div>
                 <div class="m-portlet__body">
-                    <table id="kt_table_task_temple" class="table table-striped table-hover datatable">
+                    <table id="kt_table_project_subtype" class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>SN</th>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Project Type</th>
-                                <th>Tools</th>
+                                <th>created</th>
+                                <th>Updated</th>
+                                                       
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @php $counter = 1; @endphp @foreach($projectSubTypes as $projectSubType)
-                            <tr data-entry-id="{{ $projectSubType->id }}">
-                                <td> </td>
-                                <td>{{ $projectSubType->name }}</td>
-                                <td>{{ $projectSubType->project_type->name }}</td>
-                                <td>
-                                    @can('project_sub_type_show')
-                                    <a class="link" href="{{ route('admin.project-sub-types.show', $projectSubType->id) }}">
-                                        <i class="flaticon-view"> </i>
-                                    </a>
-                                    @endcan @can('project_sub_type_edit')
-                                    <a class="link" href="{{ route('admin.project-sub-types.edit', $projectSubType->id) }}">
-                                        <i class="flaticon-edit"> </i>
-                                    </a>
-                                    @endcan @can('project_sub_type_delete')
-                                    <form action="{{ route('admin.project-sub-types.destroy', $projectSubType->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <button type="submit" class="link"> <i class="flaticon-delete"> </i></button>
-                                    </form>
-                                    @endcan
-                                </td>
-                            </tr>
                            
-                            @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp  --}}
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -303,33 +301,55 @@
     </div>
   </div>
 
+  <!--modalled projSubtype Modal -->
+  <div class="modal fade" id="subtypeModalla" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Subtype</h5>
+                <button type="button" class="close" onclick="$('#subtypeModalla').modal('hide');" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="project-type">Select Project Type</label>
+                    <select id="project-type" class="selectDesign form-control"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="create-task">Subtype Name</label>
+                    <input type="text" class="form-control" id="subtype" placeholder="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="$('#subtypeModalla').modal('hide');" data-target="#subtypeModal">Close</button>
+                <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection @section('javascript')
 <script>
+    let languages = {
+            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+        };
     $(function() {
 
-        let copyButtonTrans = '{{ trans('
-        global.datatables.copy ') }}';
-        let csvButtonTrans = '{{ trans('
-        global.datatables.csv ') }}';
-        let excelButtonTrans = '{{ trans('
-        global.datatables.excel ') }}';
-        let pdfButtonTrans = '{{ trans('
-        global.datatables.pdf ') }}';
-        let printButtonTrans = '{{ trans('
-        global.datatables.print ') }}';
-        let colvisButtonTrans = '{{ trans('
-        global.datatables.colvis ') }}';
+        let copyButtonTrans = 'copy';
+        let csvButtonTrans = 'csv';
+        let excelButtonTrans = 'excel';
+        let pdfButtonTrans = 'pdf';
+        let printButtonTrans = 'print';
+        let colvisButtonTrans = 'col vis';
         $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, {
             className: 'btn'
         });
         $.extend(true, $.fn.dataTable.defaults, {
             language: {
-                url: languages. {
-                    {
-                        app() - > getLocale()
-                    }
-                }
+                url: languages.{{ app()->getLocale() }}
             },
             columnDefs: [{
                 orderable: false,
@@ -344,6 +364,7 @@
                 style: 'multi+shift',
                 selector: 'td:first-child'
             },
+            scrollX: true,
             order: [],
             pageLength: 10,
             dom: 'lBfrtip<"actions">',
@@ -372,8 +393,7 @@
         });
 
         $.fn.dataTable.ext.classes.sPageButton = '';
-        let deleteButtonTrans = '{{ trans('
-        global.datatables.delete ') }}';
+        let deleteButtonTrans = 'Delete Selected';
         let deleteButton = {
             text: deleteButtonTrans,
             url: "{{ route('admin.project-sub-types.massDestroy') }}",
@@ -386,13 +406,11 @@
                 });
 
                 if (ids.length === 0) {
-                    alert('{{ trans('
-                        global.datatables.zero_selected ') }}');
+                    alert('{{ trans('global.datatables.zero_selected ') }}');
                     return
                 }
 
-                if (confirm('{{ trans('
-                        global.areYouSure ') }}')) {
+                if (confirm('{{ trans('global.areYouSure ') }}')) {
                     $.ajax({
                             headers: {
                                 'x-csrf-token': _token
@@ -418,74 +436,16 @@
         $('.datatable:not(.ajaxTable)').DataTable({
             buttons: dtButtons
         })
+        
     })
 
+</script>
 
-    let languages = {
-        'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
-    };
-    var taskDataTable = $('#kt_table_task').DataTable({
-        ajax: "{{ url('/api/v1/tasks') }}",
-        columns: [{
-            "data": "id"
-        }, {
-            "data": "name"
-        }, {
-            "data": "status.name"
-        }, {
-            "data": "manager_id"
-        }, {
-            "data": "manager.email"
-        }],
-        dom: 'lBfrtip<"actions">',
-        language: {
-            url: languages. {
-                {
-                    app() - > getLocale()
-                }
-            }
-        },
-        columnDefs: [{
-            orderable: false,
-            className: 'select-checkbox',
-            targets: 0
-        }, {
-            orderable: false,
-            searchable: false,
-            targets: -1
-        }],
-    });
-
-    new $.fn.dataTable.Buttons(taskDataTable, {
-        buttons: [
-            'copy', 'excel', 'pdf'
-        ],
-    });
-
-    $(function() {
-
-        let copyButtonTrans = '{{ trans('
-        global.datatables.copy ') }}';
-        let csvButtonTrans = '{{ trans('
-        global.datatables.csv ') }}';
-        let excelButtonTrans = '{{ trans('
-        global.datatables.excel ') }}';
-        let pdfButtonTrans = '{{ trans('
-        global.datatables.pdf ') }}';
-        let printButtonTrans = '{{ trans('
-        global.datatables.print ') }}';
-        let colvisButtonTrans = '{{ trans('
-        global.datatables.colvis ') }}';
-        $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, {
-            className: 'btn'
-        });
-        $.extend(true, $.fn.dataTable.defaults, {
+<script> 
+       var kt_table_projectsDataTable = $('#kt_table_projects').DataTable({
+            dom: 'lBfrtip<"actions">',
             language: {
-                url: languages. {
-                    {
-                        app() - > getLocale()
-                    }
-                }
+                url: languages.{{ app()->getLocale() }}
             },
             columnDefs: [{
                 orderable: false,
@@ -500,40 +460,20 @@
                 style: 'multi+shift',
                 selector: 'td:first-child'
             },
+            scrollX: true,
             order: [],
             pageLength: 10,
-            dom: 'lBfrtip<"actions">',
-            buttons: [{
-                extend: 'excel',
-                className: 'btn-primary',
-                text: excelButtonTrans,
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }, {
-                extend: 'pdf',
-                className: 'btn-success',
-                text: pdfButtonTrans,
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }, {
-                extend: 'csv',
-                className: 'btn-accent',
-                text: csvButtonTrans,
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }]
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ]
         });
-
+        
         $.fn.dataTable.ext.classes.sPageButton = '';
-        let deleteButtonTrans = '{{ trans('
-        global.datatables.delete ') }}';
-        let deleteButton = {
+        let deleteButtonTrans = 'Delete Selected';
+        let deleteProjectButton = {
             text: deleteButtonTrans,
             url: "{{ route('admin.project-sub-types.massDestroy') }}",
-            className: 'deletebtn',
+            className: 'btn-danger',
             action: function(e, dt, node, config) {
                 var ids = $.map(dt.rows({
                     selected: true
@@ -542,13 +482,11 @@
                 });
 
                 if (ids.length === 0) {
-                    alert('{{ trans('
-                        global.datatables.zero_selected ') }}');
+                    alert('{{ trans('global.datatables.zero_selected ') }}');
                     return
                 }
 
-                if (confirm('{{ trans('
-                        global.areYouSure ') }}')) {
+                if (confirm('{{ trans('global.areYouSure ') }}')) {
                     $.ajax({
                             headers: {
                                 'x-csrf-token': _token
@@ -566,16 +504,65 @@
                 }
             }
         }
-        let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-        @can('task_delete')
-        dtButtons.push(deleteButton);
+        let dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+        @can('project_delete')
+        dtProjectButtons.push(deleteProjectButton);
         @endcan
 
         $('.datatable:not(.ajaxTable)').DataTable({
-            buttons: dtButtons
+            buttons: dtProjectButtons
         })
-    })
+
 </script>
 
-
+<script>
+   $('#kt_table_project_subtype').DataTable({
+            ajax: "{{ url('/admin/get_project_subtype/1') }}",
+            columns: [
+                { "data": "id" },
+                { "data": "name" },
+                { "data": "project_type.name" },
+                { "data": "created_at" },
+                { "data": "updated_at" },
+            ],
+            dom: 'lBfrtip<"actions">',
+            language: {
+                url: languages.{{ app()->getLocale() }}
+            },
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }, {
+                orderable: false,
+                searchable: false,
+                targets: -1
+            }],
+        });
+    function getSomething(ID){
+        var taskDataTable = $('#kt_table_project_subtype').DataTable({
+            ajax: "{{ url('/get_project_subtype/1') }}",
+            columns: [
+                { "data": "id" },
+                { "data": "name" },
+                { "data": "project_type.name" },
+                { "data": "created_at" },
+                { "data": "updated_at" },
+            ],
+            dom: 'lBfrtip<"actions">',
+            language: {
+                url: languages.{{ app()->getLocale() }}
+            },
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }, {
+                orderable: false,
+                searchable: false,
+                targets: -1
+            }],
+        });
+    }
+</script>
 @endsection
