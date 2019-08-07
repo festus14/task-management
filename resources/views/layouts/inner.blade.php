@@ -502,12 +502,12 @@
                                             <ul class="m-menu__subnav">
                                                 <li class="m-menu__item  m-menu__item--active " aria-haspopup="true">
                                                     {{-- <a href="{{ route('/')}}" class="m-menu__link "> --}}
-                                                        <a href="" class="m-menu__link ">
+                                                        <a href="{{ url('/admin/view_project') }}" class="m-menu__link ">
                                                         <i class="m-menu__link-icon flaticon-graphic"></i>
                                                        <span class="m-menu__link-title">
 																<span class="m-menu__link-wrap">
 																	<span class="m-menu__link-text">
-																		Project Mgt
+																		Projects
 																	</span>
                                                         </span>
                                                         </span>

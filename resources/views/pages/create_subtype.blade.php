@@ -404,7 +404,7 @@ $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
     </script>
 
     <script>
-        
+
     </script>
 
 

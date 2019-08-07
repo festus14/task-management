@@ -8,16 +8,12 @@
 
 @section('css')
 <style>
-    #client-card{
-        background-color: #f1f1f1;
-    }
+    
         
     </style>
 @endsection
 
-@section('content')
-
-<div class="m-portlet ">
+{{-- <div class="m-portlet ">
     
     <div id="rows" class="m-portlet__body  m-portlet__body--no-padding">
         <div style="margin-bottom: 15px;" class="row m-row--no-padding m-row--col-separator-xl">
@@ -84,200 +80,157 @@
                     </div>
             </div>
         </div>
-
-        <div class="row m-row--no-padding m-row--col-separator-xl">
-                <div  id="client-card" class="col-md-12 col-lg-12 col-xl-12">
-                    <div class="m-widget24">
-                        <div class="m-widget24__item">
-                            <h1 style="font-size: 30px;" class="m-widget24__title">
-                                NNPC
-                            </h1>
-                            
-                            <br>
-
-                            <span class="m-widget24__stats m--font-brand">
-                                <div class="m-widget4__img m-widget4__img--pic">
-                                    <img src="assets/app/media/img/users/100_4.jpg" alt width="75px" height="75px" style="border-radius: 1000px">
-                                </div>
-                            </span>
-
-                            <div class="m--space-10"></div>
-
-                            
-                            <p style="margin-top: 10px">
-                                    <a style="margin-top: -15px; margin-left: 25px" class="btn btn-sm m-btn--pill btn-secondary m-btn m-btn--label-brand" data-toggle="collapse" href="#collapseExampleThree" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        View Projects
-                                    </a>
-                                </p>
-                                <div style="box-sizing: border-box;" class="collapse" id="collapseExampleThree">
-                                    <ul style="list-style: none;" >
-                                        <li>
-                                            <p style="font-size: 15px; font-weight: bold;">Tax</p>
-                                            <p>
-                                                <a style="margin-top: -15px;" class="btn btn-sm m-btn--pill btn-secondary m-btn m-btn--label-brand" data-toggle="collapse" href="#collapseExampleInFour" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                    View Tasks Progress
-                                                </a>
-                                            </p>
-                                            <div class="collapse" id="collapseExampleInFour">
-                                                
-                                                <div class="k-portlet__body">
-                                                    <!--begin: Search Form -->
-                                                    <div class="k-form k-fork--label-right k-margin-t-20 k-margin-b-10">
-                                                <div class="row align-items-center">
-                                                    <div class="col-xl-8 order-2 order-xl-1">
-                                                        <div class="row align-items-center">				
-                                                            <div class="col-md-6 k-margin-b-20-tablet-and-mobile">
-                                                                <div class="k-input-icon k-input-icon--left">
-                                                                    <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
-                                                                    <span class="k-input-icon__icon k-input-icon__icon--left">
-                                                                        <span><i class="la la-search"></i></span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>		<!--end: Search Form -->
-                                        </div>
-                                        <div class="k-portlet__body k-portlet__body--fit">
-                                                    <!--begin: Datatable -->
-                                            <table class="k-datatable" id="html_table" width="100%">
-                                                <thead>
-                                                <tr>
-                                                    <th title="Field #1">Task</th>
-                                                    <th title="Field #2">In Charge</th>
-                                                    <th title="Field #3">Status</th>
-                                                    <th title="Field #4">Deadline</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Audit</td>
-                                                        <td>Wale Yimika</td>
-                                                        <td>Pending</td>
-                                                        <td>27/09/2019</td>
-                                                    </tr>
-                                                    <tr>
-                                                            <td>Audit</td>
-                                                            <td>Wale Yimika</td>
-                                                            <td>Pending</td>
-                                                            <td>27/09/2019</td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>Audit</td>
-                                                                <td>Wale Yimika</td>
-                                                                <td>Pending</td>
-                                                                <td>27/09/2019</td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <td>Audit</td>
-                                                                    <td>Wale Yimika</td>
-                                                                    <td>Pending</td>
-                                                                    <td>27/09/2019</td>
-                                                                </tr>
-                                                </tbody>
-                                            </table>
-                                                    <!--end: Datatable -->
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                                <p style="font-size: 15px; font-weight: bold;">Audit</p>
-                                                <p>
-                                                    <a style="margin-top: -15px;" class="btn btn-sm m-btn--pill btn-secondary m-btn m-btn--label-brand" data-toggle="collapse" href="#collapseExampleInFive" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                        View Tasks Progress
-                                                    </a>
-                                                </p>
-                                                <div class="collapse" id="collapseExampleInFive">
-                                                    
-                                                    <div class="k-portlet__body">
-                                                        <!--begin: Search Form -->
-                                                        <div class="k-form k-fork--label-right k-margin-t-20 k-margin-b-10">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-xl-8 order-2 order-xl-1">
-                                                            <div class="row align-items-center">				
-                                                                <div class="col-md-6 k-margin-b-20-tablet-and-mobile">
-                                                                    <div class="k-input-icon k-input-icon--left">
-                                                                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
-                                                                        <span class="k-input-icon__icon k-input-icon__icon--left">
-                                                                            <span><i class="la la-search"></i></span>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 k-margin-b-20-tablet-and-mobile">
-                                                                    <div class="k-form__group k-form__group--inline">
-                                                                        <div class="k-form__label">
-                                                                            <label>Status:</label>
-                                                                        </div>
-                                                                        <div class="k-form__control">
-                                                                            <select class="form-control bootstrap-select" id="k_form_status">
-                                                                                <option value="">All</option>
-                                                                                <option value="1">Completed</option>
-                                                                                <option value="2">Pending</option>
-                                                                                <option value="3">Holding</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>		<!--end: Search Form -->
-                                            </div>
-                                            <div class="k-portlet__body k-portlet__body--fit">
-                                                        <!--begin: Datatable -->
-                                                <table class="k-datatable" id="html_table" width="100%">
-                                                    <thead>
-                                                    <tr>
-                                                        <th title="Field #1">Task</th>
-                                                        <th title="Field #2">In Charge</th>
-                                                        <th title="Field #3">Status</th>
-                                                        <th title="Field #4">Deadline</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Audit</td>
-                                                            <td>Funso</td>
-                                                            <td>Pending</td>
-                                                            <td>27/09/2019</td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>Audit</td>
-                                                                <td>Wale Yimika</td>
-                                                                <td>Pending</td>
-                                                                <td>27/09/2019</td>
-                                                            </tr>
-                                                            <tr>
-                                                                    <td>Audit</td>
-                                                                    <td>Wale Yimika</td>
-                                                                    <td>Pending</td>
-                                                                    <td>27/09/2019</td>
-                                                                </tr>
-                                                                <tr>
-                                                                        <td>Audit</td>
-                                                                        <td>Wale Yimika</td>
-                                                                        <td>Pending</td>
-                                                                        <td>27/09/2019</td>
-                                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                        <!--end: Datatable -->
-                                                    </div>
-                                                </div>
-                                        </li>
-                                        
-                                    </ul>
-                            </div>
-                            
-                        
-                    </div>
-                </div>
-        </div>
         </div>				
     </div>
     </div>
+</div> --}}
+
+@section('content')
+
+<div class="m-content">
+    <div class="m-portlet__body  m-portlet__body--no-padding">
+        <div class="row m-row--no-padding m-row--col-separator-xl">
+
+                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 10px;">
+                        <!--begin::Total Profit-->
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <div class="body-header" style="">
+                                    <div class="" style=" float: left">
+                                        <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt width="80px" height="80px" style="border-radius: 1000px">
+                                    </div>
+                                    <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
+                                        Stransact Partners
+                                    </h1>
+                                    <br>
+                                </div>
+
+                                <div class="m--space-10"></div>
+
+                                <div id="client-details" style="">
+                                    <p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>
+                                    <p>stransact@gmail.com</p>
+                                    <p>08156401454</p>
+                                </div>
+
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                    View Projects
+                                </button>
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                    View Tasks
+                                </button>
+                            </div>
+                        </div>
+                        <!--end::Total Profit-->
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 10px;">
+                        <!--begin::Total Profit-->
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <div class="body-header" style="">
+                                    <div class="" style=" float: left">
+                                        <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt width="80px" height="80px" style="border-radius: 1000px">
+                                    </div>
+                                    <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
+                                        Oil and Gas
+                                    </h1>
+                                    <br>
+                                </div>
+
+                                <div class="m--space-10"></div>
+
+                                <div id="client-details" style="">
+                                    <p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>
+                                    <p>stransact@gmail.com</p>
+                                    <p>090564054625</p>
+                                </div>
+
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                    View Projects
+                                </button>
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                    View Tasks
+                                </button>
+                            </div>
+                        </div>
+                        <!--end::Total Profit-->
+                </div>
+
+        </div>
+    </div>
 </div>
+
+     <!-- Modal -->
+     <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                        <div class="row">
+                                <div class="col-xl-12">
+                                    <!--begin::Portlet-->
+                                    <div class="m-portlet " id="m_portlet">
+                                        <div class="m-portlet__head">
+                                            <div class="m-portlet__head-caption">
+                                                <div class="m-portlet__head-title">
+                                                    <span class="m-portlet__head-icon">
+                                                        <i class="flaticon-list-2"> </i>
+                                                    </span>
+                                                    <h3 class="m-portlet__head-text">
+                                                        Tasks Datatable
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                            <div class="m-portlet__head-tools">
+                                                <ul class="m-portlet__nav">
+                                                    <li class="m-portlet__nav-item">
+                                                        <a href="{{ route('admin.tasks.create') }}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
+                                                            <span>
+                                                                <i class="la la-plus"></i>
+                                                                <span>
+                                                                    Add Task
+                                                                </span>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__body">
+                                            <table id="kt_table_task" class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Status ID</th>
+                                                        <th>manager_id</th>
+                                                        <th>manager</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--end::Portlet-->
+                                </div>
+                        
+                            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
+                </div>
+                  
+                </div>
+              </div>
+            </div>
 
 @endsection
 
