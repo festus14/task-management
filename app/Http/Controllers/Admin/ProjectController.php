@@ -11,6 +11,7 @@ use App\Project;
 use App\ProjectType;
 use App\TaskStatus;
 use App\User;
+use App\ProjectSubType;
 
 class ProjectController extends Controller
 {
@@ -30,12 +31,13 @@ class ProjectController extends Controller
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $project_types = ProjectType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $project_subtypes = ProjectSubType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $managers = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $team_members = User::all()->pluck('name', 'id');
 
-        return view('admin.projects.create', compact('clients', 'project_types', 'managers', 'team_members'));
+        return view('admin.projects.create', compact('clients', 'project_types','project_subtypes', 'managers', 'team_members'));
     }
 
     public function store(StoreProjectRequest $request)
@@ -59,12 +61,14 @@ class ProjectController extends Controller
         $managers = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $statuses = TaskStatus::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $project_subtypes = ProjectSubType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
 
         $team_members = User::all()->pluck('name', 'id');
 
         $project->load('client', 'project_type', 'manager', 'team_members');
 
-        return view('admin.projects.edit', compact('clients', 'project_types', 'managers', 'statuses', 'team_members', 'project'));
+        return view('admin.projects.edit', compact('clients', 'project_types', 'managers', 'project_subtypes','statuses', 'team_members', 'project'));
     }
 
     public function update(UpdateProjectRequest $request, Project $project)

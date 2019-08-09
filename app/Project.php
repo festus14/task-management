@@ -32,6 +32,7 @@ class Project extends Model
         'deleted_at',
         'starting_date',
         'project_type_id',
+        'project_subtype_id',
     ];
 
     public function getStartingDateAttribute($value)
@@ -81,5 +82,9 @@ class Project extends Model
     public function status()
     {
         return $this->belongsTo(TaskStatus::class, 'status_id');
+    }
+    public function project_subtype()
+    {
+        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id');
     }
 }

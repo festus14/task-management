@@ -116,7 +116,7 @@
                                 <button class="btn btn-sm" data-toggle="modal" data-target="#view_client_project">
                                     View Projects
                                 </button>
-                                <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#view_client_task">
                                     View Tasks
                                 </button>
                             </div>
@@ -149,7 +149,7 @@
                                 <button class="btn btn-sm" data-toggle="modal" data-target="#view_client_project">
                                     View Projects
                                 </button>
-                                <button class="btn btn-sm" data-toggle="modal" data-target="#createTaskModal">
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#view_client_task">
                                     View Tasks
                                 </button>
                             </div>
@@ -319,7 +319,9 @@
                 </div>
     </div>
     <!-- View Project Modal End-->
-    <div class="modal fade" id="view_client_project" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <!-- View Task Modal Begin-->
+    <div class="modal fade" id="view_client_task" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -329,88 +331,85 @@
                   </button>
                 </div>
                 <div class="modal-body">
-
-                        <div class="row">
-                                <div class="col-xl-12">
-                                    <!--begin::Portlet-->
-                                    <div class="m-portlet " id="m_portlet">
-                                        
-                                        <div class="m-portlet__body">
-                                            <table id="kt_table_tasks" class="table table-striped table-hover" style="width: 100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Manager</th>
-                                                        <th>Type</th>
-                                                        <th>Subtypes</th>
-                                                        <th>Status</th>
-                                                        <th>Members</th>
-                                                        <th>Deadline</th>
-                                                        <th>Tools</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @php $counter = 1; @endphp @foreach($projects as $project)
-                                                    <tr data-entry-id="{{ $project->id }}">
-                                                        <td> </td>
-                                                        <td>{{ $project->name }}</td> 
-                                                        <td>{{ $project->manager->email ?? '' }}</td>
-                                                        <td>{{ $project->project_type->name ?? '' }}</td>                                        
-                                                        <td>{{ $project->subtype->name ?? '' }}</td>
-                                                        <td>{{ $project->status->name ?? '' }}</td>
-                                                        <td>
-                                                            @foreach ($project->team_members as $menber)
-                                                                <span class="m-badge m-badge--success"> {{ $menber->email }} </span>
-                                                            @endforeach  
-                                                        </td>           
-                                                        <td>{{ $project->deadline }}</td>                
-                                                        <td>
-                                                            @can('project_sub_type_show')
-                                                            <a class="link" href="{{ route('admin.project-sub-types.show', $project->id) }}">
-                                                                <i class="flaticon-eye"> </i>
-                                                            </a>
-                                                            @endcan
-                                                            
-                                                            @can('project_sub_type_edit')
-                                                            <a class="link" href="{{ route('admin.project-sub-types.edit', $project->id) }}">
-                                                                <i class="flaticon-edit"> </i>
-                                                            </a>
-                                                            @endcan 
-                                                        
-                                                            
-                                                            @can('project_sub_type_edit')
-                                                            <a class="link" href="#" id="project_subtype_{{  $project->id }}" data-project_type_id="{{  $project->id }}">
-                                                                <i class="flaticon-graphic"> </i>
-                                                            </a>
-                                                            @endcan 
-                                    
-                                                            @can('project_sub_type_delete')
-                                                            <form action="{{ route('admin.project-sub-types.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="link"> <i class="flaticon-delete"> </i></button>
-                                                            </form>
-                                                            @endcan
-                                                        </td>
-                                                    </tr>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <!--begin::Portlet-->
+                            <div class="m-portlet " id="m_portlet">
+                                
+                                <div class="m-portlet__body">
+                                    <table id="kt_table_tasks" class="table table-striped table-hover" style="width: 100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Manager</th>
+                                                <th>Type</th>
+                                                <th>Subtypes</th>
+                                                <th>Status</th>
+                                                <th>Members</th>
+                                                <th>Deadline</th>
+                                                <th>Tools</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $counter = 1; @endphp @foreach($projects as $project)
+                                            <tr data-entry-id="{{ $project->id }}">
+                                                <td> </td>
+                                                <td>{{ $project->name }}</td> 
+                                                <td>{{ $project->manager->email ?? '' }}</td>
+                                                <td>{{ $project->project_type->name ?? '' }}</td>                                        
+                                                <td>{{ $project->subtype->name ?? '' }}</td>
+                                                <td>{{ $project->status->name ?? '' }}</td>
+                                                <td>
+                                                    @foreach ($project->team_members as $menber)
+                                                        <span class="m-badge m-badge--success"> {{ $menber->email }} </span>
+                                                    @endforeach  
+                                                </td>           
+                                                <td>{{ $project->deadline }}</td>                
+                                                <td>
+                                                    @can('project_sub_type_show')
+                                                    <a class="link" href="{{ route('admin.project-sub-types.show', $project->id) }}">
+                                                        <i class="flaticon-eye"> </i>
+                                                    </a>
+                                                    @endcan
                                                     
-                                                    @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp 
-                                                      
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <!--end::Portlet-->
+                                                    @can('project_sub_type_edit')
+                                                    <a class="link" href="{{ route('admin.project-sub-types.edit', $project->id) }}">
+                                                        <i class="flaticon-edit"> </i>
+                                                    </a>
+                                                    @endcan 
+                                                
+                                                    
+                                                    @can('project_sub_type_edit')
+                                                    <a class="link" href="#" id="project_subtype_{{  $project->id }}" data-project_type_id="{{  $project->id }}">
+                                                        <i class="flaticon-graphic"> </i>
+                                                    </a>
+                                                    @endcan 
+                            
+                                                    @can('project_sub_type_delete')
+                                                    <form action="{{ route('admin.project-sub-types.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <button type="submit" class="link"> <i class="flaticon-delete"> </i></button>
+                                                    </form>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                            
+                                            @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp 
+                                                
+                                        </tbody>
+                                    </table>
                                 </div>
-                        
                             </div>
+                                    <!--end::Portlet-->
                         </div>
+                        
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
-    <!-- View Task Modal Begin-->
-
     <!-- View Task Modal End-->
 
 @endsection
