@@ -158,8 +158,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('project_comment', 'ProjectPagesController@projectComment')->name('project_comment');
     Route::get('view_project', 'ProjectPagesController@viewProject')->name('view_project');
     Route::get('/get_project_subtype/{project_id}', 'ProjectPagesController@projectTypeAPI')->name('get_project_subtype');
+    Route::get('view_task', 'TaskPagesController@viewTask')->name('view_task');
     
-
 });
 
 

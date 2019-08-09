@@ -77,5 +77,9 @@ class TaskPagesController extends Controller
         return view('pages.task_category');
     }
 
+    public function viewTask(){
+        return view('pages.view_task');
+    }
+
     
 }

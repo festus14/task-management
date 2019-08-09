@@ -7,364 +7,443 @@
 @section('sub_header', 'Tasks')
 
 @section('content')
-          <div class="row">
-              <div class="col-xl-12">
-                  <!--begin::Portlet-->
-                  <div class="m-portlet " id="m_portlet">
-                      <div class="m-portlet__head">
-                          <div class="m-portlet__head-caption">
-                              <div class="m-portlet__head-title">
-                                  <span class="m-portlet__head-icon">
-                                      <i class="flaticon-list-2"> </i>
-                                  </span>
-                                  <h3 class="m-portlet__head-text">
-                                      Tasks Datatable
-                                  </h3>
-                              </div>
-                          </div>
-                          <div class="m-portlet__head-tools">
-                              <ul class="m-portlet__nav">
-                                  <li class="m-portlet__nav-item">
-                                      <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
-                                          <span>
-                                              <i class="la la-plus"></i>
-                                              <span>
-                                                  Add Task
-                                              </span>
-                                          </span>
-                                      </a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                      <div class="m-portlet__body">
-                          <table id="kt_table_task" class="table table-striped table-hover">
-                              <thead>
-                                  <tr>
-                                      <th>#</th>
-                                      <th>Name</th>
-                                      <th>Status ID</th>
-                                      <th>manager_id</th>
-                                      <th>manager</th>
-                                  </tr>
-                              </thead>
-                          </table>
-                      </div>
-                  </div>
-                  <!--end::Portlet-->
-              </div>
-      
-          </div>
-
-          <!-- Modal -->
-      <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form action="">
-                  <div class="row">
-                    <div class="col-md-6 col-sm-6">
-  
-                        <div class="form-group">
-                            <label for="client-list">Select Client</label>
-                            <select id="client-list" class="selectDesign form-control"></select>
-                        </div>
-  
-                        <div class="form-group">
-                            <label>Select Project</label>
-                            <select id="project-list" class="selectDesign form-control"></select>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                      <div class="form-group">
-                        <label>Select Project Subtype</label>
-                        <select id="project-subtype-list" class="selectDesign form-control"></select>
-                        </div>
-            
-                        <div class="form-group">
-                            <label for="create-task">Task Name</label>
-                            <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
-                        </div>
-                        
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                        <div class="form-group">
-                            <label>Task Category</label>
-                            <select id="task-category" class="selectDesign form-control"></select>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                        <div class="form-group">
-                                <label for="assign-task">Assign task to</label>
-                                <br>
-                                <select  style="width: 100%" id="assign-task" multiple="multiple" required class="form-control select2">
-                                  <option>Ade</option>
-                                  <option>Bunmi</option>
-                                </select>
-                            </div>
-                      </div>
-                          <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                <label>Select Manager</label>
-                                <select id="manager" class="selectDesign form-control"></select>
-                            </div>
-                          </div>
-                          <div class="col-md-4 col-sm-4">
-                                <div class="form-group">
-                                    <label for="starting-date">Starting Date</label>
-                                    <input type="date" class="form-control" id="starting-date">
-                                </div>
-                          </div>
-                        
-                          <div class="col-md-4 col-sm-4">
-                                <div class="form-group">
-                                    <label for="deadline">Deadline</label>
-                                    <input type="date" class="form-control" id="deadline">
-                                </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                <label>Task Status</label>
-                                <select id="task-status" class="selectDesign form-control"></select>
-                            </div>
-                        </div>
-                    
+<div class="col-md-12 m-portlet " id="m_portlet">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon">
+                            <i class="flaticon-list-2"> </i>
+                        </span>
+                    <h3 class="m-portlet__head-text">
+                        'Taskname' info
+                    </h3>
                 </div>
-          </form>
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
-                    </div>
+            </div>
+            <div class="m-portlet__head-tools">
+                <ul class="m-portlet__nav">
+                    <li class="m-portlet__nav-item">
+                        <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#createProjectModal">
+                            <span>
+                                    <i class="la la-plus"></i>
+                                    <span>
+                                        Iron Man
+                                    </span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-portlet__body">
+               {{-- <span> <i class="la la-clipboard"></i>
+                    <span>Tasks</span>
+               </span>
+               <span> <i class="la la-document"></i>
+                <span>Documents</span>
+           </span>
+           <span> <i class="la la-report"></i>
+            <span>Report</span>
+       </span> --}}
+       {{-- <ul>
+            <li>
+                <h5 class="m-menu__section-text">
+                        <i class="la la-clipboard"></i>
+                    Tasks
+                </h5>
                 
-              </div>
+            </li>
+            <li>
+                    <h5 class="m-menu__section-text">
+                            <i class="la la-task"></i>
+                        Documents
+                    </h5>
+                    
+                </li>
+                <li>
+                        <h5 class="m-menu__section-text">
+                                <i class="la la-clipboard"></i>
+                            Report
+                        </h5>
+                        
+                    </li>
+        </ul> --}}
+        <div class="accordion" id="taskAccordion">
+                      <div class="card">
+                            <div class="card-header" id="headingTwo">
+                              <h6 class="mb-0">
+                                <span class="collapsed"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                        Documents
+                                        <i style="float: right;" class="m-menu__link-icon flaticon-plus"data-toggle="modal" data-target="#documentModal"></i>
+                                </span>
+                              </h6>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                              <div class="card-body">
+                                  <ul>
+                                    <li>Document 1</li>
+                                    <li>Document 2</li>
+                                    <li>Document 3</li>
+                                </ul> 
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="card">
+                                <div class="card-header" id="headingThree">
+                                  <h6 class="mb-0">
+                                    <span class="collapsed"  data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <i class="m-menu__link-icon flaticon-file"></i>
+                                            Report
+                                            <i style="float: right;" class="m-menu__link-icon flaticon-plus" data-toggle="modal" data-target="#projReport"></i>
+                                    </span>
+                                  </h6>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                  <div class="card-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                              <div class="card">
+                                    <div class="card-header" id="headingFour">
+                                      <h6 class="mb-0">
+                                        <span class="" data-toggle="modal" data-target="#commentModal">
+                                                <i class="m-menu__link-icon flaticon-comment"></i>
+                                                Comments
+                                        </span>
+                                      </h6>
+                                    </div>
+                                  </div>
+        </div>
+    <!--end::Portlet-->
+
+    <!-- Comment Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 80%; min-width: 300px;"role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <div class="m-content">
+                            <div class="row">
+                                <div class="col-lg-4">
+                        
+                                    <div class="m-portlet__body">
+                                        <div class="m-card-profile">
+                                            <div class="m-card-profile__title m--hide">
+                                                Comments
+                                            </div>
+                                            <div class="m-card-profile__pic">
+                                                <div class="m-card-profile__pic-wrapper">
+                                                        <img alt="" src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded"/>
+                                                </div>
+                                            </div>
+                                            <div class="m-card-profile__details">
+                                                <span class="m-card-profile__name">
+                                                            Task Name
+                                                        </span>
+                                            </div>
+                                        </div>
+                        
+                                    </div>
+                        
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                                        <div class="m-portlet__head">
+                                            <div class="m-portlet__head-tools">
+                                                <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                        
+                                                    <li class="nav-item m-tabs__item">
+                                                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
+                                                                Comments
+                                                            </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                        
+                                        </div>
+                                        <!-- <div class="tab-content"> -->
+                                        <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
+                                        <div class=" m-scrollable">
+                                            <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
+                                                <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
+                                                    <div class="m-messenger__messages mCS-autoHide" style="height: 356px; max-height: auto; position: relative; overflow: hidden;">
+                                                        <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; scrollbar-width: thin;">
+                                                            <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+                                                                <br>
+                                                                <span id="filler"> </span>
+                        
+                                                                <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
+                                                                    <div class="m-messenger__message m-messenger__message--in">
+                                                                        <div class="m-messenger__message-pic">
+                                                                            <img alt="" src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+                                                                        </div>
+                                                                        <div class="m-messenger__message-body">
+                                                                            <div class="m-messenger__message-arrow"></div>
+                                                                            <div class="m-messenger__message-content">
+                                                                                <div class="m-messenger__message-username">
+                                                                                    <span class="secondary"><strong>Tomiwa wrote</strong></span>
+                                                                                    <span id="datee" style="float: right;"></span>
+                                                                                </div>
+                                                                                <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; max-height: 4000px; display: flex; flex-direction: column;
+                                                                                    ">
+                                                                                    Hi Ayo. What time will be the meeting ? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel a ratione unde veritatis hic quidem totam quas, minima officiis ab sapiente necessitatibus doloribus vitae nesciunt atque deserunt.
+                                                                                    <br/>
+                                                                                    <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
+                                                                                    </div>
+                                                                                    <br>
+                                                                                    <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
+                        
+                                                                                    <div class="collapse" id="collapseReply">
+                                                                                        <br>
+                                                                                        <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
+                                                                                        <button type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    </div>
+                                                                                </div>
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                        
+                                                            </div>
+                                                        </div>
+                                                        <div id=" mCSB_3_scrollbar_vertical " class="mCSB_scrollTools mCSB_3_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical " style="display: block;">
+                                                            <div class=" mCSB_draggerContainer ">
+                                                                <div id="mCSB_3_dragger_vertical " class="mCSB_dragger " style="position: absolute; min-height: 50px; display: block; height: 114px; max-height: 319px; top: 0px; ">
+                                                                    <div class="mCSB_dragger_bar " style="line-height: 50px; "></div>
+                                                                </div>
+                                                                <div class="mCSB_draggerRail "></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="m-messenger__seperator "></div>
+                                                    <div class="m-messenger__form " style="width: 100%; ">
+                                                        <div class="m-messenger__form-controls ">
+                                                            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
+                                                                    Make Comment
+                                                                  </button>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
+                                                                            <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                          </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <textarea class="form-control " id="Textarea2" rows="4 " required></textarea>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" id="closeModal" class="btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
+                                                                            <button type="button"class="btn btn-primary" class="" onclick="addComment(), $('#exampleModal').modal('toggle');">Comment</button>
+                                                                        </div>
+                                                                    </div>
+                        
+                                                                </div>
+                        
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" tab-pane " id="m_user_profile_tab_2 "></div>
+                                        <div class="tab-pane " id="m_user_profile_tab_3 "></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </form>
+            
             </div>
           </div>
-  
-       {
+        </div>
+      </div>
+    
+      <!-- Modal -->
+<div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 300px;"role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form action="" method="" enctype="multipart/form-data">
+                        @csrf
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                                <label for="client-list">Select Client</label>
+                                <select id="client-list" class="selectDesign form-control"></select>
+                            </div>
+            
+                            <div class="form-group mt-3">
+                                <label for="document-name">Document Name</label>
+                                <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
+                            </div>
+            
+                        <div class="form-group mt-4">
+                                <input style="background: #f1f1f1" type="file" name="files[]" multiple />
+                        </div>
+            
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label for="project-list">Project Name</label>
+                                <select id="project-list" class="selectDesign form-control"></select>
+                            </div>
+                
+                            <div class="form-group">
+                                <label for="task-list">Version</label>
+                                <input type="text" class="form-control" id="version" placeholder="Enter Version">
+                                </div>
+                
+                        </div>
+            
+                        <div class="col-md-2 form-group mt-2">
+                                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>   
+                            </div>
+                </div>
+            </form>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    
 @endsection
 
-
+{{-- projectcomment js --}}
 @section('javascript')
 <script>
-    function add(parent, el) {
-        return parent.add(el);
-    }
-
-    let dropdown = document.getElementById('project-list');
-    dropdown.length = 0;
-
-    let defaultOption = document.createElement('option');
-    // defaultOption.text = '--Select Project--';
-
-    dropdown.add(defaultOption);
-    dropdown.selectedIndex = 0;
-
-
-    // Dropdown for Project Subtype
-
-    let dropdownTwo = document.getElementById('project-subtype-list');
-    dropdownTwo.length = 0;
-
-    defaultOption = document.createElement('option');
-    // defaultOption.text = '--Select Project Subtype--';
-
-    dropdownTwo.add(defaultOption);
-    dropdownTwo.selectedIndex = 0;
-
-    let dropdownThree = document.getElementById('client-list');
-    dropdownThree.length = 0;
-
-    defaultOption = document.createElement('option');
-
-    dropdownThree.add(defaultOption);
-    dropdownThree.selectedIndex = 0;
-
-
-        $.ajax({
-        type: "GET",
-        url: '{{ url("/api/v1/projects") }}',
-        success: function (data) {
-          console.log('data1', data)
-          data.map(elem => {
-              let option = document.createElement('option');
-              option.text = elem.name;
-              add(dropdown, option)
-            })
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
-      });
-
-      $.ajax({
-        type: "GET",
-        url: '{{ url("/api/v1/project-sub-types") }}',
-        success: function (dataTwo) {
-          console.log('data2', dataTwo)
-          dataTwo.map(elem => {
-              let option = document.createElement('option');
-              option.text = elem.name;
-              add(dropdownTwo, option)
-            })
-        },
-        error: function (dataTwo) {
-            console.log('Error:', dataTwo);
-        }
-      });
-
-      $.ajax({
-        type: "GET",
-        url: '{{ url("/api/v1/clients") }}',
-        success: function (dataThree) {
-          console.log('data3', dataThree)
-          dataTwo.map(elem => {
-              let option = document.createElement('option');
-              option.text = elem.name;
-              add(dropdownThree, option)
-            })
-        },
-        error: function (dataThree) {
-            console.log('Error:', dataThree);
-        }
-      });
-
-</script>
-
-
-
-<script>
-    let languages = {
-            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
-        };
-        var taskDataTable = $('#kt_table_task').DataTable({
-            ajax: "{{ url('/api/v1/tasks') }}",
-            columns: [
-                { "data": "id" },
-                { "data": "name" },
-                { "data": "status.name" },
-                { "data": "manager_id" },
-                { "data": "manager.email" }
-            ],
-            dom: 'lBfrtip<"actions">',
-            language: {
-                url: languages.{{ app()->getLocale() }}
-            },
-            columnDefs: [{
-                orderable: false,
-                className: 'select-checkbox',
-                targets: 0
-            }, {
-                orderable: false,
-                searchable: false,
-                targets: -1
-            }],
-        });
-
-        new $.fn.dataTable.Buttons( taskDataTable, {
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ],
-        } );
-
-        $(function () {
-
-            let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
-            let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
-            let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
-            let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
-            let printButtonTrans = '{{ trans('global.datatables.print') }}';
-            let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
-            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
-            $.extend(true, $.fn.dataTable.defaults, {
-                language: {
-                    url: languages.{{ app()->getLocale() }}
-                },
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }, {
-                    orderable: false,
-                    searchable: false,
-                    targets: -1
-                }],
-                select: {
-                    style:    'multi+shift',
-                    selector: 'td:first-child'
-                },
-                order: [],
-                pageLength: 10,
-                dom: 'lBfrtip<"actions">',
-                buttons: [
-                    {
-                        extend: 'excel',
-                        className: 'btn-primary',
-                        text: excelButtonTrans,
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'btn-success',
-                        text: pdfButtonTrans,
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        className: 'btn-accent',
-                        text: csvButtonTrans,
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    }
-                ]
-            });
-
-            $.fn.dataTable.ext.classes.sPageButton = '';
-            let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
-            let deleteButton = {
-                text: deleteButtonTrans,
-                url: "{{ route('admin.tasks.massDestroy') }}",
-                className: 'btn-danger',
-                action: function (e, dt, node, config) {
-                    var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-                        return $(entry).data('entry-id')
-                    });
-
-                    if (ids.length === 0) {
-                        alert('{{ trans('global.datatables.zero_selected') }}');
-                        return
-                    }
-
-                    if (confirm('{{ trans('global.areYouSure') }}')) {
-                        $.ajax({
-                            headers: {'x-csrf-token': _token},
-                            method: 'POST',
-                            url: config.url,
-                            data: { ids: ids, _method: 'DELETE' }})
-                            .done(function () { location.reload() })
-                    }
-                }
-            }
-            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-            @can('task_delete')
-            dtButtons.push(deleteButton);
-            @endcan
-
-            $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-        })
-
-</script>
-
-@endsection
+        var date = new Date();
+       var formattedDate = (date.toString().slice(0, 25));
+       document.getElementById("datee").innerHTML = formattedDate;
+       
+       
+       var data = [{
+               "id": 2,
+               name: "Yeha",
+               date: "12/2/2000",
+               "comment": "laudantium enim ladugbo mi ncicna jnsjkd cfjaka"
+           },
+           {
+               "id": 1,
+               name: "Ya",
+               date: "2/3/2019",
+               "comment": "est natus enim nihil"
+           },
+       ]
+       mapComment();
+       
+       
+       function mapComment() {
+           data.map((elem, i) => {
+               console.log(elem.comment)
+               var html = elem.id === 1 ?
+                   `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
+           <div class="m-messenger__message m-messenger__message--out">
+           
+               <div class="m-messenger__message-body">
+                   <div class="m-messenger__message-arrow"></div>
+                   <div class="m-messenger__message-content">
+                   <div class="m-messenger__message-username">
+                   <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
+                   <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
+                      
+                       </div>
+                       <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
+                           ${elem.comment}
+                       </div>
+                   </div>
+               </div>
+               <div class="m-messenger__message-pic">
+               <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+           </div>
+           </div>
+       </div>` :
+                   `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
+           <div class="m-messenger__message m-messenger__message--out">
+           
+               <div class="m-messenger__message-body">
+                   <div class="m-messenger__message-arrow"></div>
+                   <div class="m-messenger__message-content">
+                   <div class="m-messenger__message-username">
+                   <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
+                   <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
+                      
+                       </div>
+                       <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
+                           ${elem.comment}
+                       </div>
+                   </div>
+               </div>
+               <div class="m-messenger__message-pic">
+                   <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+           </div>
+           </div>
+       </div>`
+               document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + html
+       
+           })
+       }
+       
+       function addComment() {
+           var newObj = {
+               name: "Chiamaka",
+               comment: document.getElementById("Textarea2").value,
+               id: 5,
+               date: "12/3/1990"
+           }
+           console.log(newObj);
+           data.push(newObj);
+           mapComment();
+           document.getElementById("Textarea2").value = "";
+       }
+       
+       function addReply() {
+           parentComment = document.getElementById("replydiv");
+           childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
+           <div class="m-messenger__message m-messenger__message--out">
+           
+               <div class="m-messenger__message-body">
+                   <div class="m-messenger__message-arrow"></div>
+                   <div class="m-messenger__message-content">
+                   <div class="m-messenger__message-username">
+                   <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
+                   <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
+                      
+                       </div>
+       
+                       <div class="m-messenger__message-text" style="min-width: 250px; max-width: 300px; max-height: 4000px;">  <p> </br> 
+                     <span style="width: 250px"> ${document.getElementById("replyTextId").value} </span>
+           </p>  
+                       </div>
+                       </br>
+                   </div>
+               </div>
+               <div class="m-messenger__message-pic">
+               <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+           </div>
+           </div>
+       </div>`;
+           parentComment.innerHTML = parentComment.innerHTML + childComment;
+           document.getElementById("replyTextId").value = "";
+       }
+       </script>
+       @endsection
