@@ -32,6 +32,9 @@
                             {{ trans('cruds.project.fields.project_type') }}
                         </th>
                         <th>
+                           Project Subtype
+                        </th>
+                        <th>
                             {{ trans('cruds.project.fields.starting_date') }}
                         </th>
                         <th>
@@ -63,6 +66,9 @@
                             <td>
                                 {{ $project->project_type->name ?? '' }}
                             </td>
+                            <td>
+                                    {{ $project->project_subtype->name ?? '' }}
+                             </td>
                             <td>
                                 {{ $project->starting_date ?? '' }}
                             </td>

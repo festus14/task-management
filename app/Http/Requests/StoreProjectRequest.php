@@ -26,6 +26,10 @@ class StoreProjectRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'project_subtype_id' => [
+                'required',
+                'integer',
+            ],
             'starting_date'   => [
                 'required',
                 'date_format:' . config('panel.date_format'),

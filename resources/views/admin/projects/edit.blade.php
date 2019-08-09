@@ -48,6 +48,19 @@
                     </p>
                 @endif
             </div>
+            <div class="form-group {{ $errors->has('project_subtype_id') ? 'has-error' : '' }}">
+                <label for="project_subtype">Project Subtype*</label>
+                <select name="project_subtype_id" id="project_subtype" class="form-control select2" required>
+                        @foreach($project_subtypes as $id => $project_subtype)
+                            <option value="{{ $id }}" {{ (isset($project) && $project->project_subtype ? $project->project_subtype->id : old('project_type_id')) == $id ? 'selected' : '' }}>{{ $project_subtype }}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('project_subtype_id'))
+                        <p class="help-block">
+                            {{ $errors->first('project_subtype_id') }}
+                        </p>
+                    @endif
+                </div>
             <div class="form-group {{ $errors->has('starting_date') ? 'has-error' : '' }}">
                 <label for="starting_date">{{ trans('cruds.project.fields.starting_date') }}*</label>
                 <input type="text" id="starting_date" name="starting_date" class="form-control date" value="{{ old('starting_date', isset($project) ? $project->starting_date : '') }}" required>
