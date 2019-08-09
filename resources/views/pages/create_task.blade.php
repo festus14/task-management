@@ -71,42 +71,24 @@
                       <div class="card">
                             <div class="card-header" id="headingTwo">
                               <h6 class="mb-0">
-                                <span class="collapsed"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <span data-toggle="modal" data-target="#taskDocumentModal">
                                         <i class="m-menu__link-icon flaticon-clipboard"></i>
                                         Documents
-                                        <i style="float: right;" class="m-menu__link-icon flaticon-plus"data-toggle="modal" data-target="#documentModal"></i>
                                 </span>
                               </h6>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                              <div class="card-body">
-                                  <ul>
-                                    <li>Document 1</li>
-                                    <li>Document 2</li>
-                                    <li>Document 3</li>
-                                </ul> 
-                              </div>
                             </div>
                           </div>
 
                           <div class="card">
                                 <div class="card-header" id="headingThree">
                                   <h6 class="mb-0">
-                                    <span class="collapsed"  data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <span data-toggle="modal" data-target="#taskReportModal">
                                             <i class="m-menu__link-icon flaticon-file"></i>
                                             Report
-                                            <i style="float: right;" class="m-menu__link-icon flaticon-plus" data-toggle="modal" data-target="#projReport"></i>
                                     </span>
                                   </h6>
                                 </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                  <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                  </div>
-                                </div>
                               </div>
-
-
 
                               <div class="card">
                                     <div class="card-header" id="headingFour">
@@ -123,7 +105,7 @@
 
     <!-- Comment Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 80%; min-width: 300px;"role="document">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; max-height:100vh; margin-left:0; min-width: 300px;"role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
@@ -272,60 +254,267 @@
         </div>
       </div>
     
-      <!-- Modal -->
-<div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 300px;"role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                    <form action="" method="" enctype="multipart/form-data">
-                        @csrf
-                <div class="row">
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                                <label for="client-list">Select Client</label>
-                                <select id="client-list" class="selectDesign form-control"></select>
-                            </div>
-            
-                            <div class="form-group mt-3">
-                                <label for="document-name">Document Name</label>
-                                <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
-                            </div>
-            
-                        <div class="form-group mt-4">
-                                <input style="background: #f1f1f1" type="file" name="files[]" multiple />
-                        </div>
-            
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <label for="project-list">Project Name</label>
-                                <select id="project-list" class="selectDesign form-control"></select>
-                            </div>
-                
-                            <div class="form-group">
-                                <label for="task-list">Version</label>
-                                <input type="text" class="form-control" id="version" placeholder="Enter Version">
+     
+
+{{-- documentDTModal --}}
+<div class="modal fade" id="taskDocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="documentModalLongTitle">Task documents</h5>
+          <button type="button" class="close" onclick="$('#taskDocumentModal').modal('hide');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <div class="m-portlet " id="m_portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon">
+                                            <i class="flaticon-list-1"> </i>
+                                        </span>
+                                        <h3 class="m-portlet__head-text">
+                                                Task documents
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__head-tools">
+                                        <ul class="m-portlet__nav">
+                                            <li class="m-portlet__nav-item">
+                                                <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addDocumentModal" class="btn m-btn--icon m-btn--pill">
+                                                    <span data-toggle="modal" data-target="#addDocumentModal">
+                                                            <i class="la la-plus"></i>
+                                                            <span>
+                                                                Add Document
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                
+                        <div class="m-portlet__body">
+                            <table id="kt_table_projects" class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Client</th>
+                                        <th>Name</th>
+                                        <th>Manager</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> </td>                                        
+                                        <td> </td>
+                                        <td> </td> 
+                                        <td> </td>                                        
+                                        <td> </td>
+                                        <td> </td> 
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
                         </div>
-            
-                        <div class="col-md-2 form-group mt-2">
-                                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>   
-                            </div>
-                </div>
-            </form>
-            
-            </div>
-          </div>
+                    </div>
+                    <!--end::Portlet-->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="$('#taskDocumentModal').modal('hide');">Close</button>
         </div>
       </div>
+    </div>
+  </div>
+{{-- endDocumentDTModal --}}
     
+<!-- Add Document Modal -->
+<div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;"role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle"><i class="la la-plus"></i> Add Document</h5>
+          <button type="button" class="close"  onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <form action="" method="" enctype="multipart/form-data">
+                    @csrf
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <div class="form-group">
+                            <label for="client-list">Select Client</label>
+                            <select id="client-list" class="selectDesign form-control"></select>
+                        </div>
+        
+                        <div class="form-group mt-3">
+                            <label for="document-name">Document Name</label>
+                            <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
+                        </div>
+        
+                    <div class="form-group mt-4">
+                            <input style="background: #f1f1f1" type="file" name="files[]" multiple />
+                    </div>
+        
+                </div>
+                <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="project-list">Project Name</label>
+                            <select id="project-list" class="selectDesign form-control"></select>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="task-list">Version</label>
+                            <input type="text" class="form-control" id="version" placeholder="Enter Version">
+                            </div>
+            
+                    </div>
+        
+                    <div class="col-md-3 form-group mt-2">
+                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>   
+                        </div>
+            </div>
+        </form>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- End Add Document Modal -->
+
+{{-- taskReport DT Modal --}}
+<div class="modal fade" id="taskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="documentModalLongTitle">Task reports</h5>
+          <button type="button" class="close" onclick="$('#taskReportModal').modal('hide');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <div class="m-portlet " id="m_portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon">
+                                            <i class="flaticon-list-1"> </i>
+                                        </span>
+                                            <h3 class="m-portlet__head-text">
+                                                Reports
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__head-tools">
+                                        <ul class="m-portlet__nav">
+                                            <li class="m-portlet__nav-item">
+                                                <a style="color:white; background-color: #8a2a2b;" class="btn m-btn--icon m-btn--pill">
+                                                    <span data-toggle="modal" data-target="#addTaskReportModal" aria-expanded="false" aria-controls="">
+                                                            <i class="la la-plus"></i>
+                                                            <span>
+                                                                Add Report
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                        <div class="m-portlet__body">
+                            <table id="kt_table_projects" class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Client</th>
+                                        <th>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> </td>                                        
+                                        <td> </td>
+                                        <td> </td> 
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="$('#taskReportModal').modal('hide');">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{{-- endtaskReport DT tModal --}}
+
+{{-- Add task report Modal --}}
+<div class="modal fade" id="addTaskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
+          <button type="button" class="close" onclick="$('#addTaskReportModal').modal('hide');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                                <form>
+                                        <div class="col-md-12 row">
+                                                <div class="col-md-6 form-group mt-3">
+                                                    <label>Client</label>
+                                                    <select id="client-list" class="selectDesign form-control"></select>
+                                                </div>
+                                        
+                                                <div class="col-md-6 form-group mt-3">
+                                                        <label>Project</label>
+                                                        <select id="client-list" class="selectDesign form-control"></select>
+                                                </div>
+                                        </div>
+                                        <div class=" row col-md-12">
+                                                 <div class="col-md-12 form-group mt-3">
+                                                        <label for="exampleFormControlTextarea1">Project Report</label>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                </div>
+                                        </div>
+                                        <div class=" row col-md-12">
+                                                        <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
+                                                        <fieldset class="col-md-12 form-group mt-3">
+                                                                        <legend>Upload File</legend>
+                                                            
+                                                                        <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                                                            
+                                                                        <div>
+                                                                            <label for="fileselect">Files to upload:</label>
+                                                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
+                                                                            {{-- <div id="filedrag">or drop files here</div> --}}
+                                                                        </div>
+{{--                                                                     
+                                                                        <div id="submitbutton">
+                                                                            <button type="submit">Upload Files</button>
+                                                                        </div> --}}
+                                                             <div id="messages">
+                                                                        
+                                                                    </div>
+                                                                    </fieldset>
+                                                                    <div class="row col-md-12">
+                                                                            <div class="col-md-3 form-group mt-3">
+                                                                    <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                                                                            </div>
+                                                            </div>
+                                                        </form>
+                    
+        </div>
+      </div>
+    </div>
+  </div>
+{{-- end Addtaskreport Modal --}}
+
 @endsection
 
 {{-- projectcomment js --}}

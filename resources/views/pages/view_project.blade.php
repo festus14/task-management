@@ -336,7 +336,7 @@
 
 <!-- More Info Modal -->
 <div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" onclick="$('#moreInfoModal').modal('hide');" aria-label="Close">
@@ -356,20 +356,6 @@
                                             More info
                                         </h3>
                                     </div>
-                                </div>
-                                <div class="m-portlet__head-tools">
-                                    <ul class="m-portlet__nav">
-                                        <li class="m-portlet__nav-item">
-                                            <a style="color:white; background-color: #8a2a2b;" class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#createProjectModal">
-                                                <span>
-                                                        <i class="la la-plus"></i>
-                                                        <span>
-                                                            blah
-                                                        </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                             <div class="m-portlet__body">
@@ -398,7 +384,7 @@
                                           <div class="card">
                                                 <div class="card-header" id="headingTwo">
                                                   <h6 class="mb-0">
-                                                    <span data-toggle="modal" data-target="#documentModal" aria-expanded="false" aria-controls="">
+                                                    <span data-toggle="modal" data-target="#documentModal">
                                                             <i class="m-menu__link-icon flaticon-clipboard"></i>
                                                             Documents
                                                     </span>
@@ -409,7 +395,7 @@
                                             <div class="card">
                                                     <div class="card-header" id="headingThree">
                                                       <h6 class="mb-0">
-                                                        <span data-toggle="modal" data-target="#reportModal" aria-expanded="false" aria-controls="">
+                                                        <span data-toggle="modal" data-target="#projectreportModal">
                                                                 <i class="m-menu__link-icon flaticon-file"></i>
                                                                 Report
                                                         </span>
@@ -431,12 +417,12 @@
                         <!--end::Portlet-->
                     
                     
-                        {{-- documentModal --}}
+                        {{-- documentDTModal --}}
                         <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title" id="documentModalLongTitle">Documents</h5>
+                                      <h5 class="modal-title" id="documentModalLongTitle">Project Documents</h5>
                                       <button type="button" class="close" onclick="$('#documentModal').modal('hide');" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
@@ -503,15 +489,15 @@
                                   </div>
                                 </div>
                               </div>
-                        {{-- endDocumentModal --}}
+                        {{-- endDocumentDTModal --}}
                     
                         {{-- report DT Modal --}}
-                        <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
+                        <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title" id="documentModalLongTitle">Documents</h5>
-                                      <button type="button" class="close" onclick="$('#reportModal').modal('hide');" aria-label="Close">
+                                      <h5 class="modal-title" id="documentModalLongTitle">Project reports</h5>
+                                      <button type="button" class="close" onclick="$('#projectreportModal').modal('hide');" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
@@ -524,7 +510,7 @@
                                                                         <i class="flaticon-list-1"> </i>
                                                                     </span>
                                                                         <h3 class="m-portlet__head-text">
-                                                                            Report
+                                                                            Reports
                                                                         </h3>
                                                                     </div>
                                                                 </div>
@@ -566,7 +552,7 @@
                                                 <!--end::Portlet-->
                                     </div>
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
+                                      <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
                                     </div>
                                   </div>
                                 </div>
@@ -635,7 +621,8 @@
                               </div>
                         {{-- end Addreport Modal --}}
                         
-                
+                    
+                    
  <!-- End main Content of More-info -->                    
             </div>
             <div class="modal-footer">
@@ -702,153 +689,153 @@
 
 <!-- Comment Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:100vh; min-height: 100vh; max-width: 100%; min-width: 100px; overflow:hidden;" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Project Comments</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                    <div class="m-content">
-                            <div class="row">
-                                <div class="col-lg-4">
-                        
-                                    <div class="m-portlet__body">
-                                        <div class="m-card-profile">
-                                            <div class="m-card-profile__title m--hide">
-                                                Comments
-                                            </div>
-                                            <div class="m-card-profile__pic">
-                                                <div class="m-card-profile__pic-wrapper">
-                                                        <img alt="" src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded"/>
-                                                </div>
-                                            </div>
-                                            <div class="m-card-profile__details">
-                                                <span class="m-card-profile__name">
-                                                            Project Name
-                                                        </span>
+    <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:100vh; min-height: 100vh; max-width: 100%; min-width: 100px; overflow:hidden;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Project Comments</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <div class="m-content">
+                        <div class="row">
+                            <div class="col-lg-4">
+                    
+                                <div class="m-portlet__body">
+                                    <div class="m-card-profile">
+                                        <div class="m-card-profile__title m--hide">
+                                            Comments
+                                        </div>
+                                        <div class="m-card-profile__pic">
+                                            <div class="m-card-profile__pic-wrapper">
+                                                    <img alt="" src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded"/>
                                             </div>
                                         </div>
-                        
+                                        <div class="m-card-profile__details">
+                                            <span class="m-card-profile__name">
+                                                        Project Name
+                                                    </span>
+                                        </div>
                                     </div>
-                        
+                    
                                 </div>
-                                <div class="col-lg-8">
-                                    <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
-                                        <div class="m-portlet__head">
-                                            <div class="m-portlet__head-tools">
-                                                <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-                        
-                                                    <li class="nav-item m-tabs__item">
-                                                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
-                                                                Comments
-                                                            </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                        
+                    
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                                    <div class="m-portlet__head">
+                                        <div class="m-portlet__head-tools">
+                                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                    
+                                                <li class="nav-item m-tabs__item">
+                                                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
+                                                            Comments
+                                                        </a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <!-- <div class="tab-content"> -->
-                                        <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
-                                        <div class=" m-scrollable">
-                                            <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
-                                                <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-                                                    <div class="m-messenger__messages mCS-autoHide" style="height: 356px; max-height: auto; position: relative; overflow: hidden;">
-                                                        <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; scrollbar-width: thin;">
-                                                            <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-                                                                <br>
-                                                                <span id="filler"> </span>
-                        
-                                                                <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
-                                                                    <div class="m-messenger__message m-messenger__message--in">
-                                                                        <div class="m-messenger__message-pic">
-                                                                            <img alt="" src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-                                                                        </div>
-                                                                        <div class="m-messenger__message-body">
-                                                                            <div class="m-messenger__message-arrow"></div>
-                                                                            <div class="m-messenger__message-content">
-                                                                                <div class="m-messenger__message-username">
-                                                                                    <span class="secondary"><strong>Tomiwa wrote</strong></span>
-                                                                                    <span id="datee" style="float: right;"></span>
-                                                                                </div>
-                                                                                <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; max-height: 4000px; display: flex; flex-direction: column;
-                                                                                    ">
-                                                                                    Hi Ayo. What time will be the meeting ? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel a ratione unde veritatis hic quidem totam quas, minima officiis ab sapiente necessitatibus doloribus vitae nesciunt atque deserunt.
-                                                                                    <br/>
-                                                                                    <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
-                                                                                    </div>
-                                                                                    <br>
-                                                                                    <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
-                        
-                                                                                    <div class="collapse" id="collapseReply">
-                                                                                        <br>
-                                                                                        <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                        <button class="m-btn--pill" type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
-                                                                                    </div>
-                                                                                </div>
-                        
+                    
+                                    </div>
+                                    <!-- <div class="tab-content"> -->
+                                    <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
+                                    <div class=" m-scrollable">
+                                        <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
+                                            <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
+                                                <div class="m-messenger__messages mCS-autoHide" style="height: 356px; max-height: auto; position: relative; overflow: hidden;">
+                                                    <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; scrollbar-width: thin;">
+                                                        <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+                                                            <br>
+                                                            <span id="filler"> </span>
+                    
+                                                            <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
+                                                                <div class="m-messenger__message m-messenger__message--in">
+                                                                    <div class="m-messenger__message-pic">
+                                                                        <img alt="" src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+                                                                    </div>
+                                                                    <div class="m-messenger__message-body">
+                                                                        <div class="m-messenger__message-arrow"></div>
+                                                                        <div class="m-messenger__message-content">
+                                                                            <div class="m-messenger__message-username">
+                                                                                <span class="secondary"><strong>Tomiwa wrote</strong></span>
+                                                                                <span id="datee" style="float: right;"></span>
                                                                             </div>
+                                                                            <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; max-height: 4000px; display: flex; flex-direction: column;
+                                                                                ">
+                                                                                Hi Ayo. What time will be the meeting ? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel a ratione unde veritatis hic quidem totam quas, minima officiis ab sapiente necessitatibus doloribus vitae nesciunt atque deserunt.
+                                                                                <br/>
+                                                                                <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
+                                                                                </div>
+                                                                                <br>
+                                                                                <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
+                    
+                                                                                <div class="collapse" id="collapseReply">
+                                                                                    <br>
+                                                                                    <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
+                                                                                    <button class="m-btn--pill" type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                </div>
+                                                                            </div>
+                    
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                        
                                                             </div>
-                                                        </div>
-                                                        <div id=" mCSB_3_scrollbar_vertical " class="mCSB_scrollTools mCSB_3_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical " style="display: block;">
-                                                            <div class=" mCSB_draggerContainer ">
-                                                                <div id="mCSB_3_dragger_vertical " class="mCSB_dragger " style="position: absolute; min-height: 50px; display: block; height: 114px; max-height: 319px; top: 0px; ">
-                                                                    <div class="mCSB_dragger_bar " style="line-height: auto; "></div>
-                                                                </div>
-                                                                <div class="mCSB_draggerRail "></div>
-                                                            </div>
+                    
                                                         </div>
                                                     </div>
-                                                    <div class="m-messenger__seperator "></div>
-                                                    <div class="m-messenger__form " style="width: 100%; ">
-                                                        <div class="m-messenger__form-controls ">
-                                                            <button type="button" class="m-btn--pill btn btn-primary"  data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
-                                                                    Make Comment
-                                                                  </button>
-                                                            <!-- Make new Commment Modal -->
-                                                            <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
-                                                                            <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                          </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <textarea class="form-control " id="Textarea2" rows="4 " required></textarea>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
-                                                                            <button type="button"class="m-btn--pill btn btn-primary" class="" onclick="addComment(), $('#exampleModal').modal('toggle');">Comment</button>
-                                                                        </div>
+                                                    <div id=" mCSB_3_scrollbar_vertical " class="mCSB_scrollTools mCSB_3_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical " style="display: block;">
+                                                        <div class=" mCSB_draggerContainer ">
+                                                            <div id="mCSB_3_dragger_vertical " class="mCSB_dragger " style="position: absolute; min-height: 50px; display: block; height: 114px; max-height: 319px; top: 0px; ">
+                                                                <div class="mCSB_dragger_bar " style="line-height: auto; "></div>
+                                                            </div>
+                                                            <div class="mCSB_draggerRail "></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="m-messenger__seperator "></div>
+                                                <div class="m-messenger__form " style="width: 100%; ">
+                                                    <div class="m-messenger__form-controls ">
+                                                        <button type="button" class="m-btn--pill btn btn-primary"  data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
+                                                                Make Comment
+                                                              </button>
+                                                        <!-- Make new Commment Modal -->
+                                                        <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
+                                                                        <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                      </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <textarea class="form-control " id="Textarea2" rows="4 " required></textarea>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
+                                                                        <button type="button"class="m-btn--pill btn btn-primary" class="" onclick="addComment(), $('#exampleModal').modal('toggle');">Comment</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- End Make new Commment Modal -->
                                                         </div>
+                                                        <!-- End Make new Commment Modal -->
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class=" tab-pane " id="m_user_profile_tab_2 "></div>
-                                        <div class="tab-pane " id="m_user_profile_tab_3 "></div>
                                     </div>
+                                    <div class=" tab-pane " id="m_user_profile_tab_2 "></div>
+                                    <div class="tab-pane " id="m_user_profile_tab_3 "></div>
                                 </div>
                             </div>
                         </div>
-            </form>
-            
-            </div>
-          </div>
+                    </div>
+        </form>
+        
         </div>
       </div>
+    </div>
+  </div>
 <!-- endComment Modal -->
 @endsection 
 @section('javascript')
