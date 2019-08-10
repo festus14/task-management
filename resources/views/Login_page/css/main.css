@@ -1,6 +1,3 @@
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
 @font-face {
     font-family: Ubuntu-Regular;
     src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
@@ -10,10 +7,6 @@
     font-family: Ubuntu-Bold;
     src: url('../fonts/ubuntu/Ubuntu-Bold.ttf');
 }
-
-
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
 
 * {
     margin: 0px;
@@ -26,9 +19,6 @@ html {
     height: 100%;
     font-family: 'Permanent Marker', cursive;
 }
-
-
-/*---------------------------------------------*/
 
 a {
     font-family: Ubuntu-Regular;
@@ -50,9 +40,6 @@ a:hover {
     text-decoration: none;
     color: #fff;
 }
-
-
-/*---------------------------------------------*/
 
 h1,
 h2,
@@ -203,8 +190,7 @@ label {
 }
 
 
-/*------------------------------------------------------------------
-[ Form ]*/
+/* [ Form ] */
 
 .login100-form {
     width: 100%;
@@ -444,69 +430,4 @@ label {
     margin-left: 37px;
     margin-top: 25px;
     margin-bottom: -25px;
-}
-
-
-/*------------------------------------------------------------------
-[ Alert validate ]*/
-
-.validate-input {
-    position: relative;
-}
-
-.alert-validate::before {
-    content: attr(data-validate);
-    position: absolute;
-    max-width: 70%;
-    background-color: #fff;
-    border: 1px solid #c80000;
-    border-radius: 2px;
-    padding: 4px 25px 4px 10px;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    transform: translateY(-50%);
-    right: 10px;
-    pointer-events: none;
-    font-family: Ubuntu-Bold;
-    color: #c80000;
-    font-size: 13px;
-    line-height: 1.4;
-    text-align: left;
-    visibility: hidden;
-    opacity: 0;
-    -webkit-transition: opacity 0.4s;
-    -o-transition: opacity 0.4s;
-    -moz-transition: opacity 0.4s;
-    transition: opacity 0.4s;
-}
-
-.alert-validate::after {
-    content: "\f12a";
-    font-family: FontAwesome;
-    font-size: 16px;
-    color: #c80000;
-    display: block;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    transform: translateY(-50%);
-    right: 15px;
-}
-
-.alert-validate:hover:before {
-    visibility: visible;
-    opacity: 1;
-}
-
-@media (max-width: 992px) {
-    .alert-validate::before {
-        visibility: visible;
-        opacity: 1;
-    }
 }
