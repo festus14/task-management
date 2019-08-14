@@ -422,9 +422,10 @@ $('.datatable:not(.ajaxTable)').DataTable({
             url: '{{ url("/api/v1/client_project/1") }}',
             success: function (data) {
                 console.log(data)
+                
                 var card = document.getElementById('client-cards');
-                data.map((datum, i) => {
-                    card.innerHTML = card.innerHTML +`<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
+                data.data.map((datum, i) => {
+                    card.innerHTML = card.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                     <div class="m-widget24">
                         <div class="m-widget24__item">
                             <div class="body-header" style="">
@@ -459,6 +460,7 @@ $('.datatable:not(.ajaxTable)').DataTable({
                    </div>`
                 })
             },
+
             error: function (data) {
                 console.log('Error:', data);
             }
