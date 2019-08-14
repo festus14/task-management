@@ -19,21 +19,31 @@ use App\TaskComment;
 
 class ClientDashboardPagesController extends Controller
 {
-    public function clientDashboard(){
-        $projects =  Project::with('status')
+    public function clientDashboard(Request $request){
+        $projects =  Project::where('client_id', 1)
+        ->with('status')
         ->with('client')
         ->with('manager')
         ->with('project_type')
         ->with('team_members')
         ->with('tasks')
-        ->with('status')            
+        ->with('status')
+        ->with('project_subtype')
         ->get();
 
-        return view('pages.client_dashboard', compact('projects'));
+        $tasks = Task::where('client_id', 1)->with('client')
+        ->with('status')
+        ->with('manager')
+        ->with('assinged_tos')
+        ->with('category')
+        ->get();
+
+
+        return view('pages.client_dashboard', compact('projects', 'tasks'));
     }
 
     public function createClient(){
         return view('pages.create_client');
     }
-    
+
 }
