@@ -59,6 +59,7 @@ class ProjectPagesController extends Controller
             ->with('client')
             ->with('manager')
             ->with('project_type')
+            ->with('project_subtype')
             ->with('team_members')
             ->with('tasks')
             ->with('status')            

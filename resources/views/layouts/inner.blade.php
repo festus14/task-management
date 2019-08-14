@@ -943,7 +943,7 @@
                     </div>
                     <!-- END: Subheader -->
     
-                        <div class="m-content">
+                        <div class="m-content" style="width: 99%;">
                             <!-- Inner page content goes here -->
                             @yield('content')
                             <!-- <div>

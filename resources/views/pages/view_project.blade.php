@@ -8,7 +8,7 @@
 
 </style>
 @endsection
-<div class="m-portlet " id="m_portlet">
+<div class="m-portlet " id="m_portlet" style="width:97%;">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
             <div class="m-portlet__head-title">
@@ -51,6 +51,7 @@
                     <th>Name</th>
                     <th>Manager</th>
                     <th>Type</th>
+                    <th>Subtype</th>
                     <th>Status</th>
                     <th>Members</th>
                     <th>Deadline</th>
@@ -65,8 +66,9 @@
                     <td> </td>
                     <td>{{ $project->client->name ?? '' }}</td>
                     <td>{{ $project->name }}</td>
-                    <td>{{ $project->manager->email ?? '' }}</td>
+                    <td>{{ $project->manager->name ?? '' }}</td>
                     <td>{{ $project->project_type->name ?? '' }}</td>
+                    <td>{{ $project->project_subtype->name ?? ''}}</td>
                     <td>{{ $project->status->name ?? '' }}</td>
                     <td>
                         @foreach ($project->team_members as $menber)
@@ -405,11 +407,10 @@
                                 </div>
                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <ol>
-                                            <li>name of task 1</li>
-                                            <li>name of task 2</li>
-                                            <li>name of task 3</li>
-                                        </ol>
+                                        <ul class="list-group">
+                                                <li class="list-group-item">name of task</li>
+                                                <li class="list-group-item">name of task</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -778,8 +779,10 @@
                                     <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
                                         <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
                                             <div class="m-messenger__messages mCS-autoHide" style="height: 356px; max-height: auto; position: relative; overflow: hidden;">
-                                                <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; scrollbar-width: thin;">
-                                                    <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+                                                <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; position: absolute;
+
+                                                overflow-y: scroll; scrollbar-width: thin;">
+                                                    <div id="mCSB_3_container" class="mCSB_container" style="top:0; left:0;" dir="ltr">
                                                         <br>
                                                         <span id="filler"> </span>
 
@@ -795,8 +798,7 @@
                                                                             <span class="secondary"><strong>Tomiwa wrote</strong></span>
                                                                             <span id="datee" style="float: right;"></span>
                                                                         </div>
-                                                                        <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; max-height: 4000px; display: flex; flex-direction: column;
-                                                                                ">
+                                                                        <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; word-wrap: break-word; max-height: 4000px; display: flex; flex-direction: column;">
                                                                             Hi Ayo. What time will be the meeting ? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel a ratione unde veritatis hic quidem totam quas, minima officiis ab sapiente necessitatibus doloribus vitae nesciunt atque deserunt.
                                                                             <br/>
                                                                             <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
@@ -885,13 +887,11 @@
        var data = [{
                "id": 2,
                name: "Yeha",
-               date: "12/2/2000",
                "comment": "laudantium enim ladugbo mi ncicna jnsjkd cfjaka"
            },
            {
                "id": 1,
                name: "Ya",
-               date: "2/3/2019",
                "comment": "est natus enim nihil"
            },
        ]
@@ -913,7 +913,7 @@
                    <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
 
                        </div>
-                       <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
+                       <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 440px; max-height: 4000px;">
                            ${elem.comment}
                        </div>
                    </div>
@@ -934,7 +934,7 @@
                    <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
 
                        </div>
-                       <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
+                       <div class="m-messenger__message-text" style=" min-width: 250px; word-wrap: break-word; max-width: 440px; max-height: 4000px;">
                            ${elem.comment}
                        </div>
                    </div>
@@ -953,8 +953,7 @@
            var newObj = {
                name: "Chiamaka",
                comment: document.getElementById("Textarea2").value,
-               id: 5,
-               date: "12/3/1990"
+               id: 5
            }
            console.log(newObj);
            data.push(newObj);
@@ -976,9 +975,9 @@
 
                        </div>
 
-                       <div class="m-messenger__message-text" style="min-width: 250px; max-width: 300px; max-height: 4000px;">  <p> </br>
-                     <span style="width: 250px"> ${document.getElementById("replyTextId").value} </span>
-           </p>
+                       <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
+                         ${document.getElementById("replyTextId").value} 
+                                 </p>
                        </div>
                        </br>
                    </div>
