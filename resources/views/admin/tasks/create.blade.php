@@ -5,7 +5,7 @@
     <div class="card-header">
         {{ trans('global.create') }} {{ trans('cruds.task.title_singular') }}
     </div>
-
+    
     <div class="card-body">
         <form action="{{ route("admin.tasks.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
