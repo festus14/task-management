@@ -13,227 +13,47 @@
     </style>
 @endsection
 
-{{-- <div class="m-portlet ">
-
-    <div id="rows" class="m-portlet__body  m-portlet__body--no-padding">
-        <div style="margin-bottom: 15px;" class="row m-row--no-padding m-row--col-separator-xl">
-                    <div  id="client-card" class="col-md-12 col-lg-12 col-xl-12">
-                        <div class="m-widget24">
-                            <div class="m-widget24__item">
-                                <h1 style="font-size: 30px;" class="m-widget24__title">
-                                    Stransact
-                                </h1>
-
-                                <br>
-
-                                <span class="m-widget24__stats m--font-brand">
-                                    <div class="m-widget4__img m-widget4__img--pic">
-                                        <img src="assets/app/media/img/users/100_4.jpg" class="far fa-building" alt width="100px" height="100px" style="border-radius: 1000px">
-                                    </div>
-                                </span>
-
-                                <div class="m--space-10"></div>
-
-
-                                <p style="margin-top: 10px">
-                                        <a style="margin-top: -15px; margin-left: 25px" class="btn btn-sm m-btn--pill btn-secondary m-btn m-btn--label-brand" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                            View Projects
-                                        </a>
-                                    </p>
-                                    <div style="box-sizing: border-box;" class="collapse" id="collapseExample">
-                                        <ul style="list-style: none;" >
-                                            <li>
-                                                <p style="font-size: 15px; font-weight: bold;">Tax</p>
-                                                <p>
-                                                    <a style="margin-top: -15px;" class="btn btn-sm m-btn--pill btn-secondary m-btn m-btn--label-brand" data-toggle="collapse" href="#collapseExampleIn" role="button" aria-expanded="false" aria-controls="collapseExample" style="background: white">
-                                                        View Tasks Progress
-                                                    </a>
-                                                </p>
-                                                <div class="collapse" id="collapseExampleIn">
-
-                                                    <div class="k-portlet__body" style="background: white; box-sizing: border-box; padding: 20px 20px 20px; margin: 0 20px 20px 0;">
-
-                                                        <div class="k-portlet__body k-portlet__body--fit">
-                                                        <!--begin: Datatable -->
-                                                        <table id="kt_table_task" class="table table-striped table-hover" style="width: 100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>#</th>
-                                                                        <th>Name</th>
-                                                                        <th>Status ID</th>
-                                                                        <th>manager_id</th>
-                                                                        <th>manager</th>
-                                                                    </tr>
-                                                                </thead>
-                                                            </table>
-                                                            <!--end: Datatable -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                        </ul>
-                                </div>
-
-
-                        </div>
-                    </div>
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
-</div> --}}
-
 @section('content')
     <!-- Begin: List Client -->
     <div class="m-content">
         <div class="m-portlet__body  m-portlet__body--no-padding">
-            <div class="row m-row--no-padding m-row--col-separator-xl">
+            <div class="row m-row--no-padding m-row--col-separator-xl" id="client-cards">
 
-                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
-                    <!--begin::Total Profit-->
-                    <div class="m-widget24">
-                        <div class="m-widget24__item">
-                            <div class="body-header" style="">
-                                <div class="" style=" float: left">
-                                    <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
-                                         width="80px" height="80px" style="border-radius: 1000px">
-                                </div>
-                                <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
-                                    Stransact Partners
-                                </h1>
-                                <br>
-                            </div>
+                {{--<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">--}}
+                    {{--<!--begin::Total Profit-->--}}
+                    {{--<div class="m-widget24">--}}
+                        {{--<div class="m-widget24__item">--}}
+                            {{--<div class="body-header" style="">--}}
+                                {{--<div class="" style=" float: left">--}}
+                                    {{--<img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt--}}
+                                         {{--width="80px" height="80px" style="border-radius: 1000px">--}}
+                                {{--</div>--}}
+                                {{--<h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">--}}
+                                    {{--Stransact Partners--}}
+                                {{--</h1>--}}
+                                {{--<br>--}}
+                            {{--</div>--}}
 
-                            <div class="m--space-10"></div>
+                            {{--<div class="m--space-10"></div>--}}
 
-                            <div id="client-details" style="">
-                                <p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>
-                                <p>stransact@gmail.com</p>
-                                <p>08156401454</p>
-                            </div>
+                            {{--<div id="client-details" style="">--}}
+                                {{--<p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>--}}
+                                {{--<p>stransact@gmail.com</p>--}}
+                                {{--<p>08156401454</p>--}}
+                            {{--</div>--}}
 
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_project">
-                                View Projects
-                            </button>
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_task">
-                                View Tasks
-                            </button>
-                        </div>
-                    </div>
-                    <!--end::Total Profit-->
-                </div>
-
-                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
-                    <!--begin::Total Profit-->
-                    <div class="m-widget24">
-                        <div class="m-widget24__item">
-                            <div class="body-header" style="">
-                                <div class="" style=" float: left">
-                                    <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
-                                         width="80px" height="80px" style="border-radius: 1000px">
-                                </div>
-                                <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
-                                    Oil and Gas
-                                </h1>
-                                <br>
-                            </div>
-
-                            <div class="m--space-10"></div>
-
-                            <div id="client-details" style="">
-                                <p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>
-                                <p>stransact@gmail.com</p>
-                                <p>090564054625</p>
-                            </div>
-
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_project">
-                                View Projects
-                            </button>
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_task">
-                                View Tasks
-                            </button>
-                        </div>
-                    </div>
-                    <!--end::Total Profit-->
-                </div>
-
-                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
-                    <!--begin::Total Profit-->
-                    <div class="m-widget24">
-                        <div class="m-widget24__item">
-                            <div class="body-header" style="">
-                                <div class="" style=" float: left">
-                                    <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
-                                         width="80px" height="80px" style="border-radius: 1000px">
-                                </div>
-                                <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
-                                    Oil and Gas
-                                </h1>
-                                <br>
-                            </div>
-
-                            <div class="m--space-10"></div>
-
-                            <div id="client-details" style="">
-                                <p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>
-                                <p>stransact@gmail.com</p>
-                                <p>090564054625</p>
-                            </div>
-
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_project">
-                                View Projects
-                            </button>
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#createTaskModal">
-                                View Tasks
-                            </button>
-                        </div>
-                    </div>
-                    <!--end::Total Profit-->
-                </div>
-
-                <div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
-                    <!--begin::Total Profit-->
-                    <div class="m-widget24">
-                        <div class="m-widget24__item">
-                            <div class="body-header" style="">
-                                <div class="" style=" float: left">
-                                    <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
-                                         width="80px" height="80px" style="border-radius: 1000px">
-                                </div>
-                                <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
-                                    Oil and Gas
-                                </h1>
-                                <br>
-                            </div>
-
-                            <div class="m--space-10"></div>
-
-                            <div id="client-details" style="">
-                                <p>Plot 126 Adejobi Cresent, Anthony Vilage, Lagos</p>
-                                <p>stransact@gmail.com</p>
-                                <p>090564054625</p>
-                            </div>
-
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_project">
-                                View Projects
-                            </button>
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#createTaskModal">
-                                View Tasks
-                            </button>
-                        </div>
-                    </div>
-                    <!--end::Total Profit-->
-                </div>
+                            {{--<button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"--}}
+                                    {{--data-toggle="modal" data-target="#view_client_project">--}}
+                                {{--View Projects--}}
+                            {{--</button>--}}
+                            {{--<button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"--}}
+                                    {{--data-toggle="modal" data-target="#view_client_task">--}}
+                                {{--View Tasks--}}
+                            {{--</button>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<!--end::Total Profit-->--}}
+                {{--</div>--}}
 
             </div>
         </div>
@@ -270,7 +90,6 @@
                                             <th>Type</th>
                                             <th>Subtypes</th>
                                             <th>Status</th>
-                                            <th>Members Name</th>
                                             <th>Members Email</th>
                                             <th>Deadline</th>
                                             <th>Tools</th>
@@ -293,47 +112,54 @@
                                                 </td>
                                                 <td>{{ $project->deadline }}</td>
                                                 <td>
-                                                    @can('project_sub_type_show')
-                                                        <a class="link"
-                                                           href="{{ route('admin.project-sub-types.show', $project->id) }}">
-                                                            <i class="flaticon-eye"> </i>
-                                                        </a>
-                                                    @endcan
-
-                                                    @can('project_sub_type_edit')
-                                                        <a class="link"
-                                                           href="{{ route('admin.project-sub-types.edit', $project->id) }}">
-                                                            <i class="flaticon-edit"> </i>
-                                                        </a>
-                                                    @endcan
-
-
-                                                    @can('project_sub_type_edit')
-                                                        <a class="link" href="#"
-                                                           id="project_subtype_{{  $project->id }}"
-                                                           data-project_type_id="{{  $project->id }}">
-                                                            <i class="flaticon-graphic"> </i>
-                                                        </a>
-                                                    @endcan
-                                                        @can('project_sub_type_edit')
-                                                            <a class="link" href="#"
-                                                               id="project_subtype_{{  $project->id }}"
-                                                               data-project_type_id="{{  $project->id }}">
-                                                                <i class="flaticon-graphic"> task </i>
+                                                    <ul class="m-portlet__nav">
+                                                        <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+                                                            <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+                                                                <i class="la la-ellipsis-h m--font-brand"></i>
                                                             </a>
-                                                        @endcan
-
-                                                    @can('project_sub_type_delete')
-                                                        <form
-                                                            action="{{ route('admin.project-sub-types.destroy', $project->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
-                                                            style="display: inline-block;">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                           <input type="submit" value="X">
-                                                        </form>
-                                                    @endcan
+                                                            <div class="m-dropdown__wrapper">
+                                                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                                <div class="m-dropdown__inner">
+                                                                    <div class="m-dropdown__body">
+                                                                        <div class="m-dropdown__content">
+                                                                            <ul class="m-nav">
+                                                                                <li class="m-nav__item">
+                                                                                    @can('project_sub_type_show')
+                                                                                    <a href="#view_client_task" class="m-nav__link" >
+                                                                                        <i class="m-nav__link-icon flaticon-eye"></i>
+                                                                                        <span class="m-nav__link-text">
+																					View Tasks
+																				</span>
+                                                                                    </a>
+                                                                                    @endcan
+                                                                                </li>
+                                                                                <li class="m-nav__item">
+                                                                                    @can('project_sub_type_edit')
+                                                                                        <a href="{{ route('admin.project-sub-types.edit', $project->id) }}" class="m-nav__link">
+                                                                                            <i class="m-nav__link-icon flaticon-edit"></i>
+                                                                                            <span class="m-nav__link-text">
+																					Edit Project
+																				</span>
+                                                                                        </a>
+                                                                                    @endcan
+                                                                                </li>
+                                                                                <li class="m-nav__item">
+                                                                                    @can('project_sub_type_show')
+                                                                                        <a href="{{ route('admin.project-sub-types.show', $project->id) }}" class="m-nav__link">
+                                                                                            <i class="m-nav__link-icon flaticon-eye"></i>
+                                                                                            <span class="m-nav__link-text">
+																					View Tasks
+																				</span>
+                                                                                        </a>
+                                                                                    @endcan
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
                                                 </td>
                                             </tr>
 
@@ -508,7 +334,6 @@
     </script>
     {{-- Script for Project View End--}}
 
-
     {{-- Script for Task View Begin--}}
     <script>
 
@@ -584,6 +409,60 @@ $('.datatable:not(.ajaxTable)').DataTable({
         })
 
     </script>
-    {{-- Script for Task View End--}}
+
+{{--Body Scripts--}}
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: '{{ url("/api/v1/client_project/1") }}',
+            success: function (data) {
+                console.log(data)
+                var card = document.getElementById('client-cards');
+                data.map((datum, i) => {
+                    card.innerHTML = card.innerHTML +`<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
+                    <div class="m-widget24">
+                        <div class="m-widget24__item">
+                            <div class="body-header" style="">
+                                <div class="" style=" float: left">
+                                    <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
+                                         width="80px" height="80px" style="border-radius: 1000px">
+                                </div>
+                                <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
+                                    ${datum.client.name}
+                                </h1>
+                                <br>
+                            </div>
+
+                            <div class="m--space-10"></div>
+
+                            <div id="client-details" style="">
+                                <p>${datum.client.address}</p>
+                                <p>${datum.client.email}</p>
+                                <p>${datum.client.phone}</p>
+                            </div>
+
+                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                    data-toggle="modal" data-target="#view_client_project">
+                                View Projects
+                            </button>
+                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                    data-toggle="modal" data-target="#view_client_task">
+                                View Tasks
+                            </button>
+                        </div>
+                    </div>
+                   </div>`
+                })
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    </script>
 
 @endsection
