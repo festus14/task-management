@@ -26,9 +26,14 @@ class ProjectApiController extends Controller
         return $project->update($request->all());
     }
 
-    public function show(Project $project)
+    public function show($id)
     {
-        return $project;
+       $projects = Project::with('manager')->with('task')
+       ->with('project_type')
+       ->with('team_members')
+       ->with('status')
+       ->with('project_subtype')->findOrFail($id);
+       
     }
 
     public function destroy(Project $project)
