@@ -61,121 +61,123 @@
     <!-- end: List Client -->
 
     <!-- View Project Modal Begin-->
-    <div class="modal fade" id="view_client_project" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; min-width: 400px; max-height: 100%;"
-             role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Client Projects</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+    <div id="client-project-modal">
+        {{-- <div class="modal fade" id="view_client_project" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; min-width: 400px; max-height: 100%;"
+                    role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Client Projects</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <!--begin::Portlet-->
-                            <div class="m-portlet " id="m_portlet">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <!--begin::Portlet-->
+                                <div class="m-portlet " id="m_portlet">
 
-                                <div class="m-portlet__body">
-                                    <table id="kt_table_client_projects" class="table table-striped table-hover"
-                                           style="width: 100%">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Manager</th>
-                                            <th>Type</th>
-                                            <th>Subtypes</th>
-                                            <th>Status</th>
-                                            <th>Members Email</th>
-                                            <th>Deadline</th>
-                                            <th>Tools</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @php $counter = 1; @endphp @foreach($projects as $project)
-                                            <tr data-entry-id="{{ $project->id }}">
-                                                <td></td>
-                                                <td>{{ $project->name }}</td>
-                                                <td>{{ $project->manager->email ?? '' }}</td>
-                                                <td>{{ $project->project_type->name ?? '' }}</td>
-                                                <td>{{ $project->project_subtype->name ?? '' }}</td>
-                                                <td>{{ $project->status->name ?? '' }}</td>
-                                                <td>
-                                                    @foreach ($project->team_members as $menber)
-                                                        <span
-                                                            class="m-badge m-badge--success"> {{ $menber->email }} </span>
-                                                    @endforeach
-                                                </td>
-                                                <td>{{ $project->deadline }}</td>
-                                                <td>
-                                                    <ul class="m-portlet__nav">
-                                                        <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
-                                                            <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
-                                                                <i class="la la-ellipsis-h m--font-brand"></i>
-                                                            </a>
-                                                            <div class="m-dropdown__wrapper">
-                                                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                                                                <div class="m-dropdown__inner">
-                                                                    <div class="m-dropdown__body">
-                                                                        <div class="m-dropdown__content">
-                                                                            <ul class="m-nav">
-                                                                                <li class="m-nav__item">
-                                                                                    @can('project_sub_type_show')
-                                                                                    <a href="#view_client_task" class="m-nav__link" >
-                                                                                        <i class="m-nav__link-icon flaticon-eye"></i>
-                                                                                        <span class="m-nav__link-text">
-																					View Tasks
-																				</span>
-                                                                                    </a>
-                                                                                    @endcan
-                                                                                </li>
-                                                                                <li class="m-nav__item">
-                                                                                    @can('project_sub_type_edit')
-                                                                                        <a href="{{ route('admin.project-sub-types.edit', $project->id) }}" class="m-nav__link">
-                                                                                            <i class="m-nav__link-icon flaticon-edit"></i>
-                                                                                            <span class="m-nav__link-text">
-																					Edit Project
-																				</span>
-                                                                                        </a>
-                                                                                    @endcan
-                                                                                </li>
-                                                                                <li class="m-nav__item">
-                                                                                    @can('project_sub_type_show')
-                                                                                        <a href="{{ route('admin.project-sub-types.show', $project->id) }}" class="m-nav__link">
+                                    <div class="m-portlet__body">
+                                        <table id="kt_table_client_projects" class="table table-striped table-hover"
+                                                style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Manager</th>
+                                                <th>Type</th>
+                                                <th>Subtypes</th>
+                                                <th>Status</th>
+                                                <th>Members Email</th>
+                                                <th>Deadline</th>
+                                                <th>Tools</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="project-tbody">
+                                            @php $counter = 1; @endphp @foreach($projects as $project)
+                                                <tr data-entry-id="{{ $project->id }}">
+                                                    <td></td>
+                                                    <td>{{ $project->name }}</td>
+                                                    <td>{{ $project->manager->email ?? '' }}</td>
+                                                    <td>{{ $project->project_type->name ?? '' }}</td>
+                                                    <td>{{ $project->project_subtype->name ?? '' }}</td>
+                                                    <td>{{ $project->status->name ?? '' }}</td>
+                                                    <td>
+                                                        @foreach ($project->team_members as $menber)
+                                                            <span
+                                                                class="m-badge m-badge--success"> {{ $menber->email }} </span>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>{{ $project->deadline }}</td>
+                                                    <td>
+                                                        <ul class="m-portlet__nav">
+                                                            <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+                                                                <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+                                                                    <i class="la la-ellipsis-h m--font-brand"></i>
+                                                                </a>
+                                                                <div class="m-dropdown__wrapper">
+                                                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                                    <div class="m-dropdown__inner">
+                                                                        <div class="m-dropdown__body">
+                                                                            <div class="m-dropdown__content">
+                                                                                <ul class="m-nav">
+                                                                                    <li class="m-nav__item">
+                                                                                        @can('project_sub_type_show')
+                                                                                        <a href="#view_client_task" class="m-nav__link" >
                                                                                             <i class="m-nav__link-icon flaticon-eye"></i>
                                                                                             <span class="m-nav__link-text">
-																					View Tasks
-																				</span>
+                                                                                        View Tasks
+                                                                                    </span>
                                                                                         </a>
-                                                                                    @endcan
-                                                                                </li>
-                                                                            </ul>
+                                                                                        @endcan
+                                                                                    </li>
+                                                                                    <li class="m-nav__item">
+                                                                                        @can('project_sub_type_edit')
+                                                                                            <a href="{{ route('admin.project-sub-types.edit', $project->id) }}" class="m-nav__link">
+                                                                                                <i class="m-nav__link-icon flaticon-edit"></i>
+                                                                                                <span class="m-nav__link-text">
+                                                                                        Edit Project
+                                                                                    </span>
+                                                                                            </a>
+                                                                                        @endcan
+                                                                                    </li>
+                                                                                    <li class="m-nav__item">
+                                                                                        @can('project_sub_type_show')
+                                                                                            <a href="{{ route('admin.project-sub-types.show', $project->id) }}" class="m-nav__link">
+                                                                                                <i class="m-nav__link-icon flaticon-eye"></i>
+                                                                                                <span class="m-nav__link-text">
+                                                                                        View Tasks
+                                                                                    </span>
+                                                                                            </a>
+                                                                                        @endcan
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
 
-                                            @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp
+                                                @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
+                                <!--end::Portlet-->
                             </div>
-                            <!--end::Portlet-->
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- End: View Project Modal-->
 
@@ -412,6 +414,8 @@ $('.datatable:not(.ajaxTable)').DataTable({
 
 {{--Body Scripts--}}
     <script>
+
+        // Ajax call for the clients view
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -419,22 +423,24 @@ $('.datatable:not(.ajaxTable)').DataTable({
         });
         $.ajax({
             type: "GET",
-            url: '{{ url("/api/v1/client_project/1") }}',
+            url: '{{ url("/api/v1/clients") }}',
             success: function (data) {
                 console.log(data)
                 
-                var card = document.getElementById('client-cards');
-                data.data.map((datum, i) => {
+                let card = document.getElementById('client-cards');
+                let projectCard = document.getElementById('client-project-modal')
+                
+                data.map((datum, i) => {
                     card.innerHTML = card.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                     <div class="m-widget24">
                         <div class="m-widget24__item">
                             <div class="body-header" style="">
                                 <div class="" style=" float: left">
                                     <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
-                                         width="80px" height="80px" style="border-radius: 1000px">
+                                        width="80px" height="80px" style="border-radius: 1000px">
                                 </div>
                                 <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
-                                    ${datum.client.name}
+                                    ${datum.name}
                                 </h1>
                                 <br>
                             </div>
@@ -442,29 +448,217 @@ $('.datatable:not(.ajaxTable)').DataTable({
                             <div class="m--space-10"></div>
 
                             <div id="client-details" style="">
-                                <p>${datum.client.address}</p>
-                                <p>${datum.client.email}</p>
-                                <p>${datum.client.phone}</p>
+                                <p>${datum.address}</p>
+                                <p>${datum.email}</p>
+                                <p>${datum.phone}</p>
                             </div>
 
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_project">
+                            <button onclick ="getClientProjects(${datum.id})"  class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                    data-toggle="modal" data-target="#view_client_project${datum.id}">
                                 View Projects
                             </button>
                             <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_task">
+                                    data-toggle="modal" data-target="#view_client_task${datum.id}">
                                 View Tasks
                             </button>
                         </div>
                     </div>
                    </div>`
+
+                   
+        projectCard.innerHTML = projectCard.innerHTML + `<div class="modal fade" id="view_client_project${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; min-width: 400px; max-height: 100%;"
+                    role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Client Projects</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <!--begin::Portlet-->
+                                <div class="m-portlet " id="m_portlet">
+
+                                    <div class="m-portlet__body">
+                                        <table id="kt_table_client_projects" class="table table-striped table-hover"
+                                                style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Manager</th>
+                                                <th>Type</th>
+                                                <th>Subtypes</th>
+                                                <th>Status</th>
+                                                <th>Members Email</th>
+                                                <th>Deadline</th>
+                                                <th>Tools</th>
+                                            </tr>
+                                            </thead>
+                                            
+                                            
+                                            <tbody id="project-tbody">
+                                            @php $counter = 1; @endphp @foreach($projects as $project)
+                                                <tr data-entry-id="{{ $project->id }}">
+                                                    <td></td>
+                                                    <td>{{ $project->name }}</td>
+                                                    <td>{{ $project->manager->email ?? '' }}</td>
+                                                    <td>{{ $project->project_type->name ?? '' }}</td>
+                                                    <td>{{ $project->project_subtype->name ?? '' }}</td>
+                                                    <td>{{ $project->status->name ?? '' }}</td>
+                                                    <td>
+                                                        @foreach ($project->team_members as $menber)
+                                                            <span
+                                                                class="m-badge m-badge--success"> {{ $menber->email }} </span>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>{{ $project->deadline }}</td>
+                                                    <td>
+                                                        <ul class="m-portlet__nav">
+                                                            <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+                                                                <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+                                                                    <i class="la la-ellipsis-h m--font-brand"></i>
+                                                                </a>
+                                                                <div class="m-dropdown__wrapper">
+                                                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                                    <div class="m-dropdown__inner">
+                                                                        <div class="m-dropdown__body">
+                                                                            <div class="m-dropdown__content">
+                                                                                <ul class="m-nav">
+                                                                                    <li class="m-nav__item">
+                                                                                        @can('project_sub_type_show')
+                                                                                        <a href="#view_client_task" class="m-nav__link" >
+                                                                                            <i class="m-nav__link-icon flaticon-eye"></i>
+                                                                                            <span class="m-nav__link-text">
+                                                                                        View Tasks
+                                                                                    </span>
+                                                                                        </a>
+                                                                                        @endcan
+                                                                                    </li>
+                                                                                    <li class="m-nav__item">
+                                                                                        @can('project_sub_type_edit')
+                                                                                            <a href="{{ route('admin.project-sub-types.edit', $project->id) }}" class="m-nav__link">
+                                                                                                <i class="m-nav__link-icon flaticon-edit"></i>
+                                                                                                <span class="m-nav__link-text">
+                                                                                        Edit Project
+                                                                                    </span>
+                                                                                            </a>
+                                                                                        @endcan
+                                                                                    </li>
+                                                                                    <li class="m-nav__item">
+                                                                                        @can('project_sub_type_show')
+                                                                                            <a href="{{ route('admin.project-sub-types.show', $project->id) }}" class="m-nav__link">
+                                                                                                <i class="m-nav__link-icon flaticon-eye"></i>
+                                                                                                <span class="m-nav__link-text">
+                                                                                        View Tasks
+                                                                                    </span>
+                                                                                            </a>
+                                                                                        @endcan
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+
+                                                @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp
+
+                                            </tbody>
+
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--end::Portlet-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
                 })
+
+                
             },
 
             error: function (data) {
                 console.log('Error:', data);
             }
         });
+
+        function getClientProjects(client_id) {
+             path_url = "api/v1/client_project" + client_id;
+
+            var kt_table_client_projects = $('#kt_table_client_projects').DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+                ajax: window.location + path_url,
+                columns: [
+                    {"data": "id"},
+                    {"data": "name"},
+                    {"data": "manager.name"},
+                    {"data": "project_type.name"},
+                    {"data": "project_subtype.name"},
+                    {"data": "status.name"},
+                    {"data": "starting_date"},
+                    {"data": "deadline"},
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                }],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                scrollX: true,
+                order: [],
+                pageLength: 10,
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
+
+        }
+
+        // Project Modal Body Call
+
+        
+
+        // Ajax call for clients Projects
+        const callProjectModal = () => {
+            $.ajax({
+                type: "GET",
+                url: '{{ url("/api/v1/tasks") }}',
+                success: function (data) {
+                    console.log(data)
+                    
+                    
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
+
+
     </script>
 
 @endsection
