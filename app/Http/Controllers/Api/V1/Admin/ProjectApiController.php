@@ -31,14 +31,19 @@ class ProjectApiController extends Controller
         return $project->update($request->all());
     }
 
-    public function show($id)
+    public function show(Project $project)
     {
-       $projects = Project::with('manager')->with('task')
-       ->with('project_type')
-       ->with('team_members')
-       ->with('status')
-       ->with('project_subtype')->findOrFail($id);
-       
+       try{
+        $projects = Project::with('manager')->with('tasks')
+        ->with('project_type')
+        ->with('team_members')
+        ->with('status')
+        ->with('project_subtype')->findOrFail($project);
+        return response()->json($projects, 200);
+       }
+       catch(\Exception $e){
+           return response()->json([], 401);
+       }
     }
 
     public function destroy(Project $project)
