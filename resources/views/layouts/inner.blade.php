@@ -24,7 +24,6 @@
     <!--end::Web font -->
     <!--begin::Base Styles -->
     <!--begin::Page Vendors -->
-    <link href="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
 
     <!--end::Page Vendors -->
@@ -32,7 +31,6 @@
 <link href="{{ asset('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('metro/assets/demo/demo2/base/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     
-<script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="{{ asset('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
 
@@ -1497,9 +1495,6 @@
 <script src="{{ asset('metro/assets/demo/demo2/base/scripts.bundle.js') }}" type="text/javascript"></script>
 <!--end::Base Scripts -->
 <!--begin::Page Vendors -->
-<script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
-<!--end::Page Vendors -->
-<script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
 

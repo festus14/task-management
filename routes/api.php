@@ -17,6 +17,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
 
     Route::apiResource('projects', 'ProjectApiController');
 
+    Route::get('project_create', 'ProjectApiController@createProject');
+
     Route::apiResource('project-comments', 'ProjectCommentsApiController');
 
     Route::apiResource('tast-categories', 'TastCategoryApiController');

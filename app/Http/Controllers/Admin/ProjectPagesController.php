@@ -11,6 +11,7 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Project;
 use App\ProjectSubType;
+use App\ProjectType;
 use App\Task;
 use App\TaskStatus;
 use App\TastCategory;
@@ -45,16 +46,7 @@ class ProjectPagesController extends Controller
 
     // project report
     public function viewProject(){
-        // 'name',
-        // 'deadline',
-        // 'status_id',
-        // 'client_id',
-        // 'manager_id',
-        // 'created_at',
-        // 'updated_at',
-        // 'deleted_at',
-        // 'starting_date',
-        // 'project_type_id',
+        
         $projects =  Project::with('status')
             ->with('client')
             ->with('manager')
@@ -64,16 +56,44 @@ class ProjectPagesController extends Controller
             ->with('tasks')
             ->with('status')            
             ->get();
-        
-        return view('pages.view_project', compact('projects'));
+        $users = User::all();
+        $clients = Client::all();
+        $projectTypes = ProjectType::all();
+        $projectSubTypes = ProjectSubType::all();
+
+        return view('pages.view_project', compact('projects', 'users', 'clients','projectTypes','projectSubTypes'));
     }
+
+
    public function projectTypeAPI(Request $request, $project_id) {
-    $projectSubTypes = ProjectSubType::with('project_type')
-    ->where('project_type_id', $project_id)
-    ->get();
-    return response()->json(['data' => $projectSubTypes], 200);
+        $projectSubTypes = ProjectSubType::with('project_type')
+        ->where('project_type_id', $project_id)
+        ->get();
+        return response()->json(['data' => $projectSubTypes], 200);
    }
 
+   public function store(StoreProjectRequest $request)
+    {
+        // abort_unless(\Gate::allows('project_create'), 403);
+
+        // $project = Project::create($request->all());
+        // $project->team_members()->sync($request->input('team_members', []));
+
+        // return redirect()->route('admin.projects.index');
+        $projects = new Project;
+
+        $projects->name = $request->input('name');
+        $projects->client_id= $request->input('client');
+        $projects->deadline = $request->input('deadline');
+        $projects->manager_id = $request->input('manager');
+        $projects->starting_date = $request->input('start_date');
+        $projects->project_type_id = $request->input('proj_type');
+        $projects->project_subtype_id = $request->input('proj_subtype');
+        $projects->team_members()->sync($request->input('team_members', []));
+
+        $projects->save();
+        
+    }
 
    public function projectComment(){
     return view('pages.project_comment');
