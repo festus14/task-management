@@ -468,7 +468,7 @@ $('.datatable:not(.ajaxTable)').DataTable({
                    
         projectCard.innerHTML = projectCard.innerHTML + `<div class="modal fade" id="view_client_project${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; min-width: 400px; max-height: 100%;"
+            <div class="modal-dialog" style="max-width: 100%; min-width: 400px; max-height: 100%;"
                     role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -485,7 +485,7 @@ $('.datatable:not(.ajaxTable)').DataTable({
                                 <div class="m-portlet " id="m_portlet">
 
                                     <div class="m-portlet__body">
-                                        <table id="kt_table_client_projects" class="table table-striped table-hover"
+                                        <table id="kt_table_client_projects${datum.id}" class="table table-striped table-hover"
                                                 style="width: 100%">
                                             <thead>
                                             <tr>
@@ -501,79 +501,6 @@ $('.datatable:not(.ajaxTable)').DataTable({
                                             </tr>
                                             </thead>
                                             
-                                            
-                                            <tbody id="project-tbody">
-                                            @php $counter = 1; @endphp @foreach($projects as $project)
-                                                <tr data-entry-id="{{ $project->id }}">
-                                                    <td></td>
-                                                    <td>{{ $project->name }}</td>
-                                                    <td>{{ $project->manager->email ?? '' }}</td>
-                                                    <td>{{ $project->project_type->name ?? '' }}</td>
-                                                    <td>{{ $project->project_subtype->name ?? '' }}</td>
-                                                    <td>{{ $project->status->name ?? '' }}</td>
-                                                    <td>
-                                                        @foreach ($project->team_members as $menber)
-                                                            <span
-                                                                class="m-badge m-badge--success"> {{ $menber->email }} </span>
-                                                        @endforeach
-                                                    </td>
-                                                    <td>{{ $project->deadline }}</td>
-                                                    <td>
-                                                        <ul class="m-portlet__nav">
-                                                            <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
-                                                                <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
-                                                                    <i class="la la-ellipsis-h m--font-brand"></i>
-                                                                </a>
-                                                                <div class="m-dropdown__wrapper">
-                                                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                                                                    <div class="m-dropdown__inner">
-                                                                        <div class="m-dropdown__body">
-                                                                            <div class="m-dropdown__content">
-                                                                                <ul class="m-nav">
-                                                                                    <li class="m-nav__item">
-                                                                                        @can('project_sub_type_show')
-                                                                                        <a href="#view_client_task" class="m-nav__link" >
-                                                                                            <i class="m-nav__link-icon flaticon-eye"></i>
-                                                                                            <span class="m-nav__link-text">
-                                                                                        View Tasks
-                                                                                    </span>
-                                                                                        </a>
-                                                                                        @endcan
-                                                                                    </li>
-                                                                                    <li class="m-nav__item">
-                                                                                        @can('project_sub_type_edit')
-                                                                                            <a href="{{ route('admin.project-sub-types.edit', $project->id) }}" class="m-nav__link">
-                                                                                                <i class="m-nav__link-icon flaticon-edit"></i>
-                                                                                                <span class="m-nav__link-text">
-                                                                                        Edit Project
-                                                                                    </span>
-                                                                                            </a>
-                                                                                        @endcan
-                                                                                    </li>
-                                                                                    <li class="m-nav__item">
-                                                                                        @can('project_sub_type_show')
-                                                                                            <a href="{{ route('admin.project-sub-types.show', $project->id) }}" class="m-nav__link">
-                                                                                                <i class="m-nav__link-icon flaticon-eye"></i>
-                                                                                                <span class="m-nav__link-text">
-                                                                                        View Tasks
-                                                                                    </span>
-                                                                                            </a>
-                                                                                        @endcan
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-
-                                                @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp
-
-                                            </tbody>
-
 
                                         </table>
                                     </div>
@@ -597,21 +524,25 @@ $('.datatable:not(.ajaxTable)').DataTable({
         });
 
         function getClientProjects(client_id) {
-             path_url = "api/v1/client_project" + client_id;
-
-            var kt_table_client_projects = $('#kt_table_client_projects').DataTable({
+             path_url = "/api/v1/projects/" + client_id;
+             if ( $.fn.dataTable.isDataTable( '#kt_table_client_projects' + client_id ) ) {
+                var kt_table_client_projects = $('#kt_table_client_projects' + client_id).DataTable();
+             }else {
+                var kt_table_client_projects = $('#kt_table_client_projects' + client_id).DataTable({
                 dom: 'lBfrtip<"actions">',
                 language: {
                     url: languages. {{ app()->getLocale() }}
                 },
-                ajax: window.location + path_url,
+                ajax: path_url,
                 columns: [
+                    // id,name,manager.name,project_type_id,project_subtype_id,status_id,manager.name,starting_date,deadline
                     {"data": "id"},
                     {"data": "name"},
                     {"data": "manager.name"},
-                    {"data": "project_type.name"},
-                    {"data": "project_subtype.name"},
-                    {"data": "status.name"},
+                    {"data": "project_type_id"},
+                    {"data": "project_subtype_id"},
+                    {"data": "status_id"},
+                    {"data": "manager.name"},
                     {"data": "starting_date"},
                     {"data": "deadline"},
                 ],
@@ -635,6 +566,8 @@ $('.datatable:not(.ajaxTable)').DataTable({
                     'excel', 'pdf', 'print'
                 ]
             });
+             }
+            
 
         }
 
