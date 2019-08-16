@@ -1216,6 +1216,7 @@
                 console.log(data)
                 
                 let createProjectBody = document.getElementById('createProjectBody');
+                  data.map((data, i) => {
                     createProjectBody.innerHTML = createProjectBody.innerHTML + `
                     <div class="col-md-12 ">
     <form action="" method="POST" id="addprojectform" enctype="multipart/form-data">
@@ -1225,7 +1226,7 @@
                 <label>Select Client</label>
                 <select id="client-list" name="client" class="selectDesign form-control">
                     $.each(data, function(){
-                    <option value="${this.id}">${this.clients}</option> 
+                    <option value="">${data.clients[0].name}</option> 
                     } 
                     
                 </select>
@@ -1241,7 +1242,7 @@
                 <label for="create-project">Manager</label><br>
                 <select name="manager" class="form-control select2" style="width:100%;">
                     $.each(data, function(){
-                    <option value="${this.id}">${this.managers}</option> 
+                    <option value="${this.id}">${data.managers}</option> 
                     } 
                 </select>
             </div>
@@ -1250,7 +1251,7 @@
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
                 <select class="form-control" id="projtypeboy" name="proj_type">
                     $.each(data, function(){
-                    <option value="${this.id}">${this.project_subtypes}</option> 
+                    <option value="${this.id}">${data.project_subtypes}</option> 
                     } 
                 </select>
             </div>
@@ -1261,7 +1262,7 @@
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
                 <select class="form-control" id="exampleFormControlSelect1" name="proj_subtype">
                     $.each(data, function(){
-                    <option value="${this.id}">${this.team_members}</option> 
+                    <option value="${this.id}">${data.team_members}</option> 
                     } 
                 </select>
             </div>
@@ -1281,7 +1282,7 @@
                 <label>Team members</label><br>
                 <select multiple class="form-control select2" name="team_members[]" style="width:100%;">
                     $.each(data, function(){
-                    <option value="${this.id}">${this.team_members}</option> 
+                    <option value="${this.id}">${data.team_members}</option> 
                     } 
                 </select>
             </div>
@@ -1292,8 +1293,9 @@
             </div>
         </div>
     </form>
-</div>
-                    `
+</div>  `
+})
+              
             },
             error: function (data) {
                 console.log('Error:', data);
