@@ -63,11 +63,13 @@ class ProjectPagesController extends Controller
 
         return view('pages.view_project', compact('projects', 'users', 'clients','projectTypes','projectSubTypes'));
     }
+
+
    public function projectTypeAPI(Request $request, $project_id) {
-    $projectSubTypes = ProjectSubType::with('project_type')
-    ->where('project_type_id', $project_id)
-    ->get();
-    return response()->json(['data' => $projectSubTypes], 200);
+        $projectSubTypes = ProjectSubType::with('project_type')
+        ->where('project_type_id', $project_id)
+        ->get();
+        return response()->json(['data' => $projectSubTypes], 200);
    }
 
    public function store(StoreProjectRequest $request)

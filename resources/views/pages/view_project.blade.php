@@ -23,7 +23,7 @@
         <div class="m-portlet__head-tools">
             <ul class="m-portlet__nav">
                 <li class="m-portlet__nav-item">
-                    <a style="color:white; background-color: #8a2a2b;" class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#createProjectModal">
+                    <a style="color:white; background-color: #8a2a2b;" id="addProjId" class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" >
                         <span>
                                 <i class="la la-plus"></i>
                                 <span>
@@ -42,7 +42,7 @@
             </ul>
         </div>
     </div>
-    <div class="m-portlet__body" style="overflow-x:auto;">
+    <div class="m-portlet__body" style="overflow-x:auto; table-responsive">
         <table id="kt_table_projects" class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -121,86 +121,12 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body col-md-12">
-                <div class="col-md-12 ">
-                        <form action="{{ route("admin.projects.store") }}" method="POST"  id="addprojectform" enctype="multipart/form-data">
-                    @csrf
-                        <div class="row col-md-12">
-                            <div class="col-md-6 form-group mt-3">
-                                <label>Select Client</label>
-                                <select id="client-list" name="client" class="selectDesign form-control">
-                                    @foreach($clients as $item)
-                                        <option value="{{ $item->id}}">{{ $item->name}}</option> 
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-md-6 form-group mt-3">
-                                <label for="create-project">Project Name</label>
-                                <input type="text" name="name" class="form-control" id="create-project" placeholder="">
-                            </div>
-                        </div>
-                        <div class="row col-md-12">
-                            <div class="col-md-4 form-group mt-3">
-                                <label for="create-project">Manager</label><br>
-                                <select name="manager" class="form-control select2" style="width:100%;">
-                                        @foreach($users as $item)
-                                        <option value="{{ $item->id}}">{{ $item->name}}</option> 
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4 form-group mt-3">
-                                <label for="create-project-type">Project Type</label>
-                                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                                <select class="form-control" id="projtypeboy" name="proj_type">
-                                    @foreach($projectTypes as $item)
-                                    <option value="{{ $item->id}}">{{ $item->name}}</option> 
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-                            <div class="col-md-4 form-group mt-3">
-                                <label for="exampleFormControlSelect1">Project Sub-type</label>
-                                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                                <select class="form-control" id="exampleFormControlSelect1" name="proj_subtype">
-                                    @foreach($projectSubTypes as $item)
-                                    <option value="{{ $item->id}}">{{ $item->name}}</option> 
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 ">
-
-                            <div class="col-md-4 form-group mt-3">
-                                <label for="starting-date">Start Date</label>
-                                <input type="text" class="form-control date" name="start_date" id="starting-date">
-                            </div>
-
-                            <div class="col-md-4 form-group mt-3">
-                                <label for="Deadline">Deadline</label>
-                                <input type="text" class="form-control date" name="deadline" id="Deadline">
-                            </div>
-                            <div class="col-md-4 form-group mt-3">
-                                <label>Team members</label><br>
-                                <select multiple class="form-control select2" name="team_members[]" style="width:100%;">
-                                    @foreach($users as $item)
-                                        <option value="{{ $item->id}}">{{ $item->name}}</option> 
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-                            <div class="col-md-2 form-group mt-3">
-                                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Add Project</button>
-                            </div>
-                        </div>
-
-                </div>
+            <div id="createProjectBody" class="modal-body col-md-12">
+                
 
 
             </div>
-            </form>
+            
         </div>
     </div>
 </div>
@@ -1240,7 +1166,7 @@
     }
 </script> --}}
 
-<script>
+{{-- <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1269,6 +1195,112 @@
         }); 
     });
 });
+    </script> --}}
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+     let popAddProj = document.getElementById('addProjId');
+     popAddProj.addEventListener("click", displayAddProject);
+     function displayAddProject(){
+
+      $("#createProjectModal").modal('show');
+
+        $.ajax({
+            type: "GET",
+            url: '{{ url("/api/v1/project_create") }}',
+            success: function (data) {
+                console.log(data)
+                
+                let createProjectBody = document.getElementById('createProjectBody');
+                    createProjectBody.innerHTML = createProjectBody.innerHTML + `
+                    <div class="col-md-12 ">
+    <form action="" method="POST" id="addprojectform" enctype="multipart/form-data">
+        @csrf
+        <div class="row col-md-12">
+            <div class="col-md-6 form-group mt-3">
+                <label>Select Client</label>
+                <select id="client-list" name="client" class="selectDesign form-control">
+                    $.each(data, function(){
+                    <option value="${this.id}">${this.clients}</option> 
+                    } 
+                    
+                </select>
+            </div>
+
+            <div class="col-md-6 form-group mt-3">
+                    <label for="create-project">Project Name</label>
+                <input type="text" name="name" class="form-control" id="create-project" placeholder="">
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-4 form-group mt-3">
+                <label for="create-project">Manager</label><br>
+                <select name="manager" class="form-control select2" style="width:100%;">
+                    $.each(data, function(){
+                    <option value="${this.id}">${this.managers}</option> 
+                    } 
+                </select>
+            </div>
+            <div class="col-md-4 form-group mt-3">
+                <label for="create-project-type">Project Type</label>
+                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
+                <select class="form-control" id="projtypeboy" name="proj_type">
+                    $.each(data, function(){
+                    <option value="${this.id}">${this.project_subtypes}</option> 
+                    } 
+                </select>
+            </div>
+
+            
+            <div class="col-md-4 form-group mt-3">
+                <label for="exampleFormControlSelect1">Project Sub-type</label>
+                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
+                <select class="form-control" id="exampleFormControlSelect1" name="proj_subtype">
+                    $.each(data, function(){
+                    <option value="${this.id}">${this.team_members}</option> 
+                    } 
+                </select>
+            </div>
+        </div>
+        <div class="row col-md-12 ">
+
+            <div class="col-md-4 form-group mt-3">
+                <label for="starting-date">Start Date</label>
+                <input type="text" class="form-control date" name="start_date" id="starting-date">
+            </div>
+
+            <div class="col-md-4 form-group mt-3">
+                <label for="Deadline">Deadline</label>
+                <input type="text" class="form-control date" name="deadline" id="Deadline">
+            </div>
+            <div class="col-md-4 form-group mt-3">
+                <label>Team members</label><br>
+                <select multiple class="form-control select2" name="team_members[]" style="width:100%;">
+                    $.each(data, function(){
+                    <option value="${this.id}">${this.team_members}</option> 
+                    } 
+                </select>
+            </div>
+
+
+            <div class="col-md-2 form-group mt-3">
+                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Add Project</button>
+            </div>
+        </div>
+    </form>
+</div>
+                    `
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        }); 
+        
+    }
     </script>
 
        @endsection
