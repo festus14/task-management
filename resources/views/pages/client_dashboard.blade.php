@@ -8,8 +8,6 @@
 
 @section('css')
     <style>
-
-
     </style>
 @endsection
 
@@ -182,52 +180,10 @@
     <!-- End: View Project Modal-->
 
     <!-- View Task Modal Begin-->
-    <div class="modal fade" id="view_client_task" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 90%; min-width: 400px;" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Client Task</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <!--begin::Portlet-->
-                            <div class="m-portlet " id="m_portlet">
+    <div id="client-task-modal">
 
-                                <div class="m-portlet__body">
-                                    <table id="kt_table_tasks" class="table table-striped table-hover"
-                                           style="width: 100%">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Manager</th>
-                                            <th>Task Owner</th>
-                                            <th>Status</th>
-                                            <th>Category</th>
-                                            <th>Starting Date</th>
-                                            <th>Deadline</th>
-                                            {{-- <th>Tools</th> --}}
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!--end::Portlet-->
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+
     <!-- End: View Task Modal-->
 
 @endsection
@@ -236,11 +192,11 @@
 
     <script>
 
-        var csvButtonTrans = '{{ trans('global.datatables.csv') }}'
-        var excelButtonTrans = '{{ trans('global.datatables.excel') }}'
-        var pdfButtonTrans = '{{ trans('global.datatables.pdf') }}'
-        var printButtonTrans = '{{ trans('global.datatables.print') }}'
-        var colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
+        var csvButtonTrans = '{{ trans('global.datatables.csv') }}';
+        var excelButtonTrans = '{{ trans('global.datatables.excel') }}';
+        var pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
+        var printButtonTrans = '{{ trans('global.datatables.print') }}';
+        var colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
         var languages = {
             'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
         };
@@ -323,7 +279,7 @@
                         })
                 }
             }
-        }
+        };
         var dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
         @can('project_delete')
         dtProjectButtons.push(deleteProjectButton);
@@ -337,80 +293,80 @@
     {{-- Script for Project View End--}}
 
     {{-- Script for Task View Begin--}}
-    <script>
+{{--    <script>--}}
 
-        var kt_table_projectsDataTable = $('#kt_table_tasks').DataTable({
-            dom: 'lBfrtip<"actions">',
-            language: {
-                url: languages.{{ app()->getLocale() }}
-            },
-            columnDefs: [{
-                orderable: false,
-                className: 'select-checkbox',
-                targets: 0
-            }, {
-                orderable: false,
-                searchable: false,
-                targets: -1
-            }],
-            select: {
-                style: 'multi+shift',
-                selector: 'td:first-child'
-            },
-            scrollX: true,
-            order: [],
-            pageLength: 10,
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ]
-        });
+{{--        var kt_table_projectsDataTable = $('#kt_table_tasks').DataTable({--}}
+{{--            dom: 'lBfrtip<"actions">',--}}
+{{--            language: {--}}
+{{--                url: languages.{{ app()->getLocale() }}--}}
+{{--            },--}}
+{{--            columnDefs: [{--}}
+{{--                orderable: false,--}}
+{{--                className: 'select-checkbox',--}}
+{{--                targets: 0--}}
+{{--            }, {--}}
+{{--                orderable: false,--}}
+{{--                searchable: false,--}}
+{{--                targets: -1--}}
+{{--            }],--}}
+{{--            select: {--}}
+{{--                style: 'multi+shift',--}}
+{{--                selector: 'td:first-child'--}}
+{{--            },--}}
+{{--            scrollX: true,--}}
+{{--            order: [],--}}
+{{--            pageLength: 10,--}}
+{{--            buttons: [--}}
+{{--                'copy', 'excel', 'pdf'--}}
+{{--            ]--}}
+{{--        });--}}
 
-        $.fn.dataTable.ext.classes.sPageButton = '';
-        var deleteButtonTrans = 'Delete Selected';
-        var deleteProjectButton = {
-            text: deleteButtonTrans,
-            url: "{{ route('admin.project-sub-types.massDestroy') }}",
-            className: 'btn-danger',
-            action: function (e, dt, node, config) {
-                var ids = $.map(dt.rows({
-                    selected: true
-                }).nodes(), function (entry) {
-                    return $(entry).data('entry-id')
-                });
+{{--        $.fn.dataTable.ext.classes.sPageButton = '';--}}
+{{--        var deleteButtonTrans = 'Delete Selected';--}}
+{{--        var deleteProjectButton = {--}}
+{{--            text: deleteButtonTrans,--}}
+{{--            url: "{{ route('admin.project-sub-types.massDestroy') }}",--}}
+{{--            className: 'btn-danger',--}}
+{{--            action: function (e, dt, node, config) {--}}
+{{--                var ids = $.map(dt.rows({--}}
+{{--                    selected: true--}}
+{{--                }).nodes(), function (entry) {--}}
+{{--                    return $(entry).data('entry-id')--}}
+{{--                });--}}
 
-                if (ids.length === 0) {
-                    alert('{{ trans('global.datatables.zero_selected ') }}');
-                    return
-                }
+{{--                if (ids.length === 0) {--}}
+{{--                    alert('{{ trans('global.datatables.zero_selected ') }}');--}}
+{{--                    return--}}
+{{--                }--}}
 
-                if (confirm('{{ trans('global.areYouSure ') }}')) {
-                    $.ajax({
-                        headers: {
-                            'x-csrf-token': _token
-                        },
-                        method: 'POST',
-                        url: config.url,
-                        data: {
-                            ids: ids,
-                            _method: 'DELETE'
-                        }
-                    })
-                        .done(function () {
-                            location.reload()
-                        })
-                }
-            }
-        }
-        var dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-        @can('project_delete')
-dtProjectButtons.push(deleteProjectButton);
-        @endcan
+{{--                if (confirm('{{ trans('global.areYouSure ') }}')) {--}}
+{{--                    $.ajax({--}}
+{{--                        headers: {--}}
+{{--                            'x-csrf-token': _token--}}
+{{--                        },--}}
+{{--                        method: 'POST',--}}
+{{--                        url: config.url,--}}
+{{--                        data: {--}}
+{{--                            ids: ids,--}}
+{{--                            _method: 'DELETE'--}}
+{{--                        }--}}
+{{--                    })--}}
+{{--                        .done(function () {--}}
+{{--                            location.reload()--}}
+{{--                        })--}}
+{{--                }--}}
+{{--            }--}}
+{{--        }--}}
+{{--        var dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);--}}
+{{--        @can('project_delete')--}}
+{{--dtProjectButtons.push(deleteProjectButton);--}}
+{{--        @endcan--}}
 
-$('.datatable:not(.ajaxTable)').DataTable({
-            buttons: dtProjectButtons
-        })
+{{--$('.datatable:not(.ajaxTable)').DataTable({--}}
+{{--            buttons: dtProjectButtons--}}
+{{--        })--}}
 
-    </script>
+{{--    </script>--}}
 
 {{--Body Scripts--}}
     <script>
@@ -425,10 +381,11 @@ $('.datatable:not(.ajaxTable)').DataTable({
             type: "GET",
             url: '{{ url("/api/v1/clients") }}',
             success: function (data) {
-                console.log(data)
-                
+                console.log(data);
+
                 let card = document.getElementById('client-cards');
-                let projectCard = document.getElementById('client-project-modal')
+                let projectCard = document.getElementById('client-project-modal');
+                let taskCard = document.getElementById('client-task-modal');
                 
                 data.map((datum, i) => {
                     card.innerHTML = card.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
@@ -457,7 +414,7 @@ $('.datatable:not(.ajaxTable)').DataTable({
                                     data-toggle="modal" data-target="#view_client_project${datum.id}">
                                 View Projects
                             </button>
-                            <button class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                            <button onclick ="getClientTasks(${datum.id})" class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
                                     data-toggle="modal" data-target="#view_client_task${datum.id}">
                                 View Tasks
                             </button>
@@ -513,6 +470,50 @@ $('.datatable:not(.ajaxTable)').DataTable({
                 </div>
             </div>
         </div>`
+
+                        taskCard.innerHTML = taskCard.innerHTML + `;<div class="modal fade" id="view_client_task${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 90%; min-width: 400px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Client Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <!--begin::Portlet-->
+                <div; class="m-portlet"; id="m_portlet">
+                    <div; class="m-portlet__body">
+                    <table; id="kt_table_tasks${datum.id}"; class="table table-striped table-hover"; style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>;#</th>
+                                <th>Name</th>
+                                <th>Manager</th>
+                                <th>Task; Owner</th>
+                                <th>Status</th>
+                                <th>Category</th>
+                                <th>Starting; Date</th>
+                                <th>Deadline</th>
+                        {{-- <th>Tools</th> --}}
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+             </div>
+                <!--end::Portlet-->
+            </div>
+
+         </div>
+        </div>
+      </div>
+     </div>
+   </div>`
+
                 })
 
                 
@@ -523,6 +524,7 @@ $('.datatable:not(.ajaxTable)').DataTable({
             }
         });
 
+        //   Function for calling Client Projects on the DT
         function getClientProjects(client_id) {
              path_url = "/api/v1/projects/" + client_id;
              if ( $.fn.dataTable.isDataTable( '#kt_table_client_projects' + client_id ) ) {
@@ -571,12 +573,58 @@ $('.datatable:not(.ajaxTable)').DataTable({
 
         }
 
+        //   Function for calling Client Tasks on the DT
+        function getClientTasks(client_id) {
+            path_url = "api/v1/client_project" + client_id;
+            if ( $.fn.dataTable.isDataTable( '#kt_table_tasks' + client_id ) ) {
+                var kt_table_tasks = $('#kt_table_tasks' + client_id).DataTable();
+            }else {
+                var kt_table_tasks = $('#kt_table_tasks' + client_id).DataTable({
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages. {{ app()->getLocale() }}
+                    },
+                    ajax: path_url,
+                    columns: [
+                        {"data": "id"},
+                        {"data": "tasks.name"},
+                        {"data": "client.name"},
+                        {"data": "tasks.status_id"},
+                        {"data": "tasks.category_id"},
+                        {"data": "tasks.starting_date"},
+                        {"data": "tasks.ending_date"},
+                    ],
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0
+                    }, {
+                        orderable: false,
+                        searchable: false,
+                        targets: -1
+                    }],
+                    select: {
+                        style: 'multi+shift',
+                        selector: 'td:first-child'
+                    },
+                    scrollX: true,
+                    order: [],
+                    pageLength: 10,
+                    buttons: [
+                        'excel', 'pdf', 'print'
+                    ]
+                });
+            }
+
+
+        }
+
         // Project Modal Body Call
 
         
 
         // Ajax call for clients Projects
-        const callProjectModal = () => {
+        const callProjectModal = () =;> {
             $.ajax({
                 type: "GET",
                 url: '{{ url("/api/v1/tasks") }}',
