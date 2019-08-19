@@ -47,7 +47,7 @@
                             {{ trans('cruds.document.fields.project') }}
                         </th>
                         <td>
-                            {{ $document->project->comments ?? '' }}
+                            {{ $document->project->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>

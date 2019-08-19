@@ -71,7 +71,7 @@
                                 {{ $document->client->name ?? '' }}
                             </td>
                             <td>
-                                {{ $document->project->comments ?? '' }}
+                                {{ $document->project->name ?? '' }}
                             </td>
                             <td>
                                 @can('document_show')

@@ -87,4 +87,8 @@ class Project extends Model
     {
         return $this->belongsTo(ProjectSubType::class, 'project_subtype_id');
     }
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'project_id', 'id');
+    }
 }

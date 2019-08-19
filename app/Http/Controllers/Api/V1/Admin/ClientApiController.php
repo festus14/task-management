@@ -28,7 +28,7 @@ class ClientApiController extends Controller
 
     public function show(Client $client)
     {
-        return $client = Client::with('');
+        return  Client::findOrFail($client);
     }
 
     public function destroy(Client $client)

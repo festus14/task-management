@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
+use App\Document;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Project;
 
 use App\ProjectType;
+use App\Task;
 use App\User;
 use App\ProjectSubType;
 use App\Client;
@@ -16,9 +18,17 @@ class ProjectApiController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with('client')
+            ->with('documents')
+            ->with('project_type')
+            ->with('project_subtype')
+            ->with('manager')
+            ->with('team_members')
+            ->with('tasks')
+            ->with('status')
+            ->get();
 
-        return $projects;
+        return response()->json(['data'=>$projects], 200);
     }
 
     public function store(StoreProjectRequest $request)
@@ -34,16 +44,46 @@ class ProjectApiController extends Controller
     public function show(Project $project)
     {
        try{
-        $projects = Project::with('manager')->with('tasks')
-        ->with('project_type')
-        ->with('team_members')
-        ->with('status')
-        ->with('project_subtype')->findOrFail($project);
-        return response()->json($projects, 200);
+        $projects = Project::with('client')
+               ->with('project_type')
+               ->with('documents')
+               ->with('project_subtype')
+               ->with('manager')
+               ->with('team_members')
+               ->with('tasks')
+               ->with('status')->findOrFail($project);
+        return response()->json(['data'=>$projects], 200);
        }
        catch(\Exception $e){
-           return response()->json([], 401);
+           return response()->json(['data'=>[]], 401);
        }
+    }
+
+    public function tasks(Project $project){
+
+        try{
+            $projects = Task::where('project_id', $project->id)->with('client')
+                ->with('project_sub_type')
+                ->with('project')
+                ->with('status')
+                ->with('manager')
+                ->with('assinged_tos')
+                ->with('category')
+                ->with('documents')->get();
+            return response()->json(['data'=>$projects], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
+    }
+    public function documents(Project $project){
+        try{
+            $documents = Document::where('project_id', $project->id)->get();
+            return response()->json(['data'=>$documents], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[], 'error' => $e->getMessage()], 401);
+        }
     }
 
     public function destroy(Project $project)

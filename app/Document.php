@@ -42,6 +42,6 @@ class Document extends Model implements HasMedia
 
     public function project()
     {
-        return $this->belongsTo(ProjectComment::class, 'project_id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 }

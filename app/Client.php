@@ -62,6 +62,31 @@ class Client extends Model
     
     public function tasks()
     {
-        return $this->hasMany();
+        return $this->hasMany(Task::class, 'client_id', 'id');
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'client_id', 'id');
+    }
+
+    public function task_comments()
+    {
+        return $this->hasMany(TaskComment::class, 'client_id', 'id');
+    }
+
+    public function project_comments()
+    {
+        return $this->hasMany(ProjectComment::class, 'client_id', 'id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'client_id', 'id');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(ProjectReport::class, 'client_id', 'id');
     }
 }

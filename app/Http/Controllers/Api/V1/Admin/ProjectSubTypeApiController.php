@@ -11,9 +11,14 @@ class ProjectSubTypeApiController extends Controller
 {
     public function index()
     {
-        $projectSubTypes = ProjectSubType::all();
+        try {
+            $projectSubTypes = ProjectSubType::with('project_type')->get();
+            return response()->json(['data'=>$projectSubTypes], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
 
-        return $projectSubTypes;
     }
 
     public function store(StoreProjectSubTypeRequest $request)
@@ -28,7 +33,13 @@ class ProjectSubTypeApiController extends Controller
 
     public function show(ProjectSubType $projectSubType)
     {
-        return $projectSubType;
+        try {
+            $projectSubTypes = ProjectSubType::with('project_type')->findOrFail($projectSubType);
+            return response()->json(['data'=>$projectSubTypes], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
     }
 
     public function destroy(ProjectSubType $projectSubType)

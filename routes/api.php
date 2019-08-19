@@ -37,6 +37,13 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
 
     Route::get('calendar', 'CalendarApiController@index');
 
+    Route::get('calendar', 'CalendarApiController@index');
+
+    Route::get('tasks_documents/{task}', 'TaskApiController@documents');
+
+    Route::get('projects_documents/{project}', 'ProjectApiController@documents');
+    Route::get('projects_tasks/{project}', 'ProjectApiController@tasks');
+
     Route::get('client_project/{client_id}', 'ClientDashboardPagesAPIController@clientProject');
     Route::get('client_task/{client_id}', 'ClientDashboardPagesAPIController@clientTask');
     Route::post('client_project/{client_id}', 'ClientDashboardPagesAPIController@clientProject');

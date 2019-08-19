@@ -10,7 +10,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyDocumentRequest;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
-use App\ProjectComment;
+use App\Project;
 
 class DocumentsController extends Controller
 {
@@ -31,7 +31,7 @@ class DocumentsController extends Controller
 
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $projects = ProjectComment::all()->pluck('comments', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $projects = Project::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.documents.create', compact('clients', 'projects'));
     }
@@ -55,7 +55,7 @@ class DocumentsController extends Controller
 
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $projects = ProjectComment::all()->pluck('comments', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $projects = Project::all()->pluck('comments', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $document->load('client', 'project');
 

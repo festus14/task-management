@@ -12,7 +12,7 @@ class AddRelationshipFieldsToDocumentsTable extends Migration
             $table->unsignedInteger('client_id')->nullable();
             $table->foreign('client_id', 'client_fk_163927')->references('id')->on('clients');
             $table->unsignedInteger('project_id')->nullable();
-            $table->foreign('project_id', 'project_fk_163928')->references('id')->on('project_comments');
+            $table->foreign('project_id', 'project_fk_163928')->references('id')->on('projects');
         });
     }
 }

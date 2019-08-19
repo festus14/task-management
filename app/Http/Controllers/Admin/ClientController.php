@@ -17,8 +17,12 @@ class ClientController extends Controller
     {
         abort_unless(\Gate::allows('client_access'), 403);
 
-        $clients = Client::all();
-
+        $clients = Client::with('tasks')
+            ->with('projects')
+            ->with('project_comments')
+            ->with('documents')
+            ->with('reports')
+            ->with('task_comments')->get();
         return view('admin.clients.index', compact('clients'));
     }
 

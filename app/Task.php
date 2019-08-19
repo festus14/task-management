@@ -90,4 +90,8 @@ class Task extends Model
     {
         return $this->belongsTo(Client::class, 'client_id');
     }
+
+    public function documents(){
+        return $this->hasMany(TaskDocument::class, 'task_id' , 'id');
+    }
 }
