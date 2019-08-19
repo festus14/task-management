@@ -54,58 +54,13 @@
                     <th>Subtype</th>
                     <th>Status</th>
                     <th>Members</th>
+                    <th>Start Date</th>
                     <th>Deadline</th>
                     <th>Tools</th>
                 </tr>
             </thead>
             <tbody>
-                @php $counter = 1;
-                @endphp
-                @foreach($projects as $project)
-                <tr data-entry-id="{{ $project->id }}">
-                    <td></td>
-                    <td>{{ $project->client->name ?? '' }}</td>
-                    <td>{{ $project->name }}</td>
-                    <td>{{ $project->manager->name ?? '' }}</td>
-                    <td>{{ $project->project_type->name ?? '' }}</td>
-                    <td>{{ $project->project_subtype->name ?? ''}}</td>
-                    <td>{{ $project->status->name ?? '' }}</td>
-                    <td>
-                        @foreach ($project->team_members as $menber)
-                        <span class="m-badge m-badge--success"> {{ $menber->email }} </span>
-                        @endforeach
-                    </td>
-                    <td>{{ $project->deadline }}</td>
-                    <td>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="projToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{-- tools dropdown btn --}}
-                          </button>
-                        <div class="dropdown-menu" aria-labelledby="projToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">
-                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> </i></a>
-                             @can('project_sub_type_edit')
-                            <a class="link" href="{{ route('admin.project-sub-types.edit', $project->id) }}">
-                                <i class="fas fa-pencil-alt" style="color:black;"></i>
-                            </a>
-                            @endcan
-                            @can('project_sub_type_edit')
-                            <a class="link" href="#" id="project_subtype_{{  $project->id }}" data-project_type_id="{{  $project->id }}">
-                                <i class="flaticon-graphic" style="color:black;"> </i>
-                            </a>
-                            @endcan
-                            @can('project_sub_type_delete')
-                            <form action="{{ route('admin.project-sub-types.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>
-                            </form>
-                            @endcan
-                        </div>
-
-                    </td>
-                </tr>
-
-                @php $counter ++; @endphp @endforeach @php $counter = 1; @endphp
-
+                
             </tbody>
         </table>
     </div>
@@ -1309,26 +1264,65 @@
     // post to the create proj table
     $(document).ready(function(){
 
-$('#addprojectform').on('submit', function(e){
-e.preventDefault();
+        $('#addprojectform').on('submit', function(e){
+        e.preventDefault();
 
-$.ajax({
-type: "POST",
-url: '{{ url("admin/projects") }}',
-data: $('#addprojectform').serialize(),
-success: function (response) {
-    console.log(response)
-    $('#createProjectModal').modal('hide');
-    alert("Project Created");
-    location.reload();
-},
-error: function (error) {
-    console.log(error);
-    alert("Project creation failed");
-}
-}); 
-});
-});
+        $.ajax({
+        type: "POST",
+        url: '{{ url("admin/projects") }}',
+        data: $('#addprojectform').serialize(),
+        success: function (response) {
+            console.log(response)
+            $('#createProjectModal').modal('hide');
+            alert("Project Created");
+            location.reload();
+        },
+        error: function (error) {
+            console.log(error);
+            alert("Project creation failed");
+        }
+        }); 
+        });
+        });
+    </script>
+
+    
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $('#kt_table_projects').DataTable({
+            ajax: "{{ url('/api/v1/projects') }}",
+            columns: [
+                { "data": "id" },
+                { "data": "client.name" },
+                { "data": "name" },
+                { "data": "manager.name" },
+                { "data": "project_type.name" },
+                { "data": "subtype_type.name" },
+                { "data": "status.name" },
+                { "data": "manager.team_members" },
+                { "data": "starting_date" },
+                { "data": "deadline" },
+            ],
+            dom: 'lBfrtip<"actions">',
+            language: {
+                url: languages.{{ app()->getLocale() }}
+            },
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }, {
+                orderable: false,
+                searchable: false,
+                targets: -1
+            }],
+        });
+    
     </script>
 
        @endsection
