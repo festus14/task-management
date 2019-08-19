@@ -244,7 +244,8 @@ function addReply() {
 
                 <div class="m-messenger__message-text" style="min-width: 250px; max-width: 300px; max-height: 4000px;">  <p> </br> 
               <span style="width: 250px"> ${document.getElementById("replyTextId").value} </span>
-    </p>  
+                            
+                            </p>  
                 </div>
                 </br>
             </div>

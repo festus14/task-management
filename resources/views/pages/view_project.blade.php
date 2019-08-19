@@ -63,7 +63,7 @@
                 @endphp
                 @foreach($projects as $project)
                 <tr data-entry-id="{{ $project->id }}">
-                    <td> </td>
+                    <td></td>
                     <td>{{ $project->client->name ?? '' }}</td>
                     <td>{{ $project->name }}</td>
                     <td>{{ $project->manager->name ?? '' }}</td>
@@ -140,16 +140,8 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="project-type">Select Project Type</label>
-                    <select id="project-type" class="selectDesign form-control"></select>
-                </div>
-
-                <div class="form-group">
-                    <label for="create-task">Subtype Name</label>
-                    <input type="text" class="form-control" id="subtype" placeholder="">
-                </div>
+            <div id="subtypeModalBody" class="modal-body">
+                {{-- body content --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="$('#subtypeModal').modal('hide');" data-target="#subtypeModal">Close</button>
@@ -1205,18 +1197,15 @@
 
      let popAddProj = document.getElementById('addProjId');
      popAddProj.addEventListener("click", displayAddProject);
+     
      function displayAddProject(){
-
       $("#createProjectModal").modal('show');
-
         $.ajax({
             type: "GET",
             url: '{{ url("/api/v1/project_create") }}',
             success: function (data) {
-                console.log(data)
-                
                 let createProjectBody = document.getElementById('createProjectBody');
-                  data.map((data, i) => {
+                let probSubtypeBody = document.getElementById('subtypeModalBody');
                     createProjectBody.innerHTML = createProjectBody.innerHTML + `
                     <div class="col-md-12 ">
     <form action="" method="POST" id="addprojectform" enctype="multipart/form-data">
@@ -1225,10 +1214,9 @@
             <div class="col-md-6 form-group mt-3">
                 <label>Select Client</label>
                 <select id="client-list" name="client" class="selectDesign form-control">
-                    $.each(data, function(){
-                    <option value="">${data.clients[0].name}</option> 
-                    } 
-                    
+                ` +
+                    data.clients.map(elem => `<option value="">${elem.name}</option>`)
+                + `
                 </select>
             </div>
 
@@ -1241,18 +1229,18 @@
             <div class="col-md-4 form-group mt-3">
                 <label for="create-project">Manager</label><br>
                 <select name="manager" class="form-control select2" style="width:100%;">
-                    $.each(data, function(){
-                    <option value="${this.id}">${data.managers}</option> 
-                    } 
+                    ` +
+                    data.managers.map(elem => `<option value="">${elem.name}</option>`)
+                + `
                 </select>
             </div>
             <div class="col-md-4 form-group mt-3">
                 <label for="create-project-type">Project Type</label>
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
                 <select class="form-control" id="projtypeboy" name="proj_type">
-                    $.each(data, function(){
-                    <option value="${this.id}">${data.project_subtypes}</option> 
-                    } 
+                    ` +
+                    data.project_types.map(elem => `<option value="">${elem.name}</option>`)
+                + `
                 </select>
             </div>
 
@@ -1261,9 +1249,9 @@
                 <label for="exampleFormControlSelect1">Project Sub-type</label>
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
                 <select class="form-control" id="exampleFormControlSelect1" name="proj_subtype">
-                    $.each(data, function(){
-                    <option value="${this.id}">${data.team_members}</option> 
-                    } 
+                    ` +
+                    data.project_subtypes.map(elem => `<option value="">${elem.name}</option>`)
+                + `
                 </select>
             </div>
         </div>
@@ -1281,9 +1269,9 @@
             <div class="col-md-4 form-group mt-3">
                 <label>Team members</label><br>
                 <select multiple class="form-control select2" name="team_members[]" style="width:100%;">
-                    $.each(data, function(){
-                    <option value="${this.id}">${data.team_members}</option> 
-                    } 
+                    ` +
+                    data.team_members.map(elem => `<option value="">${elem.name}</option>`)
+                + `
                 </select>
             </div>
 
@@ -1294,8 +1282,22 @@
         </div>
     </form>
 </div>  `
-})
-              
+
+            probSubtypeBody.innerHTML = probSubtypeBody + `
+            <div class="form-group">
+                    <label for="project-type">Select Project Type</label>
+                    <select id="project-type" class="selectDesign form-control">
+                        ` +
+                            data.project_types.map(elem => `<option value="">${elem.name}</option>`)
+                        + `
+                </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="create-task">Subtype Name</label>
+                    <input type="text" class="form-control" id="subtype" placeholder="">
+                </div>
+                     `
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -1303,6 +1305,30 @@
         }); 
         
     }
+                
+    // post to the create proj table
+    $(document).ready(function(){
+
+$('#addprojectform').on('submit', function(e){
+e.preventDefault();
+
+$.ajax({
+type: "POST",
+url: '{{ url("admin/projects") }}',
+data: $('#addprojectform').serialize(),
+success: function (response) {
+    console.log(response)
+    $('#createProjectModal').modal('hide');
+    alert("Project Created");
+    location.reload();
+},
+error: function (error) {
+    console.log(error);
+    alert("Project creation failed");
+}
+}); 
+});
+});
     </script>
 
        @endsection
