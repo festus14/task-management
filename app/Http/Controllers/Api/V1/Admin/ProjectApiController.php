@@ -102,7 +102,7 @@ class ProjectApiController extends Controller
         $managers = User::select('name', 'id')->get();
         $team_members = $managers;
 
-        return response()->json(compact('clients', 'project_subtypes', 'managers', 'team_members'), 200);
+        return response()->json(compact('clients', 'project_types', 'project_subtypes', 'managers', 'team_members'), 200);
 
     }
 }
