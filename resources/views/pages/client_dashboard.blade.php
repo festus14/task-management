@@ -144,6 +144,15 @@
 {{--Body Scripts--}}
     <script>
 
+        var csvButtonTrans = '{{ trans('global.datatables.csv') }}';
+        var excelButtonTrans = '{{ trans('global.datatables.excel') }}';
+        var pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
+        var printButtonTrans = '{{ trans('global.datatables.print') }}';
+        var colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
+        var languages = {
+            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+        };
+
         // Ajax call for the clients view
         $.ajaxSetup({
             headers: {
@@ -160,7 +169,7 @@
                 let projectCard = document.getElementById('client-project-modal');
                 let taskCard = document.getElementById('client-task-modal');
                 
-                data.map((datum, i) => {
+                    data.data.map((datum, i) => {
                     card.innerHTML = card.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                     <div class="m-widget24">
                         <div class="m-widget24__item">
@@ -219,13 +228,14 @@
                                                 style="width: 100%">
                                             <thead>
                                             <tr>
-                                                <th>#</th>
+                                                <th>S/N</th>
                                                 <th>Name</th>
                                                 <th>Manager</th>
                                                 <th>Type</th>
                                                 <th>Subtypes</th>
                                                 <th>Status</th>
                                                 <th>Members Email</th>
+                                                <th>Starting Date</th>
                                                 <th>Deadline</th>
                                                 <th>Tools</th>
                                             </tr>
@@ -263,7 +273,7 @@
                     <table id="kt_table_tasks${datum.id}" class="table table-striped table-hover" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>S/N</th>
                                 <th>Name</th>
                                 <th>Manager</th>
                                 <th>Task Owner</th>
@@ -308,7 +318,9 @@
                 language: {
                     url: languages. {{ app()->getLocale() }}
                 },
-                ajax: path_url,
+
+                ajax: "{{ url('/api/v1/clients_projects/1') }}",
+                        
                 columns: [
                     // id,name,manager.name,project_type_id,project_subtype_id,status_id,manager.name,starting_date,deadline
                     {"data": "id"},
@@ -320,6 +332,7 @@
                     {"data": "manager.name"},
                     {"data": "starting_date"},
                     {"data": "deadline"},
+                    {"defaultContent": '<button > Yo </button>'}
                 ],
                 columnDefs: [{
                     orderable: false,
@@ -341,7 +354,7 @@
                     'excel', 'pdf', 'print'
                 ]
             });
-             }
+            }
             
 
         }
@@ -357,15 +370,17 @@
                     language: {
                         url: languages. {{ app()->getLocale() }}
                     },
-                    ajax: path_url,
+                    ajax: "{{ url('/api/v1/projects/') }}",
                     columns: [
-                        // {"data": "id"},
-                        // {"data": "tasks.name"},
-                        // {"data": "client.name"},
-                        // {"data": "tasks.status_id"},
-                        // {"data": "tasks.category_id"},
-                        // {"data": "tasks.starting_date"},
-                        // {"data": "tasks.ending_date"},
+                        {"data": "id"},
+                        {"data": "tasks.name"},
+                        {"data": "client.name"},
+                        {"data": "client.name"},
+                        {"data": "tasks.status_id"},
+                        {"data": "tasks.category_id"},
+                        {"data": "tasks.starting_date"},
+                        {"data": "tasks.ending_date"},
+                        {"defaultContent": '<button > Yo </button>'}
                     ],
                     columnDefs: [{
                         orderable: false,
