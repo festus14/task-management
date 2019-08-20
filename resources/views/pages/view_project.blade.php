@@ -736,7 +736,7 @@
     </div>
 </div>
 <!-- endComment Modal -->
-<div class="dropdown-menu" aria-labelledby="Toolbtn" style="padding-left:8px; min-width: 50px;">
+<div class="dropdown-menu" id="toolsdropdown" aria-labelledby="Toolbtn" style="padding-left:8px; min-width: 50px;">
         
        <a class="link" href="">
            <i class="fas fa-pencil-alt" style="color:black;"></i>
@@ -1319,7 +1319,7 @@
             }],
         });
         $('#kt_table_projects tbody').on( 'click', 'button', function () {
-            alert('whatsup');
+            $('#toolsdropdown').show();
     } );
     
     </script>
