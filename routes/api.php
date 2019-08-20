@@ -44,9 +44,14 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::get('projects_documents/{project}', 'ProjectApiController@documents');
     Route::get('projects_tasks/{project}', 'ProjectApiController@tasks');
 
-    Route::get('client_project/{client_id}', 'ClientDashboardPagesAPIController@clientProject');
-    Route::get('client_task/{client_id}', 'ClientDashboardPagesAPIController@clientTask');
-    Route::post('client_project/{client_id}', 'ClientDashboardPagesAPIController@clientProject');
-    Route::post('client_task/{client_id}', 'ClientDashboardPagesAPIController@clientTask');
+    Route::get('clients_tasks/{client}', 'ClientApiController@tasks');
+    Route::get('clients_projects/{client}', 'ClientApiController@projects');
+
+
+
+//    Route::get('client_project/{client_id}', 'ClientDashboardPagesAPIController@clientProject');
+//    Route::get('client_task/{client_id}', 'ClientDashboardPagesAPIController@clientTask');
+//    Route::post('client_project/{client_id}', 'ClientDashboardPagesAPIController@clientProject');
+//    Route::post('client_task/{client_id}', 'ClientDashboardPagesAPIController@clientTask');
 
 });
