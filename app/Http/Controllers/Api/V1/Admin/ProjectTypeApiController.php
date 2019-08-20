@@ -11,9 +11,13 @@ class ProjectTypeApiController extends Controller
 {
     public function index()
     {
-        $projectTypes = ProjectType::all();
-
-        return $projectTypes;
+        try {
+            $projectTypes = ProjectType::all();
+            return response()->json(['data' => $projectTypes], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
     }
 
     public function store(StoreProjectTypeRequest $request)
@@ -28,7 +32,12 @@ class ProjectTypeApiController extends Controller
 
     public function show(ProjectType $projectType)
     {
-        return $projectType;
+        try {
+            return response()->json(['data' => $projectType], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
     }
 
     public function destroy(ProjectType $projectType)

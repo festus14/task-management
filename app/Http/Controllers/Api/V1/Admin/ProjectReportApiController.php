@@ -12,7 +12,6 @@ class ProjectReportApiController extends Controller
     public function index()
     {
         $projectReports = ProjectReport::all();
-
         return $projectReports;
     }
 
@@ -34,7 +33,6 @@ class ProjectReportApiController extends Controller
     public function destroy(ProjectReport $projectReport)
     {
         $projectReport->delete();
-
         return response("OK", 200);
     }
 }

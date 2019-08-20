@@ -18,17 +18,21 @@ class ProjectApiController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('client')
-            ->with('documents')
-            ->with('project_type')
-            ->with('project_subtype')
-            ->with('manager')
-            ->with('team_members')
-            ->with('tasks')
-            ->with('status')
-            ->get();
 
-        return response()->json(['data'=>$projects], 200);
+        try {
+            $projects = Project::with('client')
+                ->with('documents')
+                ->with('project_type')
+                ->with('project_subtype')
+                ->with('manager')
+                ->with('team_members')
+                ->with('tasks')
+                ->with('status')
+                ->get();
+            return response()->json(['data' => $projects], 200);
+        } catch (\Exception $e) {
+            return response()->json(['data' => []], 401);
+        }
     }
 
     public function store(StoreProjectRequest $request)
