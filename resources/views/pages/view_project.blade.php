@@ -60,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                
+                    
             </tbody>
         </table>
     </div>
@@ -178,7 +178,6 @@
                                     <th>Project Type</th>
                                     <th>created</th>
                                     <th>Updated</th>
-                                    <th>Tools</th>
 
                                 </tr>
                             </thead>
@@ -188,31 +187,7 @@
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
-                                <td>
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="subtypeTool" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                {{-- tools dropdown btn --}}
-                                          </button>
-                                        <div class="dropdown-menu" aria-labelledby="subtypeTool" style="padding-left:8px; min-width: 50px;">
-                                             @can('project_sub_type_edit')
-                                            <a class="link" href="{{ route('admin.project-sub-types.edit', $project->id) }}">
-                                                <i class="fas fa-pencil-alt" style="color:black;"></i>
-                                            </a>
-                                            @endcan
-                                            {{-- @can('project_sub_type_edit')
-                                            <a class="link" href="#" id="project_subtype_{{  $project->id }}" data-project_type_id="{{  $project->id }}">
-                                                <i class="flaticon-graphic" style="color:black;"> </i>
-                                            </a>
-                                            @endcan  --}}
-                                            @can('project_sub_type_delete')
-                                            <form action="{{ route('admin.project-sub-types.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>
-                                            </form>
-                                            @endcan
-                                        </div>
-
-                                    </td>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -761,6 +736,24 @@
     </div>
 </div>
 <!-- endComment Modal -->
+<div class="dropdown-menu" aria-labelledby="Toolbtn" style="padding-left:8px; min-width: 50px;">
+        
+       <a class="link" href="">
+           <i class="fas fa-pencil-alt" style="color:black;"></i>
+       </a>
+       
+       {{-- @can('project_sub_type_edit')
+       <a class="link" href="#" id="project_subtype_{{  $project->id }}" data-project_type_id="{{  $project->id }}">
+           <i class="flaticon-graphic" style="color:black;"> </i>
+       </a>
+       @endcan  --}}
+       <form action="" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+           <input type="hidden" name="_method" value="DELETE">
+           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+           <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>
+       </form>
+       
+   </div>
 @endsection
 
 {{-- projectcomment js --}}
@@ -988,7 +981,7 @@
 
 </script>
 
-<script>
+{{-- <script>
        var kt_table_projectsDataTable = $('#kt_table_projects').DataTable({
             dom: 'lBfrtip<"actions">',
             language: {
@@ -1060,7 +1053,7 @@
             buttons: dtProjectButtons
         })
 
-</script>
+</script> --}}
 
 {{-- <script>
    $('#kt_table_project_subtype').DataTable({
@@ -1302,11 +1295,12 @@
                 { "data": "name" },
                 { "data": "manager.name" },
                 { "data": "project_type.name" },
-                { "data": "subtype_type.name" },
+                { "data": "project_subtype.name" },
                 { "data": "status.name" },
-                { "data": "manager.team_members" },
+                { "data": "team_members[, ].name" },
                 { "data": "starting_date" },
                 { "data": "deadline" },
+                {"defaultContent": '<button class="btn btn-secondary m-btn--pill dropdown-toggle" type="button" id="Toolbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>'}
             ],
             dom: 'lBfrtip<"actions">',
             language: {
@@ -1315,13 +1309,18 @@
             columnDefs: [{
                 orderable: false,
                 className: 'select-checkbox',
-                targets: 0
+                targets: 0,
+                
             }, {
                 orderable: false,
                 searchable: false,
-                targets: -1
+                targets: -1,
+                
             }],
         });
+        $('#kt_table_projects tbody').on( 'click', 'button', function () {
+            alert('whatsup');
+    } );
     
     </script>
 
