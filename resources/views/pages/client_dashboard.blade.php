@@ -39,108 +39,6 @@
 
 @section('javascript')
 
-    <script>
-
-        var csvButtonTrans = '{{ trans('global.datatables.csv') }}';
-        var excelButtonTrans = '{{ trans('global.datatables.excel') }}';
-        var pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
-        var printButtonTrans = '{{ trans('global.datatables.print') }}';
-        var colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
-        var languages = {
-            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
-        };
-
-
-        function getclientProject(client_id) {
-             path_url = "/api/v1/client_project" + client_id;
-
-            var kt_table_client_projects = $('#ddd').DataTable({
-                dom: 'lBfrtip<"actions">',
-                language: {
-                    url: languages. {{ app()->getLocale() }}
-                },
-                ajax: window.location + path_url,
-                columns: [
-                    {"data": "id"},
-                    {"data": "name"},
-                    {"data": "manager.name"},
-                    {"data": "project_type.name"},
-                    {"data": "project_subtype.name"},
-                    {"data": "status.name"},
-                    {"data": "starting_date"},
-                    {"data": "deadline"},
-                ],
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }, {
-                    orderable: false,
-                    searchable: false,
-                    targets: -1
-                }],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
-                buttons: [
-                    'excel', 'pdf', 'print'
-                ]
-            });
-
-        }
-
-        $.fn.dataTable.ext.classes.sPageButton = '';
-        var deleteButtonTrans = 'Delete Selected';
-        var deleteProjectButton = {
-            text: deleteButtonTrans,
-            url: "{{ route('admin.project-sub-types.massDestroy') }}",
-            className: 'btn-danger',
-            action: function (e, dt, node, config) {
-                var ids = $.map(dt.rows({
-                    selected: true
-                }).nodes(), function (entry) {
-                    return $(entry).data('entry-id')
-                });
-
-                if (ids.length === 0) {
-                    alert('{{ trans('global.datatables.zero_selected ') }}');
-                    return
-                }
-
-                if (confirm('{{ trans('global.areYouSure ') }}')) {
-                    $.ajax({
-                        headers: {
-                            'x-csrf-token': _token
-                        },
-                        method: 'POST',
-                        url: config.url,
-                        data: {
-                            ids: ids,
-                            _method: 'DELETE'
-                        }
-                    })
-                        .done(function () {
-                            location.reload()
-                        })
-                }
-            }
-        };
-        var dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-        @can('project_delete')
-        dtProjectButtons.push(deleteProjectButton);
-        @endcan
-
-        $('.datatable:not(.ajaxTable)').DataTable({
-            buttons: dtProjectButtons
-        })
-
-    </script>
-    
-
 {{--Body Scripts--}}
     <script>
 
@@ -228,7 +126,7 @@
                                                 style="width: 100%">
                                             <thead>
                                             <tr>
-                                                <th>S/N</th>
+                                                <th>#</th>
                                                 <th>Name</th>
                                                 <th>Manager</th>
                                                 <th>Type</th>
@@ -273,7 +171,7 @@
                     <table id="kt_table_tasks${datum.id}" class="table table-striped table-hover" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>S/N</th>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Manager</th>
                                 <th>Task Owner</th>
@@ -309,7 +207,7 @@
 
         //   Function for calling Client Projects on the DT
         function getClientProjects(client_id) {
-             path_url = "/api/v1/projects/" + client_id;
+             path_url = "/api/v1/clients_projects/" + client_id;
              if ( $.fn.dataTable.isDataTable( '#kt_table_client_projects' + client_id ) ) {
                 var kt_table_client_projects = $('#kt_table_client_projects' + client_id).DataTable();
              }else {
@@ -322,14 +220,13 @@
                 ajax: path_url,
                         
                 columns: [
-                    // id,name,manager.name,project_type_id,project_subtype_id,status_id,manager.name,starting_date,deadline
-                    {"data": "id"},
+                    {"defaultContent": ""},
                     {"data": "name"},
                     {"data": "manager.name"},
-                    {"data": "project_type_id"},
-                    {"data": "project_subtype_id"},
-                    {"data": "status_id"},
-                    {"data": "manager.name"},
+                    {"data": "project_type.name"},
+                    {"data": "project_subtype.name"},
+                    {"data": "status.name"},
+                    {"data": "team_members[, ].name"},
                     {"data": "starting_date"},
                     {"data": "deadline"},
                     {"defaultContent": '<button > Yo </button>'}
@@ -361,7 +258,7 @@
 
         //   Function for calling Client Tasks on the DT
         function getClientTasks(client_id) {
-            path_url = "/api/v1/client_project/" + client_id;
+            path_url = "/api/v1/clients_tasks/" + client_id;
             if ( $.fn.dataTable.isDataTable( '#kt_table_tasks' + client_id ) ) {
                 var kt_table_tasks = $('#kt_table_tasks' + client_id).DataTable();
             }else {
@@ -370,16 +267,16 @@
                     language: {
                         url: languages. {{ app()->getLocale() }}
                     },
-                    ajax: "{{ url('/api/v1/projects/') }}",
+                    ajax: path_url,
                     columns: [
-                        {"data": "id"},
+                        {"defaultContent": ""},
                         {"data": "tasks.name"},
-                        {"data": "client.name"},
-                        {"data": "client.name"},
-                        {"data": "tasks.status_id"},
-                        {"data": "tasks.category_id"},
-                        {"data": "tasks.starting_date"},
-                        {"data": "tasks.ending_date"},
+                        {"data": "manager.name"},
+                        {"data": "assigned_tos[, ].name"},
+                        {"data": "status.name"},
+                        {"data": "category.name"},
+                        {"data": "starting_date"},
+                        {"data": "ending_date"},
                         {"defaultContent": '<button > Yo </button>'}
                     ],
                     columnDefs: [{
@@ -406,6 +303,54 @@
 
 
         }
+
+        $.fn.dataTable.ext.classes.sPageButton = '';
+        var deleteButtonTrans = 'Delete Selected';
+        var deleteProjectButton = {
+            text: deleteButtonTrans,
+            url: "{{ route('admin.project-sub-types.massDestroy') }}",
+            className: 'btn-danger',
+            action: function (e, dt, node, config) {
+                var ids = $.map(dt.rows({
+                    selected: true
+                }).nodes(), function (entry) {
+                    return $(entry).data('entry-id')
+                });
+
+                if (ids.length === 0) {
+                    alert('{{ trans('global.datatables.zero_selected ') }}');
+                    return
+                }
+
+                if (confirm('{{ trans('global.areYouSure ') }}')) {
+                    $.ajax({
+                        headers: {
+                            'x-csrf-token': _token
+                        },
+                        method: 'POST',
+                        url: config.url,
+                        data: {
+                            ids: ids,
+                            _method: 'DELETE'
+                        }
+                    })
+                        .done(function () {
+                            location.reload()
+                        })
+                }
+            }
+        };
+        var dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+        @can('project_delete')
+        dtProjectButtons.push(deleteProjectButton);
+        @endcan
+
+        $('.datatable:not(.ajaxTable)').DataTable({
+            buttons: dtProjectButtons
+        })
+
+        // document.querySelectorAll("tbody > tr").firstElementChild.style.display = "none";
+
 
     </script>
 
