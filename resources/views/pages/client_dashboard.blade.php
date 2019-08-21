@@ -319,7 +319,7 @@
                     url: languages. {{ app()->getLocale() }}
                 },
 
-                ajax: "{{ url('/api/v1/clients_projects/1') }}",
+                ajax: path_url,
                         
                 columns: [
                     // id,name,manager.name,project_type_id,project_subtype_id,status_id,manager.name,starting_date,deadline
