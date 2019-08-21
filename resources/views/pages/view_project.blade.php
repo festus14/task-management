@@ -31,10 +31,10 @@
                                 </span>
                         </span>
                     </a>
-                    <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#subDatatable">
-                        <span>
+                    <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="projectTypeId" data-toggle="modal" data-target="#ProjTypeDatatable">
+                        <span onclick="getProjetTypeDT();">
                                 <span>
-                                    Project Subtype
+                                    Project Type
                                 </span>
                         </span>
                     </a>
@@ -46,7 +46,7 @@
         <table id="kt_table_projects" class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>SN</th>
+                    <th>S/N</th>
                     <th>Client</th>
                     <th>Name</th>
                     <th>Manager</th>
@@ -131,13 +131,13 @@
 </div>
 <!--End Project Type Modal -->
 
-{{-- Project Subtype datatable modal --}}
-<div class="modal fade" id="subDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+{{-- Project Type datatable modal --}}
+<div class="modal fade" id="ProjTypeDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:70%; min-width:400px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Project Subtype table</h5>
-                <button type="button" class="close" onclick="$('#subDatatable').modal('hide');" aria-label="Close">
+                <h5 class="modal-title" id="exampleModalLongTitle">Project Type table</h5>
+                <button type="button" class="close" onclick="$('#ProjTypeDatatable').modal('hide');" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
             </div>
@@ -150,18 +150,18 @@
                                     <i class="flaticon-list-2"> </i>
                                 </span>
                                 <h3 class="m-portlet__head-text">
-                                    Project Subtype table
+                                    Project Type table
                                 </h3>
                             </div>
                         </div>
                         <div class="m-portlet__head-tools">
                             <ul class="m-portlet__nav">
                                 <li class="m-portlet__nav-item">
-                                    <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#subtypeModalla">
+                                    <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#AddProjecModalla">
                                         <span>
                                             <i class="la la-plus"></i>
                                             <span>
-                                                Add Subtype
+                                                Add Type
                                             </span>
                                         </span>
                                     </a>
@@ -169,24 +169,19 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="m-portlet__body" style="overflow-x:auto;">
-                        <table id="kt_table_project_subtype" class="table table-striped table-hover">
+                    <div class="m-portlet__body" style="overflow-x:auto;  width:100%">
+                        <table id="kt_table_project_subtype" class="table table-striped table-hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Project Type</th>
-                                    <th>created</th>
-                                    <th>Updated</th>
+                                    <th>S/N</th>
+                                    <th>Project Type Name</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th>Tools</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
                                 
                             </tbody>
                         </table>
@@ -195,7 +190,7 @@
                 <!--end::Portlet-->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="$('#subDatatable').modal('hide');">Close</button>
+                <button type="button" class="btn btn-secondary" onclick="$('#ProjTypeDatatable').modal('hide');">Close</button>
             </div>
         </div>
     </div>
@@ -203,28 +198,23 @@
 {{-- End Project Subtype datatable modal --}}
 
 <!--modalled projSubtype Modal -->
-<div class="modal fade" id="subtypeModalla" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="AddProjecModalla" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Subtype</h5>
-                <button type="button" class="close" onclick="$('#subtypeModalla').modal('hide');" aria-label="Close">
+                <h5 class="modal-title">Add Project Type</h5>
+                <button type="button" class="close" onclick="$('#AddProjecModalla').modal('hide');" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="project-type">Select Project Type</label>
-                    <select id="project-type" class="selectDesign form-control"></select>
-                </div>
-
-                <div class="form-group">
-                    <label for="create-task">Subtype Name</label>
+                    <label for="create-task">Project Type Name</label>
                     <input type="text" class="form-control" id="subtype" placeholder="">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="$('#subtypeModalla').modal('hide');" data-target="#subtypeModal">Close</button>
+                <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');" data-target="#subtypeModal">Close</button>
                 <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
             </div>
         </div>
@@ -1319,9 +1309,48 @@
             }],
         });
         $('#kt_table_projects tbody').on( 'click', 'button', function () {
-            $('#toolsdropdown').show();
+            $('#toolsdropdown').dropdown("toggle");
+            //$('#toolsdropdown').show();
     } );
-    
+
+
+    function getProjetTypeDT(){
+            // path_url = "/api/v1/projects/";
+
+            if ( $.fn.dataTable.isDataTable( '#kt_table_project_subtype') ) {
+                var kt_table_project_subtype = $('#kt_table_project_subtype').DataTable();
+             }else {
+                var kt_table_project_subtype = $('#kt_table_project_subtype').DataTable({
+                    ajax: "{{ url('/api/v1/project-types') }}",
+                    columns: [
+                        { "data": "id" },
+                        { "data": "name"},
+                        { "data": "created_at" },
+                        { "data": "updated_at" },
+                        {"defaultContent": '<button class="btn btn-secondary m-btn--pill dropdown-toggle" type="button" id="Toolbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>'}
+                    ],
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages.{{ app()->getLocale() }}
+                    },
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0,
+                        
+                    }, {
+                        orderable: false,
+                        searchable: false,
+                        targets: -1,
+                        
+                    }],
+                });
+                    }
+            };
+                $('#kt_table_project_subtype tbody').on( 'click', 'button', function () {
+                    $('#toolsdropdown').show();
+            });
+            
     </script>
 
        @endsection

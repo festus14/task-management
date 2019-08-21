@@ -11,9 +11,13 @@ class DocumentsApiController extends Controller
 {
     public function index()
     {
-        $documents = Document::all();
-
-        return $documents;
+        try {
+            $documents = Document::all();
+            return response()->json(['data' => $documents], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
     }
 
     public function store(StoreDocumentRequest $request)
@@ -28,13 +32,18 @@ class DocumentsApiController extends Controller
 
     public function show(Document $document)
     {
-        return $document;
+
+        try {
+            return response()->json(['data' => $document], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
     }
 
     public function destroy(Document $document)
     {
         $document->delete();
-
         return response("OK", 200);
     }
 }
