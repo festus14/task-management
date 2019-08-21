@@ -270,9 +270,9 @@
                     ajax: path_url,
                     columns: [
                         {"defaultContent": ""},
-                        {"data": "tasks.name"},
+                        {"data": "name"},
                         {"data": "manager.name"},
-                        {"data": "assigned_tos[, ].name"},
+                        {"data": "assigned_tos[, ].email"},
                         {"data": "status.name"},
                         {"data": "category.name"},
                         {"data": "starting_date"},
