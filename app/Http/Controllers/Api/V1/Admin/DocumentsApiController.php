@@ -61,10 +61,11 @@ class DocumentsApiController extends Controller
         }
     }
 
-    public function show(Document $document)
+    public function show($id)
     {
 
         try {
+            $document = Document::with('project')->with('client')->findOrFail($id);
             return response()->json(['data' => $document], 200);
         }
         catch(\Exception $e){
