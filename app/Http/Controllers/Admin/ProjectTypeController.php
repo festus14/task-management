@@ -35,7 +35,7 @@ class ProjectTypeController extends Controller
 
         $projectType = ProjectType::create($request->all());
 
-        return redirect()->route('admin.project-types.index');
+        // return redirect()->route('admin.project-types.index');
     }
 
     public function edit(ProjectType $projectType)

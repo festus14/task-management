@@ -45,7 +45,7 @@ class ProjectApiController extends Controller
         return $project->update($request->all());
     }
 
-    public function show(Project $project)
+    public function show($project)
     {
        try{
         $projects = Project::with('client')
