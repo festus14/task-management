@@ -1022,7 +1022,7 @@
     <!-- end:: Page -->
 
     <!--begin create project modal -->
-    <div class="modal fade bd-example-modal-lg"   style="margin-top:80px;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" style="margin-top:80px;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -1484,6 +1484,7 @@
         <i class="la la-arrow-up"></i>
     </div>
     <!-- end::Scroll Top -->
+    </div>
 <!-- begin::Quick Nav -->
 
 <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">

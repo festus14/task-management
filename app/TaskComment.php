@@ -48,4 +48,8 @@ class TaskComment extends Model
     {
         return $this->belongsTo(Project::class, 'project_id');
     }
+    public function commentreply()
+    {
+        return $this->belongsTo(TaskCommentReply::class, 'task_comment_id', 'id');
+    }
 }

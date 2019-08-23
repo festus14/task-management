@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Document;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
 use App\Project;
 
 use App\ProjectType;
@@ -13,6 +11,8 @@ use App\Task;
 use App\User;
 use App\ProjectSubType;
 use App\Client;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectApiController extends Controller
 {
@@ -35,17 +35,56 @@ class ProjectApiController extends Controller
         }
     }
 
-    public function store(StoreProjectRequest $request)
+    public function store(Request $request)
     {
-        return Project::create($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|unique:clients',
+                'date_of_engagement' => 'nullable|date_format:' . config('panel.date_format'),
+                'expiry_date' => 'nullable|date_format:' . config('panel.date_format'),
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $project = Project::create($request->all());
+            return response()->json(['success' => 'record created successfully', 'data' => $project], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(Request $request, Project $project)
     {
-        return $project->update($request->all());
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'client_id' => 'required|integer',
+                'project_type_id' => 'required|integer',
+                'name' => 'required',
+                'team_members.*' => 'integer',
+                'team_members' => 'array',
+                'starting_date' => 'nullable|date_format:' . config('panel.date_format'),
+                'deadline' => 'nullable|date_format:' . config('panel.date_format'). ' ' . config('panel.time_format'),
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $updated_project = $project->update($request->all());
+            return response()->json(['success' => 'record updated successfully', 'data' => $updated_project], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
-    public function show(Project $project)
+    public function show($project)
     {
        try{
         $projects = Project::with('client')
@@ -63,10 +102,10 @@ class ProjectApiController extends Controller
        }
     }
 
-    public function tasks(Project $project){
+    public function tasks($project){
 
         try{
-            $projects = Task::where('project_id', $project->id)->with('client')
+            $projects = Task::where('project_id', $project)->with('client')
                 ->with('project_sub_type')
                 ->with('project')
                 ->with('status')
@@ -80,7 +119,7 @@ class ProjectApiController extends Controller
             return response()->json(['data'=>[]], 401);
         }
     }
-    public function documents(Project $project){
+    public function documents($project){
         try{
             $documents = Document::where('project_id', $project->id)->get();
             return response()->json(['data'=>$documents], 200);
@@ -92,9 +131,13 @@ class ProjectApiController extends Controller
 
     public function destroy(Project $project)
     {
-        $project->delete();
-
-        return response("OK", 200);
+        try {
+            $project->delete();
+            return response()->json(['success' => 'record deleted successfully'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to delete record'], 401);
+        }
     }
 
     public function createProject(){

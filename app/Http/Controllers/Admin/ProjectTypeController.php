@@ -8,6 +8,8 @@ use App\Http\Requests\MassDestroyProjectTypeRequest;
 use App\Http\Requests\StoreProjectTypeRequest;
 use App\Http\Requests\UpdateProjectTypeRequest;
 use App\ProjectType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectTypeController extends Controller
 {
@@ -36,6 +38,32 @@ class ProjectTypeController extends Controller
         $projectType = ProjectType::create($request->all());
 
         return redirect()->route('admin.project-types.index');
+    }
+    public function storeAjax(Request $request)
+    {
+        if(!\Gate::allows('project_type_create')){
+            return response()->json(['authorization'=> 'you are not authorized'], 403);
+        }
+        $validator = Validator::make(
+            $request->all(),
+            [   'name' => 'required|unique:project_types|min:3|max:70'],
+            $messages = [
+                'name.required' => 'Project Type name is required',
+                'name.unique' => 'name must be unique',
+                'name.min' => 'name must be more than 3 letters',
+                'name.max' => 'name must not be more than 70 letters',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $projectTypes = ProjectType::create($request->all());
+            return response()->json(['success' => 'record created successfully'], 201);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
     public function edit(ProjectType $projectType)
