@@ -27,6 +27,8 @@ class ProjectApiController extends Controller
                 ->with('manager')
                 ->with('team_members')
                 ->with('tasks')
+                ->with('comments')
+                ->with('reports')
                 ->with('status')
                 ->get();
             return response()->json(['data' => $projects], 200);
@@ -94,6 +96,8 @@ class ProjectApiController extends Controller
                ->with('manager')
                ->with('team_members')
                ->with('tasks')
+               ->with('comments')
+               ->with('reports')
                ->with('status')->findOrFail($project);
         return response()->json(['data'=>$projects], 200);
        }
@@ -112,6 +116,8 @@ class ProjectApiController extends Controller
                 ->with('manager')
                 ->with('assinged_tos')
                 ->with('category')
+                ->with('comments')
+                ->with('reports')
                 ->with('documents')->get();
             return response()->json(['data'=>$projects], 200);
         }
