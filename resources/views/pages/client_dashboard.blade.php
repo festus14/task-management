@@ -35,6 +35,246 @@
 
     <!-- End: View Task Modal-->
 
+    <!-- More Info Modal -->
+<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="$('#moreInfoModal').modal('hide');" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <!-- More-info content -->
+                <div class="col-md-12 m-portlet " id="m_portlet">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <span class="m-portlet__head-icon">
+                                                <i class="flaticon-info"> </i>
+                                            </span>
+                                <h3 class="m-portlet__head-text">
+                                    More info
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingone">
+                                    <h6 class="mb-0">
+                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                        <i class="m-menu__link-icon flaticon-list"></i>
+                                                        Project tasks
+                                                </span>
+                                    </h6>
+                                </div>
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul class="list-group">
+                                                <li class="list-group-item">name of task</li>
+                                                <li class="list-group-item">name of task</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h6 class="mb-0">
+                                        <span data-toggle="modal" data-target="#documentModal">
+                                                            <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                            Documents
+                                                    </span>
+                                    </h6>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingThree">
+                                    <h6 class="mb-0">
+                                        <span data-toggle="modal" data-target="#projectreportModal">
+                                                                <i class="m-menu__link-icon flaticon-file"></i>
+                                                                Report
+                                                        </span>
+                                    </h6>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingFour">
+                                    <h6 class="mb-0">
+                                        <span class="" data-toggle="modal" data-target="#commentModal">
+                                                                <i class="m-menu__link-icon flaticon-comment"></i>
+                                                                Comments
+                                                        </span>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+
+
+
+                    <!-- End main Content of More-info -->
+
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End More Info Modal -->
+
+{{-- documentDTModal --}}
+<div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="documentModalLongTitle">Project Documents</h5>
+                <button type="button" class="close" onclick="$('#documentModal').modal('hide');" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+            </div>
+            <div class="modal-body">
+                <div class="m-portlet " id="m_portlet">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <span class="m-portlet__head-icon">
+                                                                        <i class="flaticon-list-1"> </i>
+                                                                    </span>
+                                <h3 class="m-portlet__head-text">
+                                    Documents
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="m-portlet__head-tools">
+                            <ul class="m-portlet__nav">
+                                <li class="m-portlet__nav-item">
+                                    <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addDocumentModal" class="btn m-btn--icon m-btn--pill">
+                                        <span>
+                                                                                        <i class="la la-plus"></i>
+                                                                                        <span>
+                                                                                            Add Document
+                                                                                        </span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <table id="kt_table_projects" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Client</th>
+                                    <th>Name</th>
+                                    <th>Manager</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--end::Portlet-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- endDocumentDTModal --}} 
+
+{{-- report DT Modal --}}
+<div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="documentModalLongTitle">Project reports</h5>
+                <button type="button" class="close" onclick="$('#projectreportModal').modal('hide');" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+            </div>
+            <div class="modal-body">
+                <div class="m-portlet " id="m_portlet">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <span class="m-portlet__head-icon">
+                                                                        <i class="flaticon-list-1"> </i>
+                                                                    </span>
+                                <h3 class="m-portlet__head-text">
+                                    Reports
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="m-portlet__head-tools">
+                            <ul class="m-portlet__nav">
+                                <li class="m-portlet__nav-item">
+                                    <a style="color:white; background-color: #8a2a2b;" class="btn m-btn--icon m-btn--pill">
+                                        <span data-toggle="modal" data-target="#addReportModal" aria-expanded="false" aria-controls="">
+                                                                                        <i class="la la-plus"></i>
+                                                                                        <span>
+                                                                                            Add Report
+                                                                                        </span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <table id="kt_table_projects" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Client</th>
+                                    <th>Name</th>
+                                    <th>Tools</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--end::Portlet-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- endreport DT tModal --}}
+
+
+
 @endsection
 
 @section('javascript')
@@ -61,7 +301,6 @@
             type: "GET",
             url: '{{ url("/api/v1/clients") }}',
             success: function (data) {
-                console.log(data);
 
                 let card = document.getElementById('client-cards');
                 let projectCard = document.getElementById('client-project-modal');
@@ -152,7 +391,7 @@
             </div>
         </div>`
 
-                        taskCard.innerHTML = taskCard.innerHTML + `<div class="modal fade" id="view_client_task${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        taskCard.innerHTML = taskCard.innerHTML + `<div class="modal fade" id="view_client_task${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" style="max-width: 90%; min-width: 400px;" role="document">
                 <div class="modal-content">
@@ -190,20 +429,23 @@
             </div>
 
          </div>
-        </div>
-      </div>
-     </div>
-   </div>`
+            </div>
+            </div>
+            </div>
+        </div>`
 
-                })
 
-                
-            },
+            })
+
+        },
 
             error: function (data) {
                 console.log('Error:', data);
             }
         });
+
+
+        
 
         //   Function for calling Client Projects on the DT
         function getClientProjects(client_id) {
@@ -229,7 +471,6 @@
                     {"data": "team_members[, ].name"},
                     {"data": "starting_date"},
                     {"data": "deadline"},
-                    {"defaultContent": '<button > Yo </button>'}
                 ],
                 columnDefs: [{
                     orderable: false,
@@ -239,7 +480,31 @@
                     orderable: false,
                     searchable: false,
                     targets: -1
-                }],
+                },
+                {
+                targets: 9,
+                orderable: false,
+                searchable: false,
+                render: function (data, type, full, meta) {
+                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" onclick='+displayProjectInfo(full.id)+' id="taskToolsbtn'+full.id+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> </i>\
+                                        </a>\
+                                        <a class="link" href="">\
+                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                        </a>\
+                                        <a class="link" href="#" id="" >\
+                                            <i class="flaticon-graphic" style="color:black;"> </i>\
+                                        </a>\
+                                        <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                            <input type="hidden" name="_method" value="DELETE">\
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                            <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                        </form>\
+                                    </div>\
+                                    ';
+                }
+            },],
                 select: {
                     style: 'multi+shift',
                     selector: 'td:first-child'
@@ -253,6 +518,12 @@
             });
             }
             
+
+        }
+
+        // Function for calling Projects tasks
+        function displayProjectInfo(proID) {
+            console.log("ProjectId", proID)
 
         }
 
@@ -277,7 +548,6 @@
                         {"data": "category.name"},
                         {"data": "starting_date"},
                         {"data": "ending_date"},
-                        {"defaultContent": '<button > Yo </button>'}
                     ],
                     columnDefs: [{
                         orderable: false,
@@ -287,7 +557,8 @@
                         orderable: false,
                         searchable: false,
                         targets: -1
-                    }],
+                    },
+                    ],
                     select: {
                         style: 'multi+shift',
                         selector: 'td:first-child'
@@ -348,10 +619,7 @@
         $('.datatable:not(.ajaxTable)').DataTable({
             buttons: dtProjectButtons
         })
-
-        // document.querySelectorAll("tbody > tr").firstElementChild.style.display = "none";
-
-
+        
     </script>
 
 @endsection
