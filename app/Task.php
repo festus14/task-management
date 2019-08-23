@@ -94,4 +94,10 @@ class Task extends Model
     public function documents(){
         return $this->hasMany(TaskDocument::class, 'task_id' , 'id');
     }
+    public function comments(){
+        return $this->hasMany(TaskComment::class, 'task_id' , 'id');
+    }
+    public function reports(){
+        return $this->hasMany(TaskDocument::class, 'task_id' , 'id');
+    }
 }

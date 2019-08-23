@@ -91,4 +91,12 @@ class Project extends Model
     {
         return $this->hasMany(Document::class, 'project_id', 'id');
     }
+    public function comments()
+    {
+        return $this->hasMany(ProjectComment::class, 'project_id', 'id');
+    }
+    public function reports()
+    {
+        return $this->hasMany(ProjectReport::class, 'project_id', 'id');
+    }
 }

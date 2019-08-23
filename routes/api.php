@@ -24,6 +24,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('tast-categories', 'TastCategoryApiController');
 
     Route::apiResource('tasks', 'TaskApiController');
+    Route::get('create_task', 'TaskApiController@createTask');
 
     Route::apiResource('task-statuses', 'TaskStatusApiController');
 
