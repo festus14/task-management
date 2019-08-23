@@ -836,7 +836,6 @@
                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <ul class="list-group">
-                                            
                                             ${data.data.tasks.map(elem => `<li class="list-group-item">${elem.name}</li>`)}
                                         </ul>
                                     </div>
