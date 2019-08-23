@@ -22,12 +22,28 @@ class ProjectTypeApiController extends Controller
 
     public function store(StoreProjectTypeRequest $request)
     {
-        return ProjectType::create($request->all());
+        try {
+            $projectTypes = ProjectType::create($request->all());
+            return response()->json(['success' => 'record saved successfully'], 200);
+        }
+        catch(\Exception $e){
+
+            return response()->json(['failed'=>'please try again'], 401);
+        }
+
     }
 
     public function update(UpdateProjectTypeRequest $request, ProjectType $projectType)
     {
-        return $projectType->update($request->all());
+        try {
+            $projectTypes = $projectType->update($request->all());
+            return response()->json(['success' => 'record updated successfully'], 200);
+        }
+        catch(\Exception $e){
+
+            return response()->json(['failed'=>'cannot update, please try again'], 401);
+        }
+
     }
 
     public function show(ProjectType $projectType)
@@ -42,8 +58,13 @@ class ProjectTypeApiController extends Controller
 
     public function destroy(ProjectType $projectType)
     {
-        $projectType->delete();
+        try {
+            $projectType->delete();
+            return response()->json(['success' => 'record deleted successfully'], 200);
+        }
+        catch(\Exception $e){
 
-        return response("OK", 200);
+            return response()->json(['failed'=>'cannot delete record, please try again'], 401);
+        }
     }
 }

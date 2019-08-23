@@ -10,7 +10,7 @@
 <div class="row">
         <div class="col-xl-12">
             <!--begin::Portlet-->
-            <div class="m-portlet " id="m_portlet">
+            <div class="m-portlet " id="m_portlet" style="width:97%;">
                 <div class="m-portlet__head">
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
@@ -18,14 +18,14 @@
                                 <i class="flaticon-list-2"> </i>
                             </span>
                             <h3 class="m-portlet__head-text">
-                                Tasks Datatable
+                                Tasks Table
                             </h3>
                         </div>
                     </div>
                     <div class="m-portlet__head-tools">
                         <ul class="m-portlet__nav">
                             <li class="m-portlet__nav-item">
-                                <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
+                                <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
                                     <span>
                                         <i class="la la-plus"></i>
                                         <span>
@@ -33,15 +33,22 @@
                                         </span>
                                     </span>
                                 </a>
+                                <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="taskCategoryId" data-toggle="modal" data-target="#taskcategoryDatatable">
+                                        <span onclick="">
+                                                <span>
+                                                    Task Category
+                                                </span>
+                                        </span>
+                                    </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="m-portlet__body" style="overflow-x:auto; width:100%;">
+                <div class="m-portlet__body" style="overflow-x:auto; table-responsive">
                     <table id="kt_table_task" class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>SN</th>
+                                <th>#</th>
                                 <th>Client</th>
                                 <th>Name</th>
                                 <th>Manager</th>
@@ -52,41 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td>testing</td>
-                                <td>testing</td>
-                                <td>testing</td>
-                                <td>testing</td>
-                                <td>testing</td>
-                                <td>testing</td>
-                                <td>
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{-- tools dropdown btn --}}
-                                      </button>
-                                    <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">
-                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moretaskInfoModal"> </i>
-                                        </a>
 
-                                        <a class="link" href="">
-                                            <i class="fas fa-pencil-alt" style="color:black;"></i>
-                                        </a>
-
-
-                                        <a class="link" href="#" id="" >
-                                            <i class="flaticon-graphic" style="color:black;"> </i>
-                                        </a>
-
-                                        <form action="" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>
-                                        </form>
-
-                                    </div>
-
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -189,6 +162,81 @@
     </div>
     {{-- end Create task Model --}}
 
+    {{-- Task category datatable modal --}}
+<div class="modal fade" id="taskcategoryDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:70%; min-width:400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Task Category</h5>
+                    <button type="button" class="close" onclick="$('#taskcategoryDatatable').modal('hide');" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-portlet " id="m_portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon">
+                                        <i class="flaticon-list-2"> </i>
+                                    </span>
+                                    <h3 class="m-portlet__head-text">
+                                        Task Category Table
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="m-portlet__head-tools">
+                                <ul class="m-portlet__nav">
+                                    <li class="m-portlet__nav-item">
+                                        <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#AddProjecModalla">
+                                            <span>
+                                                <i class="la la-plus"></i>
+                                                <span>
+                                                    Add Category
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="projectSubTypeId" data-toggle="modal" data-target="#ProjSubTypeDatatable">
+                                                <span onclick="">
+                                                        <span>
+                                                            ...
+                                                        </span>
+                                                </span>
+                                            </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-portlet__body" style="overflow-x:auto;  width:100%">
+                            <table id="kt_table_task_category" class="table table-striped table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Category Name</th>
+                                        <th>Project Type</th>
+                                        <th>Sub Category</th>
+                                        <th>Weight</th>
+                                        <th>Description</th>
+                                        <th>Tools</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="$('#taskcategoryDatatable').modal('hide');">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End Task category datatable modal --}}
+
 
     <!-- More Info Modal -->
 <div class="modal fade" id="moretaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -274,7 +322,7 @@
 
     <!-- Comment Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; max-height:100vh; margin-left:0; min-width: 300px;" role="document">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; min-height:98vh; max-height:100vh; margin-left:0; min-width: 300px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
@@ -285,7 +333,7 @@
                 <div class="modal-body">
                     <div class="m-content">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="m-portlet__body">
                                     <div class="m-card-profile">
@@ -307,7 +355,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-6">
                                 <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
                                     <div class="m-portlet__head">
                                         <div class="m-portlet__head-tools">
@@ -462,7 +510,7 @@
                             </div>
                         </div>
                         <div class="m-portlet__body">
-                            <table id="kt_table_projects" class="table table-striped table-hover">
+                            <table id="kt_table_documents" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>SN</th>
@@ -474,14 +522,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                    </tr>
 
                                 </tbody>
                             </table>
@@ -591,7 +631,7 @@
                             </div>
                         </div>
                         <div class="m-portlet__body">
-                            <table id="kt_table_projects" class="table table-striped table-hover">
+                            <table id="kt_table_reports" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>SN</th>
@@ -600,11 +640,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                    </tr>
 
                                 </tbody>
                             </table>
@@ -791,7 +826,7 @@
 
 </script>
 
-<script>
+{{-- <script>
        var kt_table_projectsDataTable = $('#kt_table_task').DataTable({
             dom: 'lBfrtip<"actions">',
             language: {
@@ -863,58 +898,7 @@
             buttons: dtProjectButtons
         })
 
-</script>
-
-<script>
-   $('#kt_table_project_subtype').DataTable({
-            ajax: "{{ url('/admin/get_project_subtype/1') }}",
-            columns: [
-                { "data": "id" },
-                { "data": "name" },
-                { "data": "project_type.name" },
-                { "data": "created_at" },
-                { "data": "updated_at" },
-            ],
-            dom: 'lBfrtip<"actions">',
-            language: {
-                url: languages.{{ app()->getLocale() }}
-            },
-            columnDefs: [{
-                orderable: false,
-                className: 'select-checkbox',
-                targets: 0
-            }, {
-                orderable: false,
-                searchable: false,
-                targets: -1
-            }],
-        });
-    function getSomething(ID){
-        var taskDataTable = $('#kt_table_project_subtype').DataTable({
-            ajax: "{{ url('/get_project_subtype/1') }}",
-            columns: [
-                { "data": "id" },
-                { "data": "name" },
-                { "data": "project_type.name" },
-                { "data": "created_at" },
-                { "data": "updated_at" },
-            ],
-            dom: 'lBfrtip<"actions">',
-            language: {
-                url: languages.{{ app()->getLocale() }}
-            },
-            columnDefs: [{
-                orderable: false,
-                className: 'select-checkbox',
-                targets: 0
-            }, {
-                orderable: false,
-                searchable: false,
-                targets: -1
-            }],
-        });
-    }
-</script>
+</script> --}}
 
 {{-- projectcomment js --}}
 <script>
@@ -1034,7 +1018,116 @@
            document.getElementById("replyTextId").value = "";
        }
        </script>
+<script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('#kt_table_task').DataTable({
+            ajax: "{{ url('/api/v1/tasks') }}",
+            columns: [
+                { defaultContent : "" },
+                { "data": "client.name" },
+                { "data": "name" },
+                { "data": "manager.name" },
+                { "data": "status.name" },
+                { "data": "assinged_tos[, ].name" },
+                { "data": "ending_date" }
+            ],
+            dom: 'lBfrtip<"actions">',
+            language: {
+                url: languages.{{ app()->getLocale() }}
+            },
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0,
 
+            }, {
+                orderable: false,
+                searchable: false,
+                targets: -1,
+
+            },
+            {
+                targets: 7,
+                orderable: false,
+                searchable: false,
+                render: function () {
+                return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moretaskInfoModal"> </i>\
+                                        </a>\
+                                        <a class="link" href="">\
+                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                        </a>\
+                                        <a class="link" href="#" id="" >\
+                                            <i class="flaticon-graphic" style="color:black;"> </i>\
+                                        </a>\
+                                        <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                            <input type="hidden" name="_method" value="DELETE">\
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                            <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                        </form>\
+                                    </div>\
+                                    ';
+                }
+        },
+        ],
+        });
+            $('#kt_table_task_category').DataTable({
+                    ajax: "{{ url('/api/v1/tast-categories') }}",
+                    columns: [
+                        { defaultContent : "" },
+                        { "data": "name" },
+                        { "data": "project_type_id" },
+                        { "data": "sub_category_id" },
+                        { "data": "weight" },
+                        { "data": "Description" }
+                    ],
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages.{{ app()->getLocale() }}
+                    },
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0,
+
+                    }, {
+                        orderable: false,
+                        searchable: false,
+                        targets: -1,
+
+                    },
+                    {
+                        targets: 6,
+                        orderable: false,
+                        searchable: false,
+                        render: function () {
+                        return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                                <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                                <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moretaskInfoModal"> </i>\
+                                                </a>\
+                                                <a class="link" href="">\
+                                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                                </a>\
+                                                <a class="link" href="#" id="" >\
+                                                    <i class="flaticon-graphic" style="color:black;"> </i>\
+                                                </a>\
+                                                <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                                    <input type="hidden" name="_method" value="DELETE">\
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                                    <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                                </form>\
+                                            </div>\
+                                            ';
+                        }
+                },
+                ],
+                });
+</script>
 
 {{-- <script>
         let languages = {

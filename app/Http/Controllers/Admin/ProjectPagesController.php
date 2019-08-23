@@ -32,7 +32,7 @@ class ProjectPagesController extends Controller
     public function uploadDocument(){
         return view('pages.upload_documents');
     }
-    
+
     // project report
     public function projectReport(){
         return view('pages.project_report');
@@ -46,7 +46,7 @@ class ProjectPagesController extends Controller
 
     // project report
     public function viewProject(){
-        
+
         $projects =  Project::with('status')
             ->with('client')
             ->with('manager')
@@ -54,7 +54,7 @@ class ProjectPagesController extends Controller
             ->with('project_subtype')
             ->with('team_members')
             ->with('tasks')
-            ->with('status')            
+            ->with('status')
             ->get();
         $users = User::all();
         $clients = Client::all();
@@ -83,16 +83,16 @@ class ProjectPagesController extends Controller
         $projects = new Project;
 
         $projects->name = $request->input('name');
-        $projects->client_id= $request->input('client');
+        $projects->client_id= $request->input('client_id');
         $projects->deadline = $request->input('deadline');
-        $projects->manager_id = $request->input('manager');
-        $projects->starting_date = $request->input('start_date');
-        $projects->project_type_id = $request->input('proj_type');
-        $projects->project_subtype_id = $request->input('proj_subtype');
-        $projects->team_members()->sync($request->input('team_members', []));
+        $projects->manager_id = $request->input('manager_id');
+        $projects->starting_date = $request->input('starting_date');
+        $projects->project_type_id = $request->input('project_type_id');
+        $projects->project_subtype_id = $request->input('project_subtype_id');
+        $projects->team_members()->sync($request->input('team_members[]', []));
 
         $projects->save();
-        
+
     }
 
    public function projectComment(){

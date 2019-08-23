@@ -46,7 +46,7 @@
         <table id="kt_table_projects" class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S/N</th>
+                    <th>#</th>
                     <th>Client</th>
                     <th>Name</th>
                     <th>Manager</th>
@@ -60,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                    
+
             </tbody>
         </table>
     </div>
@@ -77,11 +77,11 @@
               </button>
             </div>
             <div id="createProjectBody" class="modal-body col-md-12">
-                
+
 
 
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -118,15 +118,18 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="create-project-subtype" placeholder="Input name">
+            <form id="addprojtypeform" action=""  method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="create-task">Project Type Name</label>
+                        <input type="text" class="form-control" id="subtype" name="name" placeholder="">
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="$('#PModal').modal('hide');">Close</button>
-                <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="$('#PModal').modal('hide');">Close</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -181,16 +184,14 @@
                         <table id="kt_table_project_type" class="table table-striped table-hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>S/N</th>
+                                    <th>#</th>
                                     <th>Project Type Name</th>
-                                    <th>Created At</th>
-                                    <th>Updated At</th>
                                     <th>Tools</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -215,16 +216,18 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
             </div>
+        <form id="addprojTtypeform" action="{{ route("admin.project-types.store") }}"  method="POST" enctype="multipart/form-data">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="create-task">Project Type Name</label>
-                    <input type="text" class="form-control" id="subtype" placeholder="">
+                    <input type="text" class="form-control" id="subtype" name="name" placeholder="">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');" data-target="#AddProjecModalla">Close</button>
-                <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
             </div>
+        </form>
         </div>
     </div>
 </div>
@@ -235,7 +238,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:70%; min-width:400px;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Project Type table</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Project Sub-type</h5>
                     <button type="button" class="close" onclick="$('#ProjSubTypeDatatable').modal('hide');" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -272,15 +275,15 @@
                             <table id="kt_table_project_subtype" class="table table-striped table-hover" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>S/N</th>
+                                        <th>#</th>
                                         <th>Project Type</th>
                                         <th>Project Sub-type</th>
                                         <th>Tools</th>
-    
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -355,7 +358,7 @@
                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <ul class="list-group">
-                                                <li class="list-group-item">name of task</li>
+                                                <li class="list-group-item">Shell Audit</li>
                                                 <li class="list-group-item">name of task</li>
                                         </ul>
                                     </div>
@@ -454,7 +457,7 @@
                         <table id="kt_table_projects" class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>SN</th>
+                                    <th>#</th>
                                     <th>Client</th>
                                     <th>Name</th>
                                     <th>Manager</th>
@@ -463,14 +466,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                </tr>
 
                             </tbody>
                         </table>
@@ -484,7 +479,7 @@
         </div>
     </div>
 </div>
-{{-- endDocumentDTModal --}} 
+{{-- endDocumentDTModal --}}
 
 {{-- report DT Modal --}}
 <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
@@ -528,7 +523,7 @@
                         <table id="kt_table_projects" class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>SN</th>
+                                    <th>#</th>
                                     <th>Client</th>
                                     <th>Name</th>
                                     <th>Tools</th>
@@ -553,7 +548,7 @@
         </div>
     </div>
 </div>
-{{-- endreport DT tModal --}} 
+{{-- endreport DT tModal --}}
 {{-- Add report Modal --}}
 <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
@@ -926,7 +921,7 @@
                        </div>
 
                        <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-                         ${document.getElementById("replyTextId").value} 
+                         ${document.getElementById("replyTextId").value}
                                  </p>
                        </div>
                        </br>
@@ -1202,7 +1197,7 @@
                 console.log(error);
                 alert("Project creation failed");
             }
-        }); 
+        });
     });
 });
     </script> --}}
@@ -1215,7 +1210,7 @@
 
      let popAddProj = document.getElementById('addProjId');
      popAddProj.addEventListener("click", displayAddProject);
-     
+
      function displayAddProject(){
       $("#createProjectModal").modal('show');
         $.ajax({
@@ -1226,12 +1221,12 @@
                 let probSubtypeBody = document.getElementById('subtypeModalBody');
                     createProjectBody.innerHTML = createProjectBody.innerHTML + `
                     <div class="col-md-12 ">
-    <form action="" method="POST" id="addprojectform" enctype="multipart/form-data">
+    <form action="{{ route("admin.projects.store") }}" method="POST" id="addprojectform" enctype="multipart/form-data">
         @csrf
         <div class="row col-md-12">
             <div class="col-md-6 form-group mt-3">
                 <label>Select Client</label>
-                <select id="client-list" name="client" class="selectDesign form-control required">
+                <select id="client-list" name="client_id" class="selectDesign form-control required">
                 ` +
                     data.clients.map(elem => `<option value="">${elem.name}</option>`)
                 + `
@@ -1246,7 +1241,7 @@
         <div class="row col-md-12">
             <div class="col-md-4 form-group mt-3">
                 <label for="create-project">Manager</label><br>
-                <select name="manager" class="form-control select2" style="width:100%;" required>
+                <select name="manager_id" class="form-control select2" style="width:100%;" required>
                     ` +
                     data.managers.map(elem => `<option value="">${elem.name}</option>`)
                 + `
@@ -1255,18 +1250,18 @@
             <div class="col-md-4 form-group mt-3">
                 <label for="create-project-type">Project Type</label>
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                <select class="form-control" id="projtypeboy" name="proj_type" required>
+                <select class="form-control" id="projtypeboy" name="project_type_id" required>
                     ` +
                     data.project_types.map(elem => `<option value="">${elem.name}</option>`)
                 + `
                 </select>
             </div>
 
-            
+
             <div class="col-md-4 form-group mt-3">
                 <label for="exampleFormControlSelect1">Project Sub-type</label>
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                <select class="form-control" id="exampleFormControlSelect1" name="proj_subtype" required>
+                <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
                     ` +
                     data.project_subtypes.map(elem => `<option value="">${elem.name}</option>`)
                 + `
@@ -1277,7 +1272,7 @@
 
             <div class="col-md-4 form-group mt-3">
                 <label for="starting-date">Start Date</label>
-                <input type="text" class="form-control date" name="start_date" id="starting-date" required>
+                <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
             </div>
 
             <div class="col-md-4 form-group mt-3">
@@ -1320,10 +1315,10 @@
             error: function (data) {
                 console.log('Error:', data);
             }
-        }); 
-        
+        });
+
     }
-                
+
     // post to the create proj table
     $(document).ready(function(){
 
@@ -1344,23 +1339,23 @@
             console.log(error);
             alert("Project creation failed");
         }
-        }); 
+        });
         });
         });
     </script>
 
-    
+
     <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         $('#kt_table_projects').DataTable({
             ajax: "{{ url('/api/v1/projects') }}",
             columns: [
-                { "data": "id" },
+                { defaultContent : "" },
                 { "data": "client.name" },
                 { "data": "name" },
                 { "data": "manager.name" },
@@ -1379,21 +1374,21 @@
                 orderable: false,
                 className: 'select-checkbox',
                 targets: 0,
-                
+
             }, {
                 orderable: false,
                 searchable: false,
                 targets: -1,
-                
+
             },
             {
                 targets: 10,
                 orderable: false,
                 searchable: false,
                 render: function () {
-                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
-                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moretaskInfoModal"> </i>\
+                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                        <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> </i>\
                                         </a>\
                                         <a class="link" href="">\
                                             <i class="fas fa-pencil-alt" style="color:black;"></i>\
@@ -1412,7 +1407,7 @@
     },
         ],
         });
-        
+
 
 
     function getProjetTypeDT(){
@@ -1424,12 +1419,10 @@
                 var kt_table_project_type = $('#kt_table_project_type').DataTable({
                     ajax: "{{ url('/api/v1/project-types') }}",
                     columns: [
-                        { "data": "id" },
-                        { "data": "name"},
-                        { "data": "created_at" },
-                        { "data": "updated_at" },
-                        {"defaultContent": '<button class="btn btn-secondary m-btn--pill dropdown-toggle" type="button" id="Toolbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>'}
-                    ],
+                        { defaultContent : ""  },
+                        { "data": "name"}
+                        ],
+
                     dom: 'lBfrtip<"actions">',
                     language: {
                         url: languages.{{ app()->getLocale() }}
@@ -1438,21 +1431,42 @@
                         orderable: false,
                         className: 'select-checkbox',
                         targets: 0,
-                        
+
                     }, {
                         orderable: false,
                         searchable: false,
                         targets: -1,
-                        
-                    }],
+
+                    },
+                    {
+                targets:2,
+                orderable: false,
+                searchable: false,
+                render: function () {
+                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> </i>\
+                                        </a>\
+                                        <a class="link" href="">\
+                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                        </a>\
+                                        <a class="link" href="#" id="" >\
+                                            <i class="flaticon-graphic" style="color:black;"> </i>\
+                                        </a>\
+                                        <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                            <input type="hidden" name="_method" value="DELETE">\
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                            <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                        </form>\
+                                    </div>\
+                                    ';
+                }
+    }],
                 });
                     }
             };
-                $('#kt_table_project_type tbody').on( 'click', 'button', function () {
-                    $('#toolsdropdown').show();
-            });
 
-            
+
     function getProjetSubTypeDT(){
 
             if ( $.fn.dataTable.isDataTable( '#kt_table_project_subtype') ) {
@@ -1461,11 +1475,10 @@
                 var kt_table_project_subtype = $('#kt_table_project_subtype').DataTable({
                     ajax: "{{ url('/api/v1/project-sub-types') }}",
                     columns: [
-                        { "data": "id" },
+                        { defaultContent : ""  },
                         { "data": "project_type.name"},
-                        { "data": "name" },
-                        {"defaultContent": '<button class="btn btn-secondary m-btn--pill dropdown-toggle" type="button" id="Toolbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> </button>'}
-                    ],
+                        { "data": "name" }
+                        ],
                     dom: 'lBfrtip<"actions">',
                     language: {
                         url: languages.{{ app()->getLocale() }}
@@ -1474,52 +1487,101 @@
                         orderable: false,
                         className: 'select-checkbox',
                         targets: 0,
-                       
-                        
+
+
                     }, {
                         orderable: false,
                         searchable: false,
                         targets: -1,
-                        
-                    }],
+
+                    },
+                    {
+                targets: 3,
+                orderable: false,
+                searchable: false,
+                render: function () {
+                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> </i>\
+                                        </a>\
+                                        <a class="link" href="">\
+                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                        </a>\
+                                        <a class="link" href="#" id="" >\
+                                            <i class="flaticon-graphic" style="color:black;"> </i>\
+                                        </a>\
+                                        <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                            <input type="hidden" name="_method" value="DELETE">\
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                            <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                        </form>\
+                                    </div>\
+                                    ';
+                }
+    }],
                 });
                     }
             };
-                $('#kt_table_project_subtype tbody').on( 'click', 'button', function () {
-                    $('#toolsdropdown').show();
-                
-            });
-            
+
             let addProjSubTypeId = document.getElementById('addProjSubTypeId');
             addProjSubTypeId.addEventListener("click", displayAddPsubtype);
 
             function displayAddPsubtype(){
-      $("#subtypemainModal").modal('show');
-        $.ajax({
-            type: "GET",
-            url: '{{ url("/api/v1/project-sub-types") }}',
-            success: function (data) {
-                let subtypemainModalBody = document.getElementById('subtypemainModalBody');
-                    subtypemainModalBody.innerHTML = subtypemainModalBody.innerHTML + `
-                        <div class="form-group">
-                                <label for="project-type">Select Project Type</label>
-                                <select id="projecttype" class="selectDesign form-control">
-                                    ` +
-                                        data.map(elem => `<option value="">${elem.project_type.name}</option>`);
-                                    + `
-                            </select>
-                            </div>
+                $("#subtypemainModal").modal('show');
+                    $.ajax({
+                        type: "GET",
+                        url: '{{ url("/api/v1/project-sub-types") }}',
+                        success: function (data) {
+                            let subtypemainModalBody = document.getElementById('subtypemainModalBody');
+                                subtypemainModalBody.innerHTML = subtypemainModalBody.innerHTML + `
+                                    <div class="form-group">
+                                            <label for="project-type">Select Project Type</label>
+                                            <select id="projecttype" class="selectDesign form-control">
+                                                ` +
+                                                    data.map(elem => `<option value="">${elem.project_type.name}</option>`);
+                                                + `
+                                        </select>
+                                        </div>
 
-                            <div class="form-group">
-                                <label for="create-task">Subtype Name</label>
-                                <input type="text" class="form-control" id="sub-type" placeholder="">
-                            </div>
-                                `
-                        },
-                        error: function (data) {
-                console.log('Error:', data);
-            }});
+                                        <div class="form-group">
+                                            <label for="create-task">Subtype Name</label>
+                                            <input type="text" class="form-control" id="sub-type" placeholder="">
+                                        </div>
+                                            `
+                                    },
+                                    error: function (data) {
+                            console.log('Error:', data);
+                        }});
+                                }
+
+
+                // function addTypeToProject(){
+                // Add to the proj type
+                        $(document).ready(function(){
+
+                    $('#addprojtypeform').on('submit', function(e){
+                    e.preventDefault();
+                    let v = $('#addprojtypeform');
+                    console.log(v);
+                    $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/project-types") }}',
+                    data: $('#addprojtypeform').serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        return(data);
+                        $('#AddProjecModalla').modal('hide');
+                        alert("Project-type created");
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("Project-type creation failed");
                     }
+                    });
+                    });
+                    });
+            // }
     </script>
 
        @endsection
