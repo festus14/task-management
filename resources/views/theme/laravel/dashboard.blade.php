@@ -411,6 +411,63 @@
 
     </div>
     <!-- End: Task Datatable -->
+
+    <!--Begin::Section form submission with ajax-->
+    <div class="row">
+        <div class="col-xl-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet " id="m_portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon">
+                                <i class="flaticon-map-location"></i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                               Testing Form Submission
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <a href="#" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
+                                    <span>
+                                        <i class="la la-plus"></i>
+                                        <span>
+                                            Add New
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">admin.project-types.store
+                    <form action="{{ url('/api/v1/project-types') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                            <label for="name">{{ trans('cruds.projectType.fields.name') }}*</label>
+                            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
+                            @if($errors->has('name'))
+                                <p class="help-block">
+                                    {{ $errors->first('name') }}
+                                </p>
+                            @endif
+                            <p class="helper-block">
+                                {{ trans('cruds.projectType.fields.name_helper') }}
+                            </p>
+                        </div>
+                        <div>
+                            <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+    <!--End::Section form submission with ajax-->
 @endsection
 @section('javascript')
     {{--    <script src="metro/assets/app/js/dashboard.js" type="text/javascript"></script>--}}
@@ -671,7 +728,8 @@
                         field: "expiry_date",
                         title: "Expire",
                         width: 100,
-                    }, {
+                    },
+                    {
                         field: "Actions",
                         width: 110,
                         title: "Actions",

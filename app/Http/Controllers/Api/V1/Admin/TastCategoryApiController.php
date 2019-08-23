@@ -6,35 +6,84 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTastCategoryRequest;
 use App\Http\Requests\UpdateTastCategoryRequest;
 use App\TastCategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TastCategoryApiController extends Controller
 {
     public function index()
     {
-        $tastCategories = TastCategory::all();
-
-        return $tastCategories;
+        try {
+            $tastCategories = TastCategory::all();
+            return response()->json(['data' => $tastCategories], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[], 'message' => $e->getMessage()], 401);
+        }
     }
 
-    public function store(StoreTastCategoryRequest $request)
+    public function store(Request $request)
     {
-        return TastCategory::create($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'weight' => 'required|integer|max:100|min:1|',
+                'name' => 'required|unique:tast_categories',
+                'project_type_id' => 'required|integer'
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $task_category = TastCategory::create($request->all());
+            return response()->json(['success' => 'record created successfully', 'data' => $task_category], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
-    public function update(UpdateTastCategoryRequest $request, TastCategory $tastCategory)
+    public function update(Request $request, TastCategory $tastCategory)
     {
-        return $tastCategory->update($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'weight' => 'required|integer|max:100|min:1|',
+                'name' => 'required|unique:tast_categories',
+                'project_type_id' => 'required|integer'
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $updated_task_category = $tastCategory->update($request->all());
+            return response()->json(['success' => 'record updated successfully', 'data' => $updated_task_category], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
     public function show(TastCategory $tastCategory)
     {
-        return $tastCategory;
+        try {
+            return response()->json(['data'=>$tastCategory], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
     }
 
     public function destroy(TastCategory $tastCategory)
     {
-        $tastCategory->delete();
-
-        return response("OK", 200);
+        try {
+            $tastCategory->delete();
+            return response()->json(['success' => 'record deleted successfully'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to delete record'], 401);
+        }
     }
 }

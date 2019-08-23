@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProjectTypeRequest;
 use App\Http\Requests\UpdateProjectTypeRequest;
 use App\ProjectType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProjectTypeApiController extends Controller
 {
@@ -20,30 +23,53 @@ class ProjectTypeApiController extends Controller
         }
     }
 
-    public function store(StoreProjectTypeRequest $request)
+    public function store(Request $request)
     {
+
+        $validator = Validator::make(
+            $request->all(),
+            [   'name' => 'required|unique:project_types|min:3|max:70'],
+            $messages = [
+                'name.required' => 'Project Type name is required',
+                'name.unique' => 'name must be unique',
+                'name.min' => 'name must be more than 3 letters',
+                'name.max' => 'name must not be more than 70 letters',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
         try {
             $projectTypes = ProjectType::create($request->all());
-            return response()->json(['success' => 'record saved successfully'], 200);
+            return response()->json(['success' => 'record created successfully', 'data' => $projectTypes], 200);
         }
         catch(\Exception $e){
-
-            return response()->json(['failed'=>'please try again'], 401);
+            return response()->json(['error'=> 'failed to create record'], 401);
         }
-
     }
 
-    public function update(UpdateProjectTypeRequest $request, ProjectType $projectType)
+    public function update(Request $request, ProjectType $projectType)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [   'name' => 'required|unique:project_types|min:3|max:70'],
+            $messages = [
+                'name.required' => 'Project Type name is required',
+                'name.unique' => 'name must be unique',
+                'name.min' => 'name must be more than 3 letters',
+                'name.max' => 'name must not be more than 70 letters',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
         try {
             $projectTypes = $projectType->update($request->all());
-            return response()->json(['success' => 'record updated successfully'], 200);
+            return response()->json(['success' => 'record updated successfully', 'data' => $projectTypes], 200);
         }
         catch(\Exception $e){
-
-            return response()->json(['failed'=>'cannot update, please try again'], 401);
+            return response()->json(['error'=> 'failed to create record'], 401);
         }
-
     }
 
     public function show(ProjectType $projectType)
@@ -63,8 +89,7 @@ class ProjectTypeApiController extends Controller
             return response()->json(['success' => 'record deleted successfully'], 200);
         }
         catch(\Exception $e){
-
-            return response()->json(['failed'=>'cannot delete record, please try again'], 401);
+            return response()->json(['error'=> 'failed to delete record'], 401);
         }
     }
 }

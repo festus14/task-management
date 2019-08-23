@@ -7,6 +7,7 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Task;
 use App\TaskDocument;
+use Illuminate\Support\Facades\Validator;
 
 class TaskApiController extends Controller
 {
@@ -31,15 +32,57 @@ class TaskApiController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-        return Task::create($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'min:5|max:60|required',
+                'assinged_tos' => 'required|array',
+                'status_id' => 'required|integer',
+                'assinged_tos.*' => 'integer',
+                'category_id' => 'required|integer',
+                'starting_date' => 'required|date_format:'. config('panel.date_format') . ' ' . config('panel.time_format'),
+                'ending_date' => 'required|date_format:'. config('panel.date_format') . ' ' . config('panel.time_format'),
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $task = Task::create($request->all());
+            return response()->json(['success' => 'record created successfully', 'data' => $task], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        return $task->update($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'min:5|max:60|required',
+                'assinged_tos' => 'required|array',
+                'status_id' => 'required|integer',
+                'assinged_tos.*' => 'integer',
+                'category_id' => 'required|integer',
+                'starting_date' => 'required|date_format:'. config('panel.date_format') . ' ' . config('panel.time_format'),
+                'ending_date' => 'required|date_format:'. config('panel.date_format') . ' ' . config('panel.time_format'),
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $updated_task = $task->update($request->all());
+            return response()->json(['success' => 'record updated successfully', 'data' => $updated_task], 200);
+        }
+        catch(\Exception $e) {
+            return response()->json(['error' => 'failed to create record'], 401);
+        }
     }
 
-    public function show(Task $task)
+    public function show($task)
     {
         try {
             $tasks = Task::with('client')
@@ -56,7 +99,7 @@ class TaskApiController extends Controller
             return response()->json(['data'=>[]], 401);
         }
     }
-    public function documents(Task $task){
+    public function documents($task){
         try{
 
             $projects = Task::with('documents')
@@ -69,8 +112,12 @@ class TaskApiController extends Controller
     }
     public function destroy(Task $task)
     {
-        $task->delete();
-
-        return response("OK", 200);
+        try {
+            $task->delete();
+            return response()->json(['success' => 'record deleted successfully'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to delete record'], 401);
+        }
     }
 }

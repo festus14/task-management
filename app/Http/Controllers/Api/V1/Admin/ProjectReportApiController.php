@@ -6,33 +6,62 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectReportRequest;
 use App\Http\Requests\UpdateProjectReportRequest;
 use App\ProjectReport;
+use Illuminate\Http\Request;
 
 class ProjectReportApiController extends Controller
 {
     public function index()
     {
-        $projectReports = ProjectReport::all();
-        return $projectReports;
+        try {
+            $projectReports = ProjectReport::all();
+            return response()->json(['data' => $projectReports], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
     }
 
-    public function store(StoreProjectReportRequest $request)
+    public function store(Request $request)
     {
-        return ProjectReport::create($request->all());
+        try {
+            $project_report = ProjectReport::create($request->all());
+            return response()->json(['success' => 'record created successfully', 'data' => $project_report], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+
     }
 
-    public function update(UpdateProjectReportRequest $request, ProjectReport $projectReport)
+    public function update(Request $request, ProjectReport $projectReport)
     {
-        return $projectReport->update($request->all());
+        try {
+            $updated_project_report = $projectReport->update($request->all());
+            return response()->json(['success' => 'record updated successfully', 'data' => $updated_project_report], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
     public function show(ProjectReport $projectReport)
     {
-        return $projectReport;
+        try {
+            return response()->json(['data' => $projectReport], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['data'=>[]], 401);
+        }
     }
 
     public function destroy(ProjectReport $projectReport)
     {
-        $projectReport->delete();
-        return response("OK", 200);
+        try {
+            $projectReport->delete();
+            return response()->json(['success' => 'record deleted successfully'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to delete record'], 401);
+        }
     }
 }

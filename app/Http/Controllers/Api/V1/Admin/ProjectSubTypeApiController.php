@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectSubTypeRequest;
 use App\Http\Requests\UpdateProjectSubTypeRequest;
 use App\ProjectSubType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectSubTypeApiController extends Controller
 {
@@ -21,14 +23,46 @@ class ProjectSubTypeApiController extends Controller
 
     }
 
-    public function store(StoreProjectSubTypeRequest $request)
+    public function store(Request $request)
     {
-        return ProjectSubType::create($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'project_type_id' => 'required|integer',
+                'name' => 'required|min:3|max:60|unique:project_sub_types,name,' . request()->route('project_sub_type')->id
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $project = ProjectSubType::create($request->all());
+            return response()->json(['success' => 'record created successfully', 'data' => $project], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
-    public function update(UpdateProjectSubTypeRequest $request, ProjectSubType $projectSubType)
+    public function update(Request $request, ProjectSubType $projectSubType)
     {
-        return $projectSubType->update($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'project_type_id' => 'required|integer',
+                'name' => 'required|min:3|max:60|unique:project_sub_types,name,' . request()->route('project_sub_type')->id
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $updated_project = $projectSubType->update($request->all());
+            return response()->json(['success' => 'record updated successfully', 'data' => $updated_project], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
     public function show(ProjectSubType $projectSubType)
@@ -44,8 +78,12 @@ class ProjectSubTypeApiController extends Controller
 
     public function destroy(ProjectSubType $projectSubType)
     {
-        $projectSubType->delete();
-
-        return response("OK", 200);
+        try {
+            $projectSubType->delete();
+            return response()->json(['success' => 'record deleted successfully'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to delete record'], 401);
+        }
     }
 }

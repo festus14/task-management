@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Project;
+use App\ProjectType;
 use App\Task;
+use Illuminate\Support\Facades\Validator;
 
 class ClientApiController extends Controller
 {
@@ -29,15 +31,49 @@ class ClientApiController extends Controller
 
     public function store(StoreClientRequest $request)
     {
-        return Client::create($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|unique:clients',
+                'date_of_engagement' => 'nullable|date_format:' . config('panel.date_format'),
+                'expiry_date' => 'nullable|date_format:' . config('panel.date_format'),
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $client = Client::create($request->all());
+            return response()->json(['success' => 'record created successfully', 'data' => $client], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
     public function update(UpdateClientRequest $request, Client $client)
     {
-        return $client->update($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|unique:clients',
+                'date_of_engagement' => 'nullable|date_format:' . config('panel.date_format'),
+                'expiry_date' => 'nullable|date_format:' . config('panel.date_format'),
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
+        try {
+            $updated_client = $client->update($request->all());
+            return response()->json(['success' => 'record updated successfully', 'data' => $updated_client], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to create record'], 401);
+        }
     }
 
-    public function show(Client $client)
+    public function show($client)
     {
         try{
             $client_data = Client::with('tasks')
@@ -45,7 +81,7 @@ class ClientApiController extends Controller
                 ->with('task_comments')
                 ->with('project_comments')
                 ->with('documents')
-                ->with('reports')->findOrFail($client->id);
+                ->with('reports')->findOrFail($client);
             return response()->json(['data'=>$client_data], 200);
         }
         catch(\Exception $e){
@@ -55,11 +91,15 @@ class ClientApiController extends Controller
 
     public function destroy(Client $client)
     {
-        $client->delete();
-
-        return response("OK", 200);
+        try {
+            $client->delete();
+            return response()->json(['success' => 'record deleted successfully'], 200);
+        }
+        catch(\Exception $e){
+            return response()->json(['error'=> 'failed to delete record'], 401);
+        }
     }
-    public function projects(Client $client){
+    public function projects($client){
         try{
             $projects = Project::with('client')
                 ->with('project_type')
@@ -69,7 +109,7 @@ class ClientApiController extends Controller
                 ->with('team_members')
                 ->with('tasks')
                 ->with('status')
-                ->where('client_id', $client->id)->get();
+                ->where('client_id', $client)->get();
             return response()->json(['data'=>$projects], 200);
         }
         catch(\Exception $e){
@@ -77,10 +117,10 @@ class ClientApiController extends Controller
         }
     }
 
-    public function tasks(Client $client){
+    public function tasks($client){
 
         try{
-            $clients = Task::where('client_id', $client->id)
+            $clients = Task::where('client_id', $client)
                 ->with('project_sub_type')
                 ->with('project')
                 ->with('status')

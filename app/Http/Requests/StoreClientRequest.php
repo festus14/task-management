@@ -15,7 +15,7 @@ class StoreClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'               => [
+            'name'              => [
                 'required',
                 'unique:clients',
             ],
