@@ -5,6 +5,26 @@
 @section('header', 'Task Management')
 
 @section('sub_header', 'Tasks')
+@section('css')
+<style>
+
+    /* comment scrollbar */
+    /* width */
+    #mCSB_3::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    /* Track */
+    #mCSB_3::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    /* Handle */
+    #mCSB_3::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+</style>
+@endsection
 
 @section('content')
 <div class="row">
@@ -251,8 +271,8 @@
 <!-- End More Info Modal -->
 
     <!-- Comment Modal -->
-    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; min-height:98vh; max-height:100vh; margin-left:0; min-width: 300px;" role="document">
+    <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
@@ -302,11 +322,12 @@
                                     </div>
                                     <!-- <div class="tab-content"> -->
                                     <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
-                                    <div class=" m-scrollable">
-                                        <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
-                                            <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-                                                <div class="m-messenger__messages mCS-autoHide" style="height: 356px; max-height: auto; position: relative; overflow: hidden;">
-                                                    <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; scrollbar-width: thin;">
+                                        <div class=" m-scrollable" >
+                                            <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
+                                                <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
+                                                    <div class="m-messenger__messages mCS-autoHide" style="height: 400px; max-height: auto; position: relative; overflow: hidden;">
+                                                        <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="padding-top:7px; max-height: 100%; width: 100%; position: absolute;
+                                                        overflow-y: scroll; scrollbar-width: 2px;">
                                                         <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
                                                             <br>
                                                             <span id="filler"> </span>
@@ -358,7 +379,7 @@
                                                 <div class="m-messenger__seperator "></div>
                                                 <div class="m-messenger__form " style="width: 100%; ">
                                                     <div class="m-messenger__form-controls ">
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
+                                                        <button type="button" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
                                                                         Make Comment
                                                                       </button>
                                                         <!-- Modal -->
@@ -376,7 +397,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" id="closeModal" class="btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
-                                                                        <button type="button" class="btn btn-primary" class="" onclick="addComment(), $('#exampleModal').modal('toggle');">Comment</button>
+                                                                        <button type="button" class="btn btn-primary" class="" onclick="addComment(), $('#makecommentModal').modal('hide');">Comment</button>
                                                                     </div>
                                                                 </div>
 
@@ -1639,19 +1660,23 @@ function displayTaskInfo(task_id) {
                                         <div class="form-group">
                                             <label for="client-list">Select Client</label>
                                             <select id="client-list" class="selectDesign form-control">
-                                                    ${Object.keys(data.data.categories).map((key, index) => `<option value="">${index}</option>`)}
+                                                    ${Object.keys(data.data.clients).map((key, index) => `<option value="">${data.data.clients[key]}</option>`)}
                                             </select>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Select Project</label>
-                                            <select id="project-list" class="selectDesign form-control"></select>
+                                            <select id="project-list" class="selectDesign form-control">
+                                                ${Object.keys(data.data.projects).map((key, index) => `<option value="">${data.data.projects[key]}</option>`)}
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label>Select Project Subtype</label>
-                                            <select id="project-subtype-list" class="selectDesign form-control"></select>
+                                            <select id="project-subtype-list" class="selectDesign form-control">
+                                                ${Object.keys(data.data.projects_sub_type).map((key, index) => `<option value="">${data.data.projects_sub_type[key]}</option>`)}
+                                            </select>
                                         </div>
 
                                         <div class="form-group">
@@ -1663,7 +1688,9 @@ function displayTaskInfo(task_id) {
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label>Task Category</label>
-                                            <select id="task-category" class="selectDesign form-control"></select>
+                                            <select id="task-category" class="selectDesign form-control">
+                                                ${Object.keys(data.data.categories).map((key, index) => `<option value="">${data.data.categories[key]}</option>`)}
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
@@ -1671,15 +1698,16 @@ function displayTaskInfo(task_id) {
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
                                             <select style="width: 100%" id="assign-task" multiple="multiple" required class="form-control select2">
-                                                <option>Ade</option>
-                                                <option>Bunmi</option>
+                                                ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label>Select Manager</label>
-                                            <select id="manager" class="selectDesign form-control"></select>
+                                            <select id="manager" class="selectDesign form-control">
+                                                ${Object.keys(data.data.managers).map((key, index) => `<option value="">${data.data.managers[key]}</option>`)}
+                                                </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
@@ -1699,7 +1727,9 @@ function displayTaskInfo(task_id) {
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label>Task Status</label>
-                                            <select id="task-status" class="selectDesign form-control"></select>
+                                            <select id="task-status" class="selectDesign form-control">
+                                                ${Object.keys(data.data.statuses).map((key, index) => `<option value="">${data.data.statuses[key]}</option>`)}
+                                                </select>
                                         </div>
                                     </div>
 
