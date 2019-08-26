@@ -710,9 +710,9 @@
 
         },
 
-            error: function (data) {
-                console.log('Error:', data);
-            }
+        error: function (data) {
+            console.log('Error:', data);
+        }
         });
 
 
@@ -877,7 +877,7 @@
                             </div>
 
                             <div class="card">
-                                <div onclick="documentDTCall(${data.data.id})" class="card-header" id="headingFour">
+                                <div onclick="projectComments(${data.data.id})" class="card-header" id="headingFour">
                                     <h6 class="mb-0">
                                         <span class="" data-toggle="modal" data-target="#commentModal">
                                                                 <i class="m-menu__link-icon flaticon-comment"></i>
@@ -946,8 +946,8 @@
                                             <tr>
                                                 <th>S/N</th>
                                                 <th>Name</th>
-                                                <th>Type</th>
-                                                <th>Document</th>
+                                                <th>Version</th>
+                                                <th>Date Created</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -1161,7 +1161,7 @@
 
         // Function Populating the project Document Modal
         function documentDTCall(project_id){
-            path_url = "/api/v1/projects_documents/" + project_id;
+            path_url = "/api/v1/tasks/" + project_id;
 
             // Single Projects Document DT
             if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_documents') ) {
@@ -1174,12 +1174,11 @@
                 },
 
                 ajax: path_url,
-                        
                 columns: [
                     {"defaultContent": ""},
-                    {"data": "documents.name"},
-                    {"data": "documents.type"},
-                    {"data": "documents.file"},
+                    {"data": "name"},
+                    {"data": "deadline"},
+                    {"data": "created_at"},
                 ],
                 columnDefs: [{
                     orderable: false,
@@ -1206,7 +1205,7 @@
         }
 
         function reportDTCall(project_id){
-            path_url = "/api/v1/projects" + project_id;
+            path_url = "/api/v1/projects/" + project_id;
             // Single Project Reports DT
             if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_reports') ) {
                 let kt_table_single_project_reports = $('#kt_table_single_project_reports').DataTable();
@@ -1221,8 +1220,8 @@
                         
                 columns: [
                     {"defaultContent": ""},
-                    {"data": "reports.name"},
-                    {"data": "reports.created_at"},
+                    {"data": "project_report"},
+                    {"data": "created_at"},
                 ],
                 columnDefs: [{
                     orderable: false,
@@ -1248,7 +1247,7 @@
             }
         }
 
-        function commentDTCall(project_id){
+        function projectComments(project_id){
             path_url = "/api/v1/projects" + project_id;
             // Comment Function Goes Here
             
