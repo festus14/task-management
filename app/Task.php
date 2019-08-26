@@ -20,7 +20,7 @@ class Task extends Model
         'ending_date',
         'starting_date',
     ];
-
+    
     protected $fillable = [
         'name',
         'status_id',

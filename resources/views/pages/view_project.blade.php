@@ -157,7 +157,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="create-task">Project Type Name</label>
-                        <input type="text" class="form-control" id="subtype" name="name" placeholder="">
+                        <input type="text" class="form-control" id="subtype" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -278,7 +278,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="create-task">Project Type Name</label>
-                                <input type="text" class="form-control" id="projTypeId" name="name" placeholder="">
+                                <input type="text" class="form-control" id="projTypeId" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -1206,14 +1206,14 @@
                     <label for="project-type">Select Project Type</label>
                     <select id="project-type" class="selectDesign form-control">
                         ` +
-                            data.project_types.map(elem => `<option name="project_type_id" value="">${elem.name}</option>`)
+                            data.project_types.map((elem) => `<option name="project_type_id" value="${elem.id}">${elem.name}</option>`)
                         + `
                 </select>
                 </div>
 
                 <div class="form-group">
                     <label for="create-task">Subtype Name</label>
-                    <input type="text" class="form-control" name="name" id="subtypeId" placeholder="">
+                    <input type="text" class="form-control" name="name" id="subtypeId" placeholder="" required>
                 </div>
                      `
             },
@@ -1281,7 +1281,7 @@
 
         $.ajax({
         type: "POST",
-        url: '{{ url("admin/projects") }}',
+        url: '{{ url("/api/v1/projects") }}',
         data: $('#addprojectform').serialize(),
         success: function (response) {
             console.log(response)
@@ -1490,12 +1490,12 @@
 
                         <div class="form-group">
                             <label for="create-task">Subtype Name</label>
-                            <input type="text" class="form-control" name=name id="sub-type" placeholder="">
+                            <input type="text" class="form-control" name="name" id="sub-type" placeholder="">
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#subtypemainModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                    <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
                 </div>
 
                                             `
@@ -1524,9 +1524,6 @@
                         console.log(data);
                         console.log(response);
                         return(data);
-
-
-
                     },
                     error: function (error) {
                         console.log(error);
@@ -1547,9 +1544,10 @@
                     data: $('#addprojTtypeform2').serialize(),
                     success: function (response, data) {
                         alert("Project-type created");
-                        getProjetTypeDT();
                         document.getElementById('projTypeId').value = "";
                         $('#AddProjecModalla').modal('hide');
+                        getProjetTypeDT();
+                        location.reload();
                         console.log(data);
                         console.log(response);
                         return(data);
@@ -1561,7 +1559,6 @@
 
                     });
                     });
-
             // }
     </script>
 
