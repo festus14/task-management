@@ -610,9 +610,9 @@
                             </button>
                         </div>
                     </div>
-                   </div>`
+                </div>`
 
-                   
+                
         projectCard.innerHTML = projectCard.innerHTML + `<div class="modal fade" id="view_client_project${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
             <div class="modal-dialog" style="max-width: 100%; min-width: 400px; max-height: 100%;"
@@ -720,10 +720,10 @@
 
         //   Function for calling Client Projects on the DT
         function getClientProjects(client_id) {
-             path_url = "/api/v1/clients_projects/" + client_id;
-             if ( $.fn.dataTable.isDataTable( '#kt_table_client_projects' + client_id ) ) {
+            path_url = "/api/v1/clients_projects/" + client_id;
+            if ( $.fn.dataTable.isDataTable( '#kt_table_client_projects' + client_id ) ) {
                 var kt_table_client_projects = $('#kt_table_client_projects' + client_id).DataTable();
-             }else {
+            }else {
                 var kt_table_client_projects = $('#kt_table_client_projects' + client_id).DataTable({
                 dom: 'lBfrtip<"actions">',
                 language: {
@@ -757,9 +757,9 @@
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                    return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                         <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
-                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" onclick='+displayProjectInfo(full.id)+' data-target="#moreInfoModal"> </i>\
+                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" onclick='+displayProjectInfo(full.id)+' id="innerDropdown" data-target="#moreInfoModal"> </i>\
                                         </a>\
                                         <a class="link" href="">\
                                             <i class="fas fa-pencil-alt" style="color:black;"></i>\
@@ -792,7 +792,7 @@
 
         }
 
-        // Function for calling Projects tasks
+        // Function for calling Projects tasks 
         function displayProjectInfo(proID) {
             $.ajax({
             type: "GET",
@@ -800,12 +800,12 @@
             success: function (data) {
                 let moreInfo = document.getElementById("moreInfo")
                 moreInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 80%; min-width: 500px;" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
                 <button type="button" class="close" onclick="$('#moreInfoModal').modal('hide');" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-              </button>
+                </button>
                 </div>
                 <div class="modal-body">
                 <!-- More-info content -->
@@ -824,7 +824,7 @@
                     </div>
                     <div class="m-portlet__body">
                         <div class="accordion" id="accordionExample">
-                            <div class="card">
+                            <div onclick="taskDTCall(${data.data.id})" class="card">
                                 <div class="card-header" id="headingone">
                                     <h6 class="mb-0">
                                         <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -836,7 +836,18 @@
                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <ul class="list-group">
-                                            ${data.data.tasks.map(elem => `<li class="list-group-item">${elem.name}</li>`)}
+                                            <table id="kt_table_single_project_task">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Starting Date</th>
+                                                        <th>Deadline</th>
+                                                        <th>Category</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
                                         </ul>
                                     </div>
                                 </div>
@@ -844,18 +855,18 @@
 
 
                             <div class="card">
-                                <div class="card-header" id="headingTwo">
+                                <div onclick="documentDTCall(${data.data.id})" class="card-header" id="headingTwo">
                                     <h6 class="mb-0">
-                                        <span data-toggle="modal" onclick="documentDTCall(${data.data.id})" data-target="#documentModal">
-                                                            <i class="m-menu__link-icon flaticon-clipboard"></i>
-                                                            Documents
-                                                    </span>
+                                        <span data-toggle="modal" data-target="#documentModal">
+                                            <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                            Documents
+                                        </span>
                                     </h6>
                                 </div>
                             </div>
 
                             <div class="card">
-                                <div class="card-header" id="headingThree">
+                                <div onclick="reportDTCall(${data.data.id})" class="card-header" id="headingThree">
                                     <h6 class="mb-0">
                                         <span data-toggle="modal" data-target="#projectreportModal">
                                                                 <i class="m-menu__link-icon flaticon-file"></i>
@@ -866,7 +877,7 @@
                             </div>
 
                             <div class="card">
-                                <div class="card-header" id="headingFour">
+                                <div onclick="documentDTCall(${data.data.id})" class="card-header" id="headingFour">
                                     <h6 class="mb-0">
                                         <span class="" data-toggle="modal" data-target="#commentModal">
                                                                 <i class="m-menu__link-icon flaticon-comment"></i>
@@ -891,67 +902,125 @@
                 </div>
                 </div>
 
+
                 <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="documentModalLongTitle">Project Documents</h5>
-                        <button type="button" class="close" onclick="$('#documentModal').modal('hide');" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="m-portlet " id="m_portlet">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <span class="m-portlet__head-icon">
-                                                                                <i class="flaticon-list-1"> </i>
-                                                                            </span>
-                                        <h3 class="m-portlet__head-text">
-                                            Documents
-                                        </h3>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="documentModalLongTitle">Project Documents</h5>
+                            <button type="button" class="close" onclick="$('#documentModal').modal('hide');" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="m-portlet " id="m_portlet">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon">
+                                                <i class="flaticon-list-1"> </i>
+                                            </span>
+                                            <h3 class="m-portlet__head-text">
+                                                Documents
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__head-tools">
+                                        <ul class="m-portlet__nav">
+                                            <li class="m-portlet__nav-item">
+                                                <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addDocumentModal" class="btn m-btn--icon m-btn--pill">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>
+                                                            Add Document
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="m-portlet__head-tools">
-                                    <ul class="m-portlet__nav">
-                                        <li class="m-portlet__nav-item">
-                                            <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addDocumentModal" class="btn m-btn--icon m-btn--pill">
-                                                <span>
-                                                    <i class="la la-plus"></i>
-                                                    <span>
-                                                        Add Document
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <div class="m-portlet__body">
+                                    <table id="kt_table_single_project_documents" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>S/N</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Document</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
                                 </div>
                             </div>
-                            <div class="m-portlet__body">
-                                <table id="kt_document_table" class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>SN</th>
-                                            <th>Client</th>
-                                            <th>Name</th>
-                                            <th>Manager</th>
-                                            <th>Type</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                            <!--end::Portlet-->
                         </div>
-                        <!--end::Portlet-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
-                    </div>
-                </div>
                 </div>
                 </div>
 
+
+
+                <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="documentModalLongTitle">Project reports</h5>
+                            <button type="button" class="close" onclick="$('#projectreportModal').modal('hide');" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="m-portlet " id="m_portlet">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon">
+                                                <i class="flaticon-list-1"> </i>
+                                            </span>
+                                            <h3 class="m-portlet__head-text">
+                                                Reports
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__head-tools">
+                                        <ul class="m-portlet__nav">
+                                            <li class="m-portlet__nav-item">
+                                                <a style="color:white; background-color: #8a2a2b;" class="btn m-btn--icon m-btn--pill">
+                                                    <span data-toggle="modal" data-target="#addReportModal" aria-expanded="false" aria-controls="">
+                                                        <i class="la la-plus"></i>
+                                                        <span>
+                                                            Add Report
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__body">
+                                    <table id="kt_table_single_project_reports" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>S/N</th>
+                                                <th>Report</th>
+                                                <th>Date Uploaded</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--end::Portlet-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
 
                 `
 
@@ -999,6 +1068,30 @@
                         searchable: false,
                         targets: -1
                     },
+                    {
+                        targets: 8,
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, full, meta) {
+                            return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                    <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                    <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" onclick='+displayTaskInfo(full.id)+' id="innerDropdown" data-target="#moreInfoModal"> </i>\
+                                    </a>\
+                                    <a class="link" href="">\
+                                        <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                    </a>\
+                                    <a class="link" href="#" id="" >\
+                                        <i class="flaticon-graphic" style="color:black;"> </i>\
+                                    </a>\
+                                    <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                        <input type="hidden" name="_method" value="DELETE">\
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                        <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                    </form>\
+                                </div>\
+                                ';
+                        }
+                    },
                     ],
                     select: {
                         style: 'multi+shift',
@@ -1015,50 +1108,150 @@
 
 
         }
+        
+        // Function Populating the project Document Modal
+        function taskDTCall(project_id){
+            path_url = "/api/v1/projects_tasks/" + project_id;
 
-        function documentDTCall(project_id){
-            path_url = "/api/v1/projects/" + project_id;
-            if ( $.fn.dataTable.isDataTable( '#kt_document_table' + project_id ) ) {
-                var kt_document_table = $('#kt_document_table' + project_id).DataTable();
+              // Simple Project Tasks DT
+            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_task') ) {
+                let kt_table_single_project_task = $('#kt_table_single_project_task').DataTable();
             }else {
-                var kt_document_table = $('#kt_document_table' + project_id).DataTable({
-                    dom: 'lBfrtip<"actions">',
-                    language: {
-                        url: languages. {{ app()->getLocale() }}
-                    },
-                    ajax: path_url,
-                    columns: [
-                        {"defaultContent": ""},
-                        {"data": "documents.name"},
-                        {"data": "manager.name"},
-                        {"data": "assigned_tos[, ].email"},
-                        {"data": "status.name"},
-                        {"data": "category.name"},
-                        {"data": "starting_date"},
-                        {"data": "ending_date"},
-                    ],
-                    columnDefs: [{
-                        orderable: false,
-                        className: 'select-checkbox',
-                        targets: 0
-                    }, {
-                        orderable: false,
-                        searchable: false,
-                        targets: -1
-                    },
-                    ],
-                    select: {
-                        style: 'multi+shift',
-                        selector: 'td:first-child'
-                    },
-                    scrollX: true,
-                    order: [],
-                    pageLength: 10,
-                    buttons: [
-                        'excel', 'pdf', 'print'
-                    ]
-                });
+                let kt_table_single_project_task = $('#kt_table_single_project_task').DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+
+                ajax: path_url,
+                        
+                columns: [
+                    {"defaultContent": ""},
+                    {"data": "name"},
+                    {"data": "starting_date"},
+                    {"data": "ending_date"},
+                    {"data": "category.name"},
+                    {"data": "status.name"},
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                },
+                ],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                scrollX: true,
+                order: [],
+                pageLength: 10,
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
             }
+
+        }
+
+
+        // Function Populating the project Document Modal
+        function documentDTCall(project_id){
+            path_url = "/api/v1/projects_documents/" + project_id;
+
+            // Single Projects Document DT
+            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_documents') ) {
+                let kt_table_single_project_documents = $('#kt_table_single_project_documents').DataTable();
+            }else {
+                let kt_table_single_project_documents = $('#kt_table_single_project_documents').DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+
+                ajax: path_url,
+                        
+                columns: [
+                    {"defaultContent": ""},
+                    {"data": "documents.name"},
+                    {"data": "documents.type"},
+                    {"data": "documents.file"},
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                },
+                ],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                scrollX: true,
+                order: [],
+                pageLength: 10,
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
+            }
+        }
+
+        function reportDTCall(project_id){
+            path_url = "/api/v1/projects" + project_id;
+            // Single Project Reports DT
+            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_reports') ) {
+                let kt_table_single_project_reports = $('#kt_table_single_project_reports').DataTable();
+            }else {
+                let kt_table_single_project_reports = $('#kt_table_single_project_reports').DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+
+                ajax: path_url,
+                        
+                columns: [
+                    {"defaultContent": ""},
+                    {"data": "reports.name"},
+                    {"data": "reports.created_at"},
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                },
+                ],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                scrollX: true,
+                order: [],
+                pageLength: 10,
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
+            }
+        }
+
+        function commentDTCall(project_id){
+            path_url = "/api/v1/projects" + project_id;
+            // Comment Function Goes Here
+            
         }
 
         $.fn.dataTable.ext.classes.sPageButton = '';

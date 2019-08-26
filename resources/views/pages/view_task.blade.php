@@ -239,85 +239,87 @@
 
 
     <!-- More Info Modal -->
-<div class="modal fade" id="moretaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" onclick="$('#moretaskInfoModal').modal('hide');" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <!-- More-info content -->
-                <div class="col-md-12 m-portlet " id="m_portlet">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-caption">
-                            <div class="m-portlet__head-title">
-                                <span class="m-portlet__head-icon">
-                                            <i class="flaticon-list-2"> </i>
-                                        </span>
-                                <h3 class="m-portlet__head-text">
-                                    'Taskname' info
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="m-portlet__head-tools">
-                            <ul class="m-portlet__nav">
-                                <li class="m-portlet__nav-item">
-
-                                </li>
-                            </ul>
-                        </div>
+    <div id="moreInfo">
+        {{-- <div class="modal fade" id="moretaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="$('#moretaskInfoModal').modal('hide');" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     </div>
-                    <div class="m-portlet__body">
-                        <div class="accordion" id="taskAccordion">
-                            <div class="card">
-                                <div class="card-header" id="headingTwo">
-                                    <h6 class="mb-0">
-                                        <span data-toggle="modal" data-target="#taskDocumentModal">
-                                                        <i class="m-menu__link-icon flaticon-clipboard"></i>
-                                                        Documents
+                    <div class="modal-body">
+                        <!-- More-info content -->
+                        <div class="col-md-12 m-portlet " id="m_portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon">
+                                                    <i class="flaticon-list-2"> </i>
                                                 </span>
-                                    </h6>
+                                        <h3 class="m-portlet__head-text">
+                                            'Taskname' info
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__head-tools">
+                                    <ul class="m-portlet__nav">
+                                        <li class="m-portlet__nav-item">
+
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+                            <div class="m-portlet__body">
+                                <div class="accordion" id="taskAccordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingTwo">
+                                            <h6 class="mb-0">
+                                                <span data-toggle="modal" data-target="#taskDocumentModal">
+                                                                <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                                Documents
+                                                        </span>
+                                            </h6>
+                                        </div>
+                                    </div>
 
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                    <h6 class="mb-0">
-                                        <span data-toggle="modal" data-target="#taskReportModal">
-                                                            <i class="m-menu__link-icon flaticon-file"></i>
-                                                            Report
-                                                    </span>
-                                    </h6>
+                                    <div class="card">
+                                        <div class="card-header" id="headingThree">
+                                            <h6 class="mb-0">
+                                                <span data-toggle="modal" data-target="#taskReportModal">
+                                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                                    Report
+                                                            </span>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header" id="headingFour">
+                                            <h6 class="mb-0">
+                                                <span class="" data-toggle="modal" data-target="#commentModal">
+                                                                        <i class="m-menu__link-icon flaticon-comment"></i>
+                                                                        Comments
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <!--end::Portlet-->
 
-                            <div class="card">
-                                <div class="card-header" id="headingFour">
-                                    <h6 class="mb-0">
-                                        <span class="" data-toggle="modal" data-target="#commentModal">
-                                                                <i class="m-menu__link-icon flaticon-comment"></i>
-                                                                Comments
-                                        </span>
-                                    </h6>
-                                </div>
+
+                            <!-- End main Content of More-info -->
+
+                            <div class="modal-footer">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--end::Portlet-->
-
-
-                    <!-- End main Content of More-info -->
-
-                    <div class="modal-footer">
-                    </div>
-                </div>
             </div>
-        </div>
+        </div> --}}
     </div>
-</div>
 <!-- End More Info Modal -->
 
     <!-- Comment Modal -->
@@ -472,7 +474,7 @@
     </div>
     {{--end comment--}}
     {{-- documentDTModal --}}
-    <div class="modal fade" id="taskDocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    {{-- <div class="modal fade" id="taskDocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -534,7 +536,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- endDocumentDTModal --}}
 
     <!-- Add Document Modal -->
@@ -593,7 +595,7 @@
     <!-- End Add Document Modal -->
 
     {{-- taskReport DT Modal --}}
-    <div class="modal fade" id="taskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    {{-- <div class="modal fade" id="taskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -652,7 +654,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- endtaskReport DT tModal --}}
 
     {{-- Add task report Modal --}}
@@ -1054,10 +1056,10 @@
                 targets: 7,
                 orderable: false,
                 searchable: false,
-                render: function () {
+                render: function (data, type, full, meta) {
                 return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                         <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
-                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moretaskInfoModal"> </i>\
+                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"  onclick='+displayTaskInfo(full.id)+' data-target="#moretaskInfoModal"> </i>\
                                         </a>\
                                         <a class="link" href="">\
                                             <i class="fas fa-pencil-alt" style="color:black;"></i>\
@@ -1073,60 +1075,372 @@
                                     </div>\
                                     ';
                 }
-        },
-        ],
+            },
+            ],
         });
+
             $('#kt_table_task_category').DataTable({
-                    ajax: "{{ url('/api/v1/tast-categories') }}",
-                    columns: [
-                        { defaultContent : "" },
-                        { "data": "name" },
-                        { "data": "project_type_id" },
-                        { "data": "sub_category_id" },
-                        { "data": "weight" },
-                        { "data": "Description" }
-                    ],
-                    dom: 'lBfrtip<"actions">',
-                    language: {
-                        url: languages.{{ app()->getLocale() }}
-                    },
-                    columnDefs: [{
-                        orderable: false,
-                        className: 'select-checkbox',
-                        targets: 0,
+                ajax: "{{ url('/api/v1/tast-categories') }}",
+                columns: [
+                    { defaultContent : "" },
+                    { "data": "name" },
+                    { "data": "project_type_id" },
+                    { "data": "sub_category_id" },
+                    { "data": "weight" },
+                    { "data": "Description" }
+                ],
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages.{{ app()->getLocale() }}
+                },
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0,
 
-                    }, {
-                        orderable: false,
-                        searchable: false,
-                        targets: -1,
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1,
 
-                    },
-                    {
-                        targets: 6,
-                        orderable: false,
-                        searchable: false,
-                        render: function () {
-                        return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                                <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
-                                                <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moretaskInfoModal"> </i>\
-                                                </a>\
-                                                <a class="link" href="">\
-                                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
-                                                </a>\
-                                                <a class="link" href="#" id="" >\
-                                                    <i class="flaticon-graphic" style="color:black;"> </i>\
-                                                </a>\
-                                                <form action="" method="POST" onsubmit="" style="display: inline-block;">\
-                                                    <input type="hidden" name="_method" value="DELETE">\
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">\
-                                                    <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
-                                                </form>\
-                                            </div>\
-                                            ';
-                        }
+                },
+                {
+                    targets: 6,
+                    orderable: false,
+                    searchable: false,
+                    render: function () {
+                    return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                            <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moretaskInfoModal"> </i>\
+                                            </a>\
+                                            <a class="link" href="">\
+                                                <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                            </a>\
+                                            <a class="link" href="#" id="" >\
+                                                <i class="flaticon-graphic" style="color:black;"> </i>\
+                                            </a>\
+                                            <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                                <input type="hidden" name="_method" value="DELETE">\
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                                <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                            </form>\
+                                        </div>\
+                                        ';
+                    }
+            },
+            ],
+            });
+
+    
+    
+
+function displayTaskInfo(task_id) {
+    $.ajax({
+        type: "GET",
+        url: "/api/v1/tasks/" + task_id,
+        success: function (data) {
+            let moreInfo = document.getElementById("moreInfo")
+            moreInfo.innerHTML = `<div class="modal fade" id="moretaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="$('#moretaskInfoModal').modal('hide');" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- More-info content -->
+                        <div class="col-md-12 m-portlet " id="m_portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon">
+                                                    <i class="flaticon-list-2"> </i>
+                                                </span>
+                                        <h3 class="m-portlet__head-text">
+                                            ${data.data.name} Info
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__head-tools">
+                                    <ul class="m-portlet__nav">
+                                        <li class="m-portlet__nav-item">
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="m-portlet__body">
+                                <div class="accordion" id="taskAccordion">
+                                    <div onclick="documentDTCall(${data.data.id})" class="card">
+                                        <div class="card-header" id="headingTwo">
+                                            <h6 class="mb-0">
+                                                <span data-toggle="modal" data-target="#taskDocumentModal">
+                                                                <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                                Documents
+                                                        </span>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <div onclick="documentDTCall(${data.data.id})" class="card">
+                                        <div class="card-header" id="headingThree">
+                                            <h6 class="mb-0">
+                                                <span data-toggle="modal" data-target="#taskReportModal">
+                                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                                    Report
+                                                            </span>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <div onclick="documentDTCall(${data.data.id})" class="card">
+                                        <div class="card-header" id="headingFour">
+                                            <h6 class="mb-0">
+                                                <span class="" data-toggle="modal" data-target="#commentModal">
+                                                                        <i class="m-menu__link-icon flaticon-comment"></i>
+                                                                        Comments
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Portlet-->
+
+
+                            <!-- End main Content of More-info -->
+
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="taskDocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="documentModalLongTitle">Task documents</h5>
+                    <button type="button" class="close" onclick="$('#taskDocumentModal').modal('hide');" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-portlet " id="m_portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon">
+                                                <i class="flaticon-list-1"> </i>
+                                            </span>
+                                    <h3 class="m-portlet__head-text">
+                                        Task documents
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="m-portlet__head-tools">
+                                <ul class="m-portlet__nav">
+                                    <li class="m-portlet__nav-item">
+                                        <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addDocumentModal" class="btn m-btn--icon m-btn--pill">
+                                            <span data-toggle="modal" data-target="#addDocumentModal">
+                                                                <i class="la la-plus"></i>
+                                                                <span>
+                                                                    Add Document
+                                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-portlet__body">
+                            <table id="kt_table_single_task_documents" class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Client</th>
+                                        <th>Name</th>
+                                        <th>Manager</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="$('#taskDocumentModal').modal('hide');">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="taskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="documentModalLongTitle">Task reports</h5>
+                    <button type="button" class="close" onclick="$('#taskReportModal').modal('hide');" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-portlet " id="m_portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon">
+                                                <i class="flaticon-list-1"> </i>
+                                            </span>
+                                    <h3 class="m-portlet__head-text">
+                                        Reports
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="m-portlet__head-tools">
+                                <ul class="m-portlet__nav">
+                                    <li class="m-portlet__nav-item">
+                                        <a style="color:white; background-color: #8a2a2b;" class="btn m-btn--icon m-btn--pill">
+                                            <span data-toggle="modal" data-target="#addTaskReportModal" aria-expanded="false" aria-controls="">
+                                                                <i class="la la-plus"></i>
+                                                                <span>
+                                                                    Add Report
+                                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-portlet__body">
+                            <table id="kt_table_single_task_reports" class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Client</th>
+                                        <th>Name</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="$('#taskReportModal').modal('hide');">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            `
+
+
+    },
+
+            error: function (data) {
+                console.log('Error:', data);
+
+                
+            }
+
+            })
+    }
+
+    function documentDTCall(task_id){
+        path_url = "/api/v1/tasks/" + task_id;
+
+            // Single Projects Document DT
+            if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_documents') ) {
+                let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable();
+            }else {
+                let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+
+                ajax: path_url,
+                        
+                columns: [
+                    {"defaultContent": ""},
+                    {"data": "documents.name"},
+                    {"data": "documents.type"},
+                    {"data": "documents.file"},
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
                 },
                 ],
-                });
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                scrollX: true,
+                order: [],
+                pageLength: 10,
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
+            }
+
+            // Single Project Reports DT
+            if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_reports') ) {
+                let kt_table_single_task_reports = $('#kt_table_single_task_reports').DataTable();
+            }else {
+                let kt_table_single_task_reports = $('#kt_table_single_task_reports').DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+
+                ajax: path_url,
+                        
+                columns: [
+                    {"defaultContent": ""},
+                    {"data": "reports.name"},
+                    {"data": "reports.created_at"},
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                },
+                ],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                scrollX: true,
+                order: [],
+                pageLength: 10,
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
+            }
+    }
+
 </script>
 
 {{-- <script>
