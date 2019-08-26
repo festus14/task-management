@@ -6,6 +6,37 @@
 @section('css')
 <style>
 
+/* comment scrollbar */
+/* width */
+#mCSB_3::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+#mCSB_3::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+#mCSB_3::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+#mCSB_3::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.bootstrap-select .bs-ok-default::after {
+    width: 0.3em;
+    height: 0.6em;
+    border-width: 0 0.1em 0.1em 0;
+    transform: rotate(45deg) translateY(0.5rem);
+}
+
+.btn.dropdown-toggle:focus {
+    outline: none !important;
+}
 </style>
 @endsection
 <div class="m-portlet " id="m_portlet" style="width:97%;">
@@ -96,13 +127,16 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
             </div>
+            <form id="addprojSubtypeform1" action="{{ url('/api/v1/project-sub-types') }}"  method="POST" enctype="multipart/form-data">
+                @csrf
             <div id="subtypeModalBody" class="modal-body">
                 {{-- body content --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="$('#subtypeModal').modal('hide');" data-target="#subtypeModal">Close</button>
-                <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -118,7 +152,8 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
             </div>
-            <form id="addprojtypeform" action=""  method="POST" enctype="multipart/form-data">
+            <form id="addprojtypeform1" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="create-task">Project Type Name</label>
@@ -237,30 +272,25 @@
                         <button type="submit" class="btn btn-primary" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">Add</button>
                     </div>
                 </form> --}}
-                <form id="addprojTtypeform" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                            <label for="create-task">Name o</label>
-                            <input type="text" class="form-control" id="subtype" name="name" placeholder="" value="" required>
+                    
+                    <form id="addprojTtypeform2" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="create-task">Project Type Name</label>
+                                <input type="text" class="form-control" id="projTypeId" name="name" placeholder="">
+                            </div>
                         </div>
-                                @if($errors->has('name'))
-                            <p class="help-block">
-                                {{ $errors->first('name') }}
-                            </p>
-                        @endif
-                        <p class="helper-block">
-                            {{ trans('cruds.projectType.fields.name_helper') }}
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');" data-target="#AddProjecModalla">Close</button>
-                        <button type="submit" class="btn btn-primary" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">Add</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');">Close</button>
+                            <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                        </div>
+                    </form>
         </div>
     </div>
 </div>
+
+
 <!--End modalled projType Modal -->
 
 {{-- Project SubType datatable modal --}}
@@ -338,10 +368,13 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                 </div>
+                <form id="addprojtypeform2" action="{{ url('/api/v1/project-sub-types') }}"  method="POST" enctype="multipart/form-data">
+                    @csrf
                 <div id="subtypemainModalBody">
                     {{-- body content --}}
 
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -697,7 +730,7 @@
 
 <!-- Comment Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:100vh; min-height: 100px; max-width: 100%; min-width: 100px; overflow:hidden;" role="document">
+    <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Project Comments</h5>
@@ -747,13 +780,12 @@
                                 </div>
                                 <!-- <div class="tab-content"> -->
                                 <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
-                                <div class=" m-scrollable">
+                                <div class=" m-scrollable" >
                                     <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
                                         <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-                                            <div class="m-messenger__messages mCS-autoHide" style="height: 356px; max-height: auto; position: relative; overflow: hidden;">
-                                                <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; position: absolute;
-
-                                                overflow-y: scroll; scrollbar-width: thin;">
+                                            <div class="m-messenger__messages mCS-autoHide" style="height: 400px; max-height: auto; position: relative; overflow: hidden;">
+                                                <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="padding-top:7px; max-height: 100%; width: 100%; position: absolute;
+                                                overflow-y: scroll; scrollbar-width: 2px;">
                                                     <div id="mCSB_3_container" class="mCSB_container" style="top:0; left:0;" dir="ltr">
                                                         <br>
                                                         <span id="filler"> </span>
@@ -804,7 +836,7 @@
                                             <div class="m-messenger__seperator "></div>
                                             <div class="m-messenger__form " style="width: 100%; ">
                                                 <div class="m-messenger__form-controls ">
-                                                    <button type="button" class="m-btn--pill btn btn-primary" data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
+                                                    <button type="button" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#makecommentModal" style="margin-right: 3%; margin-bottom: 25px;">
                                                                 Make Comment
                                                               </button>
                                                     <!-- Make new Commment Modal -->
@@ -822,7 +854,7 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
-                                                                    <button type="button" class="m-btn--pill btn btn-primary" class="" onclick="addComment(), $('#exampleModal').modal('toggle');">Comment</button>
+                                                                    <button type="button" class="m-btn--pill btn btn-primary" class="" onclick="addComment(), $('#makecommentModal').modal('hide');">Comment</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -916,7 +948,9 @@
            </div>
            </div>
        </div>`
-               document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + html
+                   document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + html
+                // document.getElementById("mCSB_3_container").appendChild(html);
+            // $( "<p>Test</p>" ).appendTo( ".inner" );
 
            })
        }
@@ -1328,14 +1362,14 @@
                     <label for="project-type">Select Project Type</label>
                     <select id="project-type" class="selectDesign form-control">
                         ` +
-                            data.project_types.map(elem => `<option value="">${elem.name}</option>`)
+                            data.project_types.map(elem => `<option name="project_type_id" value="">${elem.name}</option>`)
                         + `
                 </select>
                 </div>
 
                 <div class="form-group">
                     <label for="create-task">Subtype Name</label>
-                    <input type="text" class="form-control" id="subtype" placeholder="">
+                    <input type="text" class="form-control" name="name" id="subtypeId" placeholder="">
                 </div>
                      `
             },
@@ -1345,6 +1379,55 @@
         });
 
     }
+
+         // Add project Sub type Post 
+                 $('#addprojSubtypeform1').on('submit', function(e){
+                    e.preventDefault();
+                    $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/project-sub-types") }}',
+                    data: $('#addprojSubtypeform1').serialize(),
+                    success: function (response, data) {
+                        alert("Project sub-type created");
+                        getProjetTypeDT();
+                        document.getElementById('subtypeId').value = "";
+                        $('#subtypeModal').modal('hide');
+                        console.log(data);
+                        console.log(response);
+                        return(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("Project sub-type creation failed");
+                    }
+
+                    });
+                    });
+
+        // Add 2nd project Sub type Post 
+        $('#addprojSubtypeform2').on('submit', function(e){
+                    e.preventDefault();
+                    $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/project-sub-types") }}',
+                    data: $('#addprojSubtypeform1').serialize(),
+                    success: function (response, data) {
+                        alert("Project sub-type created");
+                        getProjecSubTypeDT();
+                        document.getElementById('sub-type').value = "";
+                        $('#subtypemainModal').modal('hide');
+                        console.log(data);
+                        console.log(response);
+                        return(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("Project sub-type creation failed");
+                    }
+
+                    });
+                    });
+
 
     // post to the create proj table
     $(document).ready(function(){
@@ -1545,32 +1628,31 @@
                 $("#subtypemainModal").modal('show');
                     $.ajax({
                         type: "GET",
-                        url: '{{ url("/api/v1/project-sub-types") }}',
+                        url: '{{ url("/api/v1/project-types") }}',
                         success: function (data) {
                             let subtypemainModalBody = document.getElementById('subtypemainModalBody');
                                 subtypemainModalBody.innerHTML =  `
-                                <form>
+                                
                 <div  class="modal-body">
 
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
-                            <select id="projecttype" class="selectDesign form-control">
+                            <select id="projecttype" name="project_type_id" class="selectDesign form-control">
 
-                                        ${data.data.map(elem => `<option value="">${elem.project_type.name}</option>`)}
+                                        ${data.data.map(elem => `<option value="">${elem.name}</option>`)}
 
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="create-task">Subtype Name</label>
-                            <input type="text" class="form-control" id="sub-type" placeholder="">
+                            <input type="text" class="form-control" name=name id="sub-type" placeholder="">
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#subtypemainModal').modal('hide');" data-target="#subtypemainModal">Close</button>
                     <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
                 </div>
-                </form>
 
                                             `
                                     },
@@ -1582,29 +1664,57 @@
 
 
                 // function addTypeToProject(){
-                // Add to the proj type
+                // Add to the proj type....one in create project
                         $(document).ready(function(){
 
-                    $('#addprojtypeform').on('submit', function(e){
+                    $('#addprojtypeform1').on('submit', function(e){
                     e.preventDefault();
-                    let v = $('#addprojtypeform');
-                    console.log(v);
                     $.ajax({
                     type: "POST",
                     url: '{{ url("/api/v1/project-types") }}',
-                    data: $('#addprojtypeform').serialize(),
-                    success: function (data) {
-                        console.log(data);
-                        return(data);
-                        $('#AddProjecModalla').modal('hide');
+                    data: $('#addprojtypeform1').serialize(),
+                    success: function (response, data) {
                         alert("Project-type created");
+                        displayAddProject();
+                        $('#PModal').modal('hide');
+                        console.log(data);
+                        console.log(response);
+                        return(data);
+
+
 
                     },
                     error: function (error) {
                         console.log(error);
                         alert("Project-type creation failed");
                     }
+
                     });
+                    });
+                    });
+                    // end of project type ajax call
+                
+                    // Add project type Post 
+                    $('#addprojTtypeform2').on('submit', function(e){
+                    e.preventDefault();
+                    $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/project-types") }}',
+                    data: $('#addprojTtypeform2').serialize(),
+                    success: function (response, data) {
+                        alert("Project-type created");
+                        getProjetTypeDT();
+                        document.getElementById('projTypeId').value = "";
+                        $('#AddProjecModalla').modal('hide');
+                        console.log(data);
+                        console.log(response);
+                        return(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("Project-type creation failed");
+                    }
+
                     });
                     });
 
