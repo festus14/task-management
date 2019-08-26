@@ -25,7 +25,7 @@
                     <div class="m-portlet__head-tools">
                         <ul class="m-portlet__nav">
                             <li class="m-portlet__nav-item">
-                                <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
+                                <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="addTaskId" style="background-color:#8a2a2b; color:white;" data-toggle="modal" data-target="#createTaskModal">
                                     <span>
                                         <i class="la la-plus"></i>
                                         <span>
@@ -34,7 +34,7 @@
                                     </span>
                                 </a>
                                 <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="taskCategoryId" data-toggle="modal" data-target="#taskcategoryDatatable">
-                                        <span onclick="">
+                                        <span onclick="getTaskCategoryAjaxDT()">
                                                 <span>
                                                     Task Category
                                                 </span>
@@ -50,6 +50,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Client</th>
+                                <th>Project</th>
                                 <th>Name</th>
                                 <th>Manager</th>
                                 <th>Status</th>
@@ -70,96 +71,23 @@
     </div>
 
     <!-- Create task Modal -->
-<div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="">
-            <div class="row">
-              <div class="col-md-6 col-sm-6">
-
-                  <div class="form-group">
-                      <label for="client-list">Select Client</label>
-                      <select id="client-list" class="selectDesign form-control"></select>
-                  </div>
-
-                  <div class="form-group">
-                      <label>Select Project</label>
-                      <select id="project-list" class="selectDesign form-control"></select>
-                  </div>
-              </div>
-              <div class="col-md-6 col-sm-6">
-                <div class="form-group">
-                  <label>Select Project Subtype</label>
-                  <select id="project-subtype-list" class="selectDesign form-control"></select>
-                  </div>
-
-                  <div class="form-group">
-                      <label for="create-task">Task Name</label>
-                      <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
-                  </div>
-
-              </div>
-              <div class="col-md-4 col-sm-4">
-                  <div class="form-group">
-                      <label>Task Category</label>
-                      <select id="task-category" class="selectDesign form-control"></select>
-                  </div>
-              </div>
-              <div class="col-md-4 col-sm-4">
-                  <div class="form-group">
-                          <label for="assign-task">Assign task to</label>
-                          <br>
-                          <select  style="width: 100%" id="assign-task" multiple="multiple" required class="form-control select2">
-                            <option>Ade</option>
-                            <option>Bunmi</option>
-                          </select>
-                      </div>
-                </div>
-                    <div class="col-md-4 col-sm-4">
-                      <div class="form-group">
-                          <label>Select Manager</label>
-                          <select id="manager" class="selectDesign form-control"></select>
-                      </div>
+    <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                        <button type="button" class="close" onclick="$('#createTaskModal').modal('hide');" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="col-md-4 col-sm-4">
-                          <div class="form-group">
-                              <label for="starting-date">Starting Date</label>
-                              <input type="date" class="form-control" id="starting-date">
-                          </div>
+                    <div id="createTaskBody" class="modal-body col-md-12">
+
+
                     </div>
 
-                    <div class="col-md-4 col-sm-4">
-                          <div class="form-group">
-                              <label for="deadline">Deadline</label>
-                              <input type="date" class="form-control" id="deadline">
-                          </div>
-                  </div>
-
-                  <div class="col-md-4 col-sm-4">
-                      <div class="form-group">
-                          <label>Task Status</label>
-                          <select id="task-status" class="selectDesign form-control"></select>
-                      </div>
-                  </div>
-
-          </div>
-       </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
-              </div>
-
+            </div>
         </div>
-      </div>
-</div>
     {{-- end Create task Model --}}
 
     {{-- Task category datatable modal --}}
@@ -188,7 +116,7 @@
                             <div class="m-portlet__head-tools">
                                 <ul class="m-portlet__nav">
                                     <li class="m-portlet__nav-item">
-                                        <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#AddProjecModalla">
+                                        <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addTaskCategory">
                                             <span>
                                                 <i class="la la-plus"></i>
                                                 <span>
@@ -196,10 +124,10 @@
                                                 </span>
                                             </span>
                                         </a>
-                                        <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="projectSubTypeId" data-toggle="modal" data-target="#ProjSubTypeDatatable">
-                                                <span onclick="">
+                                        <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="projectSubTypeId" data-toggle="modal" data-target="#taskstatusDatatable">
+                                                <span onclick="getTaskStatusAjaxDT();">
                                                         <span>
-                                                            ...
+                                                            Task Status
                                                         </span>
                                                 </span>
                                             </a>
@@ -473,6 +401,72 @@
         </div>
     </div>
     {{--end comment--}}
+
+    {{-- Task status datatable modal --}}
+<div class="modal fade" id="taskstatusDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:70%; min-width:400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Task Status</h5>
+                    <button type="button" class="close" onclick="$('#taskstatusDatatable').modal('hide');" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-portlet " id="m_portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon">
+                                        <i class="flaticon-list-2"> </i>
+                                    </span>
+                                    <h3 class="m-portlet__head-text">
+                                        Task Status Table
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="m-portlet__head-tools">
+                                <ul class="m-portlet__nav">
+                                    <li class="m-portlet__nav-item">
+                                        <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#AddStatus">
+                                            <span>
+                                                <i class="la la-plus"></i>
+                                                <span>
+                                                    Add Status
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-portlet__body" style="overflow-x:auto;  width:100%">
+                            <table id="kt_table_task_status" class="table table-striped table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Status Name</th>
+                                        <th>Tools</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="$('#taskstatusDatatable').modal('hide');">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End Task category datatable modal --}}
+
+
     {{-- documentDTModal --}}
     {{-- <div class="modal fade" id="taskDocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
@@ -716,6 +710,84 @@
         </div>
     </div>
     {{-- end Addtaskreport Modal --}}
+
+    {{-- Add Task Category Modal --}}
+<div class="modal fade" id="addTaskCategory" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskCategoryId">Create Task Category</h5>
+                    <button type="button" class="close" onclick="$('#addTaskCategory').modal('hide');" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="col-md-12 row">
+                            <div class="col-md-6 form-group mt-3">
+                                <label>Name</label>
+                                <input type="text" class="form-control" id="category-name" placeholder="">
+                            </div>
+
+                            <div class="col-md-6 form-group mt-3">
+                                <label>Project Type</label>
+                                <select id="projectTypeList" class="selectDesign form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 row">
+                                <div class="col-md-6 form-group mt-3">
+                                    <label>Sub Category</label>
+                                    <select id="subCategory" class="selectDesign form-control"></select>
+                                </div>
+
+                                <div class="col-md-6 form-group mt-3">
+                                    <label>Weight</label>
+                                    <input type="text" class="form-control" id="weightId" placeholder="">
+                                </div>
+                        </div>
+                        <div class=" row col-md-12">
+                            <div class="col-md-12 form-group mt-3">
+                                <label for="exampleFormControlTextarea1">Desciption</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group mt-2">
+                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end Task Category Modal --}}
+
+    <!--modalled Add Status Modal -->
+    <div class="modal fade" id="AddStatus" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Status</h5>
+                        <button type="button" class="close" onclick="$('#AddStatus').modal('hide');" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form id="addStatusform" action="{{ route("admin.project-types.store") }}"  method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" id="statusInput" name="name" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="$('#AddStatus').modal('hide');" >Close</button>
+                        <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    <!--End modalled projType Modal -->
+
 @endsection
 @section('javascript')
 <script>
@@ -1031,6 +1103,7 @@
             columns: [
                 { defaultContent : "" },
                 { "data": "client.name" },
+                { "data": "project.name" },
                 { "data": "name" },
                 { "data": "manager.name" },
                 { "data": "status.name" },
@@ -1053,7 +1126,7 @@
 
             },
             {
-                targets: 7,
+                targets: 8,
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
@@ -1079,6 +1152,7 @@
             ],
         });
 
+<<<<<<< HEAD
             $('#kt_table_task_category').DataTable({
                 ajax: "{{ url('/api/v1/tast-categories') }}",
                 columns: [
@@ -1097,12 +1171,112 @@
                     orderable: false,
                     className: 'select-checkbox',
                     targets: 0,
+=======
+
+
+        function getTaskCategoryAjaxDT(){
+            if ( $.fn.dataTable.isDataTable( '#kt_table_task_status') ) {
+                var kt_table_task_category = $('#kt_table_task_category').DataTable();
+             }else {
+                var kt_table_task_category = $('#kt_table_task_category').DataTable({
+                    ajax: "{{ url('/api/v1/tast-categories') }}",
+                    columns: [
+                        { defaultContent : "" },
+                        { "data": "name" },
+                        { "data": "project_type_id" },
+                        { "data": "sub_category_id" },
+                        { "data": "weight" },
+                        { "data": "Description" }
+                    ],
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages.{{ app()->getLocale() }}
+                    },
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0,
+>>>>>>> 14a2044098042986e1744a40f7a0b93979bc0e0b
 
                 }, {
                     orderable: false,
                     searchable: false,
                     targets: -1,
 
+<<<<<<< HEAD
+=======
+                    },
+                    {
+                        targets: 6,
+                        orderable: false,
+                        searchable: false,
+                        render: function () {
+                        return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                    <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                                                            <a class="link" href="">\
+                                                                <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                                            </a>\
+                                                            <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                                                <input type="hidden" name="_method" value="DELETE">\
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                                                <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                                            </form>\
+                                                        </div>\
+                                            ';
+                        }
+                },
+                ],
+                });
+        }
+        }
+
+
+
+        //Task status
+        function getTaskStatusAjaxDT(){
+            if ( $.fn.dataTable.isDataTable( '#kt_table_task_status') ) {
+                var kt_table_project_type = $('#kt_table_task_status').DataTable();
+             }else {
+                var kt_table_project_type = $('#kt_table_task_status').DataTable({
+                    ajax: "{{ url('/api/v1/task-statuses') }}",
+                    columns: [
+                        { defaultContent : "" },
+                        { "data": "name" },
+                    ],
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages.{{ app()->getLocale() }}
+                    },
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0,
+
+                    }, {
+                        orderable: false,
+                        searchable: false,
+                        targets: -1,
+
+                    },
+                    {
+                        targets: 2,
+                        orderable: false,
+                        searchable: false,
+                        render: function () {
+                        return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                                <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                                                <a class="link" href="">\
+                                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                                </a>\
+                                                <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                                    <input type="hidden" name="_method" value="DELETE">\
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                                    <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                                </form>\
+                                            </div>\
+                                            ';
+                        }
+>>>>>>> 14a2044098042986e1744a40f7a0b93979bc0e0b
                 },
                 {
                     targets: 6,
@@ -1377,6 +1551,7 @@ function displayTaskInfo(task_id) {
                     {"data": "documents.type"},
                     {"data": "documents.file"},
                 ],
+<<<<<<< HEAD
                 columnDefs: [{
                     orderable: false,
                     className: 'select-checkbox',
@@ -1441,6 +1616,106 @@ function displayTaskInfo(task_id) {
             }
     }
 
+=======
+                });
+        }
+        }
+                let createTask = document.getElementById('addTaskId');
+                createTask.addEventListener("click", displayAddTask);
+
+     function displayAddTask(){
+      $("#createTaskModal").modal('show');
+        $.ajax({
+            type: "GET",
+            url: '{{ url("/api/v1/create_task") }}',
+            success: function (data) {
+                let createTaskBody = document.getElementById('createTaskBody');
+                // let probSubtypeBody = document.getElementById('subtypeModalBody');
+                 createTaskBody.innerHTML = `
+                    <div class="modal-body">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="client-list">Select Client</label>
+                                            <select id="client-list" class="selectDesign form-control">
+                                                    ${Object.keys(data.data.categories).map((key, index) => `<option value="">${index}</option>`)}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Select Project</label>
+                                            <select id="project-list" class="selectDesign form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label>Select Project Subtype</label>
+                                            <select id="project-subtype-list" class="selectDesign form-control"></select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create-task">Task Name</label>
+                                            <input type="text" class="form-control" id="create-task" placeholder="Enter Task Name">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Task Category</label>
+                                            <select id="task-category" class="selectDesign form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="assign-task">Assign task to</label>
+                                                <br>
+                                            <select style="width: 100%" id="assign-task" multiple="multiple" required class="form-control select2">
+                                                <option>Ade</option>
+                                                <option>Bunmi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Select Manager</label>
+                                            <select id="manager" class="selectDesign form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="starting-date">Starting Date</label>
+                                            <input type="date" class="form-control" id="starting-date">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="deadline">Deadline</label>
+                                            <input type="date" class="form-control" id="deadline">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Task Status</label>
+                                            <select id="task-status" class="selectDesign form-control"></select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        `
+            }
+        });
+     }
+>>>>>>> 14a2044098042986e1744a40f7a0b93979bc0e0b
 </script>
 
 {{-- <script>
@@ -1450,7 +1725,7 @@ function displayTaskInfo(task_id) {
             var taskDataTable = $('#kt_table_task').DataTable({
                 ajax: "{{ url('/api/v1/tasks') }}",
                 columns: [
-                    { "data": "id" },
+                    { defaultContent: "" },
                     { "data": "name" },
                     { "data": "status.name" },
                     { "data": "manager_id" },

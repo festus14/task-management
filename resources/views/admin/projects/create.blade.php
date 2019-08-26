@@ -5,7 +5,7 @@
     <div class="card-header">
         {{ trans('global.create') }} {{ trans('cruds.project.title_singular') }}
     </div>
-    
+
     <div class="card-body">
         <form action="{{ route("admin.projects.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
