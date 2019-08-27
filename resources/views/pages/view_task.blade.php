@@ -923,11 +923,7 @@
 
         {{-- projectcomment js --}}
         <script>
-<<<<<<< HEAD
             var date = new Date();
-=======
-                var date = new Date();
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
             var formattedDate = (date.toString().slice(0, 25));
             document.getElementById("datee").innerHTML = formattedDate;
 
@@ -1482,12 +1478,8 @@
                                                         <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
                                                             <br>
                                                             <span id="filler"> </span>
-<<<<<<< HEAD
-
-=======
                                                                 ` +
                                                     data.data.comments.map(elem => `
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                                             <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                                                 <div class="m-messenger__message m-messenger__message--in">
                                                                     <div class="m-messenger__message-pic">
@@ -1495,20 +1487,6 @@
                                                                     </div>
                                                                     <div class="m-messenger__message-body">
                                                                         <div class="m-messenger__message-arrow"></div>
-<<<<<<< HEAD
-                                                                        <div class="m-messenger__message-content">
-                                                                            <div class="m-messenger__message-username">
-                                                                                <span class="secondary"><strong>Tomiwa wrote</strong></span>
-                                                                                <span id="datee" style="float: right;"></span>
-                                                                            </div>
-                                                                            <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; max-height: 4000px; display: flex; flex-direction: column;
-                                                                                        ">
-                                                                                Hi Ayo. What time will be the meeting ? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel a ratione unde veritatis hic quidem totam quas, minima officiis ab sapiente necessitatibus doloribus vitae nesciunt atque deserunt.
-                                                                                <br/>
-                                                                                <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
-                                                                                </div>
-                                                                                <br>
-=======
                                                                             <div class="m-messenger__message-content">
                                                                                 <div class="m-messenger__message-username">
                                                                                     <span class="secondary"><strong>Tomiwa wrote</strong></span>
@@ -1521,7 +1499,6 @@
                                                                                     <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                                                                 <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
 
                                                                                 <div class="collapse" id="collapseReply">
@@ -1534,12 +1511,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-<<<<<<< HEAD
-                                                            </div>
-=======
                                                             </div>`)
                                                             +`
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
 
                                                         </div>
                                                     </div>
@@ -1612,7 +1585,7 @@
             }
 
             function documentDTCall(task_id){
-                path_url = "/api/v1/tasks_documents/" + task_id;
+                path_url = "/api/v1/tasks/" + task_id;
 
                 // Single Projects Document DT
                 if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_documents') ) {
@@ -1623,19 +1596,14 @@
                     language: {
                         url: languages. {{ app()->getLocale() }}
                     },
-<<<<<<< HEAD
-                    
-                    ajax: path_url,
-=======
 
                     ajax: path_url,
                             
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                     columns: [
                         {"defaultContent": ""},
-                        {"data": "documents.name"},
-                        {"data": "documents.type"},
-                        {"data": "documents.file"},
+                        {"data": "name"},
+                        {"data": "starting_date"},
+                        {"data": "ending_date"},
                     ],
                     });
                 }
@@ -1655,10 +1623,6 @@
                     },
 
                     ajax: path_url,
-<<<<<<< HEAD
-=======
-                            
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                     columns: [
                         {"defaultContent": ""},
                         {"data": "reports.name"},
@@ -1714,11 +1678,7 @@
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
-<<<<<<< HEAD
                                             <input type="text" name="name" class="form-control" value="${key}" id="create-task" placeholder="Enter Task Name" required>
-=======
-                                            <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                         </div>
 
                                     </div>
@@ -1743,33 +1703,21 @@
                                         <div class="form-group">
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
-<<<<<<< HEAD
-                                                ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}" data.data.managers[key]}</option>`)}
-=======
                                                 ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                                 </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-<<<<<<< HEAD
                                             <input type="date" name="starting_date" class="form-control" value="${key}" id="starting-date" required>
-=======
-                                            <input type="date" name="starting_date" class="form-control" value="" id="starting-date" required>
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
-<<<<<<< HEAD
-                                            <input type="date" name="ending_date" class="form-control" value="${key}" id="deadline" required>
-=======
                                             <input type="date" name="ending_date" class="form-control" value="" id="deadline" required>
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                         </div>
                                     </div>
 
@@ -1794,8 +1742,6 @@
                     }
                 });
             }
-<<<<<<< HEAD
-=======
         // post to the create Task table
             $(document).ready(function(){
                 $('#addTaskform').on('submit', function(e){
@@ -1818,7 +1764,6 @@
                 });
                 });
                 });
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
 
         
             
