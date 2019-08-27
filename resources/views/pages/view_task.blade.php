@@ -917,17 +917,30 @@
                     buttons: dtButtons
                 })
 
+                 //delete user login
+                 $("p").click(function(){
+                var user_id = $(this).data("id");
+                confirm("Are You sure want to delete !");
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('ajax-crud')}}" + '/' + user_id,
+                    success: function (data) {
+                        $("#user_id_" + user_id).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            });
+
             })
 
         </script>
 
         {{-- projectcomment js --}}
         <script>
-<<<<<<< HEAD
-            var date = new Date();
-=======
                 var date = new Date();
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
             var formattedDate = (date.toString().slice(0, 25));
             document.getElementById("datee").innerHTML = formattedDate;
 
@@ -1092,10 +1105,10 @@
                                             <a class="link" href="#" id="" >\
                                                 <i class="flaticon-graphic" style="color:black;"> </i>\
                                             </a>\
-                                            <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                            <form id="deleter" action=""  method="POST" style="display: inline-block;">\
                                                 <input type="hidden" name="_method" value="DELETE">\
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">\
-                                                <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                                <button type="submit" class="link" style="border: none;  value="{{ trans('global.delete') }} background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                                             </form>\
                                         </div>\
                                         ';
@@ -1273,7 +1286,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div onclick="commentDTCall(${data.data.id})" class="card">
+                                                <div onclick="taskComments(${data.data.id})" class="card">
                                                     <div class="card-header" id="headingFour">
                                                         <h6 class="mb-0">
                                                             <span class="" data-toggle="modal" data-target="#commentModal">
@@ -1423,7 +1436,82 @@
 
                 <!-- Comment Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
+        
+    </div>
+                        `
+
+
+                },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+
+                            
+                        }
+
+                        })
+            }
+
+            function documentDTCall(task_id){
+                path_url = "/api/v1/tasks_documents/" + task_id;
+
+                // Single Projects Document DT
+                if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_documents') ) {
+                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable();
+                }else {
+                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable({
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages. {{ app()->getLocale() }}
+                    },
+
+                    ajax: path_url,
+                            
+                    columns: [
+                        {"defaultContent": ""},
+                        {"data": "documents.name"},
+                        {"data": "documents.type"},
+                        {"data": "documents.file"},
+                    ],
+                    });
+                }
+            }
+
+            function reportDTCall(task_id){
+                path_url = "/api/v1/tasks_documents/" + task_id;
+
+                // Single Projects Document DT
+                if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_reports') ) {
+                    let kt_table_single_task_reports = $('#kt_table_single_task_reports').DataTable();
+                }else {
+                    let kt_table_single_task_reports = $('#kt_table_single_task_reports').DataTable({
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages. {{ app()->getLocale() }}
+                    },
+
+                    ajax: path_url,
+                            
+                    columns: [
+                        {"defaultContent": ""},
+                        {"data": "reports.name"},
+                        {"data": "reports.created_at"},
+                        {"data": "reports.document_type"},
+                    ],
+                    });
+                }
+            }
+
+            function taskComments(task_id){
+                // Task Comments Scripts Goes Here
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('/api/v1/tasks') }}"+ '/'+task_id,
+                    success: function (data) {
+                        let commentbody = document.getElementById('commentModal');
+                        // let probSubtypeBody = document.getElementById('subtypeModalBody');
+                        commentbody.innerHTML = `
+                <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
@@ -1448,7 +1536,7 @@
                                         </div>
                                         <div class="m-card-profile__details">
                                             <span class="m-card-profile__name">
-                                                                Task Name
+                                                                ${data.data.name}
                                                             </span>
                                         </div>
                                     </div>
@@ -1473,7 +1561,7 @@
                                     </div>
                                     <!-- <div class="tab-content"> -->
                                     <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
-                                        <div class=" m-scrollable" >
+                                        <div id="forTest" class=" m-scrollable" >
                                             <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
                                                 <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
                                                     <div class="m-messenger__messages mCS-autoHide" style="height: 400px; max-height: auto; position: relative; overflow: hidden;">
@@ -1482,12 +1570,8 @@
                                                         <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
                                                             <br>
                                                             <span id="filler"> </span>
-<<<<<<< HEAD
-
-=======
                                                                 ` +
-                                                    data.data.comments.map(elem => `
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
+                                                        data.data.comments.map(elem => `
                                                             <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                                                 <div class="m-messenger__message m-messenger__message--in">
                                                                     <div class="m-messenger__message-pic">
@@ -1495,20 +1579,6 @@
                                                                     </div>
                                                                     <div class="m-messenger__message-body">
                                                                         <div class="m-messenger__message-arrow"></div>
-<<<<<<< HEAD
-                                                                        <div class="m-messenger__message-content">
-                                                                            <div class="m-messenger__message-username">
-                                                                                <span class="secondary"><strong>Tomiwa wrote</strong></span>
-                                                                                <span id="datee" style="float: right;"></span>
-                                                                            </div>
-                                                                            <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; max-height: 4000px; display: flex; flex-direction: column;
-                                                                                        ">
-                                                                                Hi Ayo. What time will be the meeting ? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel a ratione unde veritatis hic quidem totam quas, minima officiis ab sapiente necessitatibus doloribus vitae nesciunt atque deserunt.
-                                                                                <br/>
-                                                                                <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
-                                                                                </div>
-                                                                                <br>
-=======
                                                                             <div class="m-messenger__message-content">
                                                                                 <div class="m-messenger__message-username">
                                                                                     <span class="secondary"><strong>Tomiwa wrote</strong></span>
@@ -1521,10 +1591,9 @@
                                                                                     <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
-                                                                                <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
+                                                                                <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
 
-                                                                                <div class="collapse" id="collapseReply">
+                                                                                <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
                                                                                     <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
                                                                                     <button type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
@@ -1534,12 +1603,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-<<<<<<< HEAD
-                                                            </div>
-=======
                                                             </div>`)
                                                             +`
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
 
                                                         </div>
                                                     </div>
@@ -1573,7 +1638,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" id="closeModal" class="btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
-                                                                        <button type="button" class="btn btn-primary" class="" onclick="addComment(), $('#makecommentModal').modal('hide');">Comment</button>
+                                                                        <button type="button" class="btn btn-primary" class="" onclick="addComment(), $('#makecommentModal').modal('hide')">Comment</button>
                                                                     </div>
                                                                 </div>
 
@@ -1595,83 +1660,59 @@
 
                 </div>
             </div>
-        </div>
-    </div>
-                        `
-
-
-                },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-
-                            
-                        }
-
-                        })
+        </div>`
+                    }
+                });
             }
 
-            function documentDTCall(task_id){
-                path_url = "/api/v1/tasks_documents/" + task_id;
+            function addComment() {
+           var newObj = {
+               name: "Chiamaka",
+               comment: document.getElementById("Textarea2").value,
+               id: 5
+           }
+           console.log(newObj);
+           data.push(newObj);
+           mapComment();
+           document.getElementById("Textarea2").value = "";
+       }
 
-                // Single Projects Document DT
-                if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_documents') ) {
-                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable();
-                }else {
-                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable({
-                    dom: 'lBfrtip<"actions">',
-                    language: {
-                        url: languages. {{ app()->getLocale() }}
-                    },
-<<<<<<< HEAD
-                    
-                    ajax: path_url,
-=======
+       function addReply() {
+           parentComment = document.getElementById("replydiv");
+           childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
+           <div class="m-messenger__message m-messenger__message--out">
 
-                    ajax: path_url,
-                            
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
-                    columns: [
-                        {"defaultContent": ""},
-                        {"data": "documents.name"},
-                        {"data": "documents.type"},
-                        {"data": "documents.file"},
-                    ],
-                    });
-                }
-            }
+               <div class="m-messenger__message-body">
+                   <div class="m-messenger__message-arrow"></div>
+                   <div class="m-messenger__message-content">
+                   <div class="m-messenger__message-username">
+                   <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
+                   <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
 
-            function reportDTCall(task_id){
-                path_url = "/api/v1/tasks_documents/" + task_id;
+                       </div>
 
-                // Single Projects Document DT
-                if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_reports') ) {
-                    let kt_table_single_task_reports = $('#kt_table_single_task_reports').DataTable();
-                }else {
-                    let kt_table_single_task_reports = $('#kt_table_single_task_reports').DataTable({
-                    dom: 'lBfrtip<"actions">',
-                    language: {
-                        url: languages. {{ app()->getLocale() }}
-                    },
+                       <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
+                         ${document.getElementById("replyTextId").value}
+                                 </p>
+                       </div>
+                       </br>
+                   </div>
+               </div>
+               <div class="m-messenger__message-pic">
+               <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+           </div>
+           </div>
+       </div>`;
+           parentComment.innerHTML = parentComment.innerHTML + childComment;
+           document.getElementById("replyTextId").value = "";
+       }
 
-                    ajax: path_url,
-<<<<<<< HEAD
-=======
-                            
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
-                    columns: [
-                        {"defaultContent": ""},
-                        {"data": "reports.name"},
-                        {"data": "reports.created_at"},
-                        {"data": "reports.document_type"},
-                    ],
-                    });
-                }
-            }
 
-            function taskComments(task_id){
-                // Task Comments Scripts Goes Here
-            }
+
+
+
+
+
             
             let createTask = document.getElementById('addTaskId');
             createTask.addEventListener("click", displayAddTask);
@@ -1714,11 +1755,7 @@
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
-<<<<<<< HEAD
-                                            <input type="text" name="name" class="form-control" value="${key}" id="create-task" placeholder="Enter Task Name" required>
-=======
                                             <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                         </div>
 
                                     </div>
@@ -1743,33 +1780,21 @@
                                         <div class="form-group">
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
-<<<<<<< HEAD
-                                                ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}" data.data.managers[key]}</option>`)}
-=======
                                                 ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                                 </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-<<<<<<< HEAD
-                                            <input type="date" name="starting_date" class="form-control" value="${key}" id="starting-date" required>
-=======
                                             <input type="date" name="starting_date" class="form-control" value="" id="starting-date" required>
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
-<<<<<<< HEAD
-                                            <input type="date" name="ending_date" class="form-control" value="${key}" id="deadline" required>
-=======
                                             <input type="date" name="ending_date" class="form-control" value="" id="deadline" required>
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
                                         </div>
                                     </div>
 
@@ -1794,8 +1819,6 @@
                     }
                 });
             }
-<<<<<<< HEAD
-=======
         // post to the create Task table
             $(document).ready(function(){
                 $('#addTaskform').on('submit', function(e){
@@ -1818,9 +1841,23 @@
                 });
                 });
                 });
->>>>>>> c8695737ff8d504ae5636729ae2eb36ae26659c3
+                
+                // post to the create Task table
+                $('#deleter').on('submit', function(){
+                    var user_id = $(this).data("id");
+                confirm("Are You sure want to delete !");
 
-        
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/projects')}}" + '/' + user_id,
+                    success: function (data) {
+                        $("#user_id_" + user_id).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+                });
             
     </script>
 
