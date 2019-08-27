@@ -1078,9 +1078,9 @@
                     orderable: false,
                     searchable: false,
                     render: function (data, type, full, meta) {
-                    return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                    return '\<button onclick="displayTaskInfo('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                             <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
-                                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"  onclick='+displayTaskInfo(full.id)+' data-target="#moretaskInfoModal"> </i>\
+                                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> </i>\
                                             </a>\
                                             <a class="link" href="">\
                                                 <i class="fas fa-pencil-alt" style="color:black;"></i>\
