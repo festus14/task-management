@@ -8,6 +8,71 @@
 
 @section('css')
     <style>
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTable tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTable tr.header, #myTable tr:hover {
+            background-color: #f1f1f1;
+            }
+
+    </style>
+
+<style>
+        #myInputOne {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableOne {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableOne th, #myTableOne td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableOne tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTable tr.header, #myTableOne tr:hover {
+            background-color: #f1f1f1;
+            }
+
     </style>
 @endsection
 
@@ -408,14 +473,14 @@
                 searchable: false,
                 render: function (data, type, full, meta) {
                     return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
-                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreInfoModal"> </i>\
-                                        </a>\
-                                        <a class="link" href="">\
-                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
-                                        </a>\
-                                        <button onclick="deleteSingleProject('+full.id+')" type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
-                                    </div>\
+                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
+                                    <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreInfoModal"> </i>\
+                                    </a>\
+                                    <a class="link" href="">\
+                                        <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                    </a>\
+                                    <button onclick="deleteSingleProject('+full.id+')" type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                </div>\
                                     ';
                 }
             },],
@@ -442,7 +507,8 @@
                     type: "DELETE",
                     url: "{{ url('admin/projects')}}" + '/' + proID,
                     success: function (data) {
-
+                        console.log(data);
+                        location.reload();
                     },
                     error: function (data) {
                         console.log('Error:', data);
@@ -492,13 +558,10 @@
                                     </h6>
                                 </div>
                                 <div id="collapseOne" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                        <table style=" width: 100%; margin: 10px; padding: 10px" id="kt_table_single_project_task">
+                                    <div class="m-portlet">
+                                        <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
                                             <thead>
                                                 <tr>
-                                                    <div class="m-portlet " id="m_portlet">
-
-                                                        <table id="kt_table_client_projects${datum.id}" class="table table-striped table-hover"
-                                                                style="width: 100%">
                                                     <th>#</th>
                                                     <th>Name</th>
                                                     <th>Starting Date</th>
@@ -508,31 +571,75 @@
                                                 </tr>
                                             </thead>
                                         </table>
+                                    </div>
                                 </div>
                             </div>
 
-
-                            <div class="card">
-                                <div onclick="documentDTCall(${data.data.id})" class="card-header" id="headingTwo">
+                            <div class="accordion" id="accordionExample2">
+                            <div onclick="documentDTCall(${data.data.id})" class="card">
+                                <div class="card-header" id="headingone">
                                     <h6 class="mb-0">
-                                        <span data-toggle="modal" data-target="#documentModal">
+                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                             <i class="m-menu__link-icon flaticon-clipboard"></i>
                                             Documents
                                         </span>
                                     </h6>
                                 </div>
-                            </div>
+                                <div id="collapseTwo" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <input type="text" id="myInput" onkeyup="searchDocument()" placeholder="Search for documents.." title="Type in a documents">
+                                        <table id="myTable">
+                                                <tr class="header">
+                                                    <th style="width:60%;">Name</th>
+                                                    <th style="width:40%;">File</th>
+                                                </tr>
+                                                <tr class="">
+                                                    <td >Actual Name</td>
+                                                    <td >Actual File</td>
+                                                </tr>
+                                                `+ data.data.documents.map(elem => 
+                                                    `<tr>
+                                                        <td>${elem.name}</td>
+                                                        <td>${elem.file}</td>
+                                                    </tr>`
+                                                )+`
+                                        </table>
 
-                            <div class="card">
-                                <div onclick="reportDTCall(${data.data.id})" class="card-header" id="headingThree">
-                                    <h6 class="mb-0">
-                                        <span data-toggle="modal" data-target="#projectreportModal">
-                                                                <i class="m-menu__link-icon flaticon-file"></i>
-                                                                Report
-                                                        </span>
-                                    </h6>
                                 </div>
                             </div>
+
+
+                            <div class="accordion" id="accordionExample3">
+                            <div onclick="reportDTCall(${data.data.id})" class="card">
+                                <div class="card-header" id="headingthree">
+                                    <h6 class="mb-0">
+                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <i class="m-menu__link-icon flaticon-file"></i>
+                                            Reports
+                                        </span>
+                                    </h6>
+                                </div>
+                                <div id="collapseThree" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <input type="textOne" id="myInputOne" onkeyup="searchReport()" placeholder="Search for report.." title="Type in a report">
+                                        <table id="myTableOne">
+                                                <tr class="header">
+                                                    <th style="width:60%;">Name</th>
+                                                    <th style="width:40%;">File</th>
+                                                </tr>
+                                                <tr class="">
+                                                    <td >Report Name</td>
+                                                    <td >Report Content</td>
+                                                </tr>
+                                                `+ data.data.reports.map(elem => 
+                                                    `<tr>
+                                                        <td>${elem.name}</td>
+                                                        <td>${elem.file}</td>
+                                                    </tr>`
+                                                )+`
+                                        </table>
+
+                                </div>
+                            </div>
+
 
                             <div class="card">
                                 <div onclick="projectComments(${data.data.id})" class="card-header" id="headingFour">
@@ -564,124 +671,7 @@
                 </div>
 
 
-                <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="documentModalLongTitle">Project Documents</h5>
-                            <button type="button" class="close" onclick="$('#documentModal').modal('hide');" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="m-portlet " id="m_portlet">
-                                <div class="m-portlet__head">
-                                    <div class="m-portlet__head-caption">
-                                        <div class="m-portlet__head-title">
-                                            <span class="m-portlet__head-icon">
-                                                <i class="flaticon-list-1"> </i>
-                                            </span>
-                                            <h3 class="m-portlet__head-text">
-                                                Documents
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="m-portlet__head-tools">
-                                        <ul class="m-portlet__nav">
-                                            <li class="m-portlet__nav-item">
-                                                <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addDocumentModal" class="btn m-btn--icon m-btn--pill">
-                                                    <span>
-                                                        <i class="la la-plus"></i>
-                                                        <span>
-                                                            Add Document
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="m-portlet__body">
-                                    <table id="kt_table_single_project_documents" class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>S/N</th>
-                                                <th>Name</th>
-                                                <th>Version</th>
-                                                <th>Date Created</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </div>
-                            <!--end::Portlet-->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-
-
-                <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="documentModalLongTitle">Project reports</h5>
-                            <button type="button" class="close" onclick="$('#projectreportModal').modal('hide');" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="m-portlet " id="m_portlet">
-                                <div class="m-portlet__head">
-                                    <div class="m-portlet__head-caption">
-                                        <div class="m-portlet__head-title">
-                                            <span class="m-portlet__head-icon">
-                                                <i class="flaticon-list-1"> </i>
-                                            </span>
-                                            <h3 class="m-portlet__head-text">
-                                                Reports
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="m-portlet__head-tools">
-                                        <ul class="m-portlet__nav">
-                                            <li class="m-portlet__nav-item">
-                                                <a style="color:white; background-color: #8a2a2b;" class="btn m-btn--icon m-btn--pill">
-                                                    <span data-toggle="modal" data-target="#addReportModal" aria-expanded="false" aria-controls="">
-                                                        <i class="la la-plus"></i>
-                                                        <span>
-                                                            Add Report
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="m-portlet__body">
-                                    <table id="kt_table_single_project_reports" class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>S/N</th>
-                                                <th>Report</th>
-                                                <th>Date Uploaded</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </div>
-                            <!--end::Portlet-->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
+                
 
                 `
 
@@ -696,6 +686,45 @@
 
             })
 
+        }
+
+            // Search Through Documents FUnction
+        function searchDocument() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }       
+            }
+        }
+
+        function searchReport(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputOne");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableOne");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }       
+            }
         }
 
         //   Function for calling Client Tasks on the DT
@@ -734,8 +763,8 @@
                         orderable: false,
                         searchable: false,
                         render: function (data, type, full, meta) {
-                            return '\<button onclick=displayTaskInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                    <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
+                            return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                    <div onclick=displayTaskInfo('+full.id+') class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
                                         <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreInfoModal"> </i>\
                                         </a>\
                                         <a class="link" href="">\
