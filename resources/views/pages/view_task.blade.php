@@ -1596,7 +1596,7 @@
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
                                                                                     <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 
@@ -1664,6 +1664,56 @@
                     }
                 });
             }
+            function mapComment() {
+    data.map((elem, i) => {
+        console.log(elem.comment)
+        let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
+                        <div class="m-messenger__message m-messenger__message--out">
+                        
+                            <div class="m-messenger__message-body">
+                                <div class="m-messenger__message-arrow"></div>
+                                <div class="m-messenger__message-content">
+                                <div class="m-messenger__message-username">
+                                <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
+                                <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
+                                
+                                    </div>
+                                    <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
+                                        ${elem.comment}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__message-pic">
+                            <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
+                        </div>
+                        </div>
+                    </div>` 
+//                     :
+//             `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
+//     <div class="m-messenger__message m-messenger__message--out">
+    
+//         <div class="m-messenger__message-body">
+//             <div class="m-messenger__message-arrow"></div>
+//             <div class="m-messenger__message-content">
+//             <div class="m-messenger__message-username">
+//             <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
+//             <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
+               
+//                 </div>
+//                 <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
+//                     ${elem.comment}
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="m-messenger__message-pic">
+//         <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
+//     </div>
+//     </div>
+// </div>`
+        document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
+
+    })
+}
 
             function addComment() {
            var newObj = {
