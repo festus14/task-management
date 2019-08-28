@@ -22,6 +22,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin'], 
     Route::apiResource('project-comments', 'ProjectCommentsApiController');
 
     Route::apiResource('tast-categories', 'TastCategoryApiController');
+    Route::get('create_task_categories', 'TastCategoryApiController@createTaskCategory');
 
     Route::apiResource('tasks', 'TaskApiController');
     
