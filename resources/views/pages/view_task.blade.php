@@ -940,7 +940,11 @@
 
         {{-- projectcomment js --}}
         <script>
+<<<<<<< HEAD
+            var date = new Date();
+=======
                 var date = new Date();
+>>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
             var formattedDate = (date.toString().slice(0, 25));
             document.getElementById("datee").innerHTML = formattedDate;
 
@@ -1571,7 +1575,11 @@
                                                             <br>
                                                             <span id="filler"> </span>
                                                                 ` +
+<<<<<<< HEAD
+                                                    data.data.comments.map(elem => `
+=======
                                                         data.data.comments.map(elem => `
+>>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                                             <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                                                 <div class="m-messenger__message m-messenger__message--in">
                                                                     <div class="m-messenger__message-pic">
@@ -1591,7 +1599,11 @@
                                                                                     <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
+<<<<<<< HEAD
+                                                                                <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
+=======
                                                                                 <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
+>>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
@@ -1757,11 +1769,51 @@
            document.getElementById("replyTextId").value = "";
        }
 
+<<<<<<< HEAD
+            function documentDTCall(task_id){
+                path_url = "/api/v1/tasks/" + task_id;
+
+                // Single Projects Document DT
+                if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_documents') ) {
+                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable();
+                }else {
+                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable({
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages. {{ app()->getLocale() }}
+                    },
+
+                    ajax: path_url,
+                            
+                    columns: [
+                        {"defaultContent": ""},
+                        {"data": "name"},
+                        {"data": "starting_date"},
+                        {"data": "ending_date"},
+                    ],
+                    });
+                }
+            }
+=======
+
+
+>>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
 
 
-
-
+<<<<<<< HEAD
+                    ajax: path_url,
+                    columns: [
+                        {"defaultContent": ""},
+                        {"data": "reports.name"},
+                        {"data": "reports.created_at"},
+                        {"data": "reports.document_type"},
+                    ],
+                    });
+                }
+            }
+=======
+>>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
             
             let createTask = document.getElementById('addTaskId');
@@ -1805,7 +1857,11 @@
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
+<<<<<<< HEAD
+                                            <input type="text" name="name" class="form-control" value="${key}" id="create-task" placeholder="Enter Task Name" required>
+=======
                                             <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
+>>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                         </div>
 
                                     </div>
@@ -1837,7 +1893,11 @@
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
+<<<<<<< HEAD
+                                            <input type="date" name="starting_date" class="form-control" value="${key}" id="starting-date" required>
+=======
                                             <input type="date" name="starting_date" class="form-control" value="" id="starting-date" required>
+>>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                         </div>
                                     </div>
 
@@ -1891,11 +1951,14 @@
                 });
                 });
                 });
+<<<<<<< HEAD
+=======
                 
                 // post to the create Task table
                 $('#deleter').on('submit', function(){
                     var user_id = $(this).data("id");
                 confirm("Are You sure want to delete !");
+>>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
                 $.ajax({
                     type: "DELETE",
