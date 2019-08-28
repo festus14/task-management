@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
+use App\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTastCategoryRequest;
 use App\Http\Requests\UpdateTastCategoryRequest;
+use App\Project;
+use App\ProjectSubType;
+use App\ProjectType;
+use App\TaskStatus;
 use App\TastCategory;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -84,6 +90,16 @@ class TastCategoryApiController extends Controller
         }
         catch(\Exception $e){
             return response()->json(['error'=> 'failed to delete record'], 401);
+        }
+    }
+    public function createTaskCategory(Request $request)
+    {
+        try {
+            $project_types = ProjectType::all()->pluck('name', 'id');
+            $projects_sub_types = ProjectSubType::all()->pluck('name', 'id');
+            return response()->json(['data' => compact('projects_sub_types', 'project_types')], 200);
+        } catch (\Exception $e) {
+            return response()->json(['data'=>[]], 401);
         }
     }
 }
