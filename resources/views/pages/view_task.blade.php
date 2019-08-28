@@ -743,33 +743,38 @@
                               </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form  action="{{ url("/api/v1/tast-categories") }}" method="POST" id="addtaskCategoryform" enctype="multipart/form-data">
+                        @csrf
                         <div class="col-md-12 row">
                             <div class="col-md-6 form-group mt-3">
                                 <label>Name</label>
-                                <input type="text" class="form-control" id="category-name" placeholder="">
+                                <input type="text" class="form-control" name="name" id="category-name" placeholder="">
                             </div>
 
                             <div class="col-md-6 form-group mt-3">
                                 <label>Project Type</label>
-                                <select id="projectTypeList" class="selectDesign form-control"></select>
+                                <select id="projectTypeList"  name="project_type_id" class="selectDesign form-control">
+
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12 row">
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Sub Category</label>
-                                    <select id="subCategory" class="selectDesign form-control"></select>
+                                    <select id="subCategory" name="sub_category_id" class="selectDesign form-control">
+
+                                    </select>
                                 </div>
 
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Weight</label>
-                                    <input type="text" class="form-control" id="weightId" placeholder="">
+                                    <input type="text"  name="weight" class="form-control" id="weightId" placeholder="">
                                 </div>
                         </div>
                         <div class=" row col-md-12">
                             <div class="col-md-12 form-group mt-3">
-                                <label for="exampleFormControlTextarea1">Desciption</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <label for="exampleFormControlTextarea1">Description</label>
+                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
@@ -792,11 +797,12 @@
                                     <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                <form id="addStatusform" action="{{ route("admin.project-types.store") }}"  method="POST" enctype="multipart/form-data">
+                <form id="addStatusform" action="{{ url('/api/v1/task-statuses') }}"  method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" id="statusInput" name="name" placeholder="">
+                            <input type="text" value="" class="form-control" id="statusInput" name="name" placeholder="">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -940,11 +946,7 @@
 
         {{-- projectcomment js --}}
         <script>
-<<<<<<< HEAD
-            var date = new Date();
-=======
                 var date = new Date();
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
             var formattedDate = (date.toString().slice(0, 25));
             document.getElementById("datee").innerHTML = formattedDate;
 
@@ -1100,26 +1102,34 @@
                     searchable: false,
                     render: function (data, type, full, meta) {
                     return '\<button onclick="displayTaskInfo('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                            <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
-                                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> </i>\
-                                            </a>\
-                                            <a class="link" href="">\
-                                                <i class="fas fa-pencil-alt" style="color:black;"></i>\
-                                            </a>\
-                                            <a class="link" href="#" id="" >\
-                                                <i class="flaticon-graphic" style="color:black;"> </i>\
-                                            </a>\
-                                            <form id="deleter" action=""  method="POST" style="display: inline-block;">\
-                                                <input type="hidden" name="_method" value="DELETE">\
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">\
-                                                <button type="submit" class="link" style="border: none;  value="{{ trans('global.delete') }} background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
-                                            </form>\
-                                        </div>\
+                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                                <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> </i>\
+                                </a>\
+                                <a class="link" href="">\
+                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                </a>\
+                            <button onclick="deleteSingleTask('+full.id+')" type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                            </div>\
                                         ';
                     }
                 },
                 ],
             });
+
+             // Delete Task Function
+        function deleteSingleTask(proID){
+            $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/tasks')}}" + '/' + proID,
+                    success: function (data) {
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+        }
 
 
 
@@ -1357,7 +1367,7 @@
                                     </div>
                                     <div style="width=100%" class="m-portlet__body">
                                         <table id="kt_table_single_task_documents" style="width=100%" class="table table-striped table-hover">
-                                            <thead >
+                                            <thead>
                                                 <tr>
                                                     <th>SN</th>
                                                     <th>Name</th>
@@ -1575,11 +1585,7 @@
                                                             <br>
                                                             <span id="filler"> </span>
                                                                 ` +
-<<<<<<< HEAD
-                                                    data.data.comments.map(elem => `
-=======
                                                         data.data.comments.map(elem => `
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                                             <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                                                 <div class="m-messenger__message m-messenger__message--in">
                                                                     <div class="m-messenger__message-pic">
@@ -1599,11 +1605,7 @@
                                                                                     <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
-<<<<<<< HEAD
-                                                                                <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
-=======
                                                                                 <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
@@ -1769,52 +1771,6 @@
            document.getElementById("replyTextId").value = "";
        }
 
-<<<<<<< HEAD
-            function documentDTCall(task_id){
-                path_url = "/api/v1/tasks/" + task_id;
-
-                // Single Projects Document DT
-                if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_documents') ) {
-                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable();
-                }else {
-                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable({
-                    dom: 'lBfrtip<"actions">',
-                    language: {
-                        url: languages. {{ app()->getLocale() }}
-                    },
-
-                    ajax: path_url,
-                            
-                    columns: [
-                        {"defaultContent": ""},
-                        {"data": "name"},
-                        {"data": "starting_date"},
-                        {"data": "ending_date"},
-                    ],
-                    });
-                }
-            }
-=======
-
-
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
-
-
-
-<<<<<<< HEAD
-                    ajax: path_url,
-                    columns: [
-                        {"defaultContent": ""},
-                        {"data": "reports.name"},
-                        {"data": "reports.created_at"},
-                        {"data": "reports.document_type"},
-                    ],
-                    });
-                }
-            }
-=======
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
-
             
             let createTask = document.getElementById('addTaskId');
             createTask.addEventListener("click", displayAddTask);
@@ -1857,11 +1813,7 @@
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
-<<<<<<< HEAD
-                                            <input type="text" name="name" class="form-control" value="${key}" id="create-task" placeholder="Enter Task Name" required>
-=======
                                             <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                         </div>
 
                                     </div>
@@ -1893,11 +1845,7 @@
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-<<<<<<< HEAD
-                                            <input type="date" name="starting_date" class="form-control" value="${key}" id="starting-date" required>
-=======
                                             <input type="date" name="starting_date" class="form-control" value="" id="starting-date" required>
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                         </div>
                                     </div>
 
@@ -1951,14 +1899,11 @@
                 });
                 });
                 });
-<<<<<<< HEAD
-=======
                 
                 // post to the create Task table
                 $('#deleter').on('submit', function(){
                     var user_id = $(this).data("id");
                 confirm("Are You sure want to delete !");
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
                 $.ajax({
                     type: "DELETE",
@@ -1971,7 +1916,32 @@
                     }
                 });
                 });
-            
+
+                // post to the Task status table
+                $('#addStatusform').on('submit', function(e){
+                e.preventDefault();
+
+                $.ajax({
+                type: "POST",
+                url: '{{ url("/api/v1/task-statuses") }}',
+                data: $('#addStatusform').serialize(),
+                success: function (response, data) {
+                    console.log(response)
+                    $('#AddStatus').modal('hide');
+                    alert("Task status successfully created");
+                    document.getElementById('statusInput').value = "";
+                    //location.reload();
+                    console.log(data);
+                    console.log(response);
+                    return(data);
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("Task status creation failed");
+                }
+                });
+                });
+                
     </script>
 
 

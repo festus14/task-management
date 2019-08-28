@@ -27,7 +27,7 @@ class TaskStatusApiController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|unique:task_statuses,name,' . request()->route('task_status')->id,
+                'name' => 'required|unique:task_statuses,name,',
             ]
         );
         if ($validator->fails()) {
