@@ -1724,7 +1724,6 @@
            document.getElementById("replyTextId").value = "";
        }
 
-<<<<<<< HEAD
             function documentDTCall(task_id){
                 path_url = "/api/v1/tasks/" + task_id;
 
@@ -1753,8 +1752,6 @@
 
 
 
-=======
->>>>>>> b72a55111984611d1aefd1efe8d9fa42cf55eb6d
             
             let createTask = document.getElementById('addTaskId');
             createTask.addEventListener("click", displayAddTask);
