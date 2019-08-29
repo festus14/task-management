@@ -29,7 +29,7 @@ class ProjectSubTypeApiController extends Controller
             $request->all(),
             [
                 'project_type_id' => 'required|integer',
-                'name' => 'required|min:3|max:60|unique:project_sub_types,name,' . request()->route('project_sub_type')->id
+                'name' => 'required|min:3|max:60|unique:project_sub_types,name,',
             ]
         );
         if ($validator->fails()) {
