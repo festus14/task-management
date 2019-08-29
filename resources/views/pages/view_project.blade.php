@@ -612,7 +612,7 @@
             </div>
         </div>
         {{-- endreport DT tModal --}}
-        
+
         {{-- Add report Modal --}}
         <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">

@@ -110,6 +110,26 @@
         </div>
     {{-- end Create task Model --}}
 
+    <!-- Edit task Modal -->
+    <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                        <button type="button" class="close" onclick="$('#editTaskModal').modal('hide');" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="editTaskBody" class="modal-body col-md-12">
+
+
+                    </div>
+
+                    </div>
+                </div>
+        </div>
+    {{-- end Create task Model --}}
+
     {{-- Task category datatable modal --}}
         <div class="modal fade" id="taskcategoryDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:70%; min-width:400px;">
@@ -136,7 +156,7 @@
                                 <div class="m-portlet__head-tools">
                                     <ul class="m-portlet__nav">
                                         <li class="m-portlet__nav-item">
-                                            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addTaskCategory">
+                                            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" onclick="createTaskCategoryAjaxGet()" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addTaskCategory">
                                                 <span>
                                                     <i class="la la-plus"></i>
                                                     <span>
@@ -742,49 +762,12 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                 </div>
-                <div class="modal-body">
-                    <form  action="{{ url("/api/v1/tast-categories") }}" method="POST" id="addtaskCategoryform" enctype="multipart/form-data">
-                        @csrf
-                        <div class="col-md-12 row">
-                            <div class="col-md-6 form-group mt-3">
-                                <label>Name</label>
-                                <input type="text" class="form-control" name="name" id="category-name" placeholder="">
-                            </div>
-
-                            <div class="col-md-6 form-group mt-3">
-                                <label>Project Type</label>
-                                <select id="projectTypeList"  name="project_type_id" class="selectDesign form-control">
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12 row">
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Sub Category</label>
-                                    <select id="subCategory" name="sub_category_id" class="selectDesign form-control">
-
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Weight</label>
-                                    <input type="text"  name="weight" class="form-control" id="weightId" placeholder="">
-                                </div>
-                        </div>
-                        <div class=" row col-md-12">
-                            <div class="col-md-12 form-group mt-3">
-                                <label for="exampleFormControlTextarea1">Description</label>
-                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-3 form-group mt-2">
-                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                        </div>
-                    </form>
+                <div id="taskCategoryModalbody" class="modal-body">
+                    
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     {{-- end Task Category Modal --}}
 
     <!--modalled Add Status Modal -->
@@ -1106,7 +1089,7 @@
                                 <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> </i>\
                                 </a>\
                                 <a class="link" href="">\
-                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                    <i class="fas fa-pencil-alt" onclick="editTask('+full.id+') data-toggle="modal" data-target="#editTaskModal" style="color:black;"></i>\
                                 </a>\
                             <button onclick="deleteSingleTask('+full.id+')" type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                             </div>\
@@ -1772,6 +1755,7 @@
        }
 
             
+       //Ajax populate create task
             let createTask = document.getElementById('addTaskId');
             createTask.addEventListener("click", displayAddTask);
 
@@ -1877,6 +1861,112 @@
                     }
                 });
             }
+
+
+             //Edit task
+            editTask(taskId){
+                $.ajax({
+                    type: "GET",
+                    url:  "{{ url('admin/tasks')}}" + '/' + taskId,
+                    success: function (data) {
+                        let createTaskBody = document.getElementById('createTaskBody');
+                        // let probSubtypeBody = document.getElementById('subtypeModalBody');
+                        createTaskBody.innerHTML = `
+                    <div class="modal-body">
+                        <form id="editTaskform" action="{{ url('/api/v1/tasks') }}"  method="PUT" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="client-list">Select Client</label>
+                                            <select id="client-list" name="client_id" class="selectDesign form-control">
+                                                    ${Object.keys(data.data.clients).map((key, index) => `<option value="${key}">${data.data.clients[key]}</option>`)}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Select Project</label>
+                                            <select id="project-list" name="project_id" class="selectDesign form-control">
+                                                ${Object.keys(data.data.projects).map((key, index) => `<option value="${key}">${data.data.projects[key]}</option>`)}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label>Select Project Subtype</label>
+                                            <select id="project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
+                                                ${Object.keys(data.data.projects_sub_type).map((key, index) => `<option value="${key}">${data.data.projects_sub_type[key]}</option>`)}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create-task">Task Name</label>
+                                            <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Task Category</label>
+                                            <select id="task-category" name="category_id" class="selectDesign form-control">
+                                                ${Object.keys(data.data.categories).map((key, index) => `<option value="${key}">${data.data.categories[key]}</option>`)}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="assign-task">Assign task to</label>
+                                                <br>
+                                            <select style="width: 100%" name="assinged_tos" id="assign-task" multiple="multiple" required class="form-control select2">
+                                                ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Select Manager</label>
+                                            <select id="manager" name="manager_id" class="selectDesign form-control">
+                                                ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="starting-date">Starting Date</label>
+                                            <input type="date" name="starting_date" class="form-control" value="" id="starting-date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="deadline">Deadline</label>
+                                            <input type="date" name="ending_date" class="form-control" value="" id="deadline" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Task Status</label>
+                                            <select id="task-status" name="status_id" class="selectDesign form-control">
+                                                ${Object.keys(data.data.statuses).map((key, index) => `<option value="${key}" >${data.data.statuses[key]}</option>`)}
+                                                </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        `
+                    }
+                });
+            }
+
+
         // post to the create Task table
             $(document).ready(function(){
                 $('#addTaskform').on('submit', function(e){
@@ -1900,20 +1990,82 @@
                 });
                 });
                 
-                // post to the create Task table
-                $('#deleter').on('submit', function(){
-                    var user_id = $(this).data("id");
-                confirm("Are You sure want to delete !");
+
+            //Ajax populate create task category
+            function createTaskCategoryAjaxGet(){
+                $.ajax({
+                    type: "GET",
+                    url: '{{ url("/api/v1/create_task_categories") }}',
+                    success: function (data) {
+                        let createTaskCategory = document.getElementById('taskCategoryModalbody');
+                        createTaskCategory.innerHTML = `
+                        <form  action="{{ url("/api/v1/tast-categories") }}" method="POST" id="addtaskCategoryform" enctype="multipart/form-data">
+                        @csrf
+                        <div class="col-md-12 row">
+                            <div class="col-md-6 form-group mt-3">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="name" id="category-name" placeholder="">
+                            </div>
+
+                            <div class="col-md-6 form-group mt-3">
+                                <label>Project Type</label>
+                                <select id="projectTypeList"  name="project_type_id" class="selectDesign form-control">
+                                        ${Object.keys(data.data.project_types).map((key, index) => `<option value="${key}">${data.data.project_types[key]}</option>`)}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 row">
+                                <div class="col-md-6 form-group mt-3">
+                                    <label>Sub Category</label>
+                                    <select id="subCategory" name="sub_category_id" class="selectDesign form-control">
+                                        ${Object.keys(data.data.projects_sub_types).map((key, index) => `<option value="${key}">${data.data.projects_sub_types[key]}</option>`)}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 form-group mt-3">
+                                    <label>Weight</label>
+                                    <input type="number"  name="weight" value="" class="form-control" id="weightId" placeholder="">
+                                </div>
+                        </div>
+                        <div class=" row col-md-12">
+                            <div class="col-md-12 form-group mt-3">
+                                <label for="exampleFormControlTextarea1">Description</label>
+                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group mt-2">
+                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                        </div>
+                    </form>
+                        `
+                    }
+                });
+            }
+
+
+             // post to the Task category table
+             $('#').on('submit', function(e){
+                e.preventDefault();
 
                 $.ajax({
-                    type: "DELETE",
-                    url: "{{ url('admin/projects')}}" + '/' + user_id,
-                    success: function (data) {
-                        $("#user_id_" + user_id).remove();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
+                type: "POST",
+                url: '{{ url("/api/v1/tast-categories") }}',
+                data: $('#addtaskCategoryform').serialize(),
+                success: function (response, data) {
+                    console.log(response)
+                    getTaskCategoryAjaxDT();
+                    $('#addTaskCategory').modal('hide');
+                    alert("Task category successfully created");
+                    //document.getElementById('statusInput').value = "";
+                    //location.reload();
+                    console.log(data);
+                    console.log(response);
+                    return(data);
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("Task category creation failed");
+                }
                 });
                 });
 
