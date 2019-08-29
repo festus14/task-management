@@ -7,80 +7,157 @@
 @section('sub_header', 'Clients Dashboard')
 
 @section('css')
-    <style>
-        #myInput {
-            background-image: url('/css/searchicon.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            width: 100%;
-            font-size: 14px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            }
+        <style>
+            #myInput {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
 
-            #myTable {
-            border-collapse: collapse;
-            width: 100%;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            }
+                #myTable {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
 
-            #myTable th, #myTable td {
-            text-align: left;
-            padding: 12px;
-            }
+                #myTable th, #myTable td {
+                text-align: left;
+                padding: 12px;
+                }
 
-            #myTable tr {
-            border-bottom: 1px solid #ddd;
-            }
+                #myTable tr {
+                border-bottom: 1px solid #ddd;
+                }
 
-            #myTable tr.header, #myTable tr:hover {
-            background-color: #f1f1f1;
-            }
+                #myTable tr.header, #myTable tr:hover {
+                background-color: #f1f1f1;
+                }
 
-    </style>
+        </style>
 
-<style>
-        #myInputOne {
-            background-image: url('/css/searchicon.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            width: 100%;
-            font-size: 14px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            }
+        <style>
+            #myInputOne {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
 
-            #myTableOne {
-            border-collapse: collapse;
-            width: 100%;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            }
+                #myTableOne {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
 
-            #myTableOne th, #myTableOne td {
-            text-align: left;
-            padding: 12px;
-            }
+                #myTableOne th, #myTableOne td {
+                text-align: left;
+                padding: 12px;
+                }
 
-            #myTableOne tr {
-            border-bottom: 1px solid #ddd;
-            }
+                #myTableOne tr {
+                border-bottom: 1px solid #ddd;
+                }
 
-            #myTable tr.header, #myTableOne tr:hover {
-            background-color: #f1f1f1;
-            }
+                #myTable tr.header, #myTableOne tr:hover {
+                background-color: #f1f1f1;
+                }
 
-    </style>
+        </style>
 @endsection
 
 @section('content')
+
+        {{-- Create Client Modal --}}
+        <div style="margin-right: 15%; margin-bottom: 5%;">
+            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air btn-success pull-right" id="createClient" style="background-color:; color:white;" data-toggle="modal" data-target="#createClientModal">
+                    <span>
+                        <i class="la la-plus"></i>
+                        <span>
+                            Create Client
+                        </span>
+                    </span>
+                </a>
+        </div>
+        {{-- End Create Client Modal --}}
+        <div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create Client</h5>
+                            <button type="button" class="close" onclick="$('#createClientModal').modal('hide');" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div id="createClientModalBody" class="modal-body col-md-12">
+                            <div class="col-md-12 ">
+                                <form id="createClientForm" action="{{ url('/api/v1/clients') }}"  method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row col-md-12">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="company-name">Company Name</label>
+                                                <input type="text" name="name" class="form-control" id="company-name" placeholder="" required>
+                                            </div>
+                                    
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="date-of-eng">Date Of Engagement</label>
+                                                <input type="date" name="date_of_engagement" class="form-control" id="date-of-eng" placeholder="" required>
+                                            </div>
+                                    </div>
+                                    <div class="row col-md-12">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="address">Address</label>
+                                                <input type="text" name="address" class="form-control" id="address" placeholder="" required>
+                                            </div>
+                        
+                                                    
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="expiry-date">Expiry Date</label>
+                                                <input type="date" name="expiry_date" class="form-control" id="expiry-date" placeholder="">
+                                            </div>
+                                                
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" class="form-control" id="email" required>
+                                            </div>
+                                    
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="phone-num">Phone Number</label>
+                                                <input type="" name="phone" class="form-control" id="phone-num" required>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-2 form-group mt-3">
+                                                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>   
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+            
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
     <!-- Begin: List Client -->
-    <div class="m-content">
-        <div class="m-portlet__body  m-portlet__body--no-padding">
-            <div class="row m-row--no-padding m-row--col-separator-xl" id="client-cards">
+    <div class="m-content" style="max-width: 100%">
+        <div class="m-portlet__body  m-portlet__body--no-padding" style="max-width: 100%">
+            <div class="row m-row--no-padding m-row--col-separator-xl" style="width: 100%" id="client-cards">
 
             </div>
         </div>
@@ -935,6 +1012,34 @@
             // Comment Function Goes Here
             
         }
+
+
+        // Create Client Script 
+        $('#createClientForm').on('submit', function(e){
+            e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/clients") }}',
+                    data: $('#createClientForm').serialize(),
+                    success: function (response, data) {
+                        alert("Client created");
+                        //document.getElementById('projTypeId').value = "";
+                        $('#createClientModal').modal('hide');
+                        //getProjetTypeDT();
+                        location.reload();
+                        console.log(data);
+                        console.log(response);
+                        return(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("Client creation failed");
+                        location.reload();
+                    }
+
+                });
+                    });
+                    
 
         $.fn.dataTable.ext.classes.sPageButton = '';
         var deleteButtonTrans = 'Delete Selected';

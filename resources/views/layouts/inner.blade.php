@@ -483,119 +483,29 @@
 								</button>
                             <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light ">
                                 <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
-                                    <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="index.html" class="m-menu__link ">
-                                            <span class="m-menu__item-here"></span>
+                                    <li class="m-menu__item"  aria-haspopup="true">
+                                        <a href="{{ url('/admin') }}" class="m-menu__link ">
+                                            @yield('active_arrow_one')
                                             <span class="m-menu__link-text">
 													Dashboard
 												</span>
                                         </a>
                                     </li>
-                                    <li class="m-menu__item  m-menu__item--active  m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="click" aria-haspopup="true">
-                                        <a href="#" class="m-menu__link m-menu__toggle">
-                                            <span class="m-menu__item-here"></span>
+                                    <li class="m-menu__item m-menu__item--submenu m-menu__item--rel" aria-haspopup="true">
+                                        <a href="{{ url('admin/view_project') }}" class="m-menu__link">
+                                            @yield('active_arrow_two')
                                             <span class="m-menu__link-text">
 													Project Management
 												</span>
-                                            <i class="m-menu__hor-arrow la la-angle-down"></i>
-                                            <i class="m-menu__ver-arrow la la-angle-right"></i>
                                         </a>
-                                        <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-                                            <span class="m-menu__arrow m-menu__arrow--adjust"></span>
-                                            <ul class="m-menu__subnav">
-                                                <li class="m-menu__item  m-menu__item--active " aria-haspopup="true">
-                                                    {{-- <a href="{{ route('/')}}" class="m-menu__link "> --}}
-                                                        <a href="{{ url('/admin/view_project') }}" class="m-menu__link ">
-                                                        <i class="m-menu__link-icon flaticon-graphic"></i>
-                                                       <span class="m-menu__link-title">
-																<span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">
-																		Projects
-																	</span>
-                                                        </span>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-                                                    <a href="#" class="m-menu__link m-menu__toggle">
-                                                        <i class="m-menu__link-icon flaticon-file"></i>
-                                                        <span class="m-menu__link-text">
-																Documents
-															</span>
-                                                        <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="inner.html" class="m-menu__link ">
-                                                        <i class="m-menu__link-icon flaticon-clipboard"></i>
-                                                        <span class="m-menu__link-text">
-																Project Report
-															</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-                                                    <a href="#" class="m-menu__link m-menu__toggle">
-                                                        <i class="m-menu__link-icon flaticon-comment"></i>
-                                                        <span class="m-menu__link-text">
-																Project Comments
-															</span>
-                                                        <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
-                                    <li class="m-menu__item  m-menu__item--active  m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="click" aria-haspopup="true">
-                                        <a href="#" class="m-menu__link m-menu__toggle">
+                                    <li class="m-menu__item m-menu__item--submenu m-menu__item--rel" aria-haspopup="true" style="onhover:">
+                                        <a href="{{ url('admin/view_task') }}" class="m-menu__link">
+                                            @yield('active_arrow_three')
                                             <span class="m-menu__link-text">
 													Task Management
-												</span>
-                                            <i class="m-menu__hor-arrow la la-angle-down"></i>
-                                            <i class="m-menu__ver-arrow la la-angle-right"></i>
+											</span>
                                         </a>
-                                        <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-                                            <span class="m-menu__arrow m-menu__arrow--adjust"></span>
-                                            <ul class="m-menu__subnav">
-                                                <li class="m-menu__item  m-menu__item--active " aria-haspopup="true">
-                                                    <a href="" class="m-menu__link ">
-                                                        <i class="m-menu__link-icon flaticon-graphic"></i>
-                                                        <span class="m-menu__link-title">
-																<span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">
-																		Task Mgt
-																	</span>
-                                                        </span>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-                                                    <a href="#" class="m-menu__link m-menu__toggle">
-                                                        <i class="m-menu__link-icon flaticon-map"></i>
-                                                        <span class="m-menu__link-text">
-																Task Category
-															</span>
-                                                        <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="inner.html" class="m-menu__link ">
-                                                        <i class="m-menu__link-icon flaticon-graphic-2"></i>
-                                                        <span class="m-menu__link-text">
-																Task Status
-															</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-                                                    <a href="#" class="m-menu__link m-menu__toggle">
-                                                        <i class="m-menu__link-icon flaticon-comment"></i>
-                                                        <span class="m-menu__link-text">
-																Task Comments
-															</span>
-                                                        <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
                                     <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel m-menu__item--more m-menu__item--icon-only" data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
                                         <a href="#" class="m-menu__link m-menu__toggle">
@@ -885,7 +795,7 @@
                                             </a>
                                         </li>
                                         <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                            <a href="inner.html" class="m-menu__link ">
+                                            <a href="{{ url('/admin/client_dashboard') }}" class="m-menu__link ">
                                                 <span class="m-menu__link-text">
                                                         View Client(s)
                                                     </span>

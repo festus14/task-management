@@ -3,6 +3,9 @@
 @section('title', 'Task')
 
 @section('header', 'Task Management')
+@section('active_arrow_three')
+    <span class="m-menu__item-here"></span>
+@endsection
 
 @section('sub_header', 'Tasks')
 @section('css')
@@ -940,11 +943,7 @@
 
         {{-- projectcomment js --}}
         <script>
-<<<<<<< HEAD
-            var date = new Date();
-=======
                 var date = new Date();
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
             var formattedDate = (date.toString().slice(0, 25));
             document.getElementById("datee").innerHTML = formattedDate;
 
@@ -1283,9 +1282,9 @@
                                                     <div class="card-header" id="headingThree">
                                                         <h6 class="mb-0">
                                                             <span data-toggle="modal" data-target="#taskReportModal">
-                                                                                <i class="m-menu__link-icon flaticon-file"></i>
-                                                                                Report
-                                                                        </span>
+                                                                <i class="m-menu__link-icon flaticon-file"></i>
+                                                                Report
+                                                            </span>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -1515,11 +1514,11 @@
                         let commentbody = document.getElementById('commentModal');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
                         commentbody.innerHTML = `
-        <div class="modal-dialog modal-dialog-centered" id="commentPage" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
+                <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                    <button type="button" class="close" onclick="$('#commentPage').modal('hide');  data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -1575,11 +1574,7 @@
                                                             <br>
                                                             <span id="filler"> </span>
                                                                 ` +
-<<<<<<< HEAD
-                                                    data.data.comments.map(elem => `
-=======
                                                         data.data.comments.map(elem => `
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                                             <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                                                 <div class="m-messenger__message m-messenger__message--in">
                                                                     <div class="m-messenger__message-pic">
@@ -1599,16 +1594,12 @@
                                                                                     <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
-<<<<<<< HEAD
-                                                                                <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
-=======
                                                                                 <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
                                                                                     <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 
@@ -1676,56 +1667,6 @@
                     }
                 });
             }
-            function mapComment() {
-    data.map((elem, i) => {
-        console.log(elem.comment)
-        let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-                        <div class="m-messenger__message m-messenger__message--out">
-                        
-                            <div class="m-messenger__message-body">
-                                <div class="m-messenger__message-arrow"></div>
-                                <div class="m-messenger__message-content">
-                                <div class="m-messenger__message-username">
-                                <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-                                <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-                                
-                                    </div>
-                                    <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
-                                        ${elem.comment}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-messenger__message-pic">
-                            <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
-                        </div>
-                        </div>
-                    </div>` 
-//                     :
-//             `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-//     <div class="m-messenger__message m-messenger__message--out">
-    
-//         <div class="m-messenger__message-body">
-//             <div class="m-messenger__message-arrow"></div>
-//             <div class="m-messenger__message-content">
-//             <div class="m-messenger__message-username">
-//             <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-//             <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-               
-//                 </div>
-//                 <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
-//                     ${elem.comment}
-//                 </div>
-//             </div>
-//         </div>
-//         <div class="m-messenger__message-pic">
-//         <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
-//     </div>
-//     </div>
-// </div>`
-        document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
-
-    })
-}
 
             function addComment() {
            var newObj = {
@@ -1769,7 +1710,6 @@
            document.getElementById("replyTextId").value = "";
        }
 
-<<<<<<< HEAD
             function documentDTCall(task_id){
                 path_url = "/api/v1/tasks/" + task_id;
 
@@ -1794,26 +1734,9 @@
                     });
                 }
             }
-=======
-
-
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
 
 
-<<<<<<< HEAD
-                    ajax: path_url,
-                    columns: [
-                        {"defaultContent": ""},
-                        {"data": "reports.name"},
-                        {"data": "reports.created_at"},
-                        {"data": "reports.document_type"},
-                    ],
-                    });
-                }
-            }
-=======
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
             
             let createTask = document.getElementById('addTaskId');
@@ -1857,11 +1780,7 @@
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
-<<<<<<< HEAD
-                                            <input type="text" name="name" class="form-control" value="${key}" id="create-task" placeholder="Enter Task Name" required>
-=======
                                             <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                         </div>
 
                                     </div>
@@ -1893,11 +1812,7 @@
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-<<<<<<< HEAD
-                                            <input type="date" name="starting_date" class="form-control" value="${key}" id="starting-date" required>
-=======
                                             <input type="date" name="starting_date" class="form-control" value="" id="starting-date" required>
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
                                         </div>
                                     </div>
 
@@ -1951,14 +1866,11 @@
                 });
                 });
                 });
-<<<<<<< HEAD
-=======
                 
                 // post to the create Task table
                 $('#deleter').on('submit', function(){
                     var user_id = $(this).data("id");
                 confirm("Are You sure want to delete !");
->>>>>>> ad3d42f9d27047805377517027bd12742c9ad843
 
                 $.ajax({
                     type: "DELETE",
