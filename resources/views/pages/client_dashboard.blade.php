@@ -7,80 +7,225 @@
 @section('sub_header', 'Clients Dashboard')
 
 @section('css')
-    <style>
-        #myInput {
-            background-image: url('/css/searchicon.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            width: 100%;
-            font-size: 14px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            }
+        <style>
+            #myInput {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
 
-            #myTable {
-            border-collapse: collapse;
-            width: 100%;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            }
+                #myTable {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
 
-            #myTable th, #myTable td {
-            text-align: left;
-            padding: 12px;
-            }
+                #myTable th, #myTable td {
+                text-align: left;
+                padding: 12px;
+                }
 
-            #myTable tr {
-            border-bottom: 1px solid #ddd;
-            }
+                #myTable tr {
+                border-bottom: 1px solid #ddd;
+                }
 
-            #myTable tr.header, #myTable tr:hover {
-            background-color: #f1f1f1;
-            }
+                #myTable tr.header, #myTable tr:hover {
+                background-color: #f1f1f1;
+                }
 
-    </style>
+        </style>
 
-<style>
-        #myInputOne {
-            background-image: url('/css/searchicon.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            width: 100%;
-            font-size: 14px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            }
+        <style>
+            #myInputOne {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
 
-            #myTableOne {
-            border-collapse: collapse;
-            width: 100%;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            }
+                #myTableOne {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
 
-            #myTableOne th, #myTableOne td {
-            text-align: left;
-            padding: 12px;
-            }
+                #myTableOne th, #myTableOne td {
+                text-align: left;
+                padding: 12px;
+                }
 
-            #myTableOne tr {
-            border-bottom: 1px solid #ddd;
-            }
+                #myTableOne tr {
+                border-bottom: 1px solid #ddd;
+                }
 
-            #myTable tr.header, #myTableOne tr:hover {
-            background-color: #f1f1f1;
-            }
+                #myTableOne tr.header, #myTableOne tr:hover {
+                background-color: #f1f1f1;
+                }
 
-    </style>
+        </style>
+
+        <style>
+            #myInputTen {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
+
+                #myTableTen {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
+
+                #myTableTen th, #myTableTen td {
+                text-align: left;
+                padding: 12px;
+                }
+
+                #myTableTen tr {
+                border-bottom: 1px solid #ddd;
+                }
+
+                #myTableTen tr.header, #myTableTen tr:hover {
+                background-color: #f1f1f1;
+                }
+
+        </style>
+
+        <style>
+            #myInputNine {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
+
+                #myTableNine {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
+
+                #myTableNine th, #myTableNine td {
+                text-align: left;
+                padding: 12px;
+                }
+
+                #myTableNine tr {
+                border-bottom: 1px solid #ddd;
+                }
+
+                #myTableNine tr.header, #myTableNine tr:hover {
+                background-color: #f1f1f1;
+                }
+
+        </style>
 @endsection
 
 @section('content')
+
+        {{-- Create Client Modal --}}
+        <div style="margin-right: 15%; margin-bottom: 5%;">
+            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air btn-success pull-right" id="createClient" style="background-color:; color:white;" data-toggle="modal" data-target="#createClientModal">
+                    <span>
+                        <i class="la la-plus"></i>
+                        <span>
+                            Create Client
+                        </span>
+                    </span>
+                </a>
+        </div>
+        {{-- End Create Client Modal --}}
+        <div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create Client</h5>
+                            <button type="button" class="close" onclick="$('#createClientModal').modal('hide');" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div id="createClientModalBody" class="modal-body col-md-12">
+                            <div class="col-md-12 ">
+                                <form id="createClientForm" action="{{ url('/api/v1/clients') }}"  method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row col-md-12">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="company-name">Company Name</label>
+                                                <input type="text" name="name" class="form-control" id="company-name" placeholder="" required>
+                                            </div>
+                                    
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="date-of-eng">Date Of Engagement</label>
+                                                <input type="date" name="date_of_engagement" class="form-control" id="date-of-eng" placeholder="" required>
+                                            </div>
+                                    </div>
+                                    <div class="row col-md-12">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="address">Address</label>
+                                                <input type="text" name="address" class="form-control" id="address" placeholder="" required>
+                                            </div>
+                        
+                                                    
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="expiry-date">Expiry Date</label>
+                                                <input type="date" name="expiry_date" class="form-control" id="expiry-date" placeholder="">
+                                            </div>
+                                                
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" class="form-control" id="email" required>
+                                            </div>
+                                    
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="phone-num">Phone Number</label>
+                                                <input type="" name="phone" class="form-control" id="phone-num" required>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-2 form-group mt-3">
+                                                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>   
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+            
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
     <!-- Begin: List Client -->
-    <div class="m-content">
-        <div class="m-portlet__body  m-portlet__body--no-padding">
-            <div class="row m-row--no-padding m-row--col-separator-xl" id="client-cards">
+    <div class="m-content" style="max-width: 100%">
+        <div class="m-portlet__body  m-portlet__body--no-padding" style="max-width: 100%">
+            <div class="row m-row--no-padding m-row--col-separator-xl" style="width: 100%" id="client-cards">
 
             </div>
         </div>
@@ -101,7 +246,7 @@
     <!-- End: View Task Modal-->
 
     <!-- More Info Modal -->
-    <div id="moreInfo">
+    <div id="moreProjectInfo">
 
 <!-- Comment Modal -->
     {{-- <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -254,6 +399,10 @@
         </div>
     </div> --}}
 <!-- endComment Modal -->
+
+    </div>
+
+    <div id="moreTaskInfo">
 
     </div>
 
@@ -479,7 +628,7 @@
                                     <a class="link" href="">\
                                         <i class="fas fa-pencil-alt" style="color:black;"></i>\
                                     </a>\
-                                    <button onclick="deleteSingleProject('+full.id+')" type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                    <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                                 </div>\
                                     ';
                 }
@@ -503,7 +652,11 @@
 
 //          Function for deleting single project
         function deleteSingleProject(proID){
-            $.ajax({
+
+            var confirmDel = confirm("Do you want to delete the document?");
+
+            if(confirmDel){
+                $.ajax({
                     type: "DELETE",
                     url: "{{ url('admin/projects')}}" + '/' + proID,
                     success: function (data) {
@@ -512,8 +665,10 @@
                     },
                     error: function (data) {
                         console.log('Error:', data);
+                        location.reload();
                     }
                 });
+            }
         }
 
         // Function for calling Projects tasks 
@@ -522,105 +677,105 @@
             type: "GET",
             url: "/api/v1/projects/" + proID,
             success: function (data) {
-                let moreInfo = document.getElementById("moreInfo")
-                moreInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                let moreProjectInfo = document.getElementById("moreProjectInfo")
+                moreProjectInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 80%; min-width: 500px;" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                <button type="button" class="close" onclick="$('#moreInfoModal').modal('hide');" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                <!-- More-info content -->
-                <div class="col-md-12 m-portlet " id="m_portlet">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-caption">
-                            <div class="m-portlet__head-title">
-                                <span class="m-portlet__head-icon">
-                                                <i class="flaticon-info"> </i>
-                                            </span>
-                                <h3 class="m-portlet__head-text">
-                                    More info
-                                </h3>
-                            </div>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" onclick="$('#moreInfoModal').modal('hide');" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </div>
-                    <div class="m-portlet__body">
-                        <div class="accordion" id="accordionExample">
-                            <div onclick="taskDTCall(${data.data.id})" class="card">
-                                <div class="card-header" id="headingone">
-                                    <h6 class="mb-0">
-                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                        <i class="m-menu__link-icon flaticon-list"></i>
-                                                        Project tasks
-                                                </span>
-                                    </h6>
-                                </div>
-                                <div id="collapseOne" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="m-portlet">
-                                        <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Starting Date</th>
-                                                    <th>Deadline</th>
-                                                    <th>Category</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
+                    <div class="modal-body">
+                <!-- More-info content -->
+                        <div class="col-md-12 m-portlet " id="m_portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon">
+                                            <i class="flaticon-info"> </i>
+                                        </span>
+                                        <h3 class="m-portlet__head-text">
+                                            More info
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
+                            <div class="m-portlet__body">
+                                <div class="accordion" id="accordionExample">
+                                    <div onclick="taskDTCall(${data.data.id})" class="card">
+                                        <div class="card-header" id="headingone">
+                                            <h6 class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                    <i class="m-menu__link-icon flaticon-list"></i>
+                                                    Project tasks
+                                                </span>
+                                            </h6>
+                                        </div>
+                                        <div id="collapseOne" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <div class="m-portlet">
+                                                <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name</th>
+                                                            <th>Starting Date</th>
+                                                            <th>Deadline</th>
+                                                            <th>Category</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            <div class="accordion" id="accordionExample2">
-                            <div onclick="documentDTCall(${data.data.id})" class="card">
-                                <div class="card-header" id="headingone">
-                                    <h6 class="mb-0">
-                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <i class="m-menu__link-icon flaticon-clipboard"></i>
-                                            Documents
-                                        </span>
-                                    </h6>
-                                </div>
-                                <div id="collapseTwo" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <input type="text" id="myInput" onkeyup="searchDocument()" placeholder="Search for documents.." title="Type in a documents">
-                                        <table id="myTable">
-                                                <tr class="header">
-                                                    <th style="width:60%;">Name</th>
-                                                    <th style="width:40%;">File</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td >Actual Name</td>
-                                                    <td >Actual File</td>
-                                                </tr>
-                                                `+ data.data.documents.map(elem => 
-                                                    `<tr>
-                                                        <td>${elem.name}</td>
-                                                        <td>${elem.file}</td>
-                                                    </tr>`
-                                                )+`
-                                        </table>
+                                    <div class="accordion" id="accordionExample2">
+                                    <div onclick="documentDTCall(${data.data.id})" class="card">
+                                        <div class="card-header" id="headingone">
+                                            <h6 class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                    Documents
+                                                </span>
+                                            </h6>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample2">
+                                            <input type="text" id="myInput" onkeyup="searchProjectDocument()" placeholder="Search for documents.." title="Type in a documents">
+                                                <table id="myTable">
+                                                        <tr class="header">
+                                                            <th style="width:60%;">Name</th>
+                                                            <th style="width:40%;">File</th>
+                                                        </tr>
+                                                        <tr class="">
+                                                            <td >Actual Name</td>
+                                                            <td >Actual File</td>
+                                                        </tr>
+                                                        `+ data.data.documents.map(elem => 
+                                                            `<tr>
+                                                                <td>${elem.name}</td>
+                                                                <td>${elem.file}</td>
+                                                            </tr>`
+                                                        )+`
+                                                </table>
 
-                                </div>
-                            </div>
+                                        </div>
+                                    </div>
 
 
-                            <div class="accordion" id="accordionExample3">
-                            <div onclick="reportDTCall(${data.data.id})" class="card">
-                                <div class="card-header" id="headingthree">
-                                    <h6 class="mb-0">
-                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            <i class="m-menu__link-icon flaticon-file"></i>
-                                            Reports
-                                        </span>
-                                    </h6>
-                                </div>
-                                <div id="collapseThree" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <input type="textOne" id="myInputOne" onkeyup="searchReport()" placeholder="Search for report.." title="Type in a report">
-                                        <table id="myTableOne">
+                                    <div class="accordion" id="accordionExample3">
+                                        <div onclick="reportDTCall(${data.data.id})" class="card">
+                                            <div class="card-header" id="headingthree">
+                                                <h6 class="mb-0">
+                                                    <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                        <i class="m-menu__link-icon flaticon-file"></i>
+                                                        Reports
+                                                    </span>
+                                                </h6>
+                                            </div>
+                                        <div id="collapseThree" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                                            <input type="textOne" id="myInputOne" onkeyup="searchProjectReport()" placeholder="Search for report.." title="Type in a report">
+                                            <table id="myTableOne">
                                                 <tr class="header">
                                                     <th style="width:60%;">Name</th>
                                                     <th style="width:40%;">File</th>
@@ -630,25 +785,24 @@
                                                     <td >Report Content</td>
                                                 </tr>
                                                 `+ data.data.reports.map(elem => 
-                                                    `<tr>
-                                                        <td>${elem.name}</td>
-                                                        <td>${elem.file}</td>
-                                                    </tr>`
+                                                `<tr>
+                                                    <td>${elem.name}</td>
+                                                    <td>${elem.file}</td>
+                                                </tr>`
                                                 )+`
-                                        </table>
-
-                                </div>
-                            </div>
-
-
-                            <div class="card">
-                                <div onclick="projectComments(${data.data.id})" class="card-header" id="headingFour">
-                                    <h6 class="mb-0">
-                                        <span class="" data-toggle="modal" data-target="#commentModal">
-                                                                <i class="m-menu__link-icon flaticon-comment"></i>
-                                                                Comments
-                                                        </span>
-                                    </h6>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div onclick="projectComments(${data.data.id})" class="card-header" id="headingFour">
+                                            <h6 class="mb-0">
+                                                <span class="" data-toggle="modal" data-target="#commentModal">
+                                                    <i class="m-menu__link-icon flaticon-comment"></i>
+                                                    Comments
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -688,8 +842,8 @@
 
         }
 
-            // Search Through Documents FUnction
-        function searchDocument() {
+            // Search Through Project Documents FUnction
+        function searchProjectDocument() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
@@ -708,7 +862,8 @@
             }
         }
 
-        function searchReport(){
+            // Search Through Project Reports FUnction
+        function searchProjectReport(){
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("myInputOne");
             filter = input.value.toUpperCase();
@@ -726,6 +881,7 @@
                 }       
             }
         }
+
 
         //   Function for calling Client Tasks on the DT
         function getClientTasks(client_id) {
@@ -763,14 +919,14 @@
                         orderable: false,
                         searchable: false,
                         render: function (data, type, full, meta) {
-                            return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                    <div onclick=displayTaskInfo('+full.id+') class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
-                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreInfoModal"> </i>\
+                            return '\<button onclick=displayTaskInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
+                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreTaskInfoModal"> </i>\
                                         </a>\
                                         <a class="link" href="">\
                                             <i class="fas fa-pencil-alt" style="color:black;"></i>\
                                         </a>\
-                                            <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                    <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                                 </div>\
                                 ';
                         }
@@ -790,6 +946,209 @@
             }
 
 
+        }
+
+        function displayTaskInfo(task_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/v1/tasks/" + task_id,
+                    success: function (data) {
+                        let moreTaskInfo = document.getElementById("moreTaskInfo")
+                        moreTaskInfo.innerHTML = `<div class="modal fade" id="moreTaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" onclick="$('#moreTaskInfoModal').modal('hide');" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                <!-- More-info content -->
+                        <div class="col-md-12 m-portlet " id="m_portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon">
+                                            <i class="flaticon-info"> </i>
+                                        </span>
+                                        <h3 class="m-portlet__head-text">
+                                            More info
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__body">
+
+                                <div class="accordion" id="accordionExample4">
+                                <div class="card">
+                                    <div class="card-header" id="headingone">
+                                        <h6 class="mb-0">
+                                            <span class="collapsed" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                                <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                Documents
+                                            </span>
+                                        </h6>
+                                    </div>
+                                    <div id="collapseTen" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample4">
+                                        <input type="text" id="myInputTen" onkeyup="searchDocument()" placeholder="Search for documents.." title="Type in a documents">
+                                            <table id="myTableTen">
+                                                    <tr class="header">
+                                                        <th style="width:40%; text-align: left;">Name</th>
+                                                        <th style="width:50%; text-align: left;">File/Media</th>
+                                                        <th style="width:20%; text-align: left;">Document Type</th>
+                                                    </tr>
+                                                    `+ data.data.documents.map(elem => 
+                                                        `<tr>
+                                                            <td style="text-align: left;">${elem.name}</td>
+                                                            <td style="text-align: left;">${elem.file}</td>
+                                                            <td style="text-align: left;">${elem.document_type}</td>
+                                                        </tr>`
+                                                    )+`
+                                            </table>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="accordion" id="accordionExample5">
+                                    <div class="card">
+                                        <div class="card-header" id="headingnine">
+                                            <h6 class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    Reports
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    <div id="collapseNine" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample5">
+                                        <input type="textOne" id="myInputNine" onkeyup="searchReport()" placeholder="Search for report.." title="Type in a report">
+                                        <table id="myTableNine">
+                                            <tr class="header">
+                                                <th style="width:60%;">Name</th>
+                                                <th style="width:60%;">Report</th>
+                                                <th style="width:40%;">Document Type</th>
+                                            </tr>
+                                            <tr class="">
+                                            </tr>
+                                            `+ data.data.reports.map(elem => 
+                                            `<tr>
+                                                <td>${elem.name}</td>
+                                                <td>${elem.file}</td>
+                                                <td>${elem.document_type}</td>
+                                            </tr>`
+                                            )+`
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div onclick="taskComments(${data.data.id})" class="card-header" id="headingFour">
+                                        <h6 class="mb-0">
+                                            <span class="" data-toggle="modal" data-target="#commentModal">
+                                                <i class="m-menu__link-icon flaticon-comment"></i>
+                                                Comments
+                                            </span>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                    <!--end::Portlet-->
+
+
+                                        <!-- End main Content of More-info -->
+
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                <!-- Comment Modal -->
+    <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        
+    </div>
+                        `
+
+
+                },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+
+                            
+                        }
+
+                        })
+            }
+
+
+            // Search Through Task Documents FUnction
+        function searchTaskDocument() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputTen");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableTen");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }       
+            }
+        }
+
+            // Search Through Task Reports FUnction
+        function searchTaskReport(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputNine");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableNine");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }       
+            }
+        }
+
+            // Function for deleting single task
+        function deleteSingleTask(taskID){
+
+            var confirmDel = confirm("Do you want to delete the task?");
+
+            if(confirmDel){
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/tasks')}}" + '/' + taskID,
+                    success: function (data) {
+                        console.log(data);
+                        location.reload(true);
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                        location.reload(true);
+                    }
+                });
+            }
         }
         
         // Function Populating the project Document Modal
@@ -935,6 +1294,38 @@
             // Comment Function Goes Here
             
         }
+
+        function taskComments(task_id){
+
+        }
+
+
+        // Create Client Script 
+        $('#createClientForm').on('submit', function(e){
+            e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/clients") }}',
+                    data: $('#createClientForm').serialize(),
+                    success: function (response, data) {
+                        alert("Client created");
+                        //document.getElementById('projTypeId').value = "";
+                        $('#createClientModal').modal('hide');
+                        //getProjetTypeDT();
+                        location.reload();
+                        console.log(data);
+                        console.log(response);
+                        return(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("Client creation failed");
+                        location.reload();
+                    }
+
+                });
+                    });
+                    
 
         $.fn.dataTable.ext.classes.sPageButton = '';
         var deleteButtonTrans = 'Delete Selected';

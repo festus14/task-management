@@ -3,6 +3,9 @@
 @section('title', 'Task')
 
 @section('header', 'Task Management')
+@section('active_arrow_three')
+    <span class="m-menu__item-here"></span>
+@endsection
 
 @section('sub_header', 'Tasks')
 @section('css')
@@ -1276,9 +1279,9 @@
                                                     <div class="card-header" id="headingThree">
                                                         <h6 class="mb-0">
                                                             <span data-toggle="modal" data-target="#taskReportModal">
-                                                                                <i class="m-menu__link-icon flaticon-file"></i>
-                                                                                Report
-                                                                        </span>
+                                                                <i class="m-menu__link-icon flaticon-file"></i>
+                                                                Report
+                                                            </span>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -1508,11 +1511,11 @@
                         let commentbody = document.getElementById('commentModal');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
                         commentbody.innerHTML = `
-        <div class="modal-dialog modal-dialog-centered" id="commentPage" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
+                <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                    <button type="button" class="close" onclick="$('#commentPage').modal('hide');  data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -1593,7 +1596,7 @@
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
                                                                                     <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 
@@ -1661,56 +1664,6 @@
                     }
                 });
             }
-            function mapComment() {
-    data.map((elem, i) => {
-        console.log(elem.comment)
-        let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-                        <div class="m-messenger__message m-messenger__message--out">
-                        
-                            <div class="m-messenger__message-body">
-                                <div class="m-messenger__message-arrow"></div>
-                                <div class="m-messenger__message-content">
-                                <div class="m-messenger__message-username">
-                                <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-                                <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-                                
-                                    </div>
-                                    <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
-                                        ${elem.comment}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-messenger__message-pic">
-                            <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
-                        </div>
-                        </div>
-                    </div>` 
-//                     :
-//             `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-//     <div class="m-messenger__message m-messenger__message--out">
-    
-//         <div class="m-messenger__message-body">
-//             <div class="m-messenger__message-arrow"></div>
-//             <div class="m-messenger__message-content">
-//             <div class="m-messenger__message-username">
-//             <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-//             <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-               
-//                 </div>
-//                 <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
-//                     ${elem.comment}
-//                 </div>
-//             </div>
-//         </div>
-//         <div class="m-messenger__message-pic">
-//         <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
-//     </div>
-//     </div>
-// </div>`
-        document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
-
-    })
-}
 
             function addComment() {
            var newObj = {
@@ -1753,6 +1706,34 @@
            parentComment.innerHTML = parentComment.innerHTML + childComment;
            document.getElementById("replyTextId").value = "";
        }
+
+            function documentDTCall(task_id){
+                path_url = "/api/v1/tasks/" + task_id;
+
+                // Single Projects Document DT
+                if ( $.fn.dataTable.isDataTable( '#kt_table_single_task_documents') ) {
+                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable();
+                }else {
+                    let kt_table_single_task_documents = $('#kt_table_single_task_documents').DataTable({
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages. {{ app()->getLocale() }}
+                    },
+
+                    ajax: path_url,
+                            
+                    columns: [
+                        {"defaultContent": ""},
+                        {"data": "name"},
+                        {"data": "starting_date"},
+                        {"data": "ending_date"},
+                    ],
+                    });
+                }
+            }
+
+
+
 
             
        //Ajax populate create task

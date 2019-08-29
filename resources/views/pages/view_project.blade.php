@@ -1,7 +1,11 @@
 @extends('layouts.inner')
 @section('title', 'Project')
 @section('header', 'Project Management')
+@section('active_arrow_two')
+    <span class="m-menu__item-here"></span>
+@endsection
 @section('sub_header', 'Projects')
+
 @section('content')
 @section('css')
 <style>
