@@ -731,7 +731,7 @@
                                     </div>
 
                                     <div class="accordion" id="accordionExample2">
-                                    <div onclick="documentDTCall(${data.data.id})" class="card">
+                                    <div class="card">
                                         <div class="card-header" id="headingone">
                                             <h6 class="mb-0">
                                                 <span class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -764,7 +764,7 @@
 
 
                                     <div class="accordion" id="accordionExample3">
-                                        <div onclick="reportDTCall(${data.data.id})" class="card">
+                                        <div class="card">
                                             <div class="card-header" id="headingthree">
                                                 <h6 class="mb-0">
                                                     <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -1202,92 +1202,7 @@
 
 
         // Function Populating the project Document Modal
-        function documentDTCall(project_id){
-            path_url = "/api/v1/tasks/" + project_id;
 
-            // Single Projects Document DT
-            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_documents') ) {
-                let kt_table_single_project_documents = $('#kt_table_single_project_documents').DataTable();
-            }else {
-                let kt_table_single_project_documents = $('#kt_table_single_project_documents').DataTable({
-                dom: 'lBfrtip<"actions">',
-                language: {
-                    url: languages. {{ app()->getLocale() }}
-                },
-
-                ajax: path_url,
-                columns: [
-                    {"defaultContent": ""},
-                    {"data": "name"},
-                    {"data": "deadline"},
-                    {"data": "created_at"},
-                ],
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }, {
-                    orderable: false,
-                    searchable: false,
-                    targets: -1
-                },
-                ],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
-                buttons: [
-                    'excel', 'pdf', 'print'
-                ]
-            });
-            }
-        }
-
-        function reportDTCall(project_id){
-            path_url = "/api/v1/projects/" + project_id;
-            // Single Project Reports DT
-            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_reports') ) {
-                let kt_table_single_project_reports = $('#kt_table_single_project_reports').DataTable();
-            }else {
-                let kt_table_single_project_reports = $('#kt_table_single_project_reports').DataTable({
-                dom: 'lBfrtip<"actions">',
-                language: {
-                    url: languages. {{ app()->getLocale() }}
-                },
-
-                ajax: path_url,
-                        
-                columns: [
-                    {"defaultContent": ""},
-                    {"data": "project_report"},
-                    {"data": "created_at"},
-                ],
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }, {
-                    orderable: false,
-                    searchable: false,
-                    targets: -1
-                },
-                ],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
-                buttons: [
-                    'excel', 'pdf', 'print'
-                ]
-            });
-            }
-        }
 
         function projectComments(project_id){
             path_url = "/api/v1/projects" + project_id;
