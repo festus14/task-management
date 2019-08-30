@@ -895,6 +895,7 @@
 @section('javascript')
 <script>
         var date = new Date();
+        
        var formattedDate = (date.toString().slice(0, 25));
        document.getElementById("datee").innerHTML = formattedDate;
 
@@ -1132,6 +1133,7 @@
             type: "GET",
             url: '{{ url("/api/v1/project_create") }}',
             success: function (data) {
+                
                 let createProjectBody = document.getElementById('createProjectBody');
                 let probSubtypeBody = document.getElementById('subtypeModalBody');
                     createProjectBody.innerHTML = `
@@ -1771,7 +1773,6 @@
                         document.getElementById('projTypeId').value = "";
                         $('#AddProjecModalla').modal('hide');
                         getProjetTypeDT();
-                        location.reload();
                         console.log(data);
                         console.log(response);
                         return(data);

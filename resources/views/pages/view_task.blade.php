@@ -1511,7 +1511,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                    <button type="button" class="close" onclick="$('#commentPage').modal('hide');  data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" onclick="$('#commentPage').modal('hide');"  data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -1855,14 +1855,14 @@
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-                                            <input type="date" name="starting_date" class="form-control" value="" onchange="setDate()" id="starting-date" required>
+                                            <input type="text" id="starting_date" name="starting_date" class="form-control date" value="" required="">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
-                                            <input type="date" name="ending_date" class="form-control" value="" id="deadline" required>
+                                            <input type="text" id="deadline" name="deadline" class="form-control datetime" value="" required="">
                                         </div>
                                     </div>
 
@@ -1888,9 +1888,21 @@
                 });
             }
              
-            function setDate(){
-                alert("yea");
-            }
+            function formatDate () {
+                var ra =  document.getElementById("starting-date").value;
+                var datePart = ra.match(/\d+/g),
+                year = datePart[0].substring(), // get four digits
+                month = datePart[1], day = datePart[2];
+                 return day+'/'+month+'/'+year;
+                  }
+
+            function formatDate2 () {
+                var ra =  document.getElementById("deadline").value;
+                var datePart = ra.match(/\d+/g),
+                year = datePart[0].substring(), // get four digits
+                month = datePart[1], day = datePart[2];
+                 return day+'/'+month+'/'+year;
+                  }
 
              //Edit task
             function editTask(taskId){
@@ -2034,7 +2046,7 @@
             $(document).ready(function(){
                 $('#addTaskform').on('submit', function(e){
                 e.preventDefault();
-
+               
                 $.ajax({
                 type: "POST",
                 url: '{{ url("/api/v1/tasks") }}',
@@ -2107,7 +2119,9 @@
 
 
              // post to the Task category table
-             $('#').on('submit', function(e){
+             $(document).ready(function(){
+
+             $('#addtaskCategoryform').on('submit', function(e){
                 e.preventDefault();
 
                 $.ajax({
@@ -2123,7 +2137,7 @@
                     //location.reload();
                     console.log(data);
                     console.log(response);
-                    return(data);
+                    return(response);
                 },
                 error: function (error) {
                     console.log(error);
@@ -2132,7 +2146,11 @@
                 });
                 });
 
+             });
+
                 // post to the Task status table
+                $(document).ready(function(){
+
                 $('#addStatusform').on('submit', function(e){
                 e.preventDefault();
 
@@ -2156,6 +2174,8 @@
                 }
                 });
                 });
+                
+            });
                 
     </script>
 
