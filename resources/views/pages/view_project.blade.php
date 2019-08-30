@@ -616,7 +616,7 @@
             </div>
         </div> --}}
         {{-- endreport DT tModal --}}
-
+        
         {{-- Add report Modal --}}
         <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
@@ -1443,7 +1443,7 @@
                                             <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>s
+                                                        <th>#</th>
                                                         <th>Name</th>
                                                         <th>Starting Date</th>
                                                         <th>Deadline</th>
@@ -1544,7 +1544,7 @@
                                         <table id="kt_table_single_project_documents" class="table table-striped table-hover" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>S/N</th>
+                                                    <th>#</th>
                                                     <th>Name</th>
                                                     <th>Version</th>
                                                     <th>Date Created</th>
@@ -1618,7 +1618,7 @@
                                         <table id="kt_table_single_project_reports" class="table table-striped table-hover" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>S/N</th>
+                                                    <th>#</th>
                                                     <th>Report</th>
                                                     <th>Date Created</th>
                                                 </tr>
@@ -1864,7 +1864,7 @@
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                    return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
                             <a class="link" href="">\
                                 <i class="fas fa-pencil-alt" style="color:black;"></i>\
