@@ -3,9 +3,6 @@
 @section('title', 'Task')
 
 @section('header', 'Task Management')
-@section('active_arrow_three')
-    <span class="m-menu__item-here"></span>
-@endsection
 
 @section('sub_header', 'Tasks')
 @section('css')
@@ -113,6 +110,26 @@
         </div>
     {{-- end Create task Model --}}
 
+    <!-- Edit task Modal -->
+    <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                        <button type="button" class="close" onclick="$('#editTaskModal').modal('hide');" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="editTaskBody" class="modal-body col-md-12">
+
+
+                    </div>
+
+                    </div>
+                </div>
+        </div>
+    {{-- end Create task Model --}}
+
     {{-- Task category datatable modal --}}
         <div class="modal fade" id="taskcategoryDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:70%; min-width:400px;">
@@ -139,7 +156,7 @@
                                 <div class="m-portlet__head-tools">
                                     <ul class="m-portlet__nav">
                                         <li class="m-portlet__nav-item">
-                                            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addTaskCategory">
+                                            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" onclick="createTaskCategoryAjaxGet()" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addTaskCategory">
                                                 <span>
                                                     <i class="la la-plus"></i>
                                                     <span>
@@ -745,49 +762,12 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                 </div>
-                <div class="modal-body">
-                    <form  action="{{ url("/api/v1/tast-categories") }}" method="POST" id="addtaskCategoryform" enctype="multipart/form-data">
-                        @csrf
-                        <div class="col-md-12 row">
-                            <div class="col-md-6 form-group mt-3">
-                                <label>Name</label>
-                                <input type="text" class="form-control" name="name" id="category-name" placeholder="">
-                            </div>
-
-                            <div class="col-md-6 form-group mt-3">
-                                <label>Project Type</label>
-                                <select id="projectTypeList"  name="project_type_id" class="selectDesign form-control">
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12 row">
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Sub Category</label>
-                                    <select id="subCategory" name="sub_category_id" class="selectDesign form-control">
-
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Weight</label>
-                                    <input type="text"  name="weight" class="form-control" id="weightId" placeholder="">
-                                </div>
-                        </div>
-                        <div class=" row col-md-12">
-                            <div class="col-md-12 form-group mt-3">
-                                <label for="exampleFormControlTextarea1">Description</label>
-                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-3 form-group mt-2">
-                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                        </div>
-                    </form>
+                <div id="taskCategoryModalbody" class="modal-body">
+                    
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     {{-- end Task Category Modal --}}
 
     <!--modalled Add Status Modal -->
@@ -953,7 +933,7 @@
             var formattedDate = (date.toString().slice(0, 25));
             document.getElementById("datee").innerHTML = formattedDate;
 
-
+            //  dummy data for test
             var data = [{
                     "id": 2,
                     name: "Yeha",
@@ -1104,14 +1084,13 @@
                     orderable: false,
                     searchable: false,
                     render: function (data, type, full, meta) {
-                    return '\<button onclick="displayTaskInfo('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 100px; max-width: 15px;">\
+                    return '\<button onclick="displayTaskInfo('+full.id+'), editTask('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
                                 <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> </i>\
                                 </a>\
-                                <a class="link" href="">\
-                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                <a class="link" href="#"><i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editTaskModal" style="color:black;"></i>\
                                 </a>\
-                            <button onclick="deleteSingleTask('+full.id+')" type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                            <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                             </div>\
                                         ';
                     }
@@ -1148,7 +1127,7 @@
                             { "data": "project_type_id" },
                             { "data": "sub_category_id" },
                             { "data": "weight" },
-                            { "data": "Description" }
+                            { "data": "description" }
                         ],
                         dom: 'lBfrtip<"actions">',
                         language: {
@@ -1296,9 +1275,9 @@
                                                     <div class="card-header" id="headingThree">
                                                         <h6 class="mb-0">
                                                             <span data-toggle="modal" data-target="#taskReportModal">
-                                                                <i class="m-menu__link-icon flaticon-file"></i>
-                                                                Report
-                                                            </span>
+                                                                                <i class="m-menu__link-icon flaticon-file"></i>
+                                                                                Report
+                                                                        </span>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -1528,11 +1507,11 @@
                         let commentbody = document.getElementById('commentModal');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
                         commentbody.innerHTML = `
-                <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
+        <div class="modal-dialog modal-dialog-centered" id="commentPage" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" onclick="$('#commentPage').modal('hide');  data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -1613,7 +1592,7 @@
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
                                                                                     <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 
@@ -1681,6 +1660,56 @@
                     }
                 });
             }
+            function mapComment() {
+    data.map((elem, i) => {
+        console.log(elem.comment)
+        let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
+                        <div class="m-messenger__message m-messenger__message--out">
+                        
+                            <div class="m-messenger__message-body">
+                                <div class="m-messenger__message-arrow"></div>
+                                <div class="m-messenger__message-content">
+                                <div class="m-messenger__message-username">
+                                <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
+                                <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
+                                
+                                    </div>
+                                    <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
+                                        ${elem.comment}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__message-pic">
+                            <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
+                        </div>
+                        </div>
+                    </div>` 
+//                     :
+//             `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
+//     <div class="m-messenger__message m-messenger__message--out">
+    
+//         <div class="m-messenger__message-body">
+//             <div class="m-messenger__message-arrow"></div>
+//             <div class="m-messenger__message-content">
+//             <div class="m-messenger__message-username">
+//             <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
+//             <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
+               
+//                 </div>
+//                 <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
+//                     ${elem.comment}
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="m-messenger__message-pic">
+//         <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
+//     </div>
+//     </div>
+// </div>`
+        document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
+
+    })
+}
 
             function addComment() {
            var newObj = {
@@ -1723,8 +1752,8 @@
            parentComment.innerHTML = parentComment.innerHTML + childComment;
            document.getElementById("replyTextId").value = "";
        }
-
-            function documentDTCall(task_id){
+       
+              function documentDTCall(task_id){
                 path_url = "/api/v1/tasks/" + task_id;
 
                 // Single Projects Document DT
@@ -1751,8 +1780,8 @@
 
 
 
-
             
+       //Ajax populate create task
             let createTask = document.getElementById('addTaskId');
             createTask.addEventListener("click", displayAddTask);
 
@@ -1826,7 +1855,7 @@
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-                                            <input type="date" name="starting_date" class="form-control" value="" id="starting-date" required>
+                                            <input type="date" name="starting_date" class="form-control" value="" onchange="setDate()" id="starting-date" required>
                                         </div>
                                     </div>
 
@@ -1858,6 +1887,149 @@
                     }
                 });
             }
+             
+            function setDate(){
+                alert("yea");
+            }
+
+             //Edit task
+            function editTask(taskId){
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                // var data = globalData.filter((item, i) => item.id === taskId)
+
+                // console.log(data)
+
+
+
+                $('#client_id').val(data[1]);
+                $('#project_id').val(data[2]);
+                $('#project_subtype_id').val(data[3]);
+                $('#name').val(data[4]);
+                $('#category_id').val(data[5]);
+                $('#assinged_tos').val(data[6]);
+                $('#manager_id').val(data[7]);
+                $('#starting_date').val(data[8]);
+                $('#ending_date').val(data[9]);
+                $('#status_id').val(data[10]);
+
+                        let editTaskBody = document.getElementById('editTaskBody');
+                        editTaskBody.innerHTML = `
+                    <div class="modal-body">
+                        <form id="editTaskform" action="{{ url('/api/v1/tasks') }}"  method="PUT" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="client-list">Select Client</label>
+                                            <select id="client_id" name="client_id" class="selectDesign form-control">
+
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Select Project</label>
+                                            <select id="project_id" name="project_id" class="selectDesign form-control">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label>Select Project Subtype</label>
+                                            <select id="project_subtype_id" name="project_subtype_id" class="selectDesign form-control">
+                                                
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create-task">Task Name</label>
+                                            <input type="text" name="name" class="form-control" value="" id="name" placeholder="Enter Task Name" required>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Task Category</label>
+                                            <select id="category_id" name="category_id" class="selectDesign form-control">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="assign-task">Assign task to</label>
+                                                <br>
+                                            <select style="width: 100%" name="assinged_tos" id="assinged_tos" multiple="multiple" required class="form-control select2">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Select Manager</label>
+                                            <select id="manager_id" name="manager_id" class="selectDesign form-control">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="starting-date">Starting Date</label>
+                                            <input type="date" name="starting_date" class="form-control" value="" id="starting_date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="deadline">Deadline</label>
+                                            <input type="date" name="ending_date" class="form-control" value="" id="ending_date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label>Task Status</label>
+                                            <select id="status_id" name="status_id" class="selectDesign form-control">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        `
+                $('#editTaskform').on('submit', function(e){
+                  e.preventDefault();
+                    
+                $.ajax({
+                    type: "PUT",
+                    url: "/"  + taskId,
+                    data: $('#editTaskform').serialize(),
+                    success: function (response){
+                        console.log(response);
+                        $('#').modal('hide');
+                        alert('Data successfully Updated');
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                })
+            })
+            }
+
+
         // post to the create Task table
             $(document).ready(function(){
                 $('#addTaskform').on('submit', function(e){
@@ -1881,20 +2053,82 @@
                 });
                 });
                 
-                // post to the create Task table
-                $('#deleter').on('submit', function(){
-                    var user_id = $(this).data("id");
-                confirm("Are You sure want to delete !");
+            
+            //Ajax populate create task category
+            function createTaskCategoryAjaxGet(){
+                $.ajax({
+                    type: "GET",
+                    url: '{{ url("/api/v1/create_task_categories") }}',
+                    success: function (data) {
+                        let createTaskCategory = document.getElementById('taskCategoryModalbody');
+                        createTaskCategory.innerHTML = `
+                        <form  action="{{ url("/api/v1/tast-categories") }}" method="POST" id="addtaskCategoryform" enctype="multipart/form-data">
+                        @csrf
+                        <div class="col-md-12 row">
+                            <div class="col-md-6 form-group mt-3">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="name" id="category-name" placeholder="">
+                            </div>
+
+                            <div class="col-md-6 form-group mt-3">
+                                <label>Project Type</label>
+                                <select id="projectTypeList"  name="project_type_id" class="selectDesign form-control">
+                                        ${Object.keys(data.data.project_types).map((key, index) => `<option value="${key}">${data.data.project_types[key]}</option>`)}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 row">
+                                <div class="col-md-6 form-group mt-3">
+                                    <label>Sub Category</label>
+                                    <select id="subCategory" name="sub_category_id" class="selectDesign form-control">
+                                        ${Object.keys(data.data.projects_sub_types).map((key, index) => `<option value="${key}">${data.data.projects_sub_types[key]}</option>`)}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 form-group mt-3">
+                                    <label>Weight</label>
+                                    <input type="number"  name="weight" value="" class="form-control" id="weightId" placeholder="">
+                                </div>
+                        </div>
+                        <div class=" row col-md-12">
+                            <div class="col-md-12 form-group mt-3">
+                                <label for="exampleFormControlTextarea1">Description</label>
+                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group mt-2">
+                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                        </div>
+                    </form>
+                        `
+                    }
+                });
+            }
+
+
+             // post to the Task category table
+             $('#').on('submit', function(e){
+                e.preventDefault();
 
                 $.ajax({
-                    type: "DELETE",
-                    url: "{{ url('admin/projects')}}" + '/' + user_id,
-                    success: function (data) {
-                        $("#user_id_" + user_id).remove();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
+                type: "POST",
+                url: '{{ url("/api/v1/tast-categories") }}',
+                data: $('#addtaskCategoryform').serialize(),
+                success: function (response, data) {
+                    console.log(response)
+                    getTaskCategoryAjaxDT();
+                    $('#addTaskCategory').modal('hide');
+                    alert("Task category successfully created");
+                    //document.getElementById('statusInput').value = "";
+                    //location.reload();
+                    console.log(data);
+                    console.log(response);
+                    return(data);
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("Task category creation failed");
+                }
                 });
                 });
 
