@@ -13,12 +13,12 @@
     #mCSB_3::-webkit-scrollbar {
       width: 5px;
     }
-    
+
     /* Track */
     #mCSB_3::-webkit-scrollbar-track {
       background: #f1f1f1;
     }
-    
+
     /* Handle */
     #mCSB_3::-webkit-scrollbar-thumb {
       background: #888;
@@ -763,7 +763,7 @@
                               </button>
                 </div>
                 <div id="taskCategoryModalbody" class="modal-body">
-                    
+
                 </div>
             </div>
         </div>
@@ -1357,7 +1357,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                `+ data.data.documents.map(item => 
+                                                `+ data.data.documents.map(item =>
                                                     `<tr>
                                                         <td></td>
                                                         <td>${item.name}</td>
@@ -1370,7 +1370,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <!--end::Portlet-->
                         </div>
                         <div class="modal-footer">
@@ -1431,7 +1431,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                `+ data.data.reports.map(item => 
+                                                `+ data.data.reports.map(item =>
                                                     `<tr>
                                                         <td></td>
                                                         <td>${item.name}</td>
@@ -1444,7 +1444,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <!--end::Portlet-->
                         </div>
                         <div class="modal-footer">
@@ -1456,7 +1456,7 @@
 
                 <!-- Comment Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        
+
     </div>
                         `
 
@@ -1466,7 +1466,7 @@
                         error: function (data) {
                             console.log('Error:', data);
 
-                            
+
                         }
 
                         })
@@ -1486,7 +1486,7 @@
             } );
         }
 
-            
+
 
             function taskComments(task_id){
                 // Task Comments Scripts Goes Here
@@ -1501,7 +1501,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                    <button type="button" class="close" onclick="$('#commentPage').modal('hide');  data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" onclick="$('#commentPage').modal('hide');"  data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -1655,14 +1655,14 @@
         console.log(elem.comment)
         let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
                         <div class="m-messenger__message m-messenger__message--out">
-                        
+
                             <div class="m-messenger__message-body">
                                 <div class="m-messenger__message-arrow"></div>
                                 <div class="m-messenger__message-content">
                                 <div class="m-messenger__message-username">
                                 <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
                                 <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-                                
+
                                     </div>
                                     <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
                                         ${elem.comment}
@@ -1673,18 +1673,18 @@
                             <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
                         </div>
                         </div>
-                    </div>` 
+                    </div>`
 //                     :
 //             `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
 //     <div class="m-messenger__message m-messenger__message--out">
-    
+
 //         <div class="m-messenger__message-body">
 //             <div class="m-messenger__message-arrow"></div>
 //             <div class="m-messenger__message-content">
 //             <div class="m-messenger__message-username">
 //             <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
 //             <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-               
+
 //                 </div>
 //                 <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
 //                     ${elem.comment}
@@ -1742,11 +1742,11 @@
            parentComment.innerHTML = parentComment.innerHTML + childComment;
            document.getElementById("replyTextId").value = "";
        }
-       
 
 
 
-            
+
+
        //Ajax populate create task
             let createTask = document.getElementById('addTaskId');
             createTask.addEventListener("click", displayAddTask);
@@ -1821,14 +1821,14 @@
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-                                            <input type="date" name="starting_date" class="form-control" value="" onchange="setDate()" id="starting-date" required>
+                                            <input type="text" name="starting_date" class="form-control datetime" value="" id="starting-date" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
-                                            <input type="date" name="ending_date" class="form-control" value="" id="deadline" required>
+                                            <input type="text" name="ending_date" class="form-control datetime" value="" id="deadline" required>
                                         </div>
                                     </div>
 
@@ -1853,10 +1853,28 @@
                     }
                 });
             }
-             
-            function setDate(){
-                alert("yea");
-            }
+
+            function formatDate() {
+                var ra =  document.getElementById("starting-date").value;
+                var datePart = ra.match(/\d+/g),
+                year = datePart[0].substring(), // get four digits
+                month = datePart[1], day = datePart[2];
+                ra =  day+'/'+month+'/'+year;
+                document.getElementById("starting-date").value = ra;
+                var formattedDate = document.getElementById("starting-date").value
+                 return formattedDate;
+                  }
+
+            function formatDate2() {
+                var ra =  document.getElementById("deadline").value;
+                var datePart = ra.match(/\d+/g),
+                year = datePart[0].substring(), // get four digits
+                month = datePart[1], day = datePart[2];
+                ra =  day+'/'+month+'/'+year;
+                document.getElementById("deadline").value = ra;
+                var formattedDate = document.getElementById("deadline").value
+                 return formattedDate;
+                  }
 
              //Edit task
             function editTask(taskId){
@@ -1901,7 +1919,7 @@
                                         <div class="form-group">
                                             <label>Select Project</label>
                                             <select id="project_id" name="project_id" class="selectDesign form-control">
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -1909,7 +1927,7 @@
                                         <div class="form-group">
                                             <label>Select Project Subtype</label>
                                             <select id="project_subtype_id" name="project_subtype_id" class="selectDesign form-control">
-                                                
+
                                             </select>
                                         </div>
 
@@ -1923,7 +1941,7 @@
                                         <div class="form-group">
                                             <label>Task Category</label>
                                             <select id="category_id" name="category_id" class="selectDesign form-control">
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -1932,7 +1950,7 @@
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
                                             <select style="width: 100%" name="assinged_tos" id="assinged_tos" multiple="multiple" required class="form-control select2">
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -1940,7 +1958,7 @@
                                         <div class="form-group">
                                             <label>Select Manager</label>
                                             <select id="manager_id" name="manager_id" class="selectDesign form-control">
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -1962,7 +1980,7 @@
                                         <div class="form-group">
                                             <label>Task Status</label>
                                             <select id="status_id" name="status_id" class="selectDesign form-control">
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -1978,7 +1996,7 @@
                         `
                 $('#editTaskform').on('submit', function(e){
                   e.preventDefault();
-                    
+
                 $.ajax({
                     type: "PUT",
                     url: "/"  + taskId,
@@ -2018,8 +2036,8 @@
                 });
                 });
                 });
-                
-            
+
+
             //Ajax populate create task category
             function createTaskCategoryAjaxGet(){
                 $.ajax({
@@ -2122,7 +2140,7 @@
                 }
                 });
                 });
-                
+
     </script>
 
 
