@@ -101,6 +101,7 @@
     </div>
 </div>
 <!--end::Portlet-->
+
 <!-- Create Project Modal -->
 <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
@@ -120,6 +121,28 @@
         </div>
     </div>
 </div>
+{{-- end create modal --}}
+
+<!-- Edit create Project Modal -->
+<div class="modal fade" id="editProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Project</h5>
+                    <button type="button" class="close" onclick="$('#editProjectModal').modal('hide');" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div id="editProjectBody" class="modal-body col-md-12">
+    
+    
+    
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    {{-- end edit modal --}}
 
 <!--AddSubtype Modal, note:this is found in create project modal -->
 <div class="modal fade" id="subtypeModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -255,28 +278,6 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
             </div>
-                {{-- <form id="addprojTtypeform" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                            <label for="create-task">{{ trans('cruds.projectType.fields.name') }}*</label>
-                            <input type="text" class="form-control" id="subtype" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
-                        </div>
-                                @if($errors->has('name'))
-                            <p class="help-block">
-                                {{ $errors->first('name') }}
-                            </p>
-                        @endif
-                        <p class="helper-block">
-                            {{ trans('cruds.projectType.fields.name_helper') }}
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');" data-target="#AddProjecModalla">Close</button>
-                        <button type="submit" class="btn btn-primary" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">Add</button>
-                    </div>
-                </form> --}}
-                    
                     <form id="addprojTtypeform2" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
@@ -1137,13 +1138,13 @@
                 let createProjectBody = document.getElementById('createProjectBody');
                 let probSubtypeBody = document.getElementById('subtypeModalBody');
                     createProjectBody.innerHTML = `
-                    <div class="col-md-12 ">
+<div class="col-md-12 ">
     <form action="{{ url("/api/v1/projects") }}" method="POST" id="addprojectform" enctype="multipart/form-data">
         @csrf
         <div class="row col-md-12">
             <div class="col-md-6 form-group mt-3">
                 <label>Select Client</label>
-                <select id="client-list" name="client_id" class="selectDesign form-control required">
+                <select id="client_id" name="client_id" class="selectDesign form-control required">
                 ` +
                     data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1152,13 +1153,13 @@
 
             <div class="col-md-6 form-group mt-3">
                     <label for="create-project">Project Name</label>
-                <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
+                <input type="text" name="name" class="form-control" id="projectName" placeholder="" required>
             </div>
         </div>
         <div class="row col-md-12">
             <div class="col-md-4 form-group mt-3">
                 <label for="create-project">Manager</label><br>
-                <select name="manager_id" class="form-control select2" style="width:100%;" required>
+                <select name="manager_id" id="manager_id" class="form-control select2" style="width:100%;" required>
                     ` +
                     data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1167,7 +1168,7 @@
             <div class="col-md-4 form-group mt-3">
                 <label for="create-project-type">Project Type</label>
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                <select class="form-control" id="projtypeboy" name="project_type_id" required>
+                <select class="form-control" id="project_type_id" name="project_type_id" required>
                     ` +
                     data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1178,7 +1179,7 @@
             <div class="col-md-4 form-group mt-3">
                 <label for="exampleFormControlSelect1">Project Sub-type</label>
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
+                <select class="form-control" id="project_subtype_id" name="project_subtype_id" required>
                     ` +
                     data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1198,7 +1199,7 @@
             </div>
             <div class="col-md-4 form-group mt-3">
                 <label>Team members</label><br>
-                <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
+                <select multiple class="form-control select2" id="team_members" name="team_members[]" style="width:100%;"required>
                     ` +
                     data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1235,6 +1236,118 @@
         });
 
     }
+
+          //Edit task
+          function editProject(projectId){
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                // var data = globalData.filter((item, i) => item.id === taskId)
+
+                // console.log(data)
+
+                $('#client_id').val(data[1]);
+                $('#projectName').val(data[2]);
+                $('#manager_id').val(data[3]);
+                $('#project_type_id').val(data[4]);
+                $('#project_subtype_id').val(data[5]);
+                $('#status_id').val(data[6]);
+                $('#team_members').val(data[7]);
+                $('#starting_date').val(data[8]);
+                $('#Deadline').val(data[9]);
+
+                        let editProjectBody = document.getElementById('editProjectBody');
+                        editProjectBody.innerHTML = `
+    <div class="modal-body">
+     <form id="ediProjectForm" action="{{ url('/api/v1/tasks') }}"  method="PUT" enctype="multipart/form-data">
+        @csrf
+        <div class="row col-md-12">
+            <div class="col-md-6 form-group mt-3">
+                <label>Select Client</label>
+                <select id="client-list" name="client_id" class="selectDesign form-control required">
+                
+                </select>
+            </div>
+
+            <div class="col-md-6 form-group mt-3">
+                    <label for="create-project">Project Name</label>
+                <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-4 form-group mt-3">
+                <label for="create-project">Manager</label><br>
+                <select name="manager_id" class="form-control select2" style="width:100%;" required>
+                  
+                </select>
+            </div>
+            <div class="col-md-4 form-group mt-3">
+                <label for="create-project-type">Project Type</label>
+                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
+                <select class="form-control" id="projtypeboy" name="project_type_id" required>
+                  
+                </select>
+            </div>
+
+
+            <div class="col-md-4 form-group mt-3">
+                <label for="exampleFormControlSelect1">Project Sub-type</label>
+                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
+                <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
+                   
+                </select>
+            </div>
+        </div>
+        <div class="row col-md-12 ">
+
+            <div class="col-md-4 form-group mt-3">
+                <label for="starting-date">Start Date</label>
+                <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
+            </div>
+
+            <div class="col-md-4 form-group mt-3">
+                <label for="Deadline">Deadline</label>
+                <input type="text" class="form-control date" name="deadline" id="Deadline" required>
+            </div>
+            <div class="col-md-4 form-group mt-3">
+                <label>Team members</label><br>
+                <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
+                  
+                </select>
+            </div>
+
+
+            <div class="col-md-2 form-group mt-3">
+                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Add Project</button>
+            </div>
+        </div>
+    </form>
+
+    </div>
+                        `
+                $('#ediProjectForm').on('submit', function(e){
+                  e.preventDefault();
+                    
+                $.ajax({
+                    type: "PUT",
+                    url: "/"  + taskId,
+                    data: $('#ediProjectForm').serialize(),
+                    success: function (response){
+                        console.log(response);
+                        $('#').modal('hide');
+                        alert('Data successfully Updated');
+                    },
+                    error: function(error){
+                        console.log(error);
+                        alert('Data failed to successfully Updated');
+                    }
+                })
+            })
+            }
 
          // Add project Sub type Post 
                  $('#addprojSubtypeform1').on('submit', function(e){
@@ -1352,12 +1465,11 @@
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                  return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                  return '\<button onclick = "displayProjectInfo('+full.id+'), editProject('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
                             <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> </i>\
                             </a>\
-                            <a class="link" href="">\
-                                <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                            <a class="link" href="#"><i class="fas fa-pencil-alt"  data-toggle="modal" data-target="#editProjectModal" style="color:black;"></i>\
                             </a>\
                             <button onclick="deleteSingleProject('+full.id+')" type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                             </div>\

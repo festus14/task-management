@@ -925,10 +925,8 @@
 
             })
 
-        </script>
-
-        {{-- projectcomment js --}}
-        <script>
+        
+            // projectcomment js 
                 var date = new Date();
             var formattedDate = (date.toString().slice(0, 25));
             document.getElementById("datee").innerHTML = formattedDate;
@@ -1044,9 +1042,7 @@
                 parentComment.innerHTML = parentComment.innerHTML + childComment;
                 document.getElementById("replyTextId").value = "";
             }
-        </script>
 
-        <script>
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1797,89 +1793,76 @@
                     <div class="modal-body">
                         <form id="addTaskform" action="{{ url('/api/v1/tasks') }}"  method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                            <label for="client-list">Select Client</label>
-                                            <select id="client-list" name="client_id" class="selectDesign form-control">
-                                                    ${Object.keys(data.data.clients).map((key, index) => `<option value="${key}">${data.data.clients[key]}</option>`)}
-                                            </select>
-                                        </div>
+                                <div class="row col-md-12">
+            <div class="col-md-6 form-group mt-3">
+                <label>Select Client</label>
+                <select id="client-list" name="client_id" class="selectDesign form-control required">
+                ` +
+                    data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                + `
+                </select>
+            </div>
 
-                                        <div class="form-group">
-                                            <label>Select Project</label>
-                                            <select id="project-list" name="project_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.projects).map((key, index) => `<option value="${key}">${data.data.projects[key]}</option>`)}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                            <label>Select Project Subtype</label>
-                                            <select id="project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.projects_sub_type).map((key, index) => `<option value="${key}">${data.data.projects_sub_type[key]}</option>`)}
-                                            </select>
-                                        </div>
+            <div class="col-md-6 form-group mt-3">
+                    <label for="create-project">Project Name</label>
+                <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-4 form-group mt-3">
+                <label for="create-project">Manager</label><br>
+                <select name="manager_id" class="form-control select2" style="width:100%;" required>
+                    ` +
+                    data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                + `
+                </select>
+            </div>
+            <div class="col-md-4 form-group mt-3">
+                <label for="create-project-type">Project Type</label>
+                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
+                <select class="form-control" id="projtypeboy" name="project_type_id" required>
+                    ` +
+                    data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                + `
+                </select>
+            </div>
 
-                                        <div class="form-group">
-                                            <label for="create-task">Task Name</label>
-                                            <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
-                                        </div>
 
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label>Task Category</label>
-                                            <select id="task-category" name="category_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.categories).map((key, index) => `<option value="${key}">${data.data.categories[key]}</option>`)}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label for="assign-task">Assign task to</label>
-                                                <br>
-                                            <select style="width: 100%" name="assinged_tos" id="assign-task" multiple="multiple" required class="form-control select2">
-                                                ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label>Select Manager</label>
-                                            <select id="manager" name="manager_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
-                                                </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label for="starting-date">Starting Date</label>
-                                            <input type="text" id="starting_date" name="starting_date" class="form-control date" value="" required="">
-                                        </div>
-                                    </div>
+            <div class="col-md-4 form-group mt-3">
+                <label for="exampleFormControlSelect1">Project Sub-type</label>
+                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
+                <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
+                    ` +
+                    data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                + `
+                </select>
+            </div>
+        </div>
+        <div class="row col-md-12 ">
 
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label for="deadline">Deadline</label>
-                                            <input type="text" id="deadline" name="deadline" class="form-control datetime" value="" required="">
-                                        </div>
-                                    </div>
+            <div class="col-md-4 form-group mt-3">
+                <label for="starting-date">Start Date</label>
+                <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
+            </div>
 
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label>Task Status</label>
-                                            <select id="task-status" name="status_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.statuses).map((key, index) => `<option value="${key}" >${data.data.statuses[key]}</option>`)}
-                                                </select>
-                                        </div>
-                                    </div>
+            <div class="col-md-4 form-group mt-3">
+                <label for="Deadline">Deadline</label>
+                <input type="text" class="form-control date" name="deadline" id="Deadline" required>
+            </div>
+            <div class="col-md-4 form-group mt-3">
+                <label>Team members</label><br>
+                <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
+                    ` +
+                    data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                + `
+                </select>
+            </div>
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
-                                </div>
+
+            <div class="col-md-2 form-group mt-3">
+                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Add Project</button>
+            </div>
+        </div>
                             </form>
 
                         </div>
@@ -1916,8 +1899,6 @@
                 // var data = globalData.filter((item, i) => item.id === taskId)
 
                 // console.log(data)
-
-
 
                 $('#client_id').val(data[1]);
                 $('#project_id').val(data[2]);
