@@ -926,7 +926,7 @@
         </script>
 
         {{-- projectcomment js --}}
-        <script>
+        {{-- <script>
                 var date = new Date();
             var formattedDate = (date.toString().slice(0, 25));
             document.getElementById("datee").innerHTML = formattedDate;
@@ -1042,7 +1042,7 @@
                 parentComment.innerHTML = parentComment.innerHTML + childComment;
                 document.getElementById("replyTextId").value = "";
             }
-        </script>
+        </script> --}}
 
         <script>
             $.ajaxSetup({
@@ -1468,12 +1468,13 @@
                             </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST"  action="{{ url('/admin/project-reports') }}" enctype="multipart/form-data">
+                    <form method="POST"  action="{{ url('/api/v1/project-reports') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
                             <div class=" row col-md-12">
                             <div class="col-md-12 form-group mt-3">
                                 <label for="exampleFormControlTextarea1">Project Report</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="project_report"></textarea>
                             </div>
                         </div>
                             <div class="col-md-6 form-group mt-3">
@@ -1486,9 +1487,6 @@
                         </div>
                         
                         <div class=" row col-md-12">
-                            <div>
-                                <input style="margin-left: 5%;" type="file" id="fileselect" name="project_report" multiple="multiple" />
-                            </div>
                         <div class="row col-md-12">
                             <div class="col-md-3 form-group mt-3">
                                 <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
@@ -1927,7 +1925,7 @@
                     return $(this).text();
                 }).get();
 
-                console.log(data);
+                // console.log(data);
 
                 // var data = globalData.filter((item, i) => item.id === taskId)
 
