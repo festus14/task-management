@@ -723,14 +723,11 @@
                         </div>
                         <div class=" row col-md-12">
                             <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
-                                <fieldset class="col-md-12 form-group mt-3">
-                                    <legend>Upload File</legend>
-
+                                
                                     <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
 
                                     <div>
-                                        <label for="fileselect">Files to upload:</label>
-                                        <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
+                                        <input style="margin-left: 5%;" type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
 
                                     </div>
 
@@ -1406,7 +1403,7 @@
                                     <div class="m-portlet__head-tools">
                                         <ul class="m-portlet__nav">
                                             <li class="m-portlet__nav-item">
-                                                <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addReportModal" class="btn m-btn--icon m-btn--pill">
+                                                <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addTaskReportModal" class="btn m-btn--icon m-btn--pill">
                                                     <span>
                                                         <i class="la la-plus"></i>
                                                         <span>
