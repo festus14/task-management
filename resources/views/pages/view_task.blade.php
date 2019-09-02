@@ -585,7 +585,7 @@
               </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="" enctype="multipart/form-data">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6 col-md-6">
@@ -693,7 +693,7 @@
     {{-- endtaskReport DT tModal --}}
 
     {{-- Add task report Modal --}}
-    <div class="modal fade" id="addTaskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    {{-- <div class="modal fade" id="addTaskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -708,6 +708,7 @@
                             <div class="col-md-6 form-group mt-3">
                                 <label>Client</label>
                                 <select id="client-list" class="selectDesign form-control"></select>
+                                <input id="client_" />
                             </div>
 
                             <div class="col-md-6 form-group mt-3">
@@ -746,7 +747,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- end Addtaskreport Modal --}}
 
     {{-- Add Task Category Modal --}}
@@ -1455,7 +1456,53 @@
     <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
     </div>
-                        `
+
+
+    <div class="modal fade" id="addTaskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
+                    <button type="button" class="close" onclick="$('#addTaskReportModal').modal('hide');" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                            </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST"  action="{{ url('/admin/project-reports') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="col-md-12 row">
+                            <div class=" row col-md-12">
+                            <div class="col-md-12 form-group mt-3">
+                                <label for="exampleFormControlTextarea1">Project Report</label>
+                            </div>
+                        </div>
+                            <div class="col-md-6 form-group mt-3">
+                                <input id="" type="hidden" name="client_id" value="${data.data.reports.client_id}"/>
+                            </div>
+
+                            <div class="col-md-6 form-group mt-3">
+                                <input id="" type="hidden" name="project_id" value="${data.data.reports.project_id}"/>
+                            </div>
+                        </div>
+                        
+                        <div class=" row col-md-12">
+                            <div>
+                                <input style="margin-left: 5%;" type="file" id="fileselect" name="project_report" multiple="multiple" />
+                            </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-3 form-group mt-3">
+                                <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            `
 
 
                 },
