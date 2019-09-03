@@ -131,17 +131,11 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
             </div>
-            <form id="addprojSubtypeform1" action="{{ url('/api/v1/project-sub-types') }}"  method="POST" enctype="multipart/form-data">
-                @csrf
             <div id="subtypeModalBody" class="modal-body">
                 {{-- body content --}}
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="$('#subtypeModal').modal('hide');" data-target="#subtypeModal">Close</button>
-                <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
-            </div>
-            </form>
         </div>
+        
     </div>
 </div>
 <!--End AddSubtype Modal -->
@@ -255,29 +249,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
             </div>
-                {{-- <form id="addprojTtypeform" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                            <label for="create-task">{{ trans('cruds.projectType.fields.name') }}*</label>
-                            <input type="text" class="form-control" id="subtype" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
-                        </div>
-                                @if($errors->has('name'))
-                            <p class="help-block">
-                                {{ $errors->first('name') }}
-                            </p>
-                        @endif
-                        <p class="helper-block">
-                            {{ trans('cruds.projectType.fields.name_helper') }}
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');" data-target="#AddProjecModalla">Close</button>
-                        <button type="submit" class="btn btn-primary" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">Add</button>
-                    </div>
-                </form> --}}
-                    
-                    <form id="addprojTtypeform2" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
+                    <form id="addprojTtypeform2" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
@@ -287,7 +259,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');">Close</button>
-                            <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="addProject()" value="{{ trans('global.create') }}">
                         </div>
                     </form>
         </div>
@@ -372,13 +344,11 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                 </div>
-                <form id="addprojsubtypeform2" action="{{ url('/api/v1/project-sub-types') }}"  method="POST" enctype="multipart/form-data">
-                    @csrf
                 <div id="subtypemainModalBody">
                     {{-- body content --}}
 
                 </div>
-            </form>
+            
             </div>
         </div>
     </div>
@@ -1195,26 +1165,33 @@
 
 
             <div class="col-md-2 form-group mt-3">
-                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Add Project</button>
+                <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.create') }}">
             </div>
         </div>
     </form>
 </div>  `
 
             probSubtypeBody.innerHTML = `
+            <form id="addprojSubtypeform1"  enctype="multipart/form-data">
+                @csrf
             <div class="form-group">
                     <label for="project-type">Select Project Type</label>
                     <select id="project-type" class="selectDesign form-control">
                         ` +
                             data.project_types.map((elem) => `<option name="project_type_id" value="${elem.id}">${elem.name}</option>`)
                         + `
-                </select>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label for="create-subType">Subtype Name</label>
                     <input type="text" class="form-control" name="name" id="subtypeId" placeholder="" required>
                 </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="$('#subtypeModal').modal('hide');" data-target="#subtypeModal">Close</button>
+                <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtype();" value="{{ trans('global.create') }}">
+            </div>
+            </form>
                      `
             },
             error: function (data) {
@@ -1224,45 +1201,22 @@
 
     }
 
-         // Add project Sub type Post 
-                 $('#addprojSubtypeform1').on('submit', function(e){
-                    e.preventDefault();
-                    $.ajax({
-                    type: "POST",
-                    url: '{{ url("/api/v1/project-sub-types") }}',
-                    data: $('#addprojSubtypeform1').serialize(),
-                    success: function (response, data) {
-                        alert("Project sub-type created");
-                        getProjetTypeDT();
-                        document.getElementById('subtypeId').value = "";
-                        $('#subtypeModal').modal('hide');
-                        console.log(data);
-                        console.log(response);
-                        return(data);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                        alert("Project sub-type creation failed");
-                    }
-
-                    });
-                    });
-
         // Add 2nd project Sub type Post 
-        $('#addprojsubtypeform2').on('submit', function(e){
-                    e.preventDefault();
+            function addProjectSubtypeX(){
+                    $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
                     $.ajax({
                     type: "POST",
                     url: '{{ url("/api/v1/project-sub-types") }}',
-                    data: $('#addprojsubtypeform2'),
-                    success: function (response, data) {
+                    data: $('#addprojsubtypeform2').serialize(),
+                    success: function (data) {
                         alert("Project sub-type created");
                         getProjecSubTypeDT();
                         document.getElementById('sub-type').value = "";
                         $('#subtypemainModal').modal('hide');
-                        console.log(data);
-                        console.log(response);
-                        return(data);
                     },
                     error: function (error) {
                         console.log(error);
@@ -1270,32 +1224,54 @@
                     }
 
                     });
-                    });
+                 }
 
+                // Add project Sub type Post
+            function addProjectSubtype(){ 
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/project-sub-types") }}',
+                    data: $('#addprojSubtypeform1').serialize(),
+                    success: function (data) {
+                        alert("Project sub-type created");
+                        // getProjetTypeDT();
+                        // document.getElementById('subtypeId').value = "";
+                        // $('#subtypeModal').modal('hide');
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("Project sub-type creation failed");
+                    }
+
+                    });
+                    }
 
     // post to the create proj table
-    $(document).ready(function(){
-
-        $('#addprojectform').on('submit', function(e){
-        e.preventDefault();
-
-        $.ajax({
-        type: "POST",
-        url: '{{ url("/api/v1/projects") }}',
-        data: $('#addprojectform').serialize(),
-        success: function (response) {
-            console.log(response)
-            $('#createProjectModal').modal('hide');
-            alert("Project Created");
-            location.reload();
-        },
-        error: function (error) {
-            console.log(error);
-            alert("Project creation failed");
-        }
-        });
-        });
-        });
+    createProject=()=>{
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/projects") }}',
+                    data: $('#addprojectform').serialize(),
+                    success: function (data) {
+                        alert(data.success);
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("Project creation failed");
+                    }
+                    });
+    }
  
 
         $.ajaxSetup({
@@ -1339,13 +1315,13 @@
                 searchable: false,
                 render: function (data, type, full, meta) {
                   return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                            <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 35px; max-width: 15px;">\
-                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> </i>\
+                            <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
+                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> View</i>\
                             </a><br>\
                             <a class="link" href="">\
-                                <i class="fas fa-pencil-alt" style="color:black;" data-toggle="modal" data-target="#editProjectModal"></i>\
+                                <i class="fas fa-pencil-alt" style="color:black;" data-toggle="modal" data-target="#editProjectModal"> Edit</i>\
                             </a><br>\
-                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black; margin-left: -5px; font-weight:600;"> Delete</i></a></button>\
                             </div>\
                                     ';
                 }
@@ -1953,8 +1929,11 @@
                             let subtypemainModalBody = document.getElementById('subtypemainModalBody');
                                 subtypemainModalBody.innerHTML =  `
                                 
+                                   
+                <form id="addprojsubtypeform2" enctype="multipart/form-data">
+                    @csrf
                 <div  class="modal-body">
-
+                 
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
                             <select id="projecttype" name="project_type_id" class="selectDesign form-control">
@@ -1971,8 +1950,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#subtypemainModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtypeX();" value="{{ trans('global.create') }}">
                 </div>
+                </form>
 
                                             `
                                     },
@@ -2011,22 +1991,23 @@
                     });
                     // end of project type ajax call
                 
-                    // Add project type Post 
-                    $('#addprojTtypeform2').on('submit', function(e){
-                    e.preventDefault();
+            // Add project type Post 
+               function addProject(){
+                    $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
                     $.ajax({
                     type: "POST",
                     url: '{{ url("/api/v1/project-types") }}',
                     data: $('#addprojTtypeform2').serialize(),
-                    success: function (response, data) {
-                        alert("Project-type created");
-                        document.getElementById('projTypeId').value = "";
+                    success: function (data) {
+                        alert(data.success);
                         $('#AddProjecModalla').modal('hide');
+                        document.getElementById('projTypeId').value = "";
                         getProjetTypeDT();
-                        location.reload();
-                        console.log(data);
-                        console.log(response);
-                        return(data);
+                        //location.reload();
                     },
                     error: function (error) {
                         console.log(error);
@@ -2034,8 +2015,9 @@
                     }
 
                     });
-                    });
+                 }
             // }
+            
     </script>
 
        @endsection

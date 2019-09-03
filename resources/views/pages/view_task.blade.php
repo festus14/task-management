@@ -2123,7 +2123,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createTaskCategory();" value="{{ trans('global.create') }}">
                         </div>
                     </form>
                         `
@@ -2132,32 +2132,31 @@
             }
 
 
-             // post to the Task category table
-             $('#addtaskCategoryform').on('submit', function(e){
-                e.preventDefault();
 
+        function createTaskCategory(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
                 $.ajax({
                 type: "POST",
                 url: '{{ url("/api/v1/tast-categories") }}',
                 data: $('#addtaskCategoryform').serialize(),
-                success: function (response, data) {
-                    console.log(response)
-                    getTaskCategoryAjaxDT();
+                success: function (data) {
+                    alert(data.success);
                     $('#addTaskCategory').modal('hide');
-                    alert("Task category successfully created");
-                    //document.getElementById('statusInput').value = "";
-                    //location.reload();
-                    console.log(data);
-                    console.log(response);
-                    return(data);
+                    getTaskCategoryAjaxDT();
+                    document.getElementById('category-name').value = "";
+                    document.getElementById('weightId').value = "";
                 },
-                error: function (error) {
-                    console.log(error);
-                    alert("Task category creation failed");
+                error: function (data) {
+                    console.log('Error:', data);
                 }
                 });
-                });
-
+                // });
+            }
+            
                 // post to the Task status table
                 $('#addStatusform').on('submit', function(e){
                 e.preventDefault();
