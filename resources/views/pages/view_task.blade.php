@@ -1803,7 +1803,7 @@
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
                         createTaskBody.innerHTML = `
                     <div class="modal-body">
-                        <form id="addTaskform" action="{{ url('/api/v1/tasks') }}"  method="POST" enctype="multipart/form-data">
+                        <form id="addTaskform" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6">
@@ -1831,7 +1831,7 @@
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
-                                            <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
+                                            <input type="text" name="name" class="form-control" id="create-task" placeholder="Enter Task Name" required>
                                         </div>
 
                                     </div>
@@ -1847,7 +1847,7 @@
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
-                                            <select style="width: 100%" name="assinged_tos" id="assign-task" multiple="multiple" required class="form-control select2">
+                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" required class="form-control select2">
                                                 ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
                                         </div>
@@ -1857,20 +1857,20 @@
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
                                                 ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
-                                                </select>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-                                            <input type="text" name="starting_date" class="form-control datetime" value="" id="starting-date" required>
+                                            <input type="text" name="starting_date" class="form-control datetime" id="starting-date" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
-                                            <input type="text" name="ending_date" class="form-control datetime" value="" id="deadline" required>
+                                            <input type="text" name="ending_date" class="form-control datetime" id="deadline" required>
                                         </div>
                                     </div>
 
@@ -2088,7 +2088,7 @@
                     success: function (data) {
                         let createTaskCategory = document.getElementById('taskCategoryModalbody');
                         createTaskCategory.innerHTML = `
-                        <form  action="{{ url("/api/v1/tast-categories") }}" method="POST" id="addtaskCategoryform" enctype="multipart/form-data">
+                        <form  id="addtaskCategoryform" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
                             <div class="col-md-6 form-group mt-3">
@@ -2133,7 +2133,7 @@
 
 
              // post to the Task category table
-             $('#').on('submit', function(e){
+             $('#addtaskCategoryform').on('submit', function(e){
                 e.preventDefault();
 
                 $.ajax({
