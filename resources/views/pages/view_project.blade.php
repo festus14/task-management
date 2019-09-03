@@ -101,7 +101,6 @@
     </div>
 </div>
 <!--end::Portlet-->
-
 <!-- Create Project Modal -->
 <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
@@ -121,28 +120,6 @@
         </div>
     </div>
 </div>
-{{-- end create modal --}}
-
-<!-- Edit create Project Modal -->
-<div class="modal fade" id="editProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Project</h5>
-                    <button type="button" class="close" onclick="$('#editProjectModal').modal('hide');" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div id="editProjectBody" class="modal-body col-md-12">
-    
-    
-    
-                </div>
-    
-            </div>
-        </div>
-    </div>
-    {{-- end edit modal --}}
 
 <!--AddSubtype Modal, note:this is found in create project modal -->
 <div class="modal fade" id="subtypeModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -278,6 +255,28 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
             </div>
+                {{-- <form id="addprojTtypeform" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                            <label for="create-task">{{ trans('cruds.projectType.fields.name') }}*</label>
+                            <input type="text" class="form-control" id="subtype" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
+                        </div>
+                                @if($errors->has('name'))
+                            <p class="help-block">
+                                {{ $errors->first('name') }}
+                            </p>
+                        @endif
+                        <p class="helper-block">
+                            {{ trans('cruds.projectType.fields.name_helper') }}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');" data-target="#AddProjecModalla">Close</button>
+                        <button type="submit" class="btn btn-primary" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">Add</button>
+                    </div>
+                </form> --}}
+                    
                     <form id="addprojTtypeform2" action="{{ url('/api/v1/project-types') }}"  method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
@@ -388,7 +387,7 @@
     {{--  --}}
     <div id="moreInfo">
         <!-- More Info Modal -->
-        <div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        {{-- <div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -479,12 +478,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
         <!-- End More Info Modal -->
         
         {{-- documentDTModal --}}
-        <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        {{-- <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -546,11 +545,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{-- endDocumentDTModal --}}
         
         {{-- report DT Modal --}}
-        <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        {{-- <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -615,11 +614,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{-- endreport DT tModal --}}
-
+        
         {{-- Add report Modal --}}
-        <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        {{-- <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -650,19 +649,12 @@
                             <div class=" row col-md-12">
                                 <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
                                     <fieldset class="col-md-12 form-group mt-3">
-                                        <legend>Upload File</legend>
         
                                         <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
         
                                         <div>
-                                            <label for="fileselect">Files to upload:</label>
-                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" /> {{--
-                                            <div id="filedrag">or drop files here</div> --}}
+                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" /> 
                                         </div>
-                                        {{--
-                                        <div id="submitbutton">
-                                            <button type="submit">Upload Files</button>
-                                        </div> --}}
                                         <div id="messages">
         
                                         </div>
@@ -679,7 +671,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{-- end Addreport Modal --}}
         
         <!-- Add Document Modal -->
@@ -896,7 +888,6 @@
 @section('javascript')
 <script>
         var date = new Date();
-        
        var formattedDate = (date.toString().slice(0, 25));
        document.getElementById("datee").innerHTML = formattedDate;
 
@@ -1008,9 +999,7 @@
            parentComment.innerHTML = parentComment.innerHTML + childComment;
            document.getElementById("replyTextId").value = "";
        }
-       </script>
 
-<script>
     let languages = {
             'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
         };
@@ -1117,8 +1106,7 @@
 
     })
 
-</script>
-    <script>
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1134,17 +1122,16 @@
             type: "GET",
             url: '{{ url("/api/v1/project_create") }}',
             success: function (data) {
-                
                 let createProjectBody = document.getElementById('createProjectBody');
                 let probSubtypeBody = document.getElementById('subtypeModalBody');
                     createProjectBody.innerHTML = `
-<div class="col-md-12 ">
+                    <div class="col-md-12 ">
     <form action="{{ url("/api/v1/projects") }}" method="POST" id="addprojectform" enctype="multipart/form-data">
         @csrf
         <div class="row col-md-12">
             <div class="col-md-6 form-group mt-3">
                 <label>Select Client</label>
-                <select id="client_id" name="client_id" class="selectDesign form-control required">
+                <select id="client-list" name="client_id" class="selectDesign form-control required">
                 ` +
                     data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1153,13 +1140,13 @@
 
             <div class="col-md-6 form-group mt-3">
                     <label for="create-project">Project Name</label>
-                <input type="text" name="name" class="form-control" id="projectName" placeholder="" required>
+                <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
             </div>
         </div>
         <div class="row col-md-12">
             <div class="col-md-4 form-group mt-3">
                 <label for="create-project">Manager</label><br>
-                <select name="manager_id" id="manager_id" class="form-control select2" style="width:100%;" required>
+                <select name="manager_id" class="form-control select2" style="width:100%;" required>
                     ` +
                     data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1168,7 +1155,7 @@
             <div class="col-md-4 form-group mt-3">
                 <label for="create-project-type">Project Type</label>
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                <select class="form-control" id="project_type_id" name="project_type_id" required>
+                <select class="form-control" id="projtypeboy" name="project_type_id" required>
                     ` +
                     data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1179,7 +1166,7 @@
             <div class="col-md-4 form-group mt-3">
                 <label for="exampleFormControlSelect1">Project Sub-type</label>
                 <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                <select class="form-control" id="project_subtype_id" name="project_subtype_id" required>
+                <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
                     ` +
                     data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1199,7 +1186,7 @@
             </div>
             <div class="col-md-4 form-group mt-3">
                 <label>Team members</label><br>
-                <select multiple class="form-control select2" id="team_members" name="team_members[]" style="width:100%;"required>
+                <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
                     ` +
                     data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                 + `
@@ -1236,118 +1223,6 @@
         });
 
     }
-
-          //Edit task
-          function editProject(projectId){
-                $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function(){
-                    return $(this).text();
-                }).get();
-
-                console.log(data);
-
-                // var data = globalData.filter((item, i) => item.id === taskId)
-
-                // console.log(data)
-
-                $('#client_id').val(data[1]);
-                $('#projectName').val(data[2]);
-                $('#manager_id').val(data[3]);
-                $('#project_type_id').val(data[4]);
-                $('#project_subtype_id').val(data[5]);
-                $('#status_id').val(data[6]);
-                $('#team_members').val(data[7]);
-                $('#starting_date').val(data[8]);
-                $('#Deadline').val(data[9]);
-
-                        let editProjectBody = document.getElementById('editProjectBody');
-                        editProjectBody.innerHTML = `
-    <div class="modal-body">
-     <form id="ediProjectForm" action="{{ url('/api/v1/tasks') }}"  method="PUT" enctype="multipart/form-data">
-        @csrf
-        <div class="row col-md-12">
-            <div class="col-md-6 form-group mt-3">
-                <label>Select Client</label>
-                <select id="client-list" name="client_id" class="selectDesign form-control required">
-                
-                </select>
-            </div>
-
-            <div class="col-md-6 form-group mt-3">
-                    <label for="create-project">Project Name</label>
-                <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
-            </div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-4 form-group mt-3">
-                <label for="create-project">Manager</label><br>
-                <select name="manager_id" class="form-control select2" style="width:100%;" required>
-                  
-                </select>
-            </div>
-            <div class="col-md-4 form-group mt-3">
-                <label for="create-project-type">Project Type</label>
-                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                <select class="form-control" id="projtypeboy" name="project_type_id" required>
-                  
-                </select>
-            </div>
-
-
-            <div class="col-md-4 form-group mt-3">
-                <label for="exampleFormControlSelect1">Project Sub-type</label>
-                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
-                   
-                </select>
-            </div>
-        </div>
-        <div class="row col-md-12 ">
-
-            <div class="col-md-4 form-group mt-3">
-                <label for="starting-date">Start Date</label>
-                <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
-            </div>
-
-            <div class="col-md-4 form-group mt-3">
-                <label for="Deadline">Deadline</label>
-                <input type="text" class="form-control date" name="deadline" id="Deadline" required>
-            </div>
-            <div class="col-md-4 form-group mt-3">
-                <label>Team members</label><br>
-                <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
-                  
-                </select>
-            </div>
-
-
-            <div class="col-md-2 form-group mt-3">
-                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Add Project</button>
-            </div>
-        </div>
-    </form>
-
-    </div>
-                        `
-                $('#ediProjectForm').on('submit', function(e){
-                  e.preventDefault();
-                    
-                $.ajax({
-                    type: "PUT",
-                    url: "/"  + taskId,
-                    data: $('#ediProjectForm').serialize(),
-                    success: function (response){
-                        console.log(response);
-                        $('#').modal('hide');
-                        alert('Data successfully Updated');
-                    },
-                    error: function(error){
-                        console.log(error);
-                        alert('Data failed to successfully Updated');
-                    }
-                })
-            })
-            }
 
          // Add project Sub type Post 
                  $('#addprojSubtypeform1').on('submit', function(e){
@@ -1421,10 +1296,8 @@
         });
         });
         });
-    </script>
+ 
 
-
-    <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1465,13 +1338,14 @@
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                  return '\<button onclick = "displayProjectInfo('+full.id+'), editProject('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                            <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
+                  return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                            <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 35px; max-width: 15px;">\
                             <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> </i>\
-                            </a>\
-                            <a class="link" href="#"><i class="fas fa-pencil-alt"  data-toggle="modal" data-target="#editProjectModal" style="color:black;"></i>\
-                            </a>\
-                            <button onclick="deleteSingleProject('+full.id+')" type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                            </a><br>\
+                            <a class="link" href="">\
+                                <i class="fas fa-pencil-alt" style="color:black;" data-toggle="modal" data-target="#editProjectModal"></i>\
+                            </a><br>\
+                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                             </div>\
                                     ';
                 }
@@ -1511,7 +1385,7 @@
             @endcan
 
             $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-        // })
+
 
             // Function for rendering the more info modal
         function displayProjectInfo(proID) {
@@ -1545,118 +1419,68 @@
                     </div>
                     <div class="m-portlet__body">
                         <div class="accordion" id="accordionExample">
-                            <div onclick="taskDTCall(${data.data.id})" class="card">
-                                <div class="card-header" id="headingone">
-                                    <h6 class="mb-0">
-                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                        <i class="m-menu__link-icon flaticon-list"></i>
-                                                        Project tasks
-                                                </span>
-                                    </h6>
-                                </div>
-                                <div id="collapseOne" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="m-portlet">
-                                        <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Starting Date</th>
-                                                    <th>Deadline</th>
-                                                    <th>Category</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
+                                <div onclick="taskDTCall(${data.data.id})" class="card">
+                                    <div class="card-header" id="headingone">
+                                        <h6 style="cursor: pointer" class="mb-0">
+                                            <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                <i class="m-menu__link-icon flaticon-list"></i>
+                                                Project tasks
+                                            </span>
+                                        </h6>
+                                    </div>
+                                    <div id="collapseOne" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="m-portlet">
+                                            <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>Starting Date</th>
+                                                        <th>Deadline</th>
+                                                        <th>Category</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="accordion" id="accordionExample2">
-                            <div onclick="documentDTCall(${data.data.id})" class="card">
-                                <div class="card-header" id="headingone">
-                                    <h6 class="mb-0">
-                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <i class="m-menu__link-icon flaticon-clipboard"></i>
-                                            Documents
-                                        </span>
-                                    </h6>
+                                <div onclick="documentDTCall(${data.data.id})" class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <h6 style="cursor: pointer" class="mb-0">
+                                            <span data-toggle="modal" data-target="#documentModal">
+                                                <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                Documents
+                                            </span>
+                                        </h6>
+                                    </div>
                                 </div>
-                                <div id="collapseTwo" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <input type="text" id="myInput" onkeyup="searchDocument()" placeholder="Search for documents.." title="Type in a documents">
-                                        <table id="myTable">
-                                                <tr class="header">
-                                                    <th style="width:60%;">Name</th>
-                                                    <th style="width:40%;">File</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td >Actual Name</td>
-                                                    <td >Actual File</td>
-                                                </tr>
-                                                `+ data.data.documents.map(elem => 
-                                                    `<tr>
-                                                        <td>${elem.name}</td>
-                                                        <td>${elem.file}</td>
-                                                    </tr>`
-                                                )+`
-                                        </table>
 
+                                <div onclick="reportDTCall(${data.data.id})" class="card">
+                                    <div class="card-header" id="headingThree">
+                                        <h6 style="cursor: pointer" class="mb-0">
+                                            <span data-toggle="modal" data-target="#projectreportModal">
+                                                <i class="m-menu__link-icon flaticon-file"></i>
+                                                Report
+                                            </span>
+                                        </h6>
+                                    </div>
                                 </div>
-                            </div>
-
-
-                            <div class="accordion" id="accordionExample3">
-                            <div onclick="reportDTCall(${data.data.id})" class="card">
-                                <div class="card-header" id="headingthree">
-                                    <h6 class="mb-0">
-                                        <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            <i class="m-menu__link-icon flaticon-file"></i>
-                                            Reports
-                                        </span>
-                                    </h6>
-                                </div>
-                                <div id="collapseThree" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <input type="textOne" id="myInputOne" onkeyup="searchReport()" placeholder="Search for report.." title="Type in a report">
-                                        <table id="myTableOne">
-                                                <tr class="header">
-                                                    <th style="width:60%;">Name</th>
-                                                    <th style="width:40%;">File</th>
-                                                </tr>
-                                                <tr class="">
-                                                    <td >Report Name</td>
-                                                    <td >Report Content</td>
-                                                </tr>
-                                                `+ data.data.reports.map(elem => 
-                                                    `<tr>
-                                                        <td>${elem.name}</td>
-                                                        <td>${elem.file}</td>
-                                                    </tr>`
-                                                )+`
-                                        </table>
-
-                                </div>
-                            </div>
-
 
                             <div class="card">
                                 <div onclick="projectComments(${data.data.id})" class="card-header" id="headingFour">
-                                    <h6 class="mb-0">
+                                    <h6 style="cursor: pointer" class="mb-0">
                                         <span class="" data-toggle="modal" data-target="#commentModal">
-                                                                <i class="m-menu__link-icon flaticon-comment"></i>
-                                                                Comments
-                                                        </span>
+                                            <i class="m-menu__link-icon flaticon-comment"></i>
+                                            Comments
+                                        </span>
                                     </h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--end::Portlet-->
-
-
-
-
-
-
                     <!-- End main Content of More-info -->
 
                         <div class="modal-footer">
@@ -1666,10 +1490,202 @@
                 </div>
                 </div>
                 </div>
-
-
                 
 
+                <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="documentModalLongTitle">Project Documents</h5>
+                            <button type="button" class="close" onclick="$('#documentModal').modal('hide');" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="m-portlet" id="m_portlet">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon">
+                                                <i class="flaticon-list-1"> </i>
+                                            </span>
+                                            <h3 class="m-portlet__head-text">
+                                                Documents
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__head-tools">
+                                        <ul class="m-portlet__nav">
+                                            <li class="m-portlet__nav-item">
+                                                <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addDocumentModal" class="btn m-btn--icon m-btn--pill">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>
+                                                            Add Document
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__body">
+                                    <div class="m-portlet">
+                                        <table id="kt_table_single_project_documents" class="table table-striped table-hover" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Version</th>
+                                                    <th>Date Created</th>
+                                                    <th>File</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                `+ data.data.documents.map(item => 
+                                                    `<tr>
+                                                        <td></td>
+                                                        <td>${item.name}</td>
+                                                        <td>${item.version}</td>
+                                                        <td>${item.created_at}</td>
+                                                        <td></td>
+                                                    </tr>`
+                                                ) +`
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <!--end::Portlet-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+
+                <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Project Reports</h5>
+                            <button type="button" class="close" onclick="$('#projectreportModal').modal('hide');" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="m-portlet">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon">
+                                                <i class="flaticon-list-1"> </i>
+                                            </span>
+                                            <h3 class="m-portlet__head-text">
+                                                Reports
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__head-tools">
+                                        <ul class="m-portlet__nav">
+                                            <li class="m-portlet__nav-item">
+                                                <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addReportModal" class="btn m-btn--icon m-btn--pill">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>
+                                                            Add Report
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__body">
+                                    <div class="m-portlet">
+                                        <table id="kt_table_single_project_reports" class="table table-striped table-hover" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Report</th>
+                                                    <th>Date Created</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                `+ data.data.reports.map(item => 
+                                                    `<tr>
+                                                        <td></td>
+                                                        <td>${item.project_report}</td>
+                                                        <td>${item.created_at}</td>
+                                                    </tr>`
+                                                ) +`
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <!--end::Portlet-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+
+        <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
+                        <button type="button" class="close" onclick="$('#addReportModal').modal('hide');" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                    </div>
+                    <div class="modal-body">
+                            <form action="{{ url("/api/v1/project-reports") }}" method="POST" id="addprojectform" enctype="multipart/form-data">
+                                 @csrf
+                            <div class=" row col-md-12">
+                                <div class="col-md-12 form-group mt-3">
+                                    <label for="exampleFormControlTextarea1">Project Report</label>
+                                    <textarea class="form-control" id="project_report" name="project_report" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 row">
+                                <div class="col-md-6 form-group mt-3">
+                                    <input type="hidden" value="${data.data.reports.client_id}" name="client_id" id="client" class="form-control" id="address" placeholder="">
+                                </div>
+                                <div class="col-md-6 form-group mt-3">
+                                    <input type="hidden" value="${data.data.reports.project_id}" name="project_id" id="project" class="form-control" id="address" placeholder="">
+                                </div>
+                            </div>
+                            
+                            <div class=" row col-md-12">
+                                    <fieldset class="col-md-12 form-group mt-3">
+        
+                                        <div>
+                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" /> 
+                                        </div>
+                                        <div id="messages">
+        
+                                        </div>
+                                    </fieldset>
+                                    <div class="row col-md-12">
+                                        <div class="col-md-3 form-group mt-3">
+                                            <button type="submit" class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+
+                                        </div>
+                                    </div>
+        
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
                 `
 
 
@@ -1686,9 +1702,76 @@
         }
 
 
+        function documentDTCall(project_id){
+            $(document).ready(function() {
+                $('#kt_table_single_project_documents').DataTable();
+            } );
+        }
+
+
+        function reportDTCall(project_id){
+            $(document).ready(function() {
+                $('#kt_table_single_project_reports').DataTable();
+            } );
+        }
+
+
+
+        function taskDTCall(project_id){
+            path_url = "/api/v1/projects_tasks/" + project_id;
+
+              // Simple Project Tasks DT
+            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_task') ) {
+                let kt_table_single_project_task = $('#kt_table_single_project_task').DataTable();
+            }else {
+                let kt_table_single_project_task = $('#kt_table_single_project_task').DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+
+                ajax: path_url,
+                        
+                columns: [
+                    {"defaultContent": ""},
+                    {"data": "name"},
+                    {"data": "starting_date"},
+                    {"data": "ending_date"},
+                    {"data": "category.name"},
+                    {"data": "status.name"},
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                },
+                ],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                scrollX: true,
+                order: [],
+                pageLength: 10,
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
+            }
+
+        }
+
+
             // Delete Project Function
         function deleteSingleProject(proID){
-            $.ajax({
+            var confirmDel = confirm("Do you want to delete the document?");
+
+            if(confirmDel){
+                $.ajax({
                     type: "DELETE",
                     url: "{{ url('admin/projects')}}" + '/' + proID,
                     success: function (data) {
@@ -1697,62 +1780,99 @@
                     },
                     error: function (data) {
                         console.log('Error:', data);
+                        location.reload();
                     }
                 });
+            }
         }
 
+        // function deleteFunctionForAll(proID, del_url){
+        //     var confirmDel = confirm("Do you want to delete the document?");
+        //     console.log(del_url)
+        //     var path_url = del_url + '/' + proID
+        //     if(confirmDel){
+        //         $.ajax({
+        //             type: "DELETE",
+        //             url: path_url,
+        //             success: function (data) {
+        //                 location.reload();
+        //             },
+        //             error: function (data) {
+        //                 console.log('Error:', data);
+        //                 location.reload();
+        //             }
+        //         });
+        //     }
+        // }
 
-    function getProjetTypeDT(){
-            if ( $.fn.dataTable.isDataTable( '#kt_table_project_type') ) {
-                var kt_table_project_type = $('#kt_table_project_type').DataTable();
-             }else {
-                var kt_table_project_type = $('#kt_table_project_type').DataTable({
-                    ajax: "{{ url('/api/v1/project-types') }}",
-                    columns: [
-                        { defaultContent : ""  },
-                        { "data": "name"}
-                        ],
 
-                    dom: 'lBfrtip<"actions">',
-                    language: {
-                        url: languages.{{ app()->getLocale() }}
-                    },
-                    columnDefs: [{
-                        orderable: false,
-                        className: 'select-checkbox',
-                        targets: 0,
+        function getProjetTypeDT(){
+                if ( $.fn.dataTable.isDataTable( '#kt_table_project_type') ) {
+                    var kt_table_project_type = $('#kt_table_project_type').DataTable();
+                }else {
+                    var kt_table_project_type = $('#kt_table_project_type').DataTable({
+                        ajax: "{{ url('/api/v1/project-types') }}",
+                        columns: [
+                            { defaultContent : ""  },
+                            { "data": "name"}
+                            ],
 
-                    }, {
-                        orderable: false,
-                        searchable: false,
-                        targets: -1,
+                        dom: 'lBfrtip<"actions">',
+                        language: {
+                            url: languages.{{ app()->getLocale() }}
+                        },
+                        columnDefs: [{
+                            orderable: false,
+                            className: 'select-checkbox',
+                            targets: 0,
 
-                    },
-                    {
-                targets:2,
-                orderable: false,
-                searchable: false,
-                render: function () {
-                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
-                                        <a class="link" href="">\
-                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
-                                        </a>\
-                                        <form action="" method="POST" onsubmit="" style="display: inline-block;">\
-                                            <input type="hidden" name="_method" value="DELETE">\
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">\
-                                            <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
-                                        </form>\
-                                    </div>\
-                                    ';
-                }
-    }],
+                        }, {
+                            orderable: false,
+                            searchable: false,
+                            targets: -1,
+
+                        },
+                        {
+                    targets:2,
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, full, meta) {
+                        return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                                <a class="link" href="">\
+                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                </a>\
+                                <button onclick="deleteProjectType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                </div>\
+                            ';
+                    }
+        }],
                 });
                     }
             };
 
+            //          Function for deleting single project
+        function deleteProjectType(proID){
 
-    function getProjectSubTypeDT(){
+            var confirmDel = confirm("Do you want to delete the project type?");
+
+            if(confirmDel){
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/project-types')}}" + '/' + proID,
+                    success: function (data) {
+                        location.reload();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                        location.reload();
+                    }
+                });
+            }
+        }
+
+
+        function getProjectSubTypeDT(){
 
             if ( $.fn.dataTable.isDataTable( '#kt_table_project_subtype') ) {
                 var kt_table_project_subtype = $('#kt_table_project_subtype').DataTable();
@@ -1784,24 +1904,42 @@
                 targets: 3,
                 orderable: false,
                 searchable: false,
-                render: function () {
-                  return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
-                                        <a class="link" href="">\
-                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
-                                        </a>\
-                                        <form action="" method="POST" onsubmit="" style="display: inline-block;">\
-                                            <input type="hidden" name="_method" value="DELETE">\
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">\
-                                            <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
-                                        </form>\
-                                    </div>\
-                                    ';
+                render: function (data, type, full, meta) {
+                    return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                            <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                            <a class="link" href="">\
+                                <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                            </a>\
+                            <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                            </div>\
+                            ';
                 }
     }],
                 });
                     }
             };
+
+
+            //          Function for deleting single project subtype
+        function deleteProjectSubType(proID){
+
+            var confirmDel = confirm("Do you want to delete the document?");
+
+            if(confirmDel){
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/project-sub-types')}}" + '/' + proID,
+                    success: function (data) {
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                        location.reload();
+                    }
+                });
+            }
+        }
 
             let addProjSubTypeId = document.getElementById('addProjSubTypeId');
             addProjSubTypeId.addEventListener("click", displayAddPsubtype);
@@ -1885,6 +2023,7 @@
                         document.getElementById('projTypeId').value = "";
                         $('#AddProjecModalla').modal('hide');
                         getProjetTypeDT();
+                        location.reload();
                         console.log(data);
                         console.log(response);
                         return(data);

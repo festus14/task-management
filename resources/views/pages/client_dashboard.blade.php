@@ -705,7 +705,7 @@
                                 <div class="accordion" id="accordionExample">
                                     <div onclick="taskDTCall(${data.data.id})" class="card">
                                         <div class="card-header" id="headingone">
-                                            <h6 class="mb-0">
+                                            <h6 style="cursor: pointer" class="mb-0">
                                                 <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                     <i class="m-menu__link-icon flaticon-list"></i>
                                                     Project tasks
@@ -731,9 +731,9 @@
                                     </div>
 
                                     <div class="accordion" id="accordionExample2">
-                                    <div onclick="documentDTCall(${data.data.id})" class="card">
+                                    <div class="card">
                                         <div class="card-header" id="headingone">
-                                            <h6 class="mb-0">
+                                            <h6 style="cursor: pointer" class="mb-0">
                                                 <span class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                     <i class="m-menu__link-icon flaticon-clipboard"></i>
                                                     Documents
@@ -744,17 +744,17 @@
                                             <input type="text" id="myInput" onkeyup="searchProjectDocument()" placeholder="Search for documents.." title="Type in a documents">
                                                 <table id="myTable">
                                                         <tr class="header">
-                                                            <th style="width:60%;">Name</th>
-                                                            <th style="width:40%;">File</th>
+                                                            <th>Name</th>
+                                                            <th>Version</th>
+                                                            <th>Date Created</th>
+                                                            <th>File</th>
                                                         </tr>
-                                                        <tr class="">
-                                                            <td >Actual Name</td>
-                                                            <td >Actual File</td>
-                                                        </tr>
-                                                        `+ data.data.documents.map(elem => 
+                                                        `+ data.data.documents.map(item => 
                                                             `<tr>
-                                                                <td>${elem.name}</td>
-                                                                <td>${elem.file}</td>
+                                                                <td>${item.name}</td>
+                                                                <td>${item.version}</td>
+                                                                <td>${item.created_at}</td>
+                                                                <td></td>
                                                             </tr>`
                                                         )+`
                                                 </table>
@@ -764,9 +764,9 @@
 
 
                                     <div class="accordion" id="accordionExample3">
-                                        <div onclick="reportDTCall(${data.data.id})" class="card">
+                                        <div class="card">
                                             <div class="card-header" id="headingthree">
-                                                <h6 class="mb-0">
+                                                <h6 style="cursor: pointer" class="mb-0">
                                                     <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <i class="m-menu__link-icon flaticon-file"></i>
                                                         Reports
@@ -777,17 +777,17 @@
                                             <input type="textOne" id="myInputOne" onkeyup="searchProjectReport()" placeholder="Search for report.." title="Type in a report">
                                             <table id="myTableOne">
                                                 <tr class="header">
-                                                    <th style="width:60%;">Name</th>
-                                                    <th style="width:40%;">File</th>
+                                                    <th>Name</th>
+                                                    <th>Document Type</th>
+                                                    <th>File</th>
+                                                    <th>Date Uploaded</th>
                                                 </tr>
-                                                <tr class="">
-                                                    <td >Report Name</td>
-                                                    <td >Report Content</td>
-                                                </tr>
-                                                `+ data.data.reports.map(elem => 
+                                                `+ data.data.reports.map(item => 
                                                 `<tr>
-                                                    <td>${elem.name}</td>
-                                                    <td>${elem.file}</td>
+                                                    <td>${item.name}</td>
+                                                    <td>${item.document_type}</td>
+                                                    <td></td>
+                                                    <td>${item.created_at}</td>
                                                 </tr>`
                                                 )+`
                                             </table>
@@ -795,7 +795,7 @@
                                     </div>
                                     <div class="card">
                                         <div onclick="projectComments(${data.data.id})" class="card-header" id="headingFour">
-                                            <h6 class="mb-0">
+                                            <h6 style="cursor: pointer" class="mb-0">
                                                 <span class="" data-toggle="modal" data-target="#commentModal">
                                                     <i class="m-menu__link-icon flaticon-comment"></i>
                                                     Comments
@@ -982,7 +982,7 @@
                                 <div class="accordion" id="accordionExample4">
                                 <div class="card">
                                     <div class="card-header" id="headingone">
-                                        <h6 class="mb-0">
+                                        <h6 style="cursor: pointer" class="mb-0">
                                             <span class="collapsed" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
                                                 <i class="m-menu__link-icon flaticon-clipboard"></i>
                                                 Documents
@@ -993,15 +993,17 @@
                                         <input type="text" id="myInputTen" onkeyup="searchDocument()" placeholder="Search for documents.." title="Type in a documents">
                                             <table id="myTableTen">
                                                     <tr class="header">
-                                                        <th style="width:40%; text-align: left;">Name</th>
-                                                        <th style="width:50%; text-align: left;">File/Media</th>
-                                                        <th style="width:20%; text-align: left;">Document Type</th>
+                                                        <th>Name</th>
+                                                        <th>Document Type</th>
+                                                        <th>File</th>
+                                                        <th>Date Uploaded</th>
                                                     </tr>
-                                                    `+ data.data.documents.map(elem => 
+                                                    `+ data.data.documents.map(item => 
                                                         `<tr>
-                                                            <td style="text-align: left;">${elem.name}</td>
-                                                            <td style="text-align: left;">${elem.file}</td>
-                                                            <td style="text-align: left;">${elem.document_type}</td>
+                                                            <td>${item.name}</td>
+                                                            <td>${item.document_type}</td>
+                                                            <td></td>
+                                                            <td>${item.created_at}</td>
                                                         </tr>`
                                                     )+`
                                             </table>
@@ -1013,7 +1015,7 @@
                                 <div class="accordion" id="accordionExample5">
                                     <div class="card">
                                         <div class="card-header" id="headingnine">
-                                            <h6 class="mb-0">
+                                            <h6 style="cursor: pointer" class="mb-0">
                                                 <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
                                                     <i class="m-menu__link-icon flaticon-file"></i>
                                                     Reports
@@ -1024,17 +1026,19 @@
                                         <input type="textOne" id="myInputNine" onkeyup="searchReport()" placeholder="Search for report.." title="Type in a report">
                                         <table id="myTableNine">
                                             <tr class="header">
-                                                <th style="width:60%;">Name</th>
-                                                <th style="width:60%;">Report</th>
-                                                <th style="width:40%;">Document Type</th>
+                                                <th>Name</th>
+                                                <th>Document Type</th>
+                                                <th>File</th>
+                                                <th>Date Uploaded</th>
                                             </tr>
                                             <tr class="">
                                             </tr>
-                                            `+ data.data.reports.map(elem => 
+                                            `+ data.data.reports.map(item => 
                                             `<tr>
-                                                <td>${elem.name}</td>
-                                                <td>${elem.file}</td>
-                                                <td>${elem.document_type}</td>
+                                                <td>${item.name}</td>
+                                                <td>${item.document_type}</td>
+                                                <td></td>
+                                                <td>${item.created_at}</td>
                                             </tr>`
                                             )+`
                                         </table>
@@ -1042,7 +1046,7 @@
                                 </div>
                                 <div class="card">
                                     <div onclick="taskComments(${data.data.id})" class="card-header" id="headingFour">
-                                        <h6 class="mb-0">
+                                        <h6 style="cursor: pointer" class="mb-0">
                                             <span class="" data-toggle="modal" data-target="#commentModal">
                                                 <i class="m-menu__link-icon flaticon-comment"></i>
                                                 Comments
@@ -1202,92 +1206,7 @@
 
 
         // Function Populating the project Document Modal
-        function documentDTCall(project_id){
-            path_url = "/api/v1/tasks/" + project_id;
 
-            // Single Projects Document DT
-            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_documents') ) {
-                let kt_table_single_project_documents = $('#kt_table_single_project_documents').DataTable();
-            }else {
-                let kt_table_single_project_documents = $('#kt_table_single_project_documents').DataTable({
-                dom: 'lBfrtip<"actions">',
-                language: {
-                    url: languages. {{ app()->getLocale() }}
-                },
-
-                ajax: path_url,
-                columns: [
-                    {"defaultContent": ""},
-                    {"data": "name"},
-                    {"data": "deadline"},
-                    {"data": "created_at"},
-                ],
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }, {
-                    orderable: false,
-                    searchable: false,
-                    targets: -1
-                },
-                ],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
-                buttons: [
-                    'excel', 'pdf', 'print'
-                ]
-            });
-            }
-        }
-
-        function reportDTCall(project_id){
-            path_url = "/api/v1/projects/" + project_id;
-            // Single Project Reports DT
-            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_reports') ) {
-                let kt_table_single_project_reports = $('#kt_table_single_project_reports').DataTable();
-            }else {
-                let kt_table_single_project_reports = $('#kt_table_single_project_reports').DataTable({
-                dom: 'lBfrtip<"actions">',
-                language: {
-                    url: languages. {{ app()->getLocale() }}
-                },
-
-                ajax: path_url,
-                        
-                columns: [
-                    {"defaultContent": ""},
-                    {"data": "project_report"},
-                    {"data": "created_at"},
-                ],
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }, {
-                    orderable: false,
-                    searchable: false,
-                    targets: -1
-                },
-                ],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
-                buttons: [
-                    'excel', 'pdf', 'print'
-                ]
-            });
-            }
-        }
 
         function projectComments(project_id){
             path_url = "/api/v1/projects" + project_id;
