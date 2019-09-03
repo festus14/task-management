@@ -476,7 +476,6 @@
                     </div>
                 </div>`
 
-                
         projectCard.innerHTML = projectCard.innerHTML + `<div class="modal fade" id="view_client_project${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
             <div class="modal-dialog" style="max-width: 100%; min-width: 400px; max-height: 100%;"
@@ -492,9 +491,7 @@
 
                         <div class="row">
                             <div class="col-xl-12">
-                                <!--begin::Portlet-->
                                 <div class="m-portlet " id="m_portlet">
-
                                     <div class="m-portlet__body">
                                         <table id="kt_table_client_projects${datum.id}" class="table table-striped table-hover"
                                                 style="width: 100%">
@@ -512,19 +509,16 @@
                                                 <th>Tools</th>
                                             </tr>
                                             </thead>
-                                            
-
                                         </table>
                                     </div>
                                 </div>
-                                <!--end::Portlet-->
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-        </div>`
+        </div>`;
 
         taskCard.innerHTML = taskCard.innerHTML + `<div class="modal fade" id="view_client_task${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
@@ -539,7 +533,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-xl-12">
-                                <!--begin::Portlet-->
+
                 <div class="m-portlet"; id="m_portlet">
                     <div class="m-portlet__body">
                     <table id="kt_table_tasks${datum.id}" class="table table-striped table-hover" style="width: 100%">
@@ -560,7 +554,6 @@
                     </table>
                 </div>
              </div>
-                <!--end::Portlet-->
             </div>
 
          </div>
