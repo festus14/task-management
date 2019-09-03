@@ -64,7 +64,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="m-portlet__body" style="overflow-x:auto; table-responsive">
+                <div class="m-portlet__body" style="overflow-x:auto;">
                     <table id="kt_table_task" class="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -700,7 +700,7 @@
                                     <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                <form id="addStatusform" action="{{ url('/api/v1/task-statuses') }}"  method="POST" enctype="multipart/form-data">
+                <form id="addStatusform"  enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -710,7 +710,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="$('#AddStatus').modal('hide');" >Close</button>
-                        <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                        <button id="addStatusSubmit" onclick="addStatusform();" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
                     </div>
                 </form>
                 </div>
@@ -1189,6 +1189,10 @@
                                 </button>
                                 </div>
                                 <div class="modal-body">
+<<<<<<< HEAD
+=======
+
+>>>>>>> c171abd432998af06832c84fa12e558ea56e0bfe
                                     <div class="col-md-12 m-portlet " id="m_portlet">
                                         <div class="m-portlet__head">
                                             <div class="m-portlet__head-caption">
@@ -1835,7 +1839,7 @@
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
                         createTaskBody.innerHTML = `
                     <div class="modal-body">
-                        <form id="addTaskform" action="{{ url('/api/v1/tasks') }}"  method="POST" enctype="multipart/form-data">
+                        <form id="addTaskform" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6">
@@ -1863,7 +1867,7 @@
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
-                                            <input type="text" name="name" class="form-control" value="" id="create-task" placeholder="Enter Task Name" required>
+                                            <input type="text" name="name" class="form-control" id="create-task" placeholder="Enter Task Name" required>
                                         </div>
 
                                     </div>
@@ -1879,7 +1883,7 @@
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
-                                            <select style="width: 100%" name="assinged_tos" id="assign-task" multiple="multiple" required class="form-control select2">
+                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" required class="form-control select2">
                                                 ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
                                         </div>
@@ -1889,20 +1893,20 @@
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
                                                 ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
-                                                </select>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
-                                            <input type="text" name="starting_date" class="form-control datetime" value="" id="starting-date" required>
+                                            <input type="text" name="starting_date" class="form-control datetime" id="starting-date" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
-                                            <input type="text" name="ending_date" class="form-control datetime" value="" id="deadline" required>
+                                            <input type="text" name="ending_date" class="form-control datetime" id="deadline" required>
                                         </div>
                                     </div>
 
@@ -2114,7 +2118,7 @@
                     success: function (data) {
                         let createTaskCategory = document.getElementById('taskCategoryModalbody');
                         createTaskCategory.innerHTML = `
-                        <form  action="{{ url("/api/v1/tast-categories") }}" method="POST" id="addtaskCategoryform" enctype="multipart/form-data">
+                        <form  id="addtaskCategoryform" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
                             <div class="col-md-6 form-group mt-3">
@@ -2149,7 +2153,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createTaskCategory();" value="{{ trans('global.create') }}">
                         </div>
                     </form>
                         `
@@ -2158,32 +2162,36 @@
             }
 
 
-             // post to the Task category table
-            $('#').on('submit', function(e){
-                e.preventDefault();
 
+
+
+
+
+
+        function createTaskCategory(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
                 $.ajax({
                 type: "POST",
                 url: '{{ url("/api/v1/tast-categories") }}',
                 data: $('#addtaskCategoryform').serialize(),
-                success: function (response, data) {
-                    console.log(response)
-                    getTaskCategoryAjaxDT();
+                success: function (data) {
+                    alert(data.success);
                     $('#addTaskCategory').modal('hide');
-                    alert("Task category successfully created");
-                    //document.getElementById('statusInput').value = "";
-                    //location.reload();
-                    console.log(data);
-                    console.log(response);
-                    return(data);
+                    getTaskCategoryAjaxDT();
+                    document.getElementById('category-name').value = "";
+                    document.getElementById('weightId').value = "";
                 },
-                error: function (error) {
-                    console.log(error);
-                    alert("Task category creation failed");
+                error: function (data) {
+                    console.log('Error:', data);
                 }
                 });
-                });
-
+                // });
+            }
+            
                 // post to the Task status table
                 $('#addStatusform').on('submit', function(e){
                 e.preventDefault();

@@ -37,7 +37,7 @@ class ProjectTypeApiController extends Controller
             ]
         );
         if ($validator->fails()) {
-            return response()->json(['error'=> 'failed to create record'], 401);
+            return response()->json(['error'=> 'failed to create record'], 405);
         }
         try {
             $projectTypes = ProjectType::create($request->all());
