@@ -619,7 +619,6 @@
             });
         }
 
-
         $(document).ready(function () {
             $.ajaxSetup({
                 headers: {
