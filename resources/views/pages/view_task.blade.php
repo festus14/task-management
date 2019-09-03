@@ -64,7 +64,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="m-portlet__body" style="overflow-x:auto; table-responsive">
+                <div class="m-portlet__body" style="overflow-x:auto;">
                     <table id="kt_table_task" class="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -778,7 +778,7 @@
                                     <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                <form id="addStatusform" action="{{ url('/api/v1/task-statuses') }}"  method="POST" enctype="multipart/form-data">
+                <form id="addStatusform"  enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -788,7 +788,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="$('#AddStatus').modal('hide');" >Close</button>
-                        <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                        <button id="addStatusSubmit" onclick="addStatusform();" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
                     </div>
                 </form>
                 </div>
@@ -1240,7 +1240,7 @@
                                 </button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- More-info content -->
+
                                     <div class="col-md-12 m-portlet " id="m_portlet">
                                         <div class="m-portlet__head">
                                             <div class="m-portlet__head-caption">

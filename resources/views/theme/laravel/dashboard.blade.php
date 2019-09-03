@@ -447,7 +447,7 @@
                     </div>
                 </div>
                 <div class="m-portlet__body">admin.project-types.store
-                    <form action="{{ url('/api/v1/project-types') }}" method="POST" enctype="multipart/form-data">
+                    <form enctype="multipart/form-data" name="project-types" id="project_type">
                         @csrf
                         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                             <label for="name">{{ trans('cruds.projectType.fields.name') }}*</label>
@@ -462,7 +462,7 @@
                             </p>
                         </div>
                         <div>
-                            <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                            <input class="btn btn-danger" onclick="createProjectType();" value="{{ trans('global.save') }}">
                         </div>
                     </form>
                 </div>
@@ -477,6 +477,7 @@
 
     @parent
     <script>
+
         let languages = {
             'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
         };
@@ -603,6 +604,22 @@
 
     </script>
     <script>
+        function createProjectType() {
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: '{{ url('/api/v1/project-types') }}',
+                data: $('#project_type').serialize(),
+                success: function (data) {
+                    alert(data.success)
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
+
+
         $(document).ready(function () {
             $.ajaxSetup({
                 headers: {
