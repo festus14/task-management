@@ -152,7 +152,7 @@
                     <span>
                         <i class="la la-plus"></i>
                         <span>
-                            Create Client
+                            Add Client
                         </span>
                     </span>
                 </a>
@@ -164,8 +164,8 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Create Client</h5>
                             <button type="button" class="close" onclick="$('#createClientModal').modal('hide');" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <div id="createClientModalBody" class="modal-body col-md-12">
                             <div class="col-md-12 ">
@@ -179,7 +179,7 @@
                                     
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="date-of-eng">Date Of Engagement</label>
-                                                <input type="text" class="form-control date" name="date_of_engagement" id="date-of-eng" required>
+                                                <input type="date" id="date_of_engagement" name="date_of_engagement" class="form-control" value="" required>
                                             </div>
                                     </div>
                                     <div class="row col-md-12">
@@ -191,8 +191,9 @@
                                                     
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="expiry-date">Expiry Date</label>
-                                                <input type="text" class="form-control date" name="expiry_date" id="expiry-date" required>
+                                                <input type="date" id="expiry_date" name="expiry_date" class="form-control" value="" required>
                                             </div>
+                                            
                                                 
                                         </div>
                                         <div class="row col-md-12 ">
@@ -572,9 +573,24 @@
         }
         });
 
+        function formatDate(value) {
+                var datePart =value.match(/\d+/g),
+                year = datePart[0].substring(), // get four digits
+                month = datePart[1], day = datePart[2];
+               value =  day+'-'+month+'-'+year;
+                 return value;
+                  }
 
-        function submitClientForm(){
-            console.log('I got herrrerrrereeee');
+
+           function submitClientForm(){
+            var formattedStartDate = formatDate($('#date_of_engagement').val());
+            var formattedEndDate = formatDate($('#expiry_date').val());
+            console.log(document.getElementById("expiry_date").value, "eyah")
+            console.log($('#expiry_date').val(formattedEndDate))
+            
+            console.log($('#expiry_date').val());        
+            
+            // $('#expiry_date').val() = formattedEndDate;
             $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
