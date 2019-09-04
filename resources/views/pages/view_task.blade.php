@@ -23,6 +23,9 @@
     #mCSB_3::-webkit-scrollbar-thumb {
       background: #888;
     }
+    .bambuzu{
+        -webkit-appearance: listbox !important;
+    }
 </style>
 @endsection
 
@@ -1847,7 +1850,7 @@
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
-                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" required class="form-control select2">
+                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" required class="form-control select2 bambuzu" multiple="multiple">
                                                 ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
                                         </div>
