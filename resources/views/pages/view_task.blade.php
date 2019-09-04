@@ -646,7 +646,7 @@
                         </div>
                         <div class=" row col-md-12">
                             <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
-                                
+
                                     <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
 
                                     <div>
@@ -710,7 +710,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="$('#AddStatus').modal('hide');" >Close</button>
-                        <button id="addStatusSubmit" onclick="addStatusform();" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                        <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTaskStatus();" value="{{ trans('global.create') }}">
                     </div>
                 </form>
                 </div>
@@ -1040,7 +1040,7 @@
 
 
             function getTaskCategoryAjaxDT(){
-                if ( $.fn.dataTable.isDataTable( '#kt_table_task_status') ) {
+                if ( $.fn.dataTable.isDataTable( '#kt_table_task_category') ) {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable();
                 }else {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable({
@@ -1189,10 +1189,6 @@
                                 </button>
                                 </div>
                                 <div class="modal-body">
-<<<<<<< HEAD
-=======
-
->>>>>>> c171abd432998af06832c84fa12e558ea56e0bfe
                                     <div class="col-md-12 m-portlet " id="m_portlet">
                                         <div class="m-portlet__head">
                                             <div class="m-portlet__head-caption">
@@ -1430,7 +1426,7 @@
                                 <input id="" type="hidden" name="project_id" value="${data.data.project_id}" />
                             </div>
                         </div>
-                        
+
                         <div class=" row col-md-12">
                         <div class="row col-md-12">
                             <div class="col-md-3 form-group mt-3">
@@ -1922,7 +1918,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
+                <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTask();" value="{{ trans('global.create') }}">
                                 </div>
                             </form>
 
@@ -2087,18 +2083,19 @@
 
 
         // post to the create Task table
-            $(document).ready(function(){
-                $('#addTaskform').on('submit', function(e){
-                e.preventDefault();
-
+        function postCreateTask(){
+            $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
                 $.ajax({
                 type: "POST",
                 url: '{{ url("/api/v1/tasks") }}',
                 data: $('#addTaskform').serialize(),
-                success: function (response) {
-                    console.log(response)
-                    $('#createTaskModal').modal('hide');
+                success: function (data) {
                     alert("Task successfully created");
+                    $('#createTaskModal').modal('hide');
                     location.reload();
                 },
                 error: function (error) {
@@ -2106,9 +2103,7 @@
                     alert("Task creation failed");
                 }
                 });
-                });
-                });
-
+                }
 
             //Ajax populate create task category
             function createTaskCategoryAjaxGet(){
@@ -2153,7 +2148,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createTaskCategory();" value="{{ trans('global.create') }}">
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTaskCategory();" value="{{ trans('global.create') }}">
                         </div>
                     </form>
                         `
@@ -2168,7 +2163,7 @@
 
 
 
-        function createTaskCategory(){
+        function postCreateTaskCategory(){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2179,9 +2174,10 @@
                 url: '{{ url("/api/v1/tast-categories") }}',
                 data: $('#addtaskCategoryform').serialize(),
                 success: function (data) {
+                    $('#taskcategoryDatatable').modal('hide');
                     alert(data.success);
-                    $('#addTaskCategory').modal('hide');
                     getTaskCategoryAjaxDT();
+                    $('#addTaskCategory').modal('hide');
                     document.getElementById('category-name').value = "";
                     document.getElementById('weightId').value = "";
                 },
@@ -2189,33 +2185,31 @@
                     console.log('Error:', data);
                 }
                 });
-                // });
             }
-            
-                // post to the Task status table
-                $('#addStatusform').on('submit', function(e){
-                e.preventDefault();
 
+                // post to the Task status table
+                function postCreateTaskStatus(){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
                 $.ajax({
                 type: "POST",
                 url: '{{ url("/api/v1/task-statuses") }}',
                 data: $('#addStatusform').serialize(),
-                success: function (response, data) {
-                    console.log(response)
-                    $('#AddStatus').modal('hide');
+                success: function () {
                     alert("Task status successfully created");
+                    $('#AddStatus').modal('hide');
                     document.getElementById('statusInput').value = "";
-                    //location.reload();
-                    console.log(data);
-                    console.log(response);
-                    return(data);
+                    location.reload();
                 },
                 error: function (error) {
                     console.log(error);
                     alert("Task status creation failed");
                 }
                 });
-                });
+              }
 
     </script>
 

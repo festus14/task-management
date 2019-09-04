@@ -121,6 +121,26 @@
     </div>
 </div>
 
+<!-- Edit Project Modal -->
+<div class="modal fade" id="editProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Project</h5>
+                <button type="button" class="close" onclick="$('#editProjectModal').modal('hide');" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="editProjectBody" class="modal-body col-md-12">
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!--AddSubtype Modal, note:this is found in create project modal -->
 <div class="modal fade" id="subtypeModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -135,7 +155,7 @@
                 {{-- body content --}}
             </div>
         </div>
-        
+
     </div>
 </div>
 <!--End AddSubtype Modal -->
@@ -348,7 +368,7 @@
                     {{-- body content --}}
 
                 </div>
-            
+
             </div>
         </div>
     </div>
@@ -400,8 +420,8 @@
                                             </div>
                                         </div>
                                     </div>
-        
-        
+
+
                                     <div class="card">
                                         <div class="card-header" id="headingTwo">
                                             <h6 class="mb-0">
@@ -412,7 +432,7 @@
                                             </h6>
                                         </div>
                                     </div>
-        
+
                                     <div class="card">
                                         <div class="card-header" id="headingThree">
                                             <h6 class="mb-0">
@@ -423,7 +443,7 @@
                                             </h6>
                                         </div>
                                     </div>
-        
+
                                     <div class="card">
                                         <div class="card-header" id="headingFour">
                                             <h6 class="mb-0">
@@ -437,11 +457,11 @@
                                 </div>
                             </div>
                             <!--end::Portlet-->
-        
-        
-        
+
+
+
                             <!-- End main Content of More-info -->
-        
+
                             <div class="modal-footer">
                             </div>
                         </div>
@@ -451,7 +471,7 @@
         </div> --}}
     </div>
         <!-- End More Info Modal -->
-        
+
         {{-- documentDTModal --}}
         {{-- <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
@@ -503,7 +523,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -517,7 +537,7 @@
             </div>
         </div> --}}
         {{-- endDocumentDTModal --}}
-        
+
         {{-- report DT Modal --}}
         {{-- <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
@@ -572,7 +592,7 @@
                                             <td> </td>
                                             <td> </td>
                                         </tr>
-        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -586,7 +606,7 @@
             </div>
         </div> --}}
         {{-- endreport DT tModal --}}
-        
+
         {{-- Add report Modal --}}
         {{-- <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
@@ -604,7 +624,7 @@
                                     <label>Client</label>
                                     <select id="client-list" class="selectDesign form-control"></select>
                                 </div>
-        
+
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Project</label>
                                     <select id="client-list" class="selectDesign form-control"></select>
@@ -619,14 +639,14 @@
                             <div class=" row col-md-12">
                                 <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
                                     <fieldset class="col-md-12 form-group mt-3">
-        
+
                                         <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-        
+
                                         <div>
-                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" /> 
+                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
                                         </div>
                                         <div id="messages">
-        
+
                                         </div>
                                     </fieldset>
                                     <div class="row col-md-12">
@@ -635,7 +655,7 @@
                                         </div>
                                     </div>
                                 </form>
-        
+
                             </div>
                         </form>
                     </div>
@@ -643,7 +663,7 @@
             </div>
         </div> --}}
         {{-- end Addreport Modal --}}
-        
+
         <!-- Add Document Modal -->
         <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
@@ -663,42 +683,42 @@
                                         <label for="client-list">Select Client</label>
                                         <select id="client-list" class="selectDesign form-control"></select>
                                     </div>
-        
+
                                     <div class="form-group mt-3">
                                         <label for="document-name">Document Name</label>
                                         <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
                                     </div>
-        
+
                                     <div class="form-group mt-4">
                                         <input style="background: #f1f1f1" type="file" name="files[]" multiple />
                                     </div>
-        
+
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label for="project-list">Project Name</label>
                                         <select id="project-list" class="selectDesign form-control"></select>
                                     </div>
-        
+
                                     <div class="form-group">
                                         <label for="task-list">Version</label>
                                         <input type="text" class="form-control" id="version" placeholder="Enter Version">
                                     </div>
-        
+
                                 </div>
-        
+
                                 <div class="col-md-3 form-group mt-2">
                                     <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
                                 </div>
                             </div>
                         </form>
-        
+
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Add Document Modal -->
-        
+
         <!-- Comment Modal -->
         <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
@@ -713,7 +733,7 @@
                         <div class="m-content">
                             <div class="row">
                                 <div class="col-lg-6">
-        
+
                                     <div class="m-portlet__body">
                                         <div class="m-card-profile">
                                             <div class="m-card-profile__title m--hide">
@@ -730,16 +750,16 @@
                                                             </span>
                                             </div>
                                         </div>
-        
+
                                     </div>
-        
+
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
                                         <div class="m-portlet__head">
                                             <div class="m-portlet__head-tools">
                                                 <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-        
+
                                                     <li class="nav-item m-tabs__item">
                                                         <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
                                                                     Comments
@@ -747,7 +767,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-        
+
                                         </div>
                                         <!-- <div class="tab-content"> -->
                                         <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
@@ -760,7 +780,7 @@
                                                             <div id="mCSB_3_container" class="mCSB_container" style="top:0; left:0;" dir="ltr">
                                                                 <br>
                                                                 <span id="filler"> </span>
-        
+
                                                                 <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                                                     <div class="m-messenger__message m-messenger__message--in">
                                                                         <div class="m-messenger__message-pic">
@@ -780,19 +800,19 @@
                                                                                     </div>
                                                                                     <br>
                                                                                     <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
-        
+
                                                                                     <div class="collapse" id="collapseReply">
                                                                                         <br>
                                                                                         <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
                                                                                         <button class="m-btn--pill btn btn-primary" type="submit" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
                                                                                     </div>
                                                                                 </div>
-        
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-        
+
                                                             </div>
                                                         </div>
                                                         <div id=" mCSB_3_scrollbar_vertical " class="mCSB_scrollTools mCSB_3_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical " style="display: block;">
@@ -843,13 +863,13 @@
                             </div>
                         </div>
                         </form>
-        
+
                     </div>
                 </div>
             </div>
         </div>
         <!-- endComment Modal -->
-    
+
 
 
 @endsection
@@ -1096,102 +1116,102 @@
                 let probSubtypeBody = document.getElementById('subtypeModalBody');
                     createProjectBody.innerHTML = `
                     <div class="col-md-12 ">
-    <form action="{{ url("/api/v1/projects") }}" method="POST" id="addprojectform" enctype="multipart/form-data">
-        @csrf
-        <div class="row col-md-12">
-            <div class="col-md-6 form-group mt-3">
-                <label>Select Client</label>
-                <select id="client-list" name="client_id" class="selectDesign form-control required">
-                ` +
-                    data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                + `
-                </select>
-            </div>
+                        <form id="addprojectform" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row col-md-12">
+                                <div class="col-md-6 form-group mt-3">
+                                    <label>Select Client</label>
+                                    <select id="client-list" name="client_id" class="selectDesign form-control required">
+                                    ` +
+                                        data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
+                                    </select>
+                                </div>
 
-            <div class="col-md-6 form-group mt-3">
-                    <label for="create-project">Project Name</label>
-                <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
-            </div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-4 form-group mt-3">
-                <label for="create-project">Manager</label><br>
-                <select name="manager_id" class="form-control select2" style="width:100%;" required>
-                    ` +
-                    data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                + `
-                </select>
-            </div>
-            <div class="col-md-4 form-group mt-3">
-                <label for="create-project-type">Project Type</label>
-                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                <select class="form-control" id="projtypeboy" name="project_type_id" required>
-                    ` +
-                    data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                + `
-                </select>
-            </div>
-
-
-            <div class="col-md-4 form-group mt-3">
-                <label for="exampleFormControlSelect1">Project Sub-type</label>
-                <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
-                    ` +
-                    data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                + `
-                </select>
-            </div>
-        </div>
-        <div class="row col-md-12 ">
-
-            <div class="col-md-4 form-group mt-3">
-                <label for="starting-date">Start Date</label>
-                <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
-            </div>
-
-            <div class="col-md-4 form-group mt-3">
-                <label for="Deadline">Deadline</label>
-                <input type="text" class="form-control date" name="deadline" id="Deadline" required>
-            </div>
-            <div class="col-md-4 form-group mt-3">
-                <label>Team members</label><br>
-                <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
-                    ` +
-                    data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                + `
-                </select>
-            </div>
+                                <div class="col-md-6 form-group mt-3">
+                                        <label for="create-project">Project Name</label>
+                                    <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="row col-md-12">
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="create-project">Manager</label><br>
+                                    <select name="manager_id" class="form-control select2" style="width:100%;" required>
+                                        ` +
+                                        data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="create-project-type">Project Type</label>
+                                    <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
+                                    <select class="form-control" id="projtypeboy" name="project_type_id" required>
+                                        ` +
+                                        data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
+                                    </select>
+                                </div>
 
 
-            <div class="col-md-2 form-group mt-3">
-                <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.create') }}">
-            </div>
-        </div>
-    </form>
-</div>  `
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="exampleFormControlSelect1">Project Sub-type</label>
+                                    <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
+                                    <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
+                                        ` +
+                                        data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row col-md-12 ">
 
-            probSubtypeBody.innerHTML = `
-            <form id="addprojSubtypeform1"  enctype="multipart/form-data">
-                @csrf
-            <div class="form-group">
-                    <label for="project-type">Select Project Type</label>
-                    <select id="project-type" class="selectDesign form-control">
-                        ` +
-                            data.project_types.map((elem) => `<option name="project_type_id" value="${elem.id}">${elem.name}</option>`)
-                        + `
-                    </select>
-                </div>
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="starting-date">Start Date</label>
+                                    <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
+                                </div>
 
-                <div class="form-group">
-                    <label for="create-subType">Subtype Name</label>
-                    <input type="text" class="form-control" name="name" id="subtypeId" placeholder="" required>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="$('#subtypeModal').modal('hide');" data-target="#subtypeModal">Close</button>
-                <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtype();" value="{{ trans('global.create') }}">
-            </div>
-            </form>
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="Deadline">Deadline</label>
+                                    <input type="text" class="form-control date" name="deadline" id="Deadline" required>
+                                </div>
+                                <div class="col-md-4 form-group mt-3">
+                                    <label>Team members</label><br>
+                                    <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
+                                        ` +
+                                        data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-2 form-group mt-3">
+                                    <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.create') }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>  `
+
+                                probSubtypeBody.innerHTML = `
+                                <form id="addprojSubtypeform1"  enctype="multipart/form-data">
+                                    @csrf
+                                <div class="form-group">
+                                        <label for="project-type">Select Project Type</label>
+                                        <select id="project-type" class="selectDesign form-control">
+                                            ` +
+                                                data.project_types.map((elem) => `<option name="project_type_id" value="${elem.id}">${elem.name}</option>`)
+                                            + `
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="create-subType">Subtype Name</label>
+                                        <input type="text" class="form-control" name="name" id="subtypeId" placeholder="" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" onclick="$('#subtypeModal').modal('hide');" data-target="#subtypeModal">Close</button>
+                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtype();" value="{{ trans('global.create') }}">
+                                </div>
+                                </form>
                      `
             },
             error: function (data) {
@@ -1201,7 +1221,7 @@
 
     }
 
-        // Add 2nd project Sub type Post 
+        // Add 2nd project Sub type Post
             function addProjectSubtypeX(){
                     $.ajaxSetup({
                     headers: {
@@ -1227,7 +1247,7 @@
                  }
 
                 // Add project Sub type Post
-            function addProjectSubtype(){ 
+            function addProjectSubtype(){
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1272,7 +1292,7 @@
                     }
                     });
     }
- 
+
 
         $.ajaxSetup({
             headers: {
@@ -1466,7 +1486,7 @@
                 </div>
                 </div>
                 </div>
-                
+
 
                 <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
@@ -1518,7 +1538,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                `+ data.data.documents.map(item => 
+                                                `+ data.data.documents.map(item =>
                                                     `<tr>
                                                         <td></td>
                                                         <td>${item.name}</td>
@@ -1531,7 +1551,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <!--end::Portlet-->
                         </div>
                         <div class="modal-footer">
@@ -1590,7 +1610,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                `+ data.data.reports.map(item => 
+                                                `+ data.data.reports.map(item =>
                                                     `<tr>
                                                         <td></td>
                                                         <td>${item.project_report}</td>
@@ -1601,7 +1621,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <!--end::Portlet-->
                         </div>
                         <div class="modal-footer">
@@ -1638,15 +1658,15 @@
                                     <input type="hidden" value="${data.data.reports.project_id}" name="project_id" id="project" class="form-control" id="address" placeholder="">
                                 </div>
                             </div>
-                            
+
                             <div class=" row col-md-12">
                                     <fieldset class="col-md-12 form-group mt-3">
-        
+
                                         <div>
-                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" /> 
+                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
                                         </div>
                                         <div id="messages">
-        
+
                                         </div>
                                     </fieldset>
                                     <div class="row col-md-12">
@@ -1655,7 +1675,7 @@
 
                                         </div>
                                     </div>
-        
+
                             </div>
                         </form>
                     </div>
@@ -1670,7 +1690,7 @@
             error: function (data) {
                 console.log('Error:', data);
 
-                
+
             }
 
             })
@@ -1707,7 +1727,7 @@
                 },
 
                 ajax: path_url,
-                        
+
                 columns: [
                     {"defaultContent": ""},
                     {"data": "name"},
@@ -1928,12 +1948,12 @@
                         success: function (data) {
                             let subtypemainModalBody = document.getElementById('subtypemainModalBody');
                                 subtypemainModalBody.innerHTML =  `
-                                
-                                   
+
+
                 <form id="addprojsubtypeform2" enctype="multipart/form-data">
                     @csrf
                 <div  class="modal-body">
-                 
+
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
                             <select id="projecttype" name="project_type_id" class="selectDesign form-control">
@@ -1990,8 +2010,8 @@
                     });
                     });
                     // end of project type ajax call
-                
-            // Add project type Post 
+
+            // Add project type Post
                function addProject(){
                     $.ajaxSetup({
                 headers: {
@@ -2017,7 +2037,7 @@
                     });
                  }
             // }
-            
+
     </script>
 
        @endsection
