@@ -121,6 +121,7 @@
     </div>
 </div>
 
+
 <!-- Edit Project Modal -->
 <div class="modal fade" id="editProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
@@ -285,9 +286,35 @@
         </div>
     </div>
 </div>
-
-
 <!--End modalled projType Modal -->
+
+<!--Edit AddprojType Modal -->
+<div class="modal fade" id="EditProjectTypeModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Project Type</h5>
+                    <button type="button" class="close" onclick="$('#EditProjectTypeModal').modal('hide');" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                </div>
+                        <form id="addprojTtypeform2" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="create-task">Project Type Name</label>
+                                    <input type="text" class="form-control" id="projTypeId" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" onclick="$('#EditProjectTypeModal').modal('hide');">Close</button>
+                                <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="addProject()" value="{{ trans('global.update') }}">
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+    <!--End Edit projType Modal -->
 
 {{-- Project SubType datatable modal --}}
 <div class="modal fade" id="ProjSubTypeDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -374,7 +401,28 @@
     </div>
 <!--End AddSubtype main Modal -->
 
-    {{--  --}}
+
+<!-- Edit Project SubType Modal -->
+<div class="modal fade" id="editProjectSubTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Project Subtype</h5>
+                    <button type="button" class="close" onclick="$('#editProjectSubTypeModal').modal('hide');" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div id="editProjectSubTypeModalBody" class="modal-body col-md-12">
+    
+    
+    
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    {{--End edit project Subtype--}}
+    
     <div id="moreInfo">
         <!-- More Info Modal -->
         {{-- <div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -1221,6 +1269,101 @@
 
     }
 
+        //  Edit Project form
+    let editProjectBody = document.getElementById('editProjectBody');
+        editProjectBody.innerHTML = `
+        <div class="col-md-12 ">
+                        <form id="addprojectform" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row col-md-12">
+                                <div class="col-md-6 form-group mt-3">
+                                    <label>Select Client</label>
+                                    <select id="client-list" name="client_id" class="selectDesign form-control required">
+                                    
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 form-group mt-3">
+                                        <label for="create-project">Project Name</label>
+                                    <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="row col-md-12">
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="create-project">Manager</label><br>
+                                    <select name="manager_id" class="form-control select2" style="width:100%;" required>
+                                      
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="create-project-type">Project Type</label>
+                                    <select class="form-control" id="projtypeboy" name="project_type_id" required>
+                                      
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="exampleFormControlSelect1">Project Sub-type</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
+                                      
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row col-md-12 ">
+
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="starting-date">Start Date</label>
+                                    <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
+                                </div>
+
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="Deadline">Deadline</label>
+                                    <input type="text" class="form-control date" name="deadline" id="Deadline" required>
+                                </div>
+                                <div class="col-md-4 form-group mt-3">
+                                    <label>Team members</label><br>
+                                    <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
+                                      
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-2 form-group mt-3">
+                                    <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.update') }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>  
+                        `
+
+            //  Edit Project Sub form
+    let editProjectSubTypeModalBody = document.getElementById('editProjectSubTypeModalBody');
+        editProjectSubTypeModalBody.innerHTML = `
+        <form id="addprojsubtypeform2" enctype="multipart/form-data">
+                    @csrf
+                <div  class="modal-body">
+
+                        <div class="form-group">
+                            <label for="project-type">Select Project Type</label>
+                            <select id="projecttype" name="project_type_id" class="selectDesign form-control">
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="create-task">Subtype Name</label>
+                            <input type="text" class="form-control" name="name" id="sub-type" placeholder="">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="$('#editProjectSubTypeModal').modal('hide');" data-target="#subtypemainModal">Close</button>
+                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtypeX();" value="{{ trans('global.update') }}">
+                </div>
+                </form>
+        `
+
+
         // Add 2nd project Sub type Post
             function addProjectSubtypeX(){
                     $.ajaxSetup({
@@ -1336,12 +1479,12 @@
                 render: function (data, type, full, meta) {
                   return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
-                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"> View</i>\
+                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"><span style="font-weight:100;"> View </span></i>\
                             </a><br>\
-                            <a class="link" href="">\
-                                <i class="fas fa-pencil-alt" style="color:black;" data-toggle="modal" data-target="#editProjectModal"> Edit</i>\
+                            <a class="link" href="#">\
+                                <i class="fas fa-pencil-alt" style="color:black;" data-toggle="modal" data-target="#editProjectModal"><span style="font-weight:100;"> Edit</span></i>\
                             </a><br>\
-                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black; margin-left: -5px; font-weight:600;"> Delete</i></a></button>\
+                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
                                     ';
                 }
@@ -1835,8 +1978,8 @@
                     render: function (data, type, full, meta) {
                         return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                 <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
-                                <a class="link" href="">\
-                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                <a class="link" href="#">\
+                                    <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#EditProjectTypeModal" style="color:black;"></i>\
                                 </a>\
                                 <button onclick="deleteProjectType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                                 </div>\
@@ -1903,8 +2046,8 @@
                 render: function (data, type, full, meta) {
                     return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
-                            <a class="link" href="">\
-                                <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                            <a class="link" href="#">\
+                                <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"></i>\
                             </a>\
                             <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                             </div>\
@@ -2037,6 +2180,58 @@
                     });
                  }
             // }
+            $(document).ready(function () {
+  window._token = $('meta[name="csrf-token"]').attr('content')
+
+  var allEditors = document.querySelectorAll('.ckeditor');
+  for (var i = 0; i < allEditors.length; ++i) {
+    ClassicEditor.create(allEditors[i]);
+  }
+
+  moment.updateLocale('en', {
+    week: {dow: 1} // Monday is the first day of the week
+  })
+
+  $('.date').datetimepicker({
+    format: 'DD-MM-YYYY',
+    locale: 'en'
+  })
+
+  $('.datetime').datetimepicker({
+    format: 'DD-MM-YYYY HH:mm:ss',
+    locale: 'en',
+    sideBySide: true
+  })
+
+  $('.timepicker').datetimepicker({
+    format: 'HH:mm:ss'
+  })
+
+  $('.select-all').click(function () {
+    let $select2 = $(this).parent().siblings('.select2')
+    $select2.find('option').prop('selected', 'selected')
+    $select2.trigger('change')
+  })
+  $('.deselect-all').click(function () {
+    let $select2 = $(this).parent().siblings('.select2')
+    $select2.find('option').prop('selected', '')
+    $select2.trigger('change')
+  })
+
+  $('.select2').select2()
+
+  $('.treeview').each(function () {
+    var shouldExpand = false
+    $(this).find('li').each(function () {
+      if ($(this).hasClass('active')) {
+        shouldExpand = true
+      }
+    })
+    if (shouldExpand) {
+      $(this).addClass('active')
+    }
+  })
+})
 
     </script>
 
