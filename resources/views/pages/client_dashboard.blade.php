@@ -169,7 +169,7 @@
                         </div>
                         <div id="createClientModalBody" class="modal-body col-md-12">
                             <div class="col-md-12 ">
-                                <form id="createClientForm" action="{{ url('/api/v1/clients') }}"  method="POST" enctype="multipart/form-data">
+                                <form id="clientForm" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row col-md-12">
                                             <div class="col-md-6 form-group mt-3">
@@ -179,7 +179,7 @@
                                     
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="date-of-eng">Date Of Engagement</label>
-                                                <input type="date" name="date_of_engagement" class="form-control" id="date-of-eng" placeholder="" required>
+                                                <input type="text" class="form-control date" name="date_of_engagement" id="date-of-eng" required>
                                             </div>
                                     </div>
                                     <div class="row col-md-12">
@@ -191,7 +191,7 @@
                                                     
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="expiry-date">Expiry Date</label>
-                                                <input type="date" name="expiry_date" class="form-control" id="expiry-date" placeholder="">
+                                                <input type="text" class="form-control date" name="expiry_date" id="expiry-date" required>
                                             </div>
                                                 
                                         </div>
@@ -207,8 +207,8 @@
                                             </div>
                                         </div>
                                         <div class="row col-md-12 ">
-                                            <div class="col-md-2 form-group mt-3">
-                                                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>   
+                                            <div class="col-md-3 form-group mt-3">
+                                                <input type="button" onclick="submitClientForm()" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit" />  
                                             </div>
                                         </div>
                                     </form>
@@ -573,6 +573,27 @@
         });
 
 
+        function submitClientForm(){
+            console.log('I got herrrerrrereeee');
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/api/v1/clients",
+                    data: $('#clientForm').serialize(),
+                    success: function (data){
+                        alert(data.success);
+                        $('#clientForm').modal('hide');
+                        // document.getElementById('report-textarea').value = "";
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+        }
         
 
         //   Function for calling Client Projects on the DT
@@ -651,14 +672,13 @@
             if(confirmDel){
                 $.ajax({
                     type: "DELETE",
-                    url: "{{ url('admin/projects')}}" + '/' + proID,
+                    url: "api/v1/projects" + '/' + proID,
                     success: function (data) {
                         console.log(data);
                         location.reload();
                     },
                     error: function (data) {
                         console.log('Error:', data);
-                        location.reload();
                     }
                 });
             }
@@ -1135,14 +1155,13 @@
             if(confirmDel){
                 $.ajax({
                     type: "DELETE",
-                    url: "{{ url('admin/tasks')}}" + '/' + taskID,
+                    url: "/api/v1/tasks" + '/' + taskID,
                     success: function (data) {
                         console.log(data);
                         location.reload(true);
                     },
                     error: function (data) {
                         console.log('Error:', data);
-                        location.reload(true);
                     }
                 });
             }
