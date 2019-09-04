@@ -131,15 +131,16 @@
       this.options.maxFiles = this.options.maxFiles + 1
     },
     init: function () {
-@if(isset($taskDocument) && $taskDocument->document)
-      var file = {!! json_encode($taskDocument->document) !!}
-          this.options.addedfile.call(this, file)
-      file.previewElement.classList.add('dz-complete')
-      $('form').append('<input type="hidden" name="document" value="' + file.file_name + '">')
-      this.options.maxFiles = this.options.maxFiles - 1
-@endif
-    },
-     error: function (file, response) {
+        @if(isset($taskDocument) && $taskDocument->document)
+          var file = {!! json_encode($taskDocument->document) !!}
+              this.options.addedfile.call(this, file)
+          file.previewElement.classList.add('dz-complete')
+          $('form').append('<input type="hidden" name="document" value="' + file.file_name + '">')
+          this.options.maxFiles = this.options.maxFiles - 1
+
+            @endif
+        },
+        error: function (file, response) {
          if ($.type(response) === 'string') {
              var message = response //dropzone sends it's own error messages in string
          } else {
@@ -154,7 +155,7 @@
          }
 
          return _results
-     }
-}
+    }
+    }
 </script>
 @stop
