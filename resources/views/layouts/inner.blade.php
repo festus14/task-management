@@ -32,8 +32,8 @@
 <link href="{{ asset('metro/assets/demo/demo2/base/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     
     <!--end::Base Styles -->
-    <link rel="shortcut icon" href="{{ asset('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
-
+    <link rel="shortcut icon" href="{{ url('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
+    
     @yield('css')
     <style> 
         .dataTables_filter{
@@ -1368,12 +1368,12 @@
         </div>
     </div>
     <!-- end::Quick Sidebar -->
-    <!-- begin::Scroll Top -->
-    <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
-        <i class="la la-arrow-up"></i>
-    </div>
-    <!-- end::Scroll Top -->
-    </div>
+<!-- begin::Scroll Top -->
+<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500"
+data-scroll-speed="300">
+<i class="la la-arrow-up"></i>
+</div>
+<!-- end::Scroll Top -->
 <!-- begin::Quick Nav -->
 
 <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -1387,7 +1387,6 @@
 <!--begin::Page Vendors -->
 <script src="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
-
 <script src="{{ asset('js/main.js') }}"></script>
 <!--begin::Page Snippets -->
 @yield('javascript')
