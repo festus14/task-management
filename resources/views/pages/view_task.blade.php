@@ -2162,12 +2162,6 @@
             }
 
 
-
-
-
-
-
-
         function createTaskCategory(){
             $.ajaxSetup({
                 headers: {
