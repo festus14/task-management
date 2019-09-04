@@ -23,9 +23,6 @@
     #mCSB_3::-webkit-scrollbar-thumb {
       background: #888;
     }
-    .bambuzu{
-        -webkit-appearance: listbox !important;
-    }
 </style>
 @endsection
 
@@ -211,8 +208,86 @@
 
     <!-- More Info Modal -->
     <div id="moreInfo">
+        {{-- <div class="modal fade" id="moretaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="$('#moretaskInfoModal').modal('hide');" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- More-info content -->
+                        <div class="col-md-12 m-portlet " id="m_portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon">
+                                                    <i class="flaticon-list-2"> </i>
+                                                </span>
+                                        <h3 class="m-portlet__head-text">
+                                            'Taskname' info
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__head-tools">
+                                    <ul class="m-portlet__nav">
+                                        <li class="m-portlet__nav-item">
 
-    </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="m-portlet__body">
+                                <div class="accordion" id="taskAccordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingTwo">
+                                            <h6 class="mb-0">
+                                                <span data-toggle="modal" data-target="#taskDocumentModal">
+                                                                <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                                Documents
+                                                        </span>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header" id="headingThree">
+                                            <h6 class="mb-0">
+                                                <span data-toggle="modal" data-target="#taskReportModal">
+                                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                                    Report
+                                                            </span>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header" id="headingFour">
+                                            <h6 class="mb-0">
+                                                <span class="" data-toggle="modal" data-target="#commentModal">
+                                                                        <i class="m-menu__link-icon flaticon-comment"></i>
+                                                                        Comments
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Portlet-->
+
+
+                            <!-- End main Content of More-info -->
+
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div> --}}
+        </div>
     <!-- End More Info Modal -->
 
     <!-- Comment Modal -->
@@ -500,7 +575,7 @@
     {{-- endDocumentDTModal --}}
 
     <!-- Add Document Modal -->
-    {{-- <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -516,7 +591,7 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label for="client-list">Select Client</label>
-                                    <input type="hidden" class="form-control" id="client-list" name="" value="">
+                                    <select id="client-list" class="selectDesign form-control"></select>
                                 </div>
 
                                 <div class="form-group mt-3">
@@ -532,7 +607,7 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label for="project-list">Project Name</label>
-                                    <input type="hidden" class="form-control" id="project-list" name="" value="">
+                                    <select id="project-list" class="selectDesign form-control"></select>
                                 </div>
 
                                 <div class="form-group">
@@ -551,7 +626,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     <!-- End Add Document Modal -->
 
     {{-- taskReport DT Modal --}}
@@ -649,7 +724,7 @@
                         </div>
                         <div class=" row col-md-12">
                             <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
-
+                                
                                     <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
 
                                     <div>
@@ -713,7 +788,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="$('#AddStatus').modal('hide');" >Close</button>
-                        <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTaskStatus();" value="{{ trans('global.create') }}">
+                        <button id="addStatusSubmit" onclick="addStatusform();" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
                     </div>
                 </form>
                 </div>
@@ -1028,13 +1103,14 @@
             if(confirmDel){
                 $.ajax({
                     type: "DELETE",
-                    url: "/api/v1/tasks" + '/' + taskID,
+                    url: "{{ url('admin/tasks')}}" + '/' + taskID,
                     success: function (data) {
                         console.log(data);
                         location.reload();
                     },
                     error: function (data) {
                         console.log('Error:', data);
+                        location.reload();
                     }
                 });
                 }
@@ -1043,7 +1119,7 @@
 
 
             function getTaskCategoryAjaxDT(){
-                if ( $.fn.dataTable.isDataTable( '#kt_table_task_category') ) {
+                if ( $.fn.dataTable.isDataTable( '#kt_table_task_status') ) {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable();
                 }else {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable({
@@ -1075,15 +1151,19 @@
                             targets: 6,
                             orderable: false,
                             searchable: false,
-                            render: function (data, type, full, meta) {
+                            render: function () {
                             return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                         <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
-                                        <a class="link" href="">\
-                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
-                                        </a>\
-                                        <button onclick="deleteTaskCategory('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
-                                </div>\
-                                ';
+                                                                <a class="link" href="">\
+                                                                    <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                                                </a>\
+                                                                <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                                                    <input type="hidden" name="_method" value="DELETE">\
+                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                                                    <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                                                </form>\
+                                                            </div>\
+                                                ';
                             }
                     },
                     ],
@@ -1092,23 +1172,6 @@
             }
 
 
-            function deleteTaskCategory(taskID){
-                var confirmDel = confirm("Do you want to delete the task category?");
-
-                if(confirmDel){
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/tast-categories" + '/' + taskID,
-                        success: function (data) {
-                            console.log(data);
-                            location.reload(true);
-                        },
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-                    });
-                }
-            }
 
             //Task status
             function getTaskStatusAjaxDT(){
@@ -1140,15 +1203,19 @@
                             targets: 2,
                             orderable: false,
                             searchable: false,
-                            render: function (data, type, full, meta) {
+                            render: function () {
                             return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                        <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
-                                        <a class="link" href="">\
-                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
-                                        </a>\
-                                        <button onclick="deleteTaskStatus('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
-                                        </div>\
-                                    ';
+                                                    <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                                                    <a class="link" href="">\
+                                                        <i class="fas fa-pencil-alt" style="color:black;"></i>\
+                                                    </a>\
+                                                    <form action="" method="POST" onsubmit="" style="display: inline-block;">\
+                                                        <input type="hidden" name="_method" value="DELETE">\
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">\
+                                                        <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                                    </form>\
+                                                </div>\
+                                                ';
                             }
                     },
 
@@ -1156,25 +1223,6 @@
                     });
 
                 }
-            }
-
-
-            function deleteTaskStatus(taskID){
-                var confirmDel = confirm("Do you want to delete the status?");
-
-            if(confirmDel){
-                $.ajax({
-                    type: "DELETE",
-                    url: "/api/v1/task-statuses" + '/' + taskID,
-                    success: function (data) {
-                        console.log(data);
-                        location.reload(true);
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-            }
             }
 
             function displayTaskInfo(task_id) {
@@ -1192,6 +1240,7 @@
                                 </button>
                                 </div>
                                 <div class="modal-body">
+
                                     <div class="col-md-12 m-portlet " id="m_portlet">
                                         <div class="m-portlet__head">
                                             <div class="m-portlet__head-caption">
@@ -1241,6 +1290,10 @@
                                     </div>
                                 </div>
                             </div>
+                                    <!--end::Portlet-->
+
+
+                                        <!-- End main Content of More-info -->
 
                                         <div class="modal-footer">
                                         </div>
@@ -1316,6 +1369,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--end::Portlet-->
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
@@ -1389,6 +1443,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--end::Portlet-->
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
@@ -1397,6 +1452,7 @@
                 </div>
                 </div>
 
+                <!-- Comment Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
     </div>
@@ -1412,85 +1468,33 @@
                             </button>
                 </div>
                 <div class="modal-body">
-                    <form id="taskReportForm"  enctype="multipart/form-data">
+                    <form method="POST"  action="{{ url('/api/v1/project-reports') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
                             <div class=" row col-md-12">
                             <div class="col-md-12 form-group mt-3">
                                 <label for="exampleFormControlTextarea1">Project Report</label>
-                                <textarea class="form-control" id="report-textarea" rows="3" name="project_report"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="project_report"></textarea>
                             </div>
                         </div>
                             <div class="col-md-6 form-group mt-3">
-                                <input id="" type="hidden" name="client_id" value="${data.data.client_id}" />
+                                <input id="" type="hidden" name="client_id" value="${data.data.reports.client_id}"/>
                             </div>
 
                             <div class="col-md-6 form-group mt-3">
-                                <input id="" type="hidden" name="project_id" value="${data.data.project_id}" />
+                                <input id="" type="hidden" name="project_id" value="${data.data.reports.project_id}"/>
                             </div>
                         </div>
-
+                        
                         <div class=" row col-md-12">
                         <div class="row col-md-12">
                             <div class="col-md-3 form-group mt-3">
-                                <input id="submit-report" type="button" class="btn btn-danger" onclick="submitTaskReport()" style="background-color:#8a2a2b; color:white;" value="{{ trans('global.submit') }}">
+                                <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
                             </div>
                         </div>
                     </form>
 
                         </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle"><i class="la la-plus"></i> Add Document</h5>
-                    <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ url('/api/v1/task-documents') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="hidden" class="form-control" id="client-list" name="client_id" value="${data.data.client_id}">
-                                </div>
-
-                                <div class="form-group mt-3">
-                                    <label for="document-name">Document Name</label>
-                                    <input name="name" type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
-                                </div>
-
-                                <div class="form-group mt-4">
-                                    <input style="background: #f1f1f1" type="file" name="document" multiple />
-                                </div>
-
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="hidden" class="form-control" id="project-list" name="project_id" value="${data.data.project_id}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="task-list">Version</label>
-                                    <input type="text" class="form-control" id="version" placeholder="Enter Version">
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-3 form-group mt-2">
-                                <button id="submit-document" onclick="submitTaskDocument()" type="button" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit">
-                            </div>
-                        </div>
-                    </form>
-
                 </div>
             </div>
         </div>
@@ -1510,48 +1514,6 @@
                         })
             }
 
-            // Function for submitting task report
-            function submitTaskReport(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: "/api/v1/project-reports",
-                    data: $('#taskReportForm').serialize(),
-                    success: function (data){
-                        alert(data.success);
-                        $('#taskReportForm').modal('hide');
-                        document.getElementById('report-textarea').value = "";
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-            }
-
-            function submitTaskDocument(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: "/api/v1/project-documents",
-                    data: $('#taskReportForm').serialize(),
-                    success: function (data){
-                        alert(data.success);
-                        $('#taskReportForm').modal('hide');
-                        document.getElementById('report-textarea').value = "";
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-            }
 
         function documentDTCall(project_id){
             $(document).ready(function() {
@@ -1602,8 +1564,8 @@
                                         </div>
                                         <div class="m-card-profile__details">
                                             <span class="m-card-profile__name">
-                                                ${data.data.name}
-                                            </span>
+                                                                ${data.data.name}
+                                                            </span>
                                         </div>
                                     </div>
 
@@ -1625,6 +1587,8 @@
                                         </div>
 
                                     </div>
+                                    <!-- <div class="tab-content"> -->
+                                    <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
                                         <div id="forTest" class=" m-scrollable" >
                                             <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
                                                 <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
@@ -1660,7 +1624,7 @@
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
                                                                                     <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 
@@ -1685,19 +1649,20 @@
                                                 <div class="m-messenger__form " style="width: 100%; ">
                                                     <div class="m-messenger__form-controls ">
                                                         <button type="button" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
-                                                            Make Comment
-                                                        </button>
+                                                                        Make Comment
+                                                                      </button>
+                                                        <!-- Modal -->
                                                         <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
                                                                         <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                              </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <textarea class="form-control " id="Textarea2" rows="4" required></textarea>
+                                                                        <textarea class="form-control " id="Textarea2" rows="4 " required></textarea>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" id="closeModal" class="btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
@@ -1882,7 +1847,7 @@
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
-                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" required class="form-control select2 bambuzu" multiple="multiple">
+                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" required class="form-control select2" multiple="multiple">
                                                 ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
                                         </div>
@@ -1921,7 +1886,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTask();" value="{{ trans('global.create') }}">
+                                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add Task</button>
                                 </div>
                             </form>
 
@@ -1931,34 +1896,18 @@
                 });
             }
 
-            function formatDate() {
-                var ra =  document.getElementById("starting-date").value;
-                var datePart = ra.match(/\d+/g),
-                year = datePart[0].substring(), // get four digits
-                month = datePart[1], day = datePart[2];
-                ra =  day+'/'+month+'/'+year;
-                document.getElementById("starting-date").value = ra;
-                var formattedDate = document.getElementById("starting-date").value
-                 return formattedDate;
-                  }
-
-            function formatDate2() {
-                var ra =  document.getElementById("deadline").value;
-                var datePart = ra.match(/\d+/g),
-                year = datePart[0].substring(), // get four digits
-                month = datePart[1], day = datePart[2];
-                ra =  day+'/'+month+'/'+year;
-                document.getElementById("deadline").value = ra;
-                var formattedDate = document.getElementById("deadline").value
-                 return formattedDate;
-                  }
-
              //Edit task
             function editTask(taskId){
                 $tr = $(this).closest('tr');
                 var data = $tr.children("td").map(function(){
                     return $(this).text();
                 }).get();
+
+                // console.log(data);
+
+                // var data = globalData.filter((item, i) => item.id === taskId)
+
+                // console.log(data)
 
 
 
@@ -2086,19 +2035,18 @@
 
 
         // post to the create Task table
-        function postCreateTask(){
-            $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
+            $(document).ready(function(){
+                $('#addTaskform').on('submit', function(e){
+                e.preventDefault();
+
                 $.ajax({
                 type: "POST",
                 url: '{{ url("/api/v1/tasks") }}',
                 data: $('#addTaskform').serialize(),
-                success: function (data) {
-                    alert("Task successfully created");
+                success: function (response) {
+                    console.log(response)
                     $('#createTaskModal').modal('hide');
+                    alert("Task successfully created");
                     location.reload();
                 },
                 error: function (error) {
@@ -2106,7 +2054,9 @@
                     alert("Task creation failed");
                 }
                 });
-                }
+                });
+                });
+
 
             //Ajax populate create task category
             function createTaskCategoryAjaxGet(){
@@ -2151,7 +2101,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTaskCategory();" value="{{ trans('global.create') }}">
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createTaskCategory();" value="{{ trans('global.create') }}">
                         </div>
                     </form>
                         `
@@ -2160,17 +2110,8 @@
             }
 
 
-<<<<<<< HEAD
+
         function createTaskCategory(){
-=======
-
-
-
-
-
-
-        function postCreateTaskCategory(){
->>>>>>> db55446d9d319e27240c8814bb3c296a68488ab1
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2181,10 +2122,9 @@
                 url: '{{ url("/api/v1/tast-categories") }}',
                 data: $('#addtaskCategoryform').serialize(),
                 success: function (data) {
-                    $('#taskcategoryDatatable').modal('hide');
                     alert(data.success);
-                    getTaskCategoryAjaxDT();
                     $('#addTaskCategory').modal('hide');
+                    getTaskCategoryAjaxDT();
                     document.getElementById('category-name').value = "";
                     document.getElementById('weightId').value = "";
                 },
@@ -2192,31 +2132,34 @@
                     console.log('Error:', data);
                 }
                 });
+                // });
             }
-
+            
                 // post to the Task status table
-                function postCreateTaskStatus(){
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
+                $('#addStatusform').on('submit', function(e){
+                e.preventDefault();
+
                 $.ajax({
                 type: "POST",
                 url: '{{ url("/api/v1/task-statuses") }}',
                 data: $('#addStatusform').serialize(),
-                success: function () {
-                    alert("Task status successfully created");
+                success: function (response, data) {
+                    console.log(response)
                     $('#AddStatus').modal('hide');
+                    alert("Task status successfully created");
                     document.getElementById('statusInput').value = "";
-                    location.reload();
+                    //location.reload();
+                    console.log(data);
+                    console.log(response);
+                    return(data);
                 },
                 error: function (error) {
                     console.log(error);
                     alert("Task status creation failed");
                 }
                 });
-              }
+                });
+                
 
     </script>
 
