@@ -1385,8 +1385,11 @@ data-scroll-speed="300">
 <script src="{{ asset('metro/assets/demo/demo2/base/scripts.bundle.js') }}" type="text/javascript"></script>
 <!--end::Base Scripts -->
 <!--begin::Page Vendors -->
+<script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
+<script src="{{ asset('metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <!--begin::Page Snippets -->
 @yield('javascript')
