@@ -157,7 +157,7 @@
                     </span>
                 </a>
         </div>
-        {{-- End Create Client Modal --}}
+  
         <div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
                     <div class="modal-content">
@@ -179,7 +179,7 @@
                                     
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="date-of-eng">Date Of Engagement</label>
-                                                <input type="date" id="date_of_engagement" name="date_of_engagement" class="form-control" value="" required>
+                                                <input type="text" id="date_of_engagement" name="date_of_engagement" class="form-control date" value="" required>
                                             </div>
                                     </div>
                                     <div class="row col-md-12">
@@ -191,7 +191,7 @@
                                                     
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="expiry-date">Expiry Date</label>
-                                                <input type="date" id="expiry_date" name="expiry_date" class="form-control" value="" required>
+                                                <input type="text" id="expiry_date" name="expiry_date" class="form-control date" value="" required>
                                             </div>
                                             
                                                 
@@ -209,7 +209,7 @@
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-3 form-group mt-3">
-                                                <input type="button" onclick="submitClientForm()" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit" />  
+                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="createCliento()" value="{{ trans('global.create') }}">
                                             </div>
                                         </div>
                                     </form>
@@ -220,7 +220,7 @@
                     </div>
                 </div>
             </div>
-            
+          {{-- End Create Client Modal --}}
 
 
     <!-- Begin: List Client -->
@@ -573,44 +573,6 @@
         }
         });
 
-        function formatDate(value) {
-                var datePart =value.match(/\d+/g),
-                year = datePart[0].substring(), // get four digits
-                month = datePart[1], day = datePart[2];
-               value =  day+'-'+month+'-'+year;
-                 return value;
-                  }
-
-
-           function submitClientForm(){
-            var formattedStartDate = formatDate($('#date_of_engagement').val());
-            var formattedEndDate = formatDate($('#expiry_date').val());
-            console.log(document.getElementById("expiry_date").value, "eyah")
-            console.log($('#expiry_date').val(formattedEndDate))
-            
-            console.log($('#expiry_date').val());        
-            
-            // $('#expiry_date').val() = formattedEndDate;
-            $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: "/api/v1/clients",
-                    data: $('#clientForm').serialize(),
-                    success: function (data){
-                        alert(data.success);
-                        $('#clientForm').modal('hide');
-                        // document.getElementById('report-textarea').value = "";
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-        }
-        
 
         //   Function for calling Client Projects on the DT
         function getClientProjects(client_id) {
@@ -1122,6 +1084,27 @@
                         })
             }
 
+            //Posting-Create client
+            function createCliento(){
+                    $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                    $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/clients") }}',
+                    data: $('#clientForm').serialize(),
+                    success: function (data) {
+                        alert(data.success);
+                        location.reload();
+                    },
+                    error: function (error) {
+                        alert("Client creation failed");
+                    }
+
+                    });
+                 }
 
             // Search Through Task Documents FUnction
         function searchTaskDocument() {
@@ -1245,34 +1228,6 @@
         function taskComments(task_id){
 
         }
-
-
-        // Create Client Script 
-        $('#createClientForm').on('submit', function(e){
-            e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: '{{ url("/api/v1/clients") }}',
-                    data: $('#createClientForm').serialize(),
-                    success: function (response, data) {
-                        alert("Client created");
-                        //document.getElementById('projTypeId').value = "";
-                        $('#createClientModal').modal('hide');
-                        //getProjetTypeDT();
-                        location.reload();
-                        console.log(data);
-                        console.log(response);
-                        return(data);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                        alert("Client creation failed");
-                        location.reload();
-                    }
-
-                });
-                    });
-                    
 
         $.fn.dataTable.ext.classes.sPageButton = '';
         var deleteButtonTrans = 'Delete Selected';
