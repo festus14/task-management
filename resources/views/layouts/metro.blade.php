@@ -29,7 +29,8 @@
     <!--end::Page Vendors -->
     <link href="{{ url('metro/assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ url('metro/assets/demo/demo2/base/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
-    <!--end::Base Styles -->
+    <link href="{{ url('metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
+    <!--end::Base Styles metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.css-->
     <link rel="shortcut icon" href="{{ url('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
     @yield('css')
 </head>
@@ -1581,11 +1582,55 @@
 <script src="{{ asset('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
+<script src="{{ asset('metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <!--end::Page Vendors -->
-<script src="{{ asset('js/main.js') }}"></script>
+{{--<script src="{{ asset('js/main.js') }}"></script>--}}
 
 <!--begin::Page Snippets -->
 @yield('javascript')
+<script>
+    $(document).ready(function () {
+        window._token = $('meta[name="csrf-token"]').attr('content');
+
+        var allEditors = document.querySelectorAll('.ckeditor');
+        for (var i = 0; i < allEditors.length; ++i) {
+            ClassicEditor.create(allEditors[i]);
+        }
+
+        moment.updateLocale('en', {
+            week: {dow: 1} // Monday is the first day of the week
+        });
+
+        $('.date').datetimepicker({
+            format: 'DD-MM-YYYY',
+            locale: 'en'
+        });
+
+        $('.datetime').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm:ss',
+            locale: 'en',
+            sideBySide: true
+        });
+
+        $('.timepicker').datetimepicker({
+            format: 'HH:mm:ss'
+        });
+
+        $('.select-all').click(function () {
+            let $select2 = $(this).parent().siblings('.select2')
+            $select2.find('option').prop('selected', 'selected')
+            $select2.trigger('change')
+        });
+        $('.deselect-all').click(function () {
+            let $select2 = $(this).parent().siblings('.select2');
+            $select2.find('option').prop('selected', '');
+            $select2.trigger('change')
+        });
+
+        $('.select2').select2();
+    });
+</script>
 <!--end::Page Snippets -->
 </body>
 <!-- end::Body -->

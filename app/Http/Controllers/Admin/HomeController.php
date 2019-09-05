@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Client;
 use App\Project;
+use App\ProjectSubType;
 use App\Task;
+use App\TaskStatus;
+use App\TastCategory;
 use App\User;
 use Illuminate\Support\Facades\Request;
 
@@ -80,10 +83,18 @@ class HomeController
         $users = User::all();
 
         $clients = Client::all();
+        $categories = TastCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $assinged_tos = User::all()->pluck('name', 'id');
+
+        $managers = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $statuses = TaskStatus::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $projects_sub_type = ProjectSubType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
 
         $events = [];
-
         foreach ($this->sources as $source) {
             foreach ($source['model']::all() as $model) {
                 $crudFieldValue = $model->getOriginal($source['date_field']);
@@ -112,6 +123,7 @@ class HomeController
                 ];
             }
         }
-        return view('theme.laravel.dashboard', compact('tasks', 'projects', 'users', 'clients', 'events' ));
+
+        return view('theme.laravel.dashboard', compact('tasks', 'projects', 'users', 'clients', 'events', 'categories', 'assinged_tos', 'managers', 'statuses', 'projects_sub_type'));
     }
 }
