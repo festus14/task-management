@@ -1452,17 +1452,11 @@
                 </div>
                 </div>
 
-<<<<<<< HEAD
             <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-=======
-                <!-- Comment Modal -->
-    <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
->>>>>>> d1a1a624ddf3e92cbdeae9625a45a92ef08f5d3b
 
             </div>
 
 
-<<<<<<< HEAD
             <div class="modal fade" id="addTaskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
                     <div class="modal-content">
@@ -1498,43 +1492,6 @@
                                     </div>
                                 </div>
                             </form>
-=======
-    <div class="modal fade" id="addTaskReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
-                    <button type="button" class="close" onclick="$('#addTaskReportModal').modal('hide');" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                            </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST"  action="{{ url('/api/v1/project-reports') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="col-md-12 row">
-                            <div class=" row col-md-12">
-                            <div class="col-md-12 form-group mt-3">
-                                <label for="exampleFormControlTextarea1">Project Report</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="project_report"></textarea>
-                            </div>
-                        </div>
-                            <div class="col-md-6 form-group mt-3">
-                                <input id="" type="hidden" name="client_id" value="${data.data.reports.client_id}"/>
-                            </div>
-
-                            <div class="col-md-6 form-group mt-3">
-                                <input id="" type="hidden" name="project_id" value="${data.data.reports.project_id}"/>
-                            </div>
-                        </div>
-                        
-                        <div class=" row col-md-12">
-                        <div class="row col-md-12">
-                            <div class="col-md-3 form-group mt-3">
-                                <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                            </div>
-                        </div>
-                    </form>
->>>>>>> d1a1a624ddf3e92cbdeae9625a45a92ef08f5d3b
 
                                 </div>
                         </div>
@@ -1542,7 +1499,6 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
 
         <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
@@ -1595,8 +1551,6 @@
                 </div>
             </div>
 
-=======
->>>>>>> d1a1a624ddf3e92cbdeae9625a45a92ef08f5d3b
             `
 
 
@@ -1611,7 +1565,6 @@
         })
     }
 
-<<<<<<< HEAD
             // Function for submitting task report
             function submitTaskReport(){
                 $.ajaxSetup({
@@ -1654,8 +1607,6 @@
                     }
                 });
             }
-=======
->>>>>>> d1a1a624ddf3e92cbdeae9625a45a92ef08f5d3b
 
         function documentDTCall(project_id){
             $(document).ready(function() {
@@ -1993,12 +1944,8 @@
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
-<<<<<<< HEAD
                                             <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" required class="form-control select2">
                                                 <option value="" selected></option>
-=======
-                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" required class="form-control select2" multiple="multiple">
->>>>>>> d1a1a624ddf3e92cbdeae9625a45a92ef08f5d3b
                                                 ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
                                         </div>
@@ -2050,7 +1997,6 @@
             }
 
              //Edit task
-<<<<<<< HEAD
             // function editTask(taskId){
             //     $tr = $(this).closest('tr');
             //     var data = $tr.children("td").map(function(){
@@ -2113,37 +2059,6 @@ var editData;
                             editTaskBody.innerHTML = `
                             <div class="modal-body">
                             <form id="editTaskform" enctype="multipart/form-data">
-=======
-            function editTask(taskId){
-                $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function(){
-                    return $(this).text();
-                }).get();
-
-                // console.log(data);
-
-                // var data = globalData.filter((item, i) => item.id === taskId)
-
-                // console.log(data)
-
-
-
-                $('#client_id').val(data[1]);
-                $('#project_id').val(data[2]);
-                $('#project_subtype_id').val(data[3]);
-                $('#name').val(data[4]);
-                $('#category_id').val(data[5]);
-                $('#assinged_tos').val(data[6]);
-                $('#manager_id').val(data[7]);
-                $('#starting_date').val(data[8]);
-                $('#ending_date').val(data[9]);
-                $('#status_id').val(data[10]);
-
-                        let editTaskBody = document.getElementById('editTaskBody');
-                        editTaskBody.innerHTML = `
-                    <div class="modal-body">
-                        <form id="editTaskform" action="{{ url('/api/v1/tasks') }}"  method="PUT" enctype="multipart/form-data">
->>>>>>> d1a1a624ddf3e92cbdeae9625a45a92ef08f5d3b
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6">
@@ -2362,7 +2277,6 @@ var editData;
             }
 
 
-<<<<<<< HEAD
 
 
 
@@ -2370,10 +2284,6 @@ var editData;
 
 
         function postCreateTaskCategory(){
-=======
-
-        function createTaskCategory(){
->>>>>>> d1a1a624ddf3e92cbdeae9625a45a92ef08f5d3b
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2394,7 +2304,6 @@ var editData;
                     console.log('Error:', data);
                 }
                 });
-                // });
             }
             
                 // post to the Task status table
