@@ -28,6 +28,19 @@
 
 @section('content')
     <div class="row">
+        <div class="col-12">
+                <form class="form">
+                        <input type="text" class="form-control datetime"/>
+                        <select class="form-control select2 col-12">
+                            <option>Option One</option>
+                            <option>Option Two</option>
+                        </select>
+                        <select class="form-control select2 col-12" multiple="multiple">
+                                <option>Option One</option>
+                                <option>Option Two</option>
+                        </select>
+                    </form>
+        </div>
         <div class="col-xl-12">
             <!--begin::Portlet-->
             <div class="m-portlet " id="m_portlet" style="width:97%;">
@@ -798,8 +811,49 @@
 
 @endsection
 @section('javascript')
-        <script>
+<script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
+<script src="{{ asset('metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        window._token = $('meta[name="csrf-token"]').attr('content');
 
+        var allEditors = document.querySelectorAll('.ckeditor');
+        for (var i = 0; i < allEditors.length; ++i) {
+            ClassicEditor.create(allEditors[i]);
+        }
+
+        moment.updateLocale('en', {
+            week: {dow: 1} // Monday is the first day of the week
+        });
+
+        $('.date').datetimepicker({
+            format: 'DD-MM-YYYY',
+            locale: 'en'
+        });
+
+        $('.datetime').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm:ss',
+            locale: 'en',
+            sideBySide: true
+        });
+
+        $('.timepicker').datetimepicker({
+            format: 'HH:mm:ss'
+        });
+
+        $('.select-all').click(function () {
+            let $select2 = $(this).parent().siblings('.select2')
+            $select2.find('option').prop('selected', 'selected')
+            $select2.trigger('change')
+        });
+        $('.deselect-all').click(function () {
+            let $select2 = $(this).parent().siblings('.select2');
+            $select2.find('option').prop('selected', '');
+            $select2.trigger('change')
+        });
+
+        $('.select2').select2();
+    });
             let languages = {
                     'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
                 };
@@ -1084,11 +1138,11 @@
                     render: function (data, type, full, meta) {
                     return '\<button onclick="displayTaskInfo('+full.id+'), editTask('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                 <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
-                                <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> View</i>\
+                                <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> <span style="font-weight:100;"> View </span></i>\
                                 </a>\
-                                <a class="link" href="#"><i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editTaskModal" style="color:black;"> Edit</i>\
+                                <a class="link" href="#"><i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editTaskModal" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
                                 </a>\
-                            <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="far fa-trash-alt" style="color:black; margin-left: -5px; font-weight:600;"> Delete</i></a></button>\
+                            <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="far fa-trash-alt" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
                                         ';
                     }
@@ -1919,7 +1973,7 @@
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label>Select Project Subtype</label>
-                                            <select id="project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
+                                            <select id="project-subtype-list" name="project_subtype_id" class="selectDesign form-control select2">
                                                 <option value="" selected></option>
                                                 ${Object.keys(data.data.projects_sub_type).map((key, index) => `<option value="${key}">${data.data.projects_sub_type[key]}</option>`)}
                                             </select>
@@ -1934,7 +1988,7 @@
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label>Task Category</label>
-                                            <select id="task-category" name="category_id" class="selectDesign form-control">
+                                            <select id="task-category" name="category_id" class="selectDesign form-control select2">
                                                 <option value="" selected></option>
                                                 ${Object.keys(data.data.categories).map((key, index) => `<option value="${key}">${data.data.categories[key]}</option>`)}
                                             </select>
