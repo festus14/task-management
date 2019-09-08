@@ -4,9 +4,6 @@
 <head>
     <meta charset="utf-8"/>
     @yield('title')
-    <title>
-        Task Management | Dashboard
-    </title>
     <meta name="description" content="Latest updates and statistic charts">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf_token" content="{{ csrf_token() }}">

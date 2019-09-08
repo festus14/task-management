@@ -1227,7 +1227,7 @@
 
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="Deadline">Deadline</label>
-                                    <input type="text" class="form-control date" name="deadline" id="Deadline" required>
+                                    <input type="text" class="form-control datetime" name="deadline" id="Deadline" required>
                                 </div>
                                 <div class="col-md-4 form-group mt-3">
                                     <label>Team members</label><br>
@@ -1269,7 +1269,45 @@
                                     <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtype();" value="Create">
                                 </div>
                                 </form>
-                    `
+                     `
+                     window._token = $('meta[name="csrf-token"]').attr('content');
+
+var allEditors = document.querySelectorAll('.ckeditor');
+for (var i = 0; i < allEditors.length; ++i) {
+    ClassicEditor.create(allEditors[i]);
+}
+
+moment.updateLocale('en', {
+    week: {dow: 1} // Monday is the first day of the week
+});
+
+$('.date').datetimepicker({
+    format: 'DD-MM-YYYY',
+    locale: 'en'
+});
+
+$('.datetime').datetimepicker({
+    format: 'DD-MM-YYYY HH:mm:ss',
+    locale: 'en',
+    sideBySide: true
+});
+
+$('.timepicker').datetimepicker({
+    format: 'HH:mm:ss'
+});
+
+$('.select-all').click(function () {
+    let $select2 = $(this).parent().siblings('.select2')
+    $select2.find('option').prop('selected', 'selected')
+    $select2.trigger('change')
+});
+$('.deselect-all').click(function () {
+    let $select2 = $(this).parent().siblings('.select2');
+    $select2.find('option').prop('selected', '');
+    $select2.trigger('change')
+});
+
+$('.select2').select2();
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -1470,11 +1508,10 @@
                     url: '{{ url("/api/v1/projects") }}',
                     data: $('#addprojectform').serialize(),
                     success: function (data) {
-                        alert(data.success);
+                        alert("Project successfully created");
                         location.reload();
                     },
                     error: function (error) {
-                        console.log(error);
                         alert("Project creation failed");
                     }
                     });
@@ -1523,12 +1560,12 @@
                 render: function (data, type, full, meta) {
                   return '\<button onclick="displayProjectInfo('+full.id+'), editProject('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
-                            <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"><span style="font-weight:100;"> View </span></i>\
+                            <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"><span style="font-weight:100;"> View </span></i>\
                             </a><br>\
                             <a class="link" href="#">\
-                                <i class="fas fa-pencil-alt" style="color:black;" data-toggle="modal" data-target="#editProjectModal"><span style="font-weight:100;"> Edit</span></i>\
+                                <i class="fa fa-pencil" style="color:black;" data-toggle="modal" data-target="#editProjectModal"><span style="font-weight:100;"> Edit</span></i>\
                             </a><br>\
-                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
+                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
                                     ';
                 }
@@ -2191,9 +2228,9 @@
                         return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                 <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
                                 <a class="link" href="#">\
-                                    <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#EditProjectTypeModal" style="color:black;"></i>\
+                                    <i class="fa fa-pencil" data-toggle="modal" data-target="#EditProjectTypeModal" style="color:black;"></i>\
                                 </a>\
-                                <button onclick="deleteProjectType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                <button onclick="deleteProjectType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black;"></i></a></button>\
                                 </div>\
                             ';
                     }
@@ -2259,9 +2296,9 @@
                     return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
                             <a class="link" href="#">\
-                                <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"></i>\
+                                <i class="fa fa-pencil-alt" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"></i>\
                             </a>\
-                            <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                            <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black;"></i></a></button>\
                             </div>\
                             ';
                 }
