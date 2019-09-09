@@ -24,7 +24,7 @@
     <!--end::Web font -->
     <!--begin::Base Styles -->
     <!--begin::Page Vendors -->
-    
+
     <link href="{{ url('metro/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
 
@@ -37,9 +37,9 @@
     <!--end::Base Styles metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.css-->
     <link rel="shortcut icon" href="{{ url('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
     <!--end::Base Styles -->
-    
+
     @yield('css')
-    <style> 
+    <style>
         .dataTables_filter{
             float: right !important;
             width: 40% !important;
@@ -144,7 +144,7 @@
                                                                     </a>
                                                                 </li>
                                                                 <li class="m-nav__item">
-                                                                    <a href="{{ url('/admin/create_task') }}" class="m-nav__link">
+                                                                    <a href="{{ url('/admin/view_task') }}" class="m-nav__link">
                                                                         <i class="m-nav__link-icon flaticon-profile-1"></i>
                                                                         <span class="m-nav__link-title">
                                                                             <span class="m-nav__link-wrap">
@@ -160,7 +160,7 @@
                                                                     </a>
                                                                 </li>
                                                                 <li class="m-nav__item">
-                                                                    <a href="{{ url('/admin/create_project') }}" class="m-nav__link">
+                                                                    <a href="{{ url('/admin/view_project') }}" class="m-nav__link">
                                                                         <i class="m-nav__link-icon flaticon-share"></i>
                                                                         <span class="m-nav__link-text">
                                                                             Projects
@@ -817,7 +817,7 @@
                                     @yield('header')
                                 </h3>
                                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-                                    
+
                                     <li class="m-nav__item">
                                         <a href="" class="m-nav__link">
                                             <span class="m-nav__link-text">
@@ -828,34 +828,34 @@
                                 </ul>
                             </div>
                             <div>
-                                
+
                             </div>
                         </div>
                     </div>
                     <!-- END: Subheader -->
-    
+
                         <div class="m-content" style="width: 99%;">
                             <!-- Inner page content goes here -->
                             @yield('content')
                             <!-- <div>
-            
+
                                 <form id="postData">
-                        
+
                                     <div class="form-group">
                                         <label>Select Project</label>
                                         <select id="project-list" class="form-control"></select>
                                     </div>
-                        
+
                                     <div class="form-group">
                                         <label for="create-project-subtype">Create Project Subtype</label>
                                         <input type="text" class="form-control" id="create-project-subtype" placeholder="Enter Project Subtype">
                                     </div>
-                        
-                                    
+
+
                                     <input type="submit" class="btn btn-primary" value="Submit">
-                        
+
                                 </form>
-                        
+
                             </div> -->
                         </div>
                     </div>
@@ -926,20 +926,20 @@
           </div>
           <div class="modal-body">
               <form id="postData">
-  
+
                   <div class="form-group">
                       <label>Select Project</label>
                       <select id="project-list" class="form-control"></select>
                   </div>
-          
+
                   <div class="form-group">
                       <label for="create-project-subtype">Create Project Subtype</label>
                       <input type="text" class="form-control" id="create-project-subtype" placeholder="Enter Project Subtype">
                   </div>
-          
-                  
+
+
                   <input type="submit" class="btn btn-primary  float-right" value="Submit">
-          
+
               </form>
           </div>
           <div class="modal-footer">
@@ -1400,31 +1400,31 @@ data-scroll-speed="300">
 <script>
         $(document).ready(function () {
             window._token = $('meta[name="csrf-token"]').attr('content');
-    
+
             var allEditors = document.querySelectorAll('.ckeditor');
             for (var i = 0; i < allEditors.length; ++i) {
                 ClassicEditor.create(allEditors[i]);
             }
-    
+
             moment.updateLocale('en', {
                 week: {dow: 1} // Monday is the first day of the week
             });
-    
+
             $('.date').datetimepicker({
                 format: 'DD-MM-YYYY',
                 locale: 'en'
             });
-    
+
             $('.datetime').datetimepicker({
                 format: 'DD-MM-YYYY HH:mm:ss',
                 locale: 'en',
                 sideBySide: true
             });
-    
+
             $('.timepicker').datetimepicker({
                 format: 'HH:mm:ss'
             });
-    
+
             $('.select-all').click(function () {
                 let $select2 = $(this).parent().siblings('.select2')
                 $select2.find('option').prop('selected', 'selected')
@@ -1435,7 +1435,7 @@ data-scroll-speed="300">
                 $select2.find('option').prop('selected', '');
                 $select2.trigger('change')
             });
-    
+
             $('.select2').select2();
         });
     </script>

@@ -89,7 +89,7 @@
                     <th>Subtype</th>
                     <th>Status</th>
                     <th>Members</th>
-                    <th>Start Date</th>
+                    <th>Start_Date</th>
                     <th>Deadline</th>
                     <th>Tools</th>
                 </tr>
@@ -298,12 +298,12 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                 </div>
-                        <form id="addprojTtypeform2" enctype="multipart/form-data">
+                        <form id="editprojTtypeform" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="create-task">Project Type Name</label>
-                                    <input type="text" class="form-control" id="projTypeId" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
+                                    <input type="text" class="form-control" id="editprojTypeInput" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -413,304 +413,17 @@
                   </button>
                 </div>
                 <div id="editProjectSubTypeModalBody" class="modal-body col-md-12">
-    
-    
-    
+
+
+
                 </div>
-    
+
             </div>
         </div>
     </div>
     {{--End edit project Subtype--}}
-    
+
     <div id="moreInfo">
-        <!-- More Info Modal -->
-        {{-- <div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" onclick="$('#moreInfoModal').modal('hide');" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- More-info content -->
-                        <div class="col-md-12 m-portlet " id="m_portlet">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <span class="m-portlet__head-icon">
-                                                        <i class="flaticon-info"> </i>
-                                                    </span>
-                                        <h3 class="m-portlet__head-text">
-                                            More info
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-portlet__body">
-                                <div class="accordion" id="accordionExample">
-                                    <div class="card">
-                                        <div class="card-header" id="headingone">
-                                            <h6 class="mb-0">
-                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                                <i class="m-menu__link-icon flaticon-list"></i>
-                                                                Project tasks
-                                                        </span>
-                                            </h6>
-                                        </div>
-                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                            <div class="card-body">
-                                                <ul class="list-group">
-                                                        <li class="list-group-item">Shell Audit</li>
-                                                        <li class="list-group-item">name of task</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="card">
-                                        <div class="card-header" id="headingTwo">
-                                            <h6 class="mb-0">
-                                                <span data-toggle="modal" data-target="#documentModal">
-                                                                    <i class="m-menu__link-icon flaticon-clipboard"></i>
-                                                                    Documents
-                                                            </span>
-                                            </h6>
-                                        </div>
-                                    </div>
-
-                                    <div class="card">
-                                        <div class="card-header" id="headingThree">
-                                            <h6 class="mb-0">
-                                                <span data-toggle="modal" data-target="#projectreportModal">
-                                                                        <i class="m-menu__link-icon flaticon-file"></i>
-                                                                        Report
-                                                                </span>
-                                            </h6>
-                                        </div>
-                                    </div>
-
-                                    <div class="card">
-                                        <div class="card-header" id="headingFour">
-                                            <h6 class="mb-0">
-                                                <span class="" data-toggle="modal" data-target="#commentModal">
-                                                                        <i class="m-menu__link-icon flaticon-comment"></i>
-                                                                        Comments
-                                                                </span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end::Portlet-->
-
-
-
-                            <!-- End main Content of More-info -->
-
-                            <div class="modal-footer">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-    </div>
-        <!-- End More Info Modal -->
-
-        {{-- documentDTModal --}}
-        {{-- <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="documentModalLongTitle">Project Documents</h5>
-                        <button type="button" class="close" onclick="$('#documentModal').modal('hide');" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="m-portlet " id="m_portlet">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <span class="m-portlet__head-icon">
-                                                                                <i class="flaticon-list-1"> </i>
-                                                                            </span>
-                                        <h3 class="m-portlet__head-text">
-                                            Documents
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="m-portlet__head-tools">
-                                    <ul class="m-portlet__nav">
-                                        <li class="m-portlet__nav-item">
-                                            <a style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#addDocumentModal" class="btn m-btn--icon m-btn--pill">
-                                                <span>
-                                                                                                <i class="la la-plus"></i>
-                                                                                                <span>
-                                                                                                    Add Document
-                                                                                                </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="m-portlet__body">
-                                <table id="kt_table_projects" class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Client</th>
-                                            <th>Name</th>
-                                            <th>Manager</th>
-                                            <th>Type</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!--end::Portlet-->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        {{-- endDocumentDTModal --}}
-
-        {{-- report DT Modal --}}
-        {{-- <div class="modal fade" id="projectreportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="documentModalLongTitle">Project reports</h5>
-                        <button type="button" class="close" onclick="$('#projectreportModal').modal('hide');" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="m-portlet " id="m_portlet">
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <span class="m-portlet__head-icon">
-                                                                                <i class="flaticon-list-1"> </i>
-                                                                            </span>
-                                        <h3 class="m-portlet__head-text">
-                                            Reports
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="m-portlet__head-tools">
-                                    <ul class="m-portlet__nav">
-                                        <li class="m-portlet__nav-item">
-                                            <a style="color:white; background-color: #8a2a2b;" class="btn m-btn--icon m-btn--pill">
-                                                <span data-toggle="modal" data-target="#addReportModal" aria-expanded="false" aria-controls="">
-                                                    <i class="la la-plus"></i>
-                                                    <span>
-                                                        Add Report
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="m-portlet__body">
-                                <table id="kt_table_projects" class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Client</th>
-                                            <th>Name</th>
-                                            <th>Tools</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!--end::Portlet-->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        {{-- endreport DT tModal --}}
-
-        {{-- Add report Modal --}}
-        {{-- <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
-                        <button type="button" class="close" onclick="$('#addReportModal').modal('hide');" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="col-md-12 row">
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Client</label>
-                                    <select id="client-list" class="selectDesign form-control"></select>
-                                </div>
-
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Project</label>
-                                    <select id="client-list" class="selectDesign form-control"></select>
-                                </div>
-                            </div>
-                            <div class=" row col-md-12">
-                                <div class="col-md-12 form-group mt-3">
-                                    <label for="exampleFormControlTextarea1">Project Report</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class=" row col-md-12">
-                                <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
-                                    <fieldset class="col-md-12 form-group mt-3">
-
-                                        <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-
-                                        <div>
-                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
-                                        </div>
-                                        <div id="messages">
-
-                                        </div>
-                                    </fieldset>
-                                    <div class="row col-md-12">
-                                        <div class="col-md-3 form-group mt-3">
-                                            <button class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        {{-- end Addreport Modal --}}
 
         <!-- Add Document Modal -->
         <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
@@ -1169,7 +882,7 @@
                             <div class="row col-md-12">
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Select Client</label>
-                                    <select id="client-list" name="client_id" class="form-control select2 required">
+                                    <select id="client-list" name="client_id" class="form-control required">
                                     ` +
                                         data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -1184,7 +897,7 @@
                             <div class="row col-md-12">
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project">Manager</label><br>
-                                    <select name="manager_id" class="form-control select2" style="width:100%;" required>
+                                    <select name="manager_id" class="form-control" style="width:100%;" required>
                                         ` +
                                         data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -1193,7 +906,7 @@
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project-type">Project Type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                                    <select class="form-control select2" id="projtypeboy" name="project_type_id" required>
+                                    <select class="form-control" id="projtypeboy" name="project_type_id" required>
                                         ` +
                                         data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -1204,7 +917,7 @@
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="exampleFormControlSelect1">Project Sub-type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                                    <select class="form-control select2" id="exampleFormControlSelect1" name="project_subtype_id" required>
+                                    <select class="form-control" id="projectSubtypeId" name="project_subtype_id" required>
                                         ` +
                                         data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -1213,16 +926,16 @@
                             </div>
                             <div class="row col-md-12 ">
 
-                                <div class="col-md-4 form-group mt-3">
+                                <div class="col-md-3 form-group mt-3">
                                     <label for="starting-date">Start Date</label>
                                     <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
                                 </div>
 
-                                <div class="col-md-4 form-group mt-3">
+                                <div class="col-md-3 form-group mt-3">
                                     <label for="Deadline">Deadline</label>
                                     <input type="text" class="form-control datetime" name="deadline" id="Deadline" required>
                                 </div>
-                                <div class="col-md-4 form-group mt-3">
+                                <div class="col-md-6 form-group mt-3">
                                     <label>Team members</label><br>
                                     <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
                                         ` +
@@ -1263,93 +976,127 @@
                      `
                      window._token = $('meta[name="csrf-token"]').attr('content');
 
-var allEditors = document.querySelectorAll('.ckeditor');
-for (var i = 0; i < allEditors.length; ++i) {
-    ClassicEditor.create(allEditors[i]);
-}
+                        var allEditors = document.querySelectorAll('.ckeditor');
+                        for (var i = 0; i < allEditors.length; ++i) {
+                            ClassicEditor.create(allEditors[i]);
+                        }
 
-moment.updateLocale('en', {
-    week: {dow: 1} // Monday is the first day of the week
-});
+                        moment.updateLocale('en', {
+                            week: {dow: 1} // Monday is the first day of the week
+                        });
 
-$('.date').datetimepicker({
-    format: 'DD-MM-YYYY',
-    locale: 'en'
-});
+                        $('.date').datetimepicker({
+                            format: 'DD-MM-YYYY',
+                            locale: 'en'
+                        });
 
-$('.datetime').datetimepicker({
-    format: 'DD-MM-YYYY HH:mm:ss',
-    locale: 'en',
-    sideBySide: true
-});
+                        $('.datetime').datetimepicker({
+                            format: 'DD-MM-YYYY HH:mm:ss',
+                            locale: 'en',
+                            sideBySide: true
+                        });
 
-$('.timepicker').datetimepicker({
-    format: 'HH:mm:ss'
-});
+                        $('.timepicker').datetimepicker({
+                            format: 'HH:mm:ss'
+                        });
 
-$('.select-all').click(function () {
-    let $select2 = $(this).parent().siblings('.select2')
-    $select2.find('option').prop('selected', 'selected')
-    $select2.trigger('change')
-});
-$('.deselect-all').click(function () {
-    let $select2 = $(this).parent().siblings('.select2');
-    $select2.find('option').prop('selected', '');
-    $select2.trigger('change')
-});
+                        $('.select-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2')
+                            $select2.find('option').prop('selected', 'selected')
+                            $select2.trigger('change')
+                        });
+                        $('.deselect-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2');
+                            $select2.find('option').prop('selected', '');
+                            $select2.trigger('change')
+                        });
 
-$('.select2').select2();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+                        $('.select2').select2();
+                                    },
+                                    error: function (data) {
+                                        console.log('Error:', data);
+                                    }
+                                });
 
-    }
+                            }
 
         //  Edit Project form
+        var editProjectData;
+    function editProject(project_id){
+        $.ajax({
+                        type: "GET",
+                        url: "/api/v1/projects/" + project_id,
+                        success: function(data){
+                            editProjectData = data.data;
+                            $('#client_list').val(editProjectData.client_id + "");
+                            $('#project_name').val(editProjectData.name);
+                            $('#manager_id').val(editProjectData.manager_id + "");
+                            $('#projtypeboy').val(editProjectData.project_type_id + "");
+                            $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
+                            $('#starting-date').val(editProjectData.starting_date);
+                            $('#Deadline').val(editProjectData.deadline);
+                            $('#teammembers').val(editProjectData.team_members);
+                            console.log(editProjectData);
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+                $.ajax({
+                    type: "GET",
+                    url: "/api/v1/project_create",
+                    success: function(data){
+                        var projData = data;
     let editProjectBody = document.getElementById('editProjectBody');
         editProjectBody.innerHTML = `
         <div class="col-md-12 ">
-                        <form id="addprojectform" enctype="multipart/form-data">
+                        <form id="editProjectform" enctype="multipart/form-data">
                             @csrf
                             <div class="row col-md-12">
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Select Client</label>
-                                    <select id="client-list" name="client_id" class="selectDesign form-control required">
-                                    
+                                    <select id="client_list" name="client_id" class="selectDesign form-control required">
+                                        ` +
+                                        projData.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
                                     </select>
                                 </div>
 
                                 <div class="col-md-6 form-group mt-3">
                                         <label for="create-project">Project Name</label>
-                                    <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
+                                    <input type="text" name="name" class="form-control" id="project_name" placeholder="" required>
                                 </div>
                             </div>
                             <div class="row col-md-12">
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project">Manager</label><br>
                                     <select name="manager_id" class="form-control select2" style="width:100%;" required>
-                                      
+                                        ` +
+                                        projData.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project-type">Project Type</label>
                                     <select class="form-control" id="projtypeboy" name="project_type_id" required>
-                                      
+                                        ` +
+                                        projData.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
                                     </select>
                                 </div>
 
-
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="exampleFormControlSelect1">Project Sub-type</label>
-                                    <select class="form-control" id="exampleFormControlSelect1" name="project_subtype_id" required>
-                                      
+                                    <select class="form-control" id="project_subtype_id" name="project_subtype_id" required>
+                                        ` +
+                                        projData.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
                                     </select>
                                 </div>
                             </div>
                             <div class="row col-md-12 ">
-
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="starting-date">Start Date</label>
                                     <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
@@ -1361,8 +1108,10 @@ $('.select2').select2();
                                 </div>
                                 <div class="col-md-4 form-group mt-3">
                                     <label>Team members</label><br>
-                                    <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
-                                      
+                                    <select multiple class="form-control select2" id="teammembers" name="team_members[]" style="width:100%;"required>
+                                        ` +
+                                        projData.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                    + `
                                     </select>
                                 </div>
 
@@ -1372,8 +1121,56 @@ $('.select2').select2();
                                 </div>
                             </div>
                         </form>
-                    </div>  
-                        `
+                    </div>
+                    `
+                    window._token = $('meta[name="csrf-token"]').attr('content');
+
+                            var allEditors = document.querySelectorAll('.ckeditor');
+                            for (var i = 0; i < allEditors.length; ++i) {
+                                ClassicEditor.create(allEditors[i]);
+                            }
+
+                            moment.updateLocale('en', {
+                                week: {dow: 1} // Monday is the first day of the week
+                            });
+
+                            $('.date').datetimepicker({
+                                format: 'DD-MM-YYYY',
+                                locale: 'en'
+                            });
+
+                            $('.datetime').datetimepicker({
+                                format: 'DD-MM-YYYY HH:mm:ss',
+                                locale: 'en',
+                                sideBySide: true
+                            });
+
+                            $('.timepicker').datetimepicker({
+                                format: 'HH:mm:ss'
+                            });
+
+                            $('.select-all').click(function () {
+                                let $select2 = $(this).parent().siblings('.select2')
+                                $select2.find('option').prop('selected', 'selected')
+                                $select2.trigger('change')
+                            });
+                            $('.deselect-all').click(function () {
+                                let $select2 = $(this).parent().siblings('.select2');
+                                $select2.find('option').prop('selected', '');
+                                $select2.trigger('change')
+                            });
+
+                            $('.select2').select2();
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+
+                    }
+
 
             //  Edit Project Sub form
     let editProjectSubTypeModalBody = document.getElementById('editProjectSubTypeModalBody');
@@ -1514,7 +1311,7 @@ $('.select2').select2();
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                  return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                  return '\<button onclick="displayProjectInfo('+full.id+'), editProject('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
                             <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"><span style="font-weight:100;"> View </span></i>\
                             </a><br>\
@@ -1962,25 +1759,6 @@ $('.select2').select2();
             }
         }
 
-        // function deleteFunctionForAll(proID, del_url){
-        //     var confirmDel = confirm("Do you want to delete the document?");
-        //     console.log(del_url)
-        //     var path_url = del_url + '/' + proID
-        //     if(confirmDel){
-        //         $.ajax({
-        //             type: "DELETE",
-        //             url: path_url,
-        //             success: function (data) {
-        //                 location.reload();
-        //             },
-        //             error: function (data) {
-        //                 console.log('Error:', data);
-        //                 location.reload();
-        //             }
-        //         });
-        //     }
-        // }
-
 
         function getProjetTypeDT(){
                 if ( $.fn.dataTable.isDataTable( '#kt_table_project_type') ) {
@@ -2013,7 +1791,7 @@ $('.select2').select2();
                     orderable: false,
                     searchable: false,
                     render: function (data, type, full, meta) {
-                        return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                        return '\<button class="btn btn-secondary dropdown-toggle" onclick="editProjectType('+full.id+')" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                 <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
                                 <a class="link" href="#">\
                                     <i class="fa fa-pencil" data-toggle="modal" data-target="#EditProjectTypeModal" style="color:black;"></i>\
@@ -2045,6 +1823,24 @@ $('.select2').select2();
                     }
                 });
             }
+        }
+
+         //Edit Task
+            var editProjectData;
+        function editProjectType(type_id){
+            $.ajax({
+                type: "GET",
+                url: "/api/v1/project-types/" + type_id,
+                success: function(data){
+                    editProjectData = data.data;
+                    $('#editprojTypeInput').val(editProjectData.name);
+                    console.log(editProjectData);
+                },
+
+                error: function(data){
+                    console.log('Error:', data);
+                }
+            })
         }
 
 
@@ -2084,7 +1880,7 @@ $('.select2').select2();
                     return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
                             <a class="link" href="#">\
-                                <i class="fa fa-pencil-alt" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"></i>\
+                                <i class="fa fa-pencil" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"></i>\
                             </a>\
                             <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black;"></i></a></button>\
                             </div>\
