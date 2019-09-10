@@ -886,6 +886,7 @@
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Select Client</label>
                                     <select id="client-list" name="client_id" class="form-control required">
+                                        <option value="" selected></option>
                                     ` +
                                         data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -901,6 +902,7 @@
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project">Manager</label><br>
                                     <select name="manager_id" class="form-control" style="width:100%;" required>
+                                        <option value="" selected></option>
                                         ` +
                                         data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -910,6 +912,7 @@
                                     <label for="create-project-type">Project Type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
                                     <select class="form-control" id="projtypeboy" name="project_type_id" required>
+                                        <option value="" selected></option>
                                         ` +
                                         data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -921,6 +924,7 @@
                                     <label for="exampleFormControlSelect1">Project Sub-type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
                                     <select class="form-control" id="projectSubtypeId" name="project_subtype_id" required>
+                                        <option value="" selected></option>
                                         ` +
                                         data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -941,7 +945,7 @@
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Team members</label><br>
                                     <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
-                                        <option value="" selected ></option>
+
                                         ` +
                                         data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -1025,156 +1029,6 @@
 
                             }
 
-        //  Edit Project form
-        var editProjectData;
-    function editProject(project_id){
-        $.ajax({
-                        type: "GET",
-                        url: "/api/v1/projects/" + project_id,
-                        success: function(data){
-                            editProjectData = data.data;
-                            $('#client_list').val(editProjectData.client_id + "");
-                            $('#project_name').val(editProjectData.name);
-                            $('#manager_id').val(editProjectData.manager_id + "");
-                            $('#projtypeboy').val(editProjectData.project_type_id + "");
-                            $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
-                            $('#starting-date').val(editProjectData.starting_date);
-                            $('#Deadline').val(editProjectData.deadline);
-                            $('#teammembers').val(editProjectData.team_members);
-                            console.log(editProjectData);
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-                $.ajax({
-                    type: "GET",
-                    url: "/api/v1/project_create",
-                    success: function(data){
-                        var projData = data;
-    let editProjectBody = document.getElementById('editProjectBody');
-        editProjectBody.innerHTML = `
-        <div class="col-md-12 ">
-                        <form id="editProjectform" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row col-md-12">
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Select Client</label>
-                                    <select id="client_list" name="client_id" class="selectDesign form-control required">
-                                        ` +
-                                        projData.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 form-group mt-3">
-                                        <label for="create-project">Project Name</label>
-                                    <input type="text" name="name" class="form-control" id="project_name" placeholder="" required>
-                                </div>
-                            </div>
-                            <div class="row col-md-12">
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="create-project">Manager</label><br>
-                                    <select name="manager_id" class="form-control select2" style="width:100%;" required>
-                                        ` +
-                                        projData.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="create-project-type">Project Type</label>
-                                    <select class="form-control" id="projtypeboy" name="project_type_id" required>
-                                        ` +
-                                        projData.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="exampleFormControlSelect1">Project Sub-type</label>
-                                    <select class="form-control" id="project_subtype_id" name="project_subtype_id" required>
-                                        ` +
-                                        projData.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row col-md-12 ">
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="starting-date">Start Date</label>
-                                    <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
-                                </div>
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="Deadline">Deadline</label>
-                                    <input type="text" class="form-control date" name="deadline" id="Deadline" required>
-                                </div>
-                                <div class="col-md-4 form-group mt-3">
-                                    <label>Team members</label><br>
-                                    <select multiple class="form-control select2" id="teammembers" name="team_members[]" style="width:100%;"required>
-                                        ` +
-                                        projData.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-
-
-                                <div class="col-md-2 form-group mt-3">
-                                    <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.update') }}">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    `
-                    window._token = $('meta[name="csrf-token"]').attr('content');
-
-                            var allEditors = document.querySelectorAll('.ckeditor');
-                            for (var i = 0; i < allEditors.length; ++i) {
-                                ClassicEditor.create(allEditors[i]);
-                            }
-
-                            moment.updateLocale('en', {
-                                week: {dow: 1} // Monday is the first day of the week
-                            });
-
-                            $('.date').datetimepicker({
-                                format: 'DD-MM-YYYY',
-                                locale: 'en'
-                            });
-
-                            $('.datetime').datetimepicker({
-                                format: 'DD-MM-YYYY HH:mm:ss',
-                                locale: 'en',
-                                sideBySide: true
-                            });
-
-                            $('.timepicker').datetimepicker({
-                                format: 'HH:mm:ss'
-                            });
-
-                            $('.select-all').click(function () {
-                                let $select2 = $(this).parent().siblings('.select2')
-                                $select2.find('option').prop('selected', 'selected')
-                                $select2.trigger('change')
-                            });
-                            $('.deselect-all').click(function () {
-                                let $select2 = $(this).parent().siblings('.select2');
-                                $select2.find('option').prop('selected', '');
-                                $select2.trigger('change')
-                            });
-
-                            $('.select2').select2();
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-
-                    }
 
 
             //  Edit Project Sub form
@@ -1367,26 +1221,23 @@
         });
 
 
-                var editData;
-                function editProject(proID) {
-
-                    $.ajax({
+            //  Edit Project form
+        var editProjectData;
+    function editProject(project_id){
+        $.ajax({
                         type: "GET",
-                        url: "/api/v1/projects/" + proID,
+                        url: "/api/v1/projects/" + project_id,
                         success: function(data){
-                            editData = data.data;
-                            $('#create-project').val(editData.name)
-                            $('#client-list').val(editData.client_id + "");
-                            $('#project-list').val(editData.project_id + "");
-                            $('#task-status').val(editData.status_id + "");
-                            $('#manager_id').val(editData.manager_id + "");
-                            $('#projtypeboy').val(editData.project_type_id + "");
-                            $('#project_subtype_id').val(editData.project_subtype_id + "");
-                            $('#starting-date').val(editData.starting_date);
-                            $('#Deadline').val(editData.deadline);
-                            $('#project-type').val(editData.project_type_id + "");
-                            $('#create-subType').val(editData.project_subtype_id + "");
-                            console.log(editData);
+                            editProjectData = data.data;
+                            $('#client_list').val(editProjectData.client_id + "");
+                            $('#project_name').val(editProjectData.name);
+                            $('#manager_id').val(editProjectData.manager_id + "");
+                            $('#projtypeboy').val(editProjectData.project_type_id + "");
+                            $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
+                            $('#starting-date').val(editProjectData.starting_date);
+                            $('#Deadline').val(editProjectData.deadline);
+                            $('#teammembers').val(editProjectData.team_members);
+                            console.log(editProjectData);
                         },
 
                         error: function (data) {
@@ -1395,125 +1246,132 @@
 
                     })
 
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/v1/project_create",
-                        success: function(data){
-                            var allData = data.data;
-                            let createProjectBody = document.getElementById('editProjectBody');
-                            let probSubtypeBody = document.getElementById('subtypeModalBody');
-                            createProjectBody.innerHTML = `
-                            <div class="col-md-12 ">
-                        <form id="addprojectform" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row col-md-12">
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Select Client</label>
-                                    <select id="client-list" name="client_id" class="selectDesign form-control required">
-                                    ` +
-                                        data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
+                $.ajax({
+                    type: "GET",
+                    url: "/api/v1/project_create",
+                    success: function(data){
+                        var projData = data;
+                    let editProjectBody = document.getElementById('editProjectBody');
+                        editProjectBody.innerHTML = `
+                        <div class="col-md-12 ">
+                                        <form id="editProjectform" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row col-md-12">
+                                                <div class="col-md-6 form-group mt-3">
+                                                    <label>Select Client</label>
+                                                    <select id="client_list" name="client_id" class="selectDesign form-control required">
+                                                        ` +
+                                                        projData.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                                    + `
+                                                    </select>
+                                                </div>
 
-                                <div class="col-md-6 form-group mt-3">
-                                        <label for="create-project">Project Name</label>
-                                    <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
-                                </div>
-                            </div>
-                            <div class="row col-md-12">
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="manager_id">Manager</label><br>
-                                    <select name="manager_id" class="form-control select2" style="width:100%;" required>
-                                        ` +
-                                        data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="create-project-type">Project Type</label>
-                                    <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                                    <select class="form-control" id="projtypeboy" name="project_type_id" required>
-                                        ` +
-                                        data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
+                                                <div class="col-md-6 form-group mt-3">
+                                                        <label for="create-project">Project Name</label>
+                                                    <input type="text" name="name" class="form-control" id="project_name" placeholder="" required>
+                                                </div>
+                                            </div>
+                                            <div class="row col-md-12">
+                                                <div class="col-md-4 form-group mt-3">
+                                                    <label for="create-project">Manager</label><br>
+                                                    <select name="manager_id" class="form-control select2" style="width:100%;" required>
+                                                        ` +
+                                                        projData.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                                    + `
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 form-group mt-3">
+                                                    <label for="create-project-type">Project Type</label>
+                                                    <select class="form-control" id="projtypeboy" name="project_type_id" required>
+                                                        ` +
+                                                        projData.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                                    + `
+                                                    </select>
+                                                </div>
 
+                                                <div class="col-md-4 form-group mt-3">
+                                                    <label for="exampleFormControlSelect1">Project Sub-type</label>
+                                                    <select class="form-control" id="project_subtype_id" name="project_subtype_id" required>
+                                                        ` +
+                                                        projData.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                                    + `
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row col-md-12 ">
+                                                <div class="col-md-3 form-group">
+                                                    <label for="starting-date">Start Date</label>
+                                                    <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
+                                                </div>
 
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="project_subtype_id">Project Sub-type</label>
-                                    <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                                    <select class="form-control" id="project_subtype_id" name="project_subtype_id" required>
-                                        ` +
-                                        data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row col-md-12 ">
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="starting-date">Start Date</label>
-                                    <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
-                                </div>
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="Deadline">Deadline</label>
-                                    <input type="text" class="form-control date" name="deadline" id="Deadline" required>
-                                </div>
-                                <div class="col-md-4 form-group mt-3">
-                                    <label>Team members</label><br>
-                                    <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
-                                        ` +
-                                        data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label for="Deadline">Deadline</label>
+                                                    <input type="text" class="form-control datetime" name="deadline" id="Deadline" required>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label>Team members</label><br>
+                                                    <select multiple="multiple" class="form-control select2" id="teammembers" name="team_members[]" style="width:100%;"required>
+                                                        ` +
+                                                        projData.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                                    + `
+                                                    </select>
+                                                </div>
 
 
-                                <div class="col-md-2 form-group mt-3">
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectForm();" value="Update">
-                                </div>
-                            </div>
-                        </form>
-                    </div>  `
-
-                                probSubtypeBody.innerHTML = `
-                                <form id="addprojSubtypeform1"  enctype="multipart/form-data">
-                                    @csrf
-                                <div class="form-group">
-                                        <label for="project-type">Select Project Type</label>
-                                        <select id="project-type" class="selectDesign form-control">
-                                            ` +
-                                                data.project_types.map((elem) => `<option name="project_type_id" value="${elem.id}">${elem.name}</option>`)
-                                            + `
-                                        </select>
+                                                <div class="col-md-2 form-group mt-3">
+                                                    <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.update') }}">
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
+                                    `
+                                    window._token = $('meta[name="csrf-token"]').attr('content');
 
-                                    <div class="form-group">
-                                        <label for="create-subType">Subtype Name</label>
-                                        <input type="text" class="form-control" name="name" id="create-subType" placeholder="" required>
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" onclick="$('#subtypeModal').modal('hide');" data-target="#subtypeModal">Close</button>
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtype();" value="Create">
-                                </div>
-                                </form>
-                        `
+                                            var allEditors = document.querySelectorAll('.ckeditor');
+                                            for (var i = 0; i < allEditors.length; ++i) {
+                                                ClassicEditor.create(allEditors[i]);
+                                            }
 
-                        },
+                                            moment.updateLocale('en', {
+                                                week: {dow: 1} // Monday is the first day of the week
+                                            });
 
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
+                                            $('.date').datetimepicker({
+                                                format: 'DD-MM-YYYY',
+                                                locale: 'en'
+                                            });
 
-                    })
+                                            $('.datetime').datetimepicker({
+                                                format: 'DD-MM-YYYY HH:mm:ss',
+                                                locale: 'en',
+                                                sideBySide: true
+                                            });
 
+                                            $('.timepicker').datetimepicker({
+                                                format: 'HH:mm:ss'
+                                            });
 
+                                            $('.select-all').click(function () {
+                                                let $select2 = $(this).parent().siblings('.select2')
+                                                $select2.find('option').prop('selected', 'selected')
+                                                $select2.trigger('change')
+                                            });
+                                            $('.deselect-all').click(function () {
+                                                let $select2 = $(this).parent().siblings('.select2');
+                                                $select2.find('option').prop('selected', '');
+                                                $select2.trigger('change')
+                                            });
 
+                                            $('.select2').select2();
+                                        },
 
-                    }
+                                        error: function (data) {
+                                            console.log('Error:', data);
+                                        }
+
+                                    })
+
+                                    }
 
                 function submitEditProjectForm(){
                     $.ajax({

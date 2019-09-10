@@ -76,16 +76,6 @@
                     {{ trans('cruds.task.fields.assinged_to_helper') }}
                 </p>
             </div>
-            <div class="col-md-4 col-sm-4">
-                    <div class="form-group">
-                        <label for="assign-task">Assign task to</label>
-                            <br>
-                        <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" required class="form-control select2" multiple="multiple">
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                        </select>
-                    </div>
-                </div>
             <div class="form-group {{ $errors->has('manager_id') ? 'has-error' : '' }}">
                 <label for="manager">{{ trans('cruds.task.fields.manager') }}</label>
                 <select name="manager_id" id="manager" class="form-control select2">
