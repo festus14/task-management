@@ -157,7 +157,7 @@
                     </span>
                 </a>
         </div>
-  
+
         <div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
                     <div class="modal-content">
@@ -176,7 +176,7 @@
                                                 <label for="company-name">Company Name</label>
                                                 <input type="text" name="name" class="form-control" id="company-name" placeholder="" required>
                                             </div>
-                                    
+
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="date-of-eng">Date Of Engagement</label>
                                                 <input type="text" id="date_of_engagement" name="date_of_engagement" class="form-control date" value="" required>
@@ -187,21 +187,21 @@
                                                 <label for="address">Address</label>
                                                 <input type="text" name="address" class="form-control" id="address" placeholder="" required>
                                             </div>
-                        
-                                                    
+
+
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="expiry-date">Expiry Date</label>
                                                 <input type="text" id="expiry_date" name="expiry_date" class="form-control date" value="" required>
                                             </div>
-                                            
-                                                
+
+
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="email">Email</label>
                                                 <input type="email" name="email" class="form-control" id="email" required>
                                             </div>
-                                    
+
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="phone-num">Phone Number</label>
                                                 <input type="" name="phone" class="form-control" id="phone-num" required>
@@ -214,8 +214,8 @@
                                         </div>
                                     </form>
                                 </div>
-            
-            
+
+
                         </div>
                     </div>
                 </div>
@@ -441,7 +441,7 @@
                 let card = document.getElementById('client-cards');
                 let projectCard = document.getElementById('client-project-modal');
                 let taskCard = document.getElementById('client-task-modal');
-                
+
                     data.data.map((datum, i) => {
                     card.innerHTML = card.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                     <div class="m-widget24">
@@ -587,7 +587,7 @@
                 },
 
                 ajax: path_url,
-                        
+
                 columns: [
                     {"defaultContent": ""},
                     {"data": "name"},
@@ -613,15 +613,13 @@
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                    return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
-                                    <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreInfoModal"> </i>\
-                                    </a>\
-                                    <a class="link" href="">\
-                                        <i class="fas fa-pencil-alt" style="color:black;"></i>\
-                                    </a>\
-                                    <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
-                                </div>\
+                    return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
+                                <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal"  data-target="#moreInfoModal"> <span style="font-weight:100;"> View </span></i>\
+                                </a>\
+                                </a>\
+                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
+                            </div>\
                                     ';
                 }
             },],
@@ -636,7 +634,7 @@
                     'excel', 'pdf', 'print'
                 ]
             });
-            
+
             }
 
         }
@@ -662,7 +660,7 @@
             }
         }
 
-        // Function for calling Projects tasks 
+        // Function for calling Projects tasks
         function displayProjectInfo(proID) {
             $.ajax({
             type: "GET",
@@ -740,7 +738,7 @@
                                                             <th>Date Created</th>
                                                             <th>File</th>
                                                         </tr>
-                                                        `+ data.data.documents.map(item => 
+                                                        `+ data.data.documents.map(item =>
                                                             `<tr>
                                                                 <td>${item.name}</td>
                                                                 <td>${item.version}</td>
@@ -773,7 +771,7 @@
                                                     <th>File</th>
                                                     <th>Date Uploaded</th>
                                                 </tr>
-                                                `+ data.data.reports.map(item => 
+                                                `+ data.data.reports.map(item =>
                                                 `<tr>
                                                     <td>${item.name}</td>
                                                     <td>${item.document_type}</td>
@@ -816,7 +814,7 @@
                 </div>
 
 
-                
+
 
                 `
 
@@ -826,7 +824,7 @@
             error: function (data) {
                 console.log('Error:', data);
 
-                
+
             }
 
             })
@@ -849,7 +847,7 @@
                 } else {
                     tr[i].style.display = "none";
                 }
-                }       
+                }
             }
         }
 
@@ -869,7 +867,7 @@
                 } else {
                     tr[i].style.display = "none";
                 }
-                }       
+                }
             }
         }
 
@@ -913,9 +911,6 @@
                             return '\<button onclick=displayTaskInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                         <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
                                         <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreTaskInfoModal"> </i>\
-                                        </a>\
-                                        <a class="link" href="">\
-                                            <i class="fas fa-pencil-alt" style="color:black;"></i>\
                                         </a>\
                                     <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
                                 </div>\
@@ -989,7 +984,7 @@
                                                         <th>File</th>
                                                         <th>Date Uploaded</th>
                                                     </tr>
-                                                    `+ data.data.documents.map(item => 
+                                                    `+ data.data.documents.map(item =>
                                                         `<tr>
                                                             <td>${item.name}</td>
                                                             <td>${item.document_type}</td>
@@ -1024,7 +1019,7 @@
                                             </tr>
                                             <tr class="">
                                             </tr>
-                                            `+ data.data.reports.map(item => 
+                                            `+ data.data.reports.map(item =>
                                             `<tr>
                                                 <td>${item.name}</td>
                                                 <td>${item.document_type}</td>
@@ -1068,7 +1063,7 @@
 
                 <!-- Comment Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        
+
     </div>
                         `
 
@@ -1078,7 +1073,7 @@
                         error: function (data) {
                             console.log('Error:', data);
 
-                            
+
                         }
 
                         })
@@ -1093,7 +1088,7 @@
                         });
                     $.ajax({
                     type: "POST",
-                    url: '{{ url("/api/v1/clients") }}',
+                    url: "admin/clients",
                     data: $('#clientForm').serialize(),
                     success: function (data) {
                         alert(data.success);
@@ -1122,7 +1117,7 @@
                 } else {
                     tr[i].style.display = "none";
                 }
-                }       
+                }
             }
         }
 
@@ -1142,7 +1137,7 @@
                 } else {
                     tr[i].style.display = "none";
                 }
-                }       
+                }
             }
         }
 
@@ -1165,7 +1160,7 @@
                 });
             }
         }
-        
+
         // Function Populating the project Document Modal
         function taskDTCall(project_id){
             path_url = "/api/v1/projects_tasks/" + project_id;
@@ -1181,7 +1176,7 @@
                 },
 
                 ajax: path_url,
-                        
+
                 columns: [
                     {"defaultContent": ""},
                     {"data": "name"},
@@ -1222,7 +1217,7 @@
         function projectComments(project_id){
             path_url = "/api/v1/projects" + project_id;
             // Comment Function Goes Here
-            
+
         }
 
         function taskComments(task_id){
@@ -1274,7 +1269,7 @@
             buttons: dtProjectButtons
         })
 
-        
+
     </script>
 
 @endsection

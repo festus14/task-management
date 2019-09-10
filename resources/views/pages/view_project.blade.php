@@ -184,12 +184,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#PModal').modal('hide');">Close</button>
-                    <button type="submit" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                    <button type="submit" id="submitProType" onsubmit="ProjectTypeSubmit()" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
 <!--End Project Type Modal -->
 
 {{-- Project Type datatable modal --}}
@@ -306,12 +308,12 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="create-task">Project Type Name</label>
-                                    <input type="text" class="form-control" id="editprojTypeInput" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
+                                    <input type="text" class="form-control" id="editprojTypeInput" name="name" placeholder="" value="" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" onclick="$('#EditProjectTypeModal').modal('hide');">Close</button>
-                                <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="editProjectType()" value="Update">
+                                <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectType()" value="Update">
                             </div>
                         </form>
             </div>
@@ -640,6 +642,18 @@
 
 {{-- projectcomment js --}}
 @section('javascript')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    function ProjectTypeSubmit(){
+        swal({
+            title: "Project Type Created!",
+            text: "Success!",
+            icon: "success",
+            confirmButtonText: "OK"
+        });
+    }
+</script>
 <script>
         var date = new Date();
        var formattedDate = (date.toString().slice(0, 25));
@@ -886,6 +900,7 @@
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Select Client</label>
                                     <select id="client-list" name="client_id" class="form-control required">
+                                        <option value="" selected></option>
                                     ` +
                                         data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -901,6 +916,7 @@
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project">Manager</label><br>
                                     <select name="manager_id" class="form-control" style="width:100%;" required>
+                                            <option value="" selected></option>
                                         ` +
                                         data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -910,6 +926,7 @@
                                     <label for="create-project-type">Project Type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
                                     <select class="form-control" id="projtypeboy" name="project_type_id" required>
+                                            <option value="" selected></option>
                                         ` +
                                         data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -921,6 +938,7 @@
                                     <label for="exampleFormControlSelect1">Project Sub-type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
                                     <select class="form-control" id="projectSubtypeId" name="project_subtype_id" required>
+                                            <option value="" selected></option>
                                         ` +
                                         data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -941,7 +959,7 @@
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Team members</label><br>
                                     <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
-                                        <option value="" selected ></option>
+
                                         ` +
                                         data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
@@ -963,6 +981,7 @@
                                         <label for="project-type">Select Project Type</label>
                                         <select id="project-type" class="selectDesign form-control">
                                             <option value="" selected ></option>
+                                            <option value="" selected></option>
                                             ` +
                                                 data.project_types.map((elem) => `<option name="project_type_id" value="${elem.id}">${elem.name}</option>`)
                                             + `
@@ -1122,7 +1141,7 @@
 
 
                                 <div class="col-md-2 form-group mt-3">
-                                    <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.update') }}">
+                                    <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectForm();" value="Update">
                                 </div>
                             </div>
                         </form>
@@ -1176,6 +1195,38 @@
 
                     }
 
+                    function submitEditProjectForm(){
+                    $.ajax({
+                        type: "PUT",
+                        url: "{{ url('/api/v1/project_create/') }}",
+                        success: function (data) {
+
+                            swal({
+                                title: "Success!",
+                                text: "Project Edited!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            window.setTimeout(function(){
+                                location.reload();
+                            }, 3000)
+
+                            },
+                            error: function (error) {
+                            swal({
+                                title: "Project Editing Failed!",
+                                text: "Please check the missing fields!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                            }
+
+
+                    })
+                }
+
 
             //  Edit Project Sub form
         function editProjectSubtype(){
@@ -1192,6 +1243,7 @@
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
                             <select id="projecttype" name="project_type_id" class="selectDesign form-control">
+                                <option value = "" selected></option>
                                 ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                             </select>
                         </div>
@@ -1251,18 +1303,36 @@
                 url: '{{ url("/api/v1/project-sub-types") }}',
                 data: $('#addprojsubtypeform2').serialize(),
                 success: function (data) {
-                    alert("Project sub-type created");
-                    getProjecSubTypeDT();
-                    document.getElementById('sub-type').value = "";
-                    $('#subtypemainModal').modal('hide');
-                },
-                error: function (error) {
-                    console.log(error);
-                    alert("Project sub-type creation failed");
-                }
+
+                    swal({
+                        title: "Success!",
+                        text: "Project sub-type created",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
+                    });
+                    window.setTimeout(function(){
+                        getProjecSubTypeDT();
+                        document.getElementById('sub-type').value = "";
+                        $('#subtypemainModal').modal('hide');
+                        location.reload();
+                    }, 3000)
+
+                    },
+                    error: function (error) {
+                    swal({
+                        title: "Project sub-type creation failed",
+                        text: "Please check the missing fields!",
+                        icon: "error",
+                        confirmButtonColor: "#fc3",
+                        confirmButtonText: "OK",
+                    });
+                    }
 
                 });
                  }
+
+
 
                 // Add project Sub type Post
             function addProjectSubtype(){
@@ -1276,15 +1346,24 @@
                     url: '{{ url("/api/v1/project-sub-types") }}',
                     data: $('#addprojSubtypeform1').serialize(),
                     success: function (data) {
-                        alert("Project sub-type created");
-                        // getProjetTypeDT();
-                        // document.getElementById('subtypeId').value = "";
-                        // $('#subtypeModal').modal('hide');
-                    },
-                    error: function (error) {
-                        console.log(error);
-                        alert("Project sub-type creation failed");
-                    }
+
+                        swal({
+                            title: "Success!",
+                            text: "Project sub-type created",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                            // confirmButtonText: "OK",
+                        });
+                        },
+                        error: function (error) {
+                        swal({
+                            title: "Project sub-type creation failed",
+                            text: "Please check the missing fields!",
+                            icon: "error",
+                            confirmButtonColor: "#fc3",
+                            confirmButtonText: "OK",
+                        });
+                        }
 
                     });
                     }
@@ -1301,11 +1380,27 @@
                     url: '{{ url("/api/v1/projects") }}',
                     data: $('#addprojectform').serialize(),
                     success: function (data) {
-                        alert("Project successfully created");
-                        location.reload();
+
+                        swal({
+                            title: "Success!",
+                            text: "Project Created!",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                            // confirmButtonText: "OK",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 3000)
+
                     },
                     error: function (error) {
-                        alert("Project creation failed");
+                        swal({
+                            title: "Project Creation Failed!",
+                            text: "Please check the missing fields!",
+                            icon: "error",
+                            confirmButtonColor: "#fc3",
+                            confirmButtonText: "OK",
+                        });
                     }
                     });
     }
@@ -1367,169 +1462,7 @@
         });
 
 
-                var editData;
-                function editProject(proID) {
 
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/v1/projects/" + proID,
-                        success: function(data){
-                            editData = data.data;
-                            $('#create-project').val(editData.name)
-                            $('#client-list').val(editData.client_id + "");
-                            $('#project-list').val(editData.project_id + "");
-                            $('#task-status').val(editData.status_id + "");
-                            $('#manager_id').val(editData.manager_id + "");
-                            $('#projtypeboy').val(editData.project_type_id + "");
-                            $('#project_subtype_id').val(editData.project_subtype_id + "");
-                            $('#starting-date').val(editData.starting_date);
-                            $('#Deadline').val(editData.deadline);
-                            $('#project-type').val(editData.project_type_id + "");
-                            $('#create-subType').val(editData.project_subtype_id + "");
-                            console.log(editData);
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/v1/project_create",
-                        success: function(data){
-                            var allData = data.data;
-                            let createProjectBody = document.getElementById('editProjectBody');
-                            let probSubtypeBody = document.getElementById('subtypeModalBody');
-                            createProjectBody.innerHTML = `
-                            <div class="col-md-12 ">
-                        <form id="addprojectform" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row col-md-12">
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Select Client</label>
-                                    <select id="client-list" name="client_id" class="selectDesign form-control required">
-                                    ` +
-                                        data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 form-group mt-3">
-                                        <label for="create-project">Project Name</label>
-                                    <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
-                                </div>
-                            </div>
-                            <div class="row col-md-12">
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="manager_id">Manager</label><br>
-                                    <select name="manager_id" class="form-control select2" style="width:100%;" required>
-                                        ` +
-                                        data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="create-project-type">Project Type</label>
-                                    <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                                    <select class="form-control" id="projtypeboy" name="project_type_id" required>
-                                        ` +
-                                        data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="project_subtype_id">Project Sub-type</label>
-                                    <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypeModal" style="float:right;"></i>
-                                    <select class="form-control" id="project_subtype_id" name="project_subtype_id" required>
-                                        ` +
-                                        data.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row col-md-12 ">
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="starting-date">Start Date</label>
-                                    <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
-                                </div>
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="Deadline">Deadline</label>
-                                    <input type="text" class="form-control date" name="deadline" id="Deadline" required>
-                                </div>
-                                <div class="col-md-4 form-group mt-3">
-                                    <label>Team members</label><br>
-                                    <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
-                                        ` +
-                                        data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                    + `
-                                    </select>
-                                </div>
-
-
-                                <div class="col-md-2 form-group mt-3">
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectForm();" value="Update">
-                                </div>
-                            </div>
-                        </form>
-                    </div>  `
-
-                                probSubtypeBody.innerHTML = `
-                                <form id="addprojSubtypeform1"  enctype="multipart/form-data">
-                                    @csrf
-                                <div class="form-group">
-                                        <label for="project-type">Select Project Type</label>
-                                        <select id="project-type" class="selectDesign form-control">
-                                            ` +
-                                                data.project_types.map((elem) => `<option name="project_type_id" value="${elem.id}">${elem.name}</option>`)
-                                            + `
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="create-subType">Subtype Name</label>
-                                        <input type="text" class="form-control" name="name" id="create-subType" placeholder="" required>
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" onclick="$('#subtypeModal').modal('hide');" data-target="#subtypeModal">Close</button>
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtype();" value="Create">
-                                </div>
-                                </form>
-                        `
-
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-
-
-
-
-                    }
-
-                function submitEditProjectForm(){
-                    $.ajax({
-                        type: "PUT",
-                        url: "/api/v1/project_create/",
-                        success: function (data) {
-                            console.log(data)
-                            location.reload();
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-                }
 
 
 
@@ -1948,24 +1881,45 @@
 
 
             // Delete Project Function
-        function deleteSingleProject(proID){
-            var confirmDel = confirm("Do you want to delete the document?");
 
-            if(confirmDel){
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ url('admin/projects')}}" + '/' + proID,
-                    success: function (data) {
-                        console.log(data);
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                        location.reload();
+        function deleteSingleProject(proID){
+            swal({
+                title: "Are you sure?",
+                text: "This Project will be deleted!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('api/v1/projects')}}" + '/' + proID,
+                        success: function (data) {
+                            swal("Deleted!", "Project successfully deleted.", "success");
+                            window.setTimeout(function(){
+                                location.reload();
+                            } , 2500);
+                        },
+
+                        error: function (data) {
+                            swal("Delete failed", "Please try again", "error");
+                        }
+
+                        });
+                        }
+
+                else {
+                        swal("Cancelled", "Delete cancelled", "error");
                     }
+
                 });
             }
-        }
 
 
         function getProjetTypeDT(){
@@ -2013,43 +1967,103 @@
                     }
             };
 
+
+
             //          Function for deleting single project
+
         function deleteProjectType(proID){
+            swal({
+                title: "Are you sure?",
+                text: "This project type will be deleted!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
-            var confirmDel = confirm("Do you want to delete the project type?");
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('api/v1/project-types')}}" + '/' + proID,
+                        success: function (data) {
+                            swal("Deleted!", "Project type successfully deleted.", "success");
+                            window.setTimeout(function(){
+                                location.reload();
+                            } , 2500);
+                        },
 
-            if(confirmDel){
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ url('admin/project-types')}}" + '/' + proID,
-                    success: function (data) {
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                        location.reload();
+                        error: function (data) {
+                            swal("Delete failed", "Please try again", "error");
+                        }
+
+                        });
+                        }
+
+                else {
+                        swal("Cancelled", "Delete cancelled", "error");
                     }
+
                 });
             }
-        }
 
-         //Edit Task
-            var editProjectData;
-        function editProjectType(type_id){
+         //Edit Project Type
+            var editProjectTypeData;
+            function editProjectType(type_id){
             $.ajax({
                 type: "GET",
                 url: "/api/v1/project-types/" + type_id,
                 success: function(data){
-                    editProjectData = data.data;
+                    editProjectTypeData = data.data;
                     $('#editprojTypeInput').val(editProjectData.name);
-                    console.log(editProjectData);
                 },
 
                 error: function(data){
                     console.log('Error:', data);
                 }
+
+
             })
         }
+
+        function submitEditProjectType(){
+            $.ajax({
+                    type: "PUT",
+                    url: "/api/v1/project-types",
+                    success: function (data) {
+
+                        swal({
+                            title: "Success!",
+                            text: "Project Type Edited!",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                            // confirmButtonText: "OK",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 3000)
+
+                        },
+                        error: function (error) {
+                        swal({
+                            title: "Project Type Editing Failed!",
+                            icon: "error",
+                            confirmButtonColor: "#fc3",
+                            confirmButtonText: "OK",
+                        });
+                        }
+                });
+        }
+
+
+
+
+
+
+
 
 
         function getProjectSubTypeDT(){
@@ -2101,39 +2115,46 @@
 
 
             //          Function for deleting single project subtype
+
         function deleteProjectSubType(proID){
+            swal({
+                title: "Are you sure?",
+                text: "This Project subtype will be deleted!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
-            var confirmDel = confirm("Do you want to delete the document?");
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('api/v1/project-sub-types') }}" + '/' + proID,
+                        success: function (data) {
+                            swal("Deleted!", "Project subtype successfully deleted.", "success");
+                            window.setTimeout(function(){
+                                location.reload();
+                            } , 2500);
+                        },
 
-            if(confirmDel){
-                $.ajax({
-                    type: "DELETE",
-                    url: "api/v1/project-sub-types" + '/' + proID,
-                    success: function (data) {
-                        console.log(data);
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
+                        error: function (data) {
+                            swal("Delete failed", "Please try again", "error");
+                        }
+
+                        });
+                        }
+
+                else {
+                        swal("Cancelled", "Delete cancelled", "error");
                     }
+
                 });
             }
-        }
 
-
-        function editProjectType(){
-            $.ajax({
-                    type: "PUT",
-                    url: "/api/v1/project-types",
-                    success: function (data) {
-                        console.log(data);
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-        }
 
             let addProjSubTypeId = document.getElementById('addProjSubTypeId');
             addProjSubTypeId.addEventListener("click", displayAddPsubtype);
@@ -2153,8 +2174,8 @@
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
                             <select id="projecttype" name="project_type_id" class="selectDesign form-control">
-
-                                        ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
+                                <option value="" selected></option>
+                                ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
 
                             </select>
                         </div>
@@ -2219,20 +2240,37 @@
                     url: '{{ url("/api/v1/project-types") }}',
                     data: $('#addprojTtypeform2').serialize(),
                     success: function (data) {
-                        alert(data.success);
-                        $('#AddProjecModalla').modal('hide');
-                        document.getElementById('projTypeId').value = "";
-                        getProjetTypeDT();
-                        //location.reload();
-                    },
+
+                        swal({
+                            title: "Success!",
+                            text: "Project-type created!",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                            // confirmButtonText: "OK",
+                        });
+                        window.setTimeout(function(){
+                            $('#AddProjecModalla').modal('hide');
+                            document.getElementById('projTypeId').value = "";
+                            getProjetTypeDT();
+                            location.reload();
+                        }, 2000)
+
+                        },
                     error: function (error) {
-                        console.log(error);
-                        alert("Project-type creation failed");
+                        swal({
+                            title: "Project-type creation failed!",
+                            icon: "error",
+                            confirmButtonColor: "#fc3",
+                            confirmButtonText: "OK",
+                        });
                     }
 
-                    });
-                 }
-            // }
+                });
+            }
+
+
+
+
             $(document).ready(function () {
   window._token = $('meta[name="csrf-token"]').attr('content')
 
