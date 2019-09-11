@@ -301,6 +301,71 @@
     </div>
     {{-- end Task Category Modal --}}
 
+    {{-- Task status datatable modal --}}
+    <div class="modal fade" id="taskstatusDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:70%; min-width:400px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Task Status</h5>
+                        <button type="button" class="close" onclick="$('#taskstatusDatatable').modal('hide');" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="m-portlet " id="m_portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon">
+                                            <i class="flaticon-list-2"> </i>
+                                        </span>
+                                        <h3 class="m-portlet__head-text">
+                                            Task Status Table
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__head-tools">
+                                    <ul class="m-portlet__nav">
+                                        <li class="m-portlet__nav-item">
+                                            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" style="color:white; background-color: #8a2a2b;" data-toggle="modal" data-target="#AddStatus">
+                                                <span>
+                                                    <i class="la la-plus"></i>
+                                                    <span>
+                                                        Add Status
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="m-portlet__body" style="overflow-x:auto;  width:100%">
+                                <table id="kt_table_task_status" class="table table-striped table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Status Name</th>
+                                            <th>Tools</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--end::Portlet-->
+                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="$('#taskstatusDatatable').modal('hide');">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{-- End Task status datatable modal --}}
+
+
     <!--modalled Add Status Modal -->
         <div class="modal fade" id="AddStatus" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -333,7 +398,9 @@
 @section('javascript')
 <script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+
     function reinitializeDate(){
 
     }
@@ -636,25 +703,44 @@
             });
 
             // Delete Task Function
-            function deleteSingleTask(taskID){
-            var confirmDel = confirm("Do you want to delete the task?");
+            deleteSingleTask=(taskID)=>{
 
-            if(confirmDel){
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ url('admin/tasks')}}" + '/' + taskID,
-                    success: function (data) {
-                        console.log(data);
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                        location.reload();
+                swal({
+                    title: "Are you sure?",
+                    text: "Everything relating to this task will be lost!",
+                    icon: "warning",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                     if (willDelete) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                            $.ajax({
+                                type: "DELETE",
+                                url: "{{ url('api/v1/tasks')}}" + '/' + taskID,
+                                success: function (data) {
+                                    swal("Deleted!", "Task has been successfully deleted.", "success");
+                                    window.setTimeout(function(){
+                                        location.reload();
+                                    } , 2500);
+                                },
+                                    error: function (data) {
+                                        swal("Delete failed", "Please try again", "error");
+                                    }
+
+                                });
+                            }
+
+             else {
+                        swal("Cancelled", "Delete cancelled", "error");
                     }
-                });
-                }
-            }
 
+                });
+            }
 
 
             function getTaskCategoryAjaxDT(){
@@ -692,15 +778,11 @@
                             searchable: false,
                             render: function (data, type, full, meta) {
                             return '\<button class="btn btn-secondary dropdown-toggle" onclick="editTaskCategory('+full.id+')" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                        <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                                        <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
                                                                 <a class="link" href="#">\
-                                                                    <i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskCategory" style="color:black;"></i>\
+                                                                    <i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskCategory" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
                                                                 </a>\
-                                                                <form action="" method="POST" onsubmit="" style="display: inline-block;">\
-                                                                    <input type="hidden" name="_method" value="DELETE">\
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">\
-                                                                    <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black;"></i></a></button>\
-                                                                </form>\
+                                                                <button onclick="deleteSingleTaskCategory('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                                                             </div>\
                                                 ';
                             }
@@ -710,6 +792,44 @@
                 }
             }
 
+            // Delete Task Category
+            deleteSingleTaskCategory=(taskCategoryID)=>{
+                    swal({
+                        title: "Are you sure?",
+                        text: "This category will be deleted!",
+                        icon: "warning",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: "{{ url('api/v1/tast-categories')}}" + '/' + taskCategoryID,
+                                    success: function (data) {
+                                        swal("Deleted!", "Task category successfully deleted.", "success");
+                                        window.setTimeout(function(){
+                                            location.reload();
+                                        } , 2500);
+                                    },
+                                        error: function (data) {
+                                            swal("Delete failed", "Please try again", "error");
+                                        }
+
+                                    });
+                                }
+
+                    else {
+                            swal("Cancelled", "Delete cancelled", "error");
+                        }
+
+                    });
+                    }
 
 
             //Task status
@@ -742,17 +862,13 @@
                             targets: 2,
                             orderable: false,
                             searchable: false,
-                            render: function () {
+                            render: function (data, type, full, meta) {
                             return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskStatusbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                                    <div class="dropdown-menu" aria-labelledby="taskStatusbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                                                    <div class="dropdown-menu" aria-labelledby="taskStatusbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
                                                     <a class="link" href="#">\
-                                                        <i class="fa fa-pencil" style="color:black;"></i>\
+                                                        <i class="fa fa-pencil" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
                                                     </a>\
-                                                    <form action="" method="POST" onsubmit="" style="display: inline-block;">\
-                                                        <input type="hidden" name="_method" value="DELETE">\
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">\
-                                                        <button type="submit" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black;"></i></a></button>\
-                                                    </form>\
+                                                    <button onclick="deleteSingleTaskStatus('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                                                 </div>\
                                                 ';
                             }
@@ -763,6 +879,47 @@
 
                 }
             }
+
+
+            // Delete Task Status
+            deleteSingleTaskStatus=(taskStatusID)=>{
+                    swal({
+                        title: "Are you sure?",
+                        text: "This status will be deleted!",
+                        icon: "warning",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: "{{ url('api/v1/task-statuses')}}" + '/' + taskStatusID,
+                                    success: function (data) {
+                                        swal("Deleted!", "Task category successfully deleted.", "success");
+                                        window.setTimeout(function(){
+                                            location.reload();
+                                        } , 2500);
+                                    },
+                                        error: function (data) {
+                                            swal("Delete failed", "Please try again", "error");
+                                        }
+
+                                    });
+                                }
+
+                    else {
+                            swal("Cancelled", "Delete cancelled", "error");
+                        }
+
+                    });
+                    }
+
 
             function displayTaskInfo(task_id) {
                 $.ajax({
@@ -1442,6 +1599,7 @@
                                         <div class="form-group">
                                             <label for="client-list">Select Client</label>
                                             <select id="client-list" name="client_id" class="form-control">
+                                                <option value="" selected> </option>
                                                 ${Object.keys(data.data.clients).map((key, index) => `<option value="${key}">${data.data.clients[key]}</option>`)}
                                             </select>
                                         </div>
@@ -1449,7 +1607,8 @@
                                         <div class="form-group">
                                             <label>Select Project</label>
                                             <select id="project-list" name="project_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.projects).map((key, index) => `<option value="${key}">${data.data.projects[key]}</option>`)}
+                                                    <option value="" selected> </option>
+                                                    ${Object.keys(data.data.projects).map((key, index) => `<option value="${key}">${data.data.projects[key]}</option>`)}
                                             </select>
                                         </div>
                                     </div>
@@ -1457,7 +1616,8 @@
                                         <div class="form-group">
                                             <label>Select Project Subtype</label>
                                             <select id="project-subtype-list" name="project_subtype_id" class="form-control">
-                                                ${Object.keys(data.data.projects_sub_type).map((key, index) => `<option value="${key}">${data.data.projects_sub_type[key]}</option>`)}
+                                                    <option value="" selected> </option>
+                                                    ${Object.keys(data.data.projects_sub_type).map((key, index) => `<option value="${key}">${data.data.projects_sub_type[key]}</option>`)}
                                             </select>
                                         </div>
 
@@ -1471,7 +1631,8 @@
                                         <div class="form-group">
                                             <label>Task Category</label>
                                             <select id="task-category" name="category_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.categories).map((key, index) => `<option value="${key}">${data.data.categories[key]}</option>`)}
+                                                    <option value="" selected> </option>
+                                                    ${Object.keys(data.data.categories).map((key, index) => `<option value="${key}">${data.data.categories[key]}</option>`)}
                                             </select>
                                         </div>
                                     </div>
@@ -1479,7 +1640,8 @@
                                         <div class="form-group">
                                             <label>Task Status</label>
                                             <select id="task-status" name="status_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.statuses).map((key, index) => `<option value="${key}" >${data.data.statuses[key]}</option>`)}
+                                                    <option value="" selected> </option>
+                                                    ${Object.keys(data.data.statuses).map((key, index) => `<option value="${key}" >${data.data.statuses[key]}</option>`)}
                                                 </select>
                                         </div>
                                     </div>
@@ -1487,7 +1649,8 @@
                                         <div class="form-group">
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
-                                                ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
+                                                    <option value="" selected> </option>
+                                                    ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
                                             </select>
                                         </div>
                                     </div>
@@ -1496,7 +1659,7 @@
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
-                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" required class="form-control select2">
+                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" class="form-control select2" required>
                                                 ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
                                         </div>
@@ -1689,7 +1852,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskForm();" value="Submit">
+                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskForm(${task_id});" value="Submit">
                                 </div>
                             </form>
 
@@ -1743,10 +1906,10 @@
 
                     }
 
-                function submitEditTaskForm(){
+                function submitEditTaskForm(taskID){
                     $.ajax({
                         type: "PUT",
-                        url: "/api/v1/create_task/",
+                        url: "/admin/tasks/" + taskID,
                         success: function (data) {
                             console.log(data)
                             location.reload();
@@ -1773,11 +1936,18 @@
                 data: $('#addTaskform').serialize(),
                 success: function (response) {
                     $('#createTaskModal').modal('hide');
-                    alert("Task successfully created");
-                    location.reload();
+                    swal({
+                        title: "Success!",
+                        text: "Task successfully created!",
+                        icon: "success",
+                        confirmButtonText: "Ok",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        } , 3000);
                 },
                 error: function (error) {
-                    alert("Task creation failed");
+                    swal("Task creation failed", "Please check missing fields", "error");
                 }
                 });
                 }
@@ -1790,7 +1960,8 @@
                     url: '{{ url("/api/v1/create_task_categories") }}',
                     success: function (data) {
                         let createTaskCategory = document.getElementById('taskCategoryModalbody');
-                        createTaskCategory.innerHTML = `
+                        createTaskCategory.innerHTML =
+                        `
                         <form  id="editTaskCategoryform" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
@@ -1802,6 +1973,7 @@
                             <div class="col-md-6 form-group mt-3">
                                 <label>Project Type</label>
                                 <select id="projectTypeList"  name="project_type_id" class="selectDesign form-control">
+                                        <option value=""> </option>
                                         ${Object.keys(data.data.project_types).map((key, index) => `<option value="${key}">${data.data.project_types[key]}</option>`)}
                                 </select>
                             </div>
@@ -1810,6 +1982,7 @@
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Sub Category</label>
                                     <select id="subCategory" name="sub_category_id" class="selectDesign form-control">
+                                            <option value=""> </option>
                                         ${Object.keys(data.data.projects_sub_types).map((key, index) => `<option value="${key}">${data.data.projects_sub_types[key]}</option>`)}
                                     </select>
                                 </div>
@@ -1826,7 +1999,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="updateTaskCategory();" value="{{ trans('global.update') }}">
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTaskCategory();" value="{{ trans('global.create') }}">
                         </div>
                     </form>
                         `
@@ -1836,8 +2009,8 @@
 
         //  Edit TaskCategory
          var editTaskCategoryData;
-    function editTaskCategory(task_id){
-        $.ajax({
+            function editTaskCategory(task_id){
+                $.ajax({
                         type: "GET",
                         url: "/api/v1/tast-categories/" + task_id,
                         success: function(data){
@@ -1921,14 +2094,22 @@
                 url: '{{ url("/api/v1/tast-categories") }}',
                 data: $('#addtaskCategoryform').serialize(),
                 success: function (data) {
-                    alert(data.success);
                     $('#addTaskCategory').modal('hide');
-                    getTaskCategoryAjaxDT();
-                    document.getElementById('category-name').value = "";
-                    document.getElementById('weightId').value = "";
+                    swal({
+                        title: "Success!",
+                        text: "Task category created!",
+                        icon: "success",
+                        confirmButtonText: "Ok",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        } , 2500);
+                    // getTaskCategoryAjaxDT();
+                    // document.getElementById('category-name').value = "";
+                    // document.getElementById('weightId').value = "";
                 },
                 error: function (data) {
-                    console.log('Error:', data);
+                    swal("Task category creation failed!", "Please check missing fields", "error");
                 }
                 });
             }
@@ -1946,12 +2127,19 @@
                 data: $('#addStatusform').serialize(),
                 success: function (data) {
                     $('#AddStatus').modal('hide');
-                    alert("Task status successfully created");
                     document.getElementById('statusInput').value = "";
-                    location.reload();
+                    swal({
+                        title: "Success!",
+                        text: "Task status created!",
+                        icon: "success",
+                        confirmButtonText: "Ok",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        } , 2500);
                 },
                 error: function (error) {
-                    alert("Task status creation failed");
+                    swal("Task creation failed", "Please check missing fields", "error");
                 }
                 });
                 }

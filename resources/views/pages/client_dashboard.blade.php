@@ -1088,7 +1088,7 @@
                         });
                     $.ajax({
                     type: "POST",
-                    url: "admin/clients",
+                    url: "/admin/clients",
                     data: $('#clientForm').serialize(),
                     success: function (data) {
                         alert(data.success);
