@@ -107,7 +107,7 @@
                                                     <div class="m-dropdown__header m--align-center" style="background: {{ url('assets/app/media/img/misc/user_profile_bg.jpg') }}; background-size: cover;">
                                                         <div class="m-card-user m-card-user--skin-dark">
                                                             <div class="m-card-user__pic">
-                                                                <img src={{ asset("assets/app/media/img/users/user4.jpg") }} class="m--img-rounded m--marginless" alt="" />
+                                                                <img src={{ asset("metro/assets/app/media/img/users/user4.jpg") }} class="m--img-rounded m--marginless" alt="" />
                                                             </div>
                                                             <div class="m-card-user__details">
                                                                 <span class="m-card-user__name m--font-weight-500">
