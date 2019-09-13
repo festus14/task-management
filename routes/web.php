@@ -160,11 +160,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/get_project_subtype/{project_id}', 'ProjectPagesController@projectTypeAPI')->name('get_project_subtype');
     Route::get('view_task', 'TaskPagesController@viewTask')->name('view_task');
 
+    // Testing Notification Routes
+
+Route::get('send_email', 'TaskPagesController@sendMail');
+
 });
 
 
 // Testing Notification Routes
 
-Route::get('send_email', 'sendMailsController@sendMail');
+Route::get('send_email', 'TaskPagesController@sendMail');
 
 

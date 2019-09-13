@@ -16,6 +16,7 @@ use App\TaskStatus;
 use App\TastCategory;
 use App\User;
 use App\TaskComment;
+use App\Notifications\TestNotification;
 
 class TaskPagesController extends Controller
 {
@@ -30,14 +31,14 @@ class TaskPagesController extends Controller
     public function getProject($project_type){
         return Project::where('project_type_id', $project_type)->get();
     }
-    
+
     public function getAllClient(Request $request){
         return Client::all();
     }
     public function getSingleClient(Request $request, $id){
         return Client::findOrFail($id);
     }
-    
+
     public function getProjectSubType($project_type){
         return ProjectSubType::where('project_type_id', $project_type)->get();
     }
@@ -46,7 +47,7 @@ class TaskPagesController extends Controller
         return ProjectSubType::where('project_type_id', $id)->get();
     }
 
-    
+
     public function getAllTaskComments(Request $request, $task_id){
         return TaskComment::where('task_id', $task_id)
         ->with('user')
@@ -56,7 +57,7 @@ class TaskPagesController extends Controller
         ->get();
     }
 
-    
+
     public function getSingleComment($id){
         return TaskComment::where('id', $id)
         ->with('user')
@@ -81,5 +82,15 @@ class TaskPagesController extends Controller
         return view('pages.view_task');
     }
 
-    
+    //sendMail
+    public function sendMail(){
+        $user = App\User::find(1);
+
+        $user->notify(new TestNotification("A new user has visited on our application."));
+
+
+        return view('pages.send_email');
+    }
+
+
 }

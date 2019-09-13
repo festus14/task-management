@@ -13,7 +13,7 @@ class sendMailsController extends Controller
 {
     //sendMail
     public function sendMail(){
-        $user = App\User::find(1);
+        $user = User::find(1);
 
         $user->notify(new TestNotification("A new user has visited on our application."));
 

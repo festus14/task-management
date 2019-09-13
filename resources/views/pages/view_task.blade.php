@@ -1398,11 +1398,10 @@
                                                                         <div class="m-messenger__message-arrow"></div>
                                                                             <div class="m-messenger__message-content">
                                                                                 <div class="m-messenger__message-username">
-                                                                                    <span class="secondary"><strong>Tomiwa wrote</strong></span>
-                                                                                    <span id="datee" style="float: right;"></span>
+                                                                                    <span class="secondary"><strong>Tomiwa</strong></span>
+                                                                                    <span id="datee" style="float: right;">${elem.created_at}</span>
                                                                                 </div>
-                                                                                <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;
-                                                                                            ">
+                                                                                <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                                 ${elem.comments}
                                                                                     <br/>
                                                                                     <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
@@ -1447,15 +1446,15 @@
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
                                                                         <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                              </button>
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <textarea class="form-control " id="Textarea2" rows="4 " required></textarea>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" id="closeModal" class="btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
-                                                                        <button type="button" class="btn btn-primary" class="" onclick="addComment(), $('#makecommentModal').modal('hide')">Comment</button>
+                                                                        <button type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
+                                                                        <button type="button" class="m-btn--pill btn btn-primary" class="" onclick="addComment(), $('#makecommentModal').modal('hide')">Comment</button>
                                                                     </div>
                                                                 </div>
 
@@ -1481,27 +1480,32 @@
                     }
                 });
             }
-            function mapComment() {
-    data.map((elem, i) => {
-        console.log(elem.comment)
+
+
+
+            function addComment() {
+    // data.map((elem, i) => {
+    //     console.log(elem.comment)
+        var commentMade;
+        commentMade = document.getElementById("Textarea2").value;
+             console.log(commentMade);
         let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-                        <div class="m-messenger__message m-messenger__message--out">
+                                <div class="m-messenger__message m-messenger__message--out">
 
-                            <div class="m-messenger__message-body">
-                                <div class="m-messenger__message-arrow"></div>
-                                <div class="m-messenger__message-content">
-                                <div class="m-messenger__message-username">
-                                <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-                                <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                        <div class="m-messenger__message-username">
+                                        <span style="color: #0c2a7a"><strong>Temi</strong></span>
+                                        <span class="datee" style="float: right; color: #d0d3db;">2nd febrary</span>
                                     </div>
                                     <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
-                                        ${elem.comment}
+                                        ${commentMade}
                                     </div>
                                 </div>
                             </div>
                             <div class="m-messenger__message-pic">
-                            <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
+                            <img src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" alt="" class="mCS_img_loaded">
                         </div>
                         </div>
                     </div>`
@@ -1529,10 +1533,10 @@
 // </div>`
         document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
 
-    })
-}
+    }
 
-            function addComment() {
+
+            function yaddComment() {
            var newObj = {
                name: "Chiamaka",
                comment: document.getElementById("Textarea2").value,

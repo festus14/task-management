@@ -1970,11 +1970,11 @@
                     searchable: false,
                     render: function (data, type, full, meta) {
                         return '\<button class="btn btn-secondary dropdown-toggle" onclick="editProjectType('+full.id+')" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
                                 <a class="link" href="#">\
-                                    <i class="fa fa-pencil" data-toggle="modal" data-target="#EditProjectTypeModal" style="color:black;"></i>\
+                                    <i class="fa fa-pencil" data-toggle="modal" data-target="#EditProjectTypeModal" style="color:black;"><span style="font-weight:100;"> Edit</span></i>\
                                 </a>\
-                                <button onclick="deleteProjectType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black;"></i></a></button>\
+                                <button onclick="deleteProjectType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                                 </div>\
                             ';
                     }
@@ -2116,11 +2116,11 @@
                 searchable: false,
                 render: function (data, type, full, meta) {
                     return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                            <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 60px; max-width: 15px;">\
+                            <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
                             <a class="link" href="#">\
-                                <i class="fa fa-pencil" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"></i>\
+                                <i class="fa fa-pencil" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"><span style="font-weight:100;"> Edit</span></i>\
                             </a>\
-                            <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black;"></i></a></button>\
+                            <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
                             ';
                 }
