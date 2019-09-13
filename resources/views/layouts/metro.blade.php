@@ -89,8 +89,7 @@
                                             </span>
                                         </a>
                                         <div class="m-dropdown__wrapper">
-                                            <span
-                                                class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                             <div class="m-dropdown__inner">
                                                 <div class="m-dropdown__header m--align-center"
                                                      style="background: {{ url('assets/app/media/img/misc/user_profile_bg.jpg') }}; background-size: cover;">

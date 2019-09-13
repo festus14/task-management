@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Document;
 use App\Http\Controllers\Controller;
+use App\Mail\SendMailToProjectTeamMembers;
 use App\Project;
 
 use App\ProjectType;
@@ -12,6 +13,7 @@ use App\User;
 use App\ProjectSubType;
 use App\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectApiController extends Controller
@@ -42,7 +44,7 @@ class ProjectApiController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|unique:clients',
+                'name' => 'required|unique:projects,name',
                 'date_of_engagement' => 'nullable|date_format:' . config('panel.date_format'),
                 'expiry_date' => 'nullable|date_format:' . config('panel.date_format'),
             ]
@@ -52,6 +54,24 @@ class ProjectApiController extends Controller
         }
         try {
             $project = Project::create($request->all());
+            $project->team_members()->sync($request->input('team_members', []));
+            $team_members = $project->team_members;
+            Mail::send('theme.laravel.mails.notifications.send_mail_to_project_team_members', compact('team_members', 'project'),
+                function ($message)
+                use ($project) {
+                    $message->from('payslip@ipaysuite.com', 'Task Management');
+                    if(count($project->team_members) > 0 ){
+                        $message->to($project->manager->email, $project->manager->name);
+                        foreach ($project->team_members as $member){
+                            $message->to($member->email, $member->name);
+                        }
+                    }
+//                $message->cc('dennis.ogbeide@stransact.com', 'HR');
+//                $message->cc('yomi.salawu@stransact.com', 'Partner');
+                    $message->cc('tunde.awopegba@stransact.com', 'App Admin');
+                    $message->cc('festusomole14@gmail.com', 'App Tester');
+                    $message->subject('New Project Created ' . now());
+                });
             return response()->json(['success' => 'record created successfully', 'data' => $project], 200);
         }
         catch(\Exception $e){

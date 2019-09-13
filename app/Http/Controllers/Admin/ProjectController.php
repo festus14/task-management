@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Mail\SendMailToProjectTeamMembers;
 use App\Project;
 use App\ProjectType;
 use App\TaskStatus;
 use App\User;
 use App\ProjectSubType;
+use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
@@ -46,8 +48,34 @@ class ProjectController extends Controller
 
         $project = Project::create($request->all());
         $project->team_members()->sync($request->input('team_members', []));
+        $team_members = $project->team_members;
 
-        return redirect()->route('admin.projects.index');
+        try {
+             Mail::send('theme.laravel.mails.notifications.send_mail_to_project_team_members', compact('team_members'),
+                 function ($message)
+                use ($project) {
+                $message->from('payslip@ipaysuite.com', 'Task Management');
+                if(count($project->team_members) > 0 ){
+                    $message->to($project->manager->email, $project->manager->name);
+                   foreach ($project->team_members as $member){
+                       $message->to($member->email, $member->name);
+                   }
+                }
+//                $message->cc('dennis.ogbeide@stransact.com', 'HR');
+                $message->cc('tunde.awopegba@stransact.com', 'App Admin');
+                $message->cc('festusomole14@gmail.com', 'App Tester');
+//                $message->cc('yomi.salawu@stransact.com', 'Partner');
+                $message->subject('New Project Created ' . now());
+            });
+//            Mail::to($project->manager->email)
+//                ->cc($team)
+//                ->send(new SendMailToProjectTeamMembers($team));
+            return redirect()->route('admin.projects.index');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.projects.index');
+        }
+
+
     }
 
     public function edit(Project $project)
