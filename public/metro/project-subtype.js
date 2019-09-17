@@ -9,7 +9,7 @@ const projectList = [
         name: 'Payroll'
     },
 ]
-    
+
     function add(parent, el) {
     return parent.add(el);
     }
@@ -32,7 +32,7 @@ const projectList = [
     //     let option = document.createElement('option');
     //     option.text = i.project_name;
     //     option.value = i.project_id;
-        
+
     //     add(dropdown, option)
     // })
 
