@@ -1045,39 +1045,6 @@
                             }
 
 
-                    function submitEditProjectForm(){
-                    $.ajax({
-                        type: "PUT",
-                        url: "{{ url('/api/v1/project_create/') }}",
-                        success: function (data) {
-
-                            swal({
-                                title: "Success!",
-                                text: "Project Edited!",
-                                icon: "success",
-                                confirmButtonColor: "#DD6B55",
-                                // confirmButtonText: "OK",
-                            });
-                            window.setTimeout(function(){
-                                location.reload();
-                            }, 3000)
-
-                            },
-                            error: function (error) {
-                            swal({
-                                title: "Project Editing Failed!",
-                                text: "Please check the missing fields!",
-                                icon: "error",
-                                confirmButtonColor: "#fc3",
-                                confirmButtonText: "OK",
-                            });
-                            }
-
-
-                    })
-                }
-
-
             //  Edit Project Sub form
         function editProjectSubtype(){
             $.ajax({
@@ -1410,7 +1377,7 @@
 
 
                                                 <div class="col-md-2 form-group mt-3">
-                                                    <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.update') }}">
+                                                    <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectForm();" value="{{ trans('global.update') }}">
                                                 </div>
                                             </div>
                                         </form>
@@ -1464,22 +1431,38 @@
 
                                     }
 
+
+
                 function submitEditProjectForm(){
                     $.ajax({
                         type: "PUT",
-                        url: "/api/v1/project_create/",
+                        url: "{{ url('/api/v1/project_create/') }}",
                         success: function (data) {
-                            console.log(data)
-                            location.reload();
-                        },
+                            swal({
+                                title: "Success!",
+                                text: "Project Edited!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            window.setTimeout(function(){
+                                location.reload();
+                            }, 3000)
 
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
+                            },
+                            error: function (error) {
+                            swal({
+                                title: "Project Editing Failed!",
+                                text: "Please check the missing fields!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                            }
+
 
                     })
                 }
-
 
 
         @parent

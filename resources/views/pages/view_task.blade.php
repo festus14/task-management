@@ -1913,15 +1913,29 @@
                 function submitEditTaskForm(taskID){
                     $.ajax({
                         type: "PUT",
-                        url: "/admin/tasks/" + taskID,
+                        url: "/api/v1/tasks" + taskID,
                         success: function (data) {
-                            console.log(data)
-                            location.reload();
-                        },
+                            swal({
+                                title: "Success!",
+                                text: "Task successfully edited!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            window.setTimeout(function(){
+                                location.reload();
+                            }, 3000)
 
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
+                            },
+                            error: function (error) {
+                            swal({
+                                title: "Task editing failed!",
+                                text: "Please check the missing fields!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                            }
 
                     })
                 }
@@ -2039,7 +2053,7 @@
                 success: function(data){
                 var editTaskCatData = data.data;
                 let editTaskBody = document.getElementById('editTaskCategoryModalbody');
-                editTaskBody.innerHTML = `
+                editTaskBody.innerHTML =`
                 <form  id="addtaskCategoryform" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
@@ -2075,7 +2089,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createTaskCategory();" value="{{ trans('global.update') }}">
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskCategory(${task_id});" value="{{ trans('global.update') }}">
                         </div>
                     </form>
 
@@ -2085,7 +2099,35 @@
 
         }
 
+        function submitEditTaskCategory(taskID){
+                    $.ajax({
+                        type: "PUT",
+                        url: "/api/v1/tast-categories" + taskID,
+                        success: function (data) {
+                            swal({
+                                title: "Success!",
+                                text: "Task category successfully edited!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            window.setTimeout(function(){
+                                location.reload();
+                            }, 3000)
 
+                            },
+                            error: function (error) {
+                            swal({
+                                title: "Task category editing failed!",
+                                text: "Please check the missing fields!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                            }
+
+                    })
+                }
 
         function postCreateTaskCategory(){
             $.ajaxSetup({
