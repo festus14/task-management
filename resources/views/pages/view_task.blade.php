@@ -1913,7 +1913,7 @@
                 function submitEditTaskForm(taskID){
                     $.ajax({
                         type: "PUT",
-                        url: "/admin/tasks/" + taskID,
+                        url: "/api/v1/tasks/" + taskID,
                         success: function (data) {
                             console.log(data)
                             location.reload();

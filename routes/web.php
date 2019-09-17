@@ -162,8 +162,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Testing Notification Routes
 
-Route::get('send_email', 'TaskPagesController@sendMail');
-
 });
 
 

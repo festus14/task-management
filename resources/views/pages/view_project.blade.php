@@ -430,60 +430,6 @@
 
     <div id="moreInfo">
 
-        <!-- Add Document Modal -->
-        <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle"><i class="la la-plus"></i> Add Document</h5>
-                        <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" method="" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label for="client-list">Select Client</label>
-                                        <select id="client-list" class="selectDesign form-control"></select>
-                                    </div>
-
-                                    <div class="form-group mt-3">
-                                        <label for="document-name">Document Name</label>
-                                        <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
-                                    </div>
-
-                                    <div class="form-group mt-4">
-                                        <input style="background: #f1f1f1" type="file" name="files[]" multiple />
-                                    </div>
-
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label for="project-list">Project Name</label>
-                                        <select id="project-list" class="selectDesign form-control"></select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="task-list">Version</label>
-                                        <input type="text" class="form-control" id="version" placeholder="Enter Version">
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-3 form-group mt-2">
-                                    <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Add Document Modal -->
 
         <!-- Comment Modal -->
         <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -635,6 +581,61 @@
             </div>
         </div>
         <!-- endComment Modal -->
+        <!-- Add Document Modal -->
+
+        {{-- <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
+                        <button type="button" class="close" onclick="$('#addReportModal').modal('hide');" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="client-list">Select Client</label>
+                                        <select id="client-list" class="selectDesign form-control"></select>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <label for="document-name">Document Name</label>
+                                        <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
+                                    </div>
+
+                                    <div class="form-group mt-4">
+                                        <input style="background: #f1f1f1" type="file" name="files[]" multiple />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="project-list">Project Name</label>
+                                        <select id="project-list" class="selectDesign form-control"></select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="task-list">Version</label>
+                                        <input type="text" class="form-control" id="version" placeholder="Enter Version">
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3 form-group mt-2">
+                                    <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+        <!-- End Add Document Modal -->
 
 
 
@@ -1045,10 +1046,10 @@
                             }
 
 
-                    function submitEditProjectForm(){
+                    function submitEditProjectForm(proID){
                     $.ajax({
                         type: "PUT",
-                        url: "{{ url('/api/v1/project_create/') }}",
+                        url: '{{ url("/api/v1/projects") }}' + '/' + proID,
                         success: function (data) {
 
                             swal({
@@ -1079,7 +1080,7 @@
 
 
             //  Edit Project Sub form
-        function editProjectSubtype(){
+        function editProjectSubtype(sub_id){
             $.ajax({
                 type: "GET",
                 url: "/api/v1/project-sub-types",
@@ -1105,7 +1106,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#editProjectSubTypeModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectSubtypeForm();" value="Update">
+                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectSubtypeForm(${sub_id});" value="Update">
                 </div>
                 </form>
         `
@@ -1118,7 +1119,7 @@
             })
         }
 
-        function submitEditProjectSubtypeForm(){
+        function submitEditProjectSubtypeForm(sub_id){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1126,7 +1127,7 @@
                 });
                 $.ajax({
                 type: "PUT",
-                url: '{{ url("/api/v1/project-sub-types") }}',
+                url: '{{ url("/api/v1/project-sub-types") }}' + '/' + sub_id,
                 data: $('#editProjectSubtypeForm').serialize(),
                 success: function (data) {
                     alert("Project sub-type updated");
@@ -1206,6 +1207,7 @@
                         });
                         },
                         error: function (error) {
+
                         swal({
                             title: "Project sub-type creation failed",
                             text: "Please check the missing fields!",
@@ -1244,6 +1246,7 @@
 
                     },
                     error: function (error) {
+                        console.log(error)
                         swal({
                             title: "Project Creation Failed!",
                             text: "Please check the missing fields!",
@@ -1410,7 +1413,7 @@
 
 
                                                 <div class="col-md-2 form-group mt-3">
-                                                    <input class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="{{ trans('global.update') }}">
+                                                    <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectForm(${project_id});" value="Update">
                                                 </div>
                                             </div>
                                         </form>
@@ -1463,22 +1466,6 @@
                                     })
 
                                     }
-
-                function submitEditProjectForm(){
-                    $.ajax({
-                        type: "PUT",
-                        url: "/api/v1/project_create/",
-                        success: function (data) {
-                            console.log(data)
-                            location.reload();
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-                }
 
 
 
@@ -1776,7 +1763,7 @@
                                 </button>
                     </div>
                     <div class="modal-body">
-                            <form action="{{ url("/api/v1/project-reports") }}" method="POST" id="addprojectform" enctype="multipart/form-data">
+                            <form id="addprojectform" enctype="multipart/form-data">
                                  @csrf
                             <div class=" row col-md-12">
                                 <div class="col-md-12 form-group mt-3">
@@ -1805,13 +1792,65 @@
                                     </fieldset>
                                     <div class="row col-md-12">
                                         <div class="col-md-3 form-group mt-3">
-                                            <button type="submit" class="btn btn-block" style="background-color:#8a2a2b; color:white;">Submit</button>
+                                            <input type="button" onclick="submitProjectReport()" class="btn btn-block" style="background-color:#8a2a2b; color:white;">
 
                                         </div>
                                     </div>
 
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="documentModalLongTitle">Add Document</h5>
+                        <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                    </div>
+                    <div class="modal-body">
+                        <form enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input id="client-list" name="client_id" value="${data.data.client_id}" type="hidden">
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <label for="document-name">Document Name</label>
+                                        <input type="text" class="form-control" id="document-name" name="name">
+                                    </div>
+
+                                    <div class="form-group mt-4">
+                                        <input style="background: #f1f1f1" type="file" name="files[]" multiple />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input id ="project-list" name="project_id" value="${data.data.id}" type="hidden">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="version">Version</label>
+                                        <input type="text" class="form-control" id="version" placeholder="Enter Version" name="version">
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3 form-group mt-2">
+                                    <input type="button" onclick="submitProjectDoc()" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit">
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -1829,6 +1868,64 @@
 
             })
 
+        }
+
+        function submitProjectReport(){
+            $.ajax({
+                type: "POST",
+                url: "/api/v1/project-reports",
+                success: function (data) {
+
+                    swal({
+                        title: "Success!",
+                        text: "Project Report Submitted!",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
+                    });
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 3000)
+
+                    },
+                    error: function (error) {
+                    swal({
+                        title: "Project Report Wasn't Created!",
+                        icon: "error",
+                        confirmButtonColor: "#fc3",
+                        confirmButtonText: "OK",
+                    });
+                    }
+            });
+        }
+
+        function submitProjectDoc(){
+            $.ajax({
+                type: "POST",
+                url: "/api/v1/documents",
+                success: function (data) {
+
+                    swal({
+                        title: "Success!",
+                        text: "Project Document Submitted!",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
+                    });
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 3000)
+
+                    },
+                    error: function (error) {
+                    swal({
+                        title: "Project Document Wasn't Created!",
+                        icon: "error",
+                        confirmButtonColor: "#fc3",
+                        confirmButtonText: "OK",
+                    });
+                    }
+            });
         }
 
 
@@ -2118,7 +2215,7 @@
                     return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                             <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
                             <a class="link" href="#">\
-                                <i class="fa fa-pencil" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"><span style="font-weight:100;"> Edit</span></i>\
+                                <i class="fa fa-pencil" data-toggle="modal" onclick="editProjectSubtype('+full.id+')" data-target="#editProjectSubTypeModal" style="color:black;"><span style="font-weight:100;"> Edit</span></i>\
                             </a>\
                             <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
