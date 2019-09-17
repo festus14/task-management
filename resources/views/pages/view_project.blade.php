@@ -43,7 +43,7 @@
 }
 </style>
 @endsection
-<div class="m-portlet " id="m_portlet" style="width:97%;">
+<div class="m-portlet " id="m_portlet" style="width:90%;">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
             <div class="m-portlet__head-title">
@@ -1576,7 +1576,6 @@
                                             <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>Name</th>
                                                         <th>Starting Date</th>
                                                         <th>Deadline</th>
@@ -2041,7 +2040,6 @@
                 ajax: path_url,
 
                 columns: [
-                    {"defaultContent": ""},
                     {"data": "name"},
                     {"data": "starting_date"},
                     {"data": "ending_date"},
@@ -2049,10 +2047,6 @@
                     {"data": "status.name"},
                 ],
                 columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }, {
                     orderable: false,
                     searchable: false,
                     targets: -1
@@ -2211,8 +2205,9 @@
                 type: "GET",
                 url: "/api/v1/project-types/" + type_id,
                 success: function(data){
+                    console.log(data)
                     editProjectTypeData = data.data;
-                    $('#editprojTypeInput').val(editProjectData.name);
+                    $('#editprojTypeInput').val(editProjectTypeData.name);
                 },
 
                 error: function(data){
