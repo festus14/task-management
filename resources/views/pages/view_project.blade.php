@@ -77,7 +77,7 @@
             </ul>
         </div>
     </div>
-    <div class="m-portlet__body" style="overflow-x:auto; table-responsive">
+    <div class="m-portlet__body table-responsive" style="overflow-x:auto;">
         <table id="kt_table_projects" class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -485,7 +485,7 @@
                                         <div class=" m-scrollable" >
                                             <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
                                                 <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-                                                    <div class="m-messenger__messages mCS-autoHide" style="height: 400px; max-height: auto; position: relative; overflow: hidden;">
+                                                    <div class="m-messenger__messages mCS-autoHide" style="height: 400px; position: relative; overflow: hidden;">
                                                         <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="padding-top:7px; max-height: 100%; width: 100%; position: absolute;
                                                         overflow-y: scroll; scrollbar-width: 2px;">
                                                             <div id="mCSB_3_container" class="mCSB_container" style="top:0; left:0;" dir="ltr">
@@ -1123,11 +1123,13 @@
 
 
                     function submitEditProjectForm(proID){
+                    let formdata = $('#editProjectform').serialize();
+                    console.log(formdata);
                     $.ajax({
                         type: "PUT",
-                        url: '{{ url("/api/v1/projects") }}' + '/' + proID,
+                        url: '{{ url("/api/v1/projects") }}'+ '/'+ proID,
+                        data:formdata,
                         success: function (data) {
-
                             swal({
                                 title: "Success!",
                                 text: "Project Edited!",
@@ -1515,9 +1517,7 @@
                                         </form>
                                     </div>
                                     `
-                                    window._token = $('meta[name="csrf-token"]').attr('content');
-
-                                            var allEditors = document.querySelectorAll('.ckeditor');
+                                        var allEditors = document.querySelectorAll('.ckeditor');
                                             for (var i = 0; i < allEditors.length; ++i) {
                                                 ClassicEditor.create(allEditors[i]);
                                             }
@@ -1616,7 +1616,6 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                <!-- More-info content -->
                 <div class="col-md-12 m-portlet " id="m_portlet">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
@@ -1693,10 +1692,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end::Portlet-->
-                    <!-- End main Content of More-info -->
-
-                        <div class="modal-footer">
+                                            <div class="modal-footer">
                         </div>
                     </div>
                 </div>
@@ -1769,7 +1765,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--end::Portlet-->
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
@@ -1842,7 +1838,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--end::Portlet-->
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
@@ -2084,8 +2080,7 @@
                                         </div>
 
                                     </div>
-                                    <!-- <div class="tab-content"> -->
-                                    <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
+
                                         <div id="forTest" class=" m-scrollable" >
                                             <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
                                                 <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
@@ -2147,7 +2142,7 @@
                                                         <button type="button" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
                                                                         Make Comment
                                                                       </button>
-                                                        <!-- Modal -->
+
                                                         <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
