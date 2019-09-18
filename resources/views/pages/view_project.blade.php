@@ -1149,7 +1149,25 @@
 
 
             //  Edit Project Sub form
+            var editSubData
         function editProjectSubtype(sub_id){
+
+            $.ajax({
+                        type: "GET",
+                        url: "/api/v1/project-sub-types/" + sub_id,
+                        success: function(data){
+                            editData = data.data;
+                            $('#sub-type').val(editSubData[0].name);
+                            $('#projecttype').val(editSubData.project_type_id + "");
+                            console.log(editData);
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+
             $.ajax({
                 type: "GET",
                 url: "/api/v1/project-sub-types",
@@ -1991,7 +2009,7 @@
 
                     swal({
                         title: "Success!",
-                        text: "Project Document Submitted!",
+                        text: "Project document submitted!",
                         icon: "success",
                         confirmButtonColor: "#DD6B55",
                         // confirmButtonText: "OK",
@@ -2003,7 +2021,7 @@
                     },
                     error: function (error) {
                     swal({
-                        title: "Project Document Wasn't Created!",
+                        title: "Project document wasn't created!",
                         icon: "error",
                         confirmButtonColor: "#fc3",
                         confirmButtonText: "OK",

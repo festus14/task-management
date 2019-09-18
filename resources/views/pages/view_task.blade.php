@@ -763,7 +763,7 @@
 
 
             function getTaskCategoryAjaxDT(){
-                if ( $.fn.dataTable.isDataTable( '##kt_table_task_category') ) {
+                if ( $.fn.dataTable.isDataTable( '#kt_table_task_category') ) {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable();
                 }else {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable({
