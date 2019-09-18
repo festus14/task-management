@@ -35,7 +35,7 @@ class ProjectApiController extends Controller
                 ->get();
             return response()->json(['data' => $projects], 200);
         } catch (\Exception $e) {
-            return response()->json(['data' => []], 401);
+            return response()->json(['data' => []], 400);
         }
     }
 
@@ -44,13 +44,21 @@ class ProjectApiController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|unique:projects,name',
-                'date_of_engagement' => 'nullable|date_format:' . config('panel.date_format'),
-                'expiry_date' => 'nullable|date_format:' . config('panel.date_format'),
+//                'name' => 'required|unique:projects,name',
+//                'date_of_engagement' => 'nullable|date_format:' . config('panel.date_format'),
+//                'expiry_date' => 'nullable|date_format:' . config('panel.date_format'),
+                'client_id' => 'required|integer|exists:clients,id',
+                'project_type_id' => 'required|integer|exists:project_types,id',
+                'name' => 'required',
+                'team_members.*' => 'integer',
+                'team_members' => 'array',
+                'starting_date' => 'nullable|date_format:' . config('panel.date_format'),
+                'deadline' => 'after:starting_date|nullable|date_format:' . config('panel.date_format'). ' ' . config('panel.time_format'),
+
             ]
         );
         if ($validator->fails()) {
-            return response()->json(['error'=> 'failed to create record'], 401);
+            return response()->json(['error'=> 'failed to create record'], 400);
         }
         try {
             $project = Project::create($request->all());
@@ -75,7 +83,7 @@ class ProjectApiController extends Controller
             return response()->json(['success' => 'record created successfully', 'data' => $project], 200);
         }
         catch(\Exception $e){
-            return response()->json(['error'=> 'failed to create record'], 401);
+            return response()->json(['error'=> 'failed to create record'], 400);
         }
     }
 
@@ -85,24 +93,24 @@ class ProjectApiController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'client_id' => 'required|integer',
-                'project_type_id' => 'required|integer',
+                'client_id' => 'required|integer|exists:clients,id',
+                'project_type_id' => 'required|integer|exists:project_types,id',
                 'name' => 'required',
                 'team_members.*' => 'integer',
                 'team_members' => 'array',
                 'starting_date' => 'nullable|date_format:' . config('panel.date_format'),
-                'deadline' => 'nullable|date_format:' . config('panel.date_format'). ' ' . config('panel.time_format'),
+                'deadline' => 'after:starting_date|nullable|date_format:' . config('panel.date_format'). ' ' . config('panel.time_format'),
             ]
         );
         if ($validator->fails()) {
-            return response()->json(['error'=> 'failed to create record'], 401);
+            return response()->json(['error'=> 'failed to create record'], 400);
         }
         try {
             $updated_project = $project->update($request->all());
             return response()->json(['success' => 'record updated successfully', 'data' => $updated_project], 200);
         }
         catch(\Exception $e){
-            return response()->json(['error'=> 'failed to create record'], 401);
+            return response()->json(['error'=> 'failed to create record'], 400);
         }
     }
 
@@ -122,7 +130,7 @@ class ProjectApiController extends Controller
         return response()->json(['data'=>$projects], 200);
        }
        catch(\Exception $e){
-           return response()->json(['data'=>[]], 401);
+           return response()->json(['data'=>[]], 400);
        }
     }
 
@@ -142,7 +150,7 @@ class ProjectApiController extends Controller
             return response()->json(['data'=>$projects], 200);
         }
         catch(\Exception $e){
-            return response()->json(['data'=>[]], 401);
+            return response()->json(['data'=>[]], 400);
         }
     }
     public function documents($project){
@@ -151,7 +159,7 @@ class ProjectApiController extends Controller
             return response()->json(['data'=>$documents], 200);
         }
         catch(\Exception $e){
-            return response()->json(['data'=>[], 'error' => $e->getMessage()], 401);
+            return response()->json(['data'=>[], 'error' => $e->getMessage()], 400);
         }
     }
 
@@ -162,7 +170,7 @@ class ProjectApiController extends Controller
             return response()->json(['success' => 'record deleted successfully'], 200);
         }
         catch(\Exception $e){
-            return response()->json(['error'=> 'failed to delete record'], 401);
+            return response()->json(['error'=> 'failed to delete record'], 400);
         }
     }
 
