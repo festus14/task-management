@@ -394,6 +394,25 @@
         </div>
     <!--End modalled projType Modal -->
 
+    <!--Edit TaskStatus Modal -->
+<div class="modal fade" id="editTaskStatusModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Task Status Type</h5>
+                <button type="button" class="close" onclick="$('#editTaskStatusModal').modal('hide');" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+            </div>
+            <div id="editTaskStatusBody">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Edit projType Modal -->
+
+
 @endsection
 @section('javascript')
 <script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
@@ -744,7 +763,7 @@
 
 
             function getTaskCategoryAjaxDT(){
-                if ( $.fn.dataTable.isDataTable( '#kt_table_task_status') ) {
+                if ( $.fn.dataTable.isDataTable( '##kt_table_task_category') ) {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable();
                 }else {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable({
@@ -863,10 +882,10 @@
                             orderable: false,
                             searchable: false,
                             render: function (data, type, full, meta) {
-                            return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskStatusbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                            return '\<button class="btn btn-secondary dropdown-toggle" onclick="editTaskStatusModal('+full.id+')" type="button" id="taskStatusbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                                     <div class="dropdown-menu" aria-labelledby="taskStatusbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
                                                     <a class="link" href="#">\
-                                                        <i class="fa fa-pencil" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
+                                                        <i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskStatusModal" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
                                                     </a>\
                                                     <button onclick="deleteSingleTaskStatus('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                                                 </div>\
@@ -879,6 +898,67 @@
 
                 }
             }
+
+                var editStatusData;
+            function editTaskStatusModal(taskStatusId){
+                $.ajax({
+                        type: "GET",
+                        url: "/api/v1/task-statuses/" + taskStatusId,
+                        success: function(data){
+                            editStatusData = data.data;
+                            $('#editStatusInput').val(editStatusData.name);
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+                let editTaskModalBody = document.getElementById('editTaskStatusBody');
+                editTaskModalBody.innerHTML = `
+                <form id="editTaskStatusform" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="create-task">Status name</label>
+                            <input type="text" class="form-control" id="editStatusInput" name="name" placeholder="" value="" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="$('#editTaskStatusModal').modal('hide');">Close</button>
+                        <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskStatus(${taskStatusId})" value="Update">
+                    </div>
+                </form>
+                `
+            }
+
+
+            function submitEditTaskStatus(taskStatusId){
+            $.ajax({
+                    type: "PUT",
+                    data:  $('#editTaskStatusform').serialize(),
+                    url: "/api/v1/task-statuses" + "/" + taskStatusId,
+                    success: function (data) {
+                        swal({
+                            title: "Success!",
+                            text: "Task status edited!",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 3000)
+
+                        },
+                        error: function (error) {
+                        swal({
+                            title: "TAsk status edit failed!",
+                            icon: "error",
+                            confirmButtonColor: "#fc3",
+                            confirmButtonText: "OK",
+                        });
+                        }
+                });
+        }
 
 
             // Delete Task Status
@@ -1915,6 +1995,7 @@
                 function submitEditTaskForm(taskID){
                     $.ajax({
                         type: "PUT",
+                        data: $('#editTaskform').serialize(),
                         url: "/api/v1/tasks/" + taskID,
                         success: function (data) {
                             swal({
@@ -2103,9 +2184,11 @@
         }
 
         function submitEditTaskCategory(taskID){
+            console.log('got here')
                     $.ajax({
                         type: "PUT",
-                        url: "/api/v1/tast-categories" + taskID,
+                        data: $('#addtaskCategoryform').serialize(),
+                        url: "/api/v1/tast-categories/" + taskID,
                         success: function (data) {
                             swal({
                                 title: "Success!",

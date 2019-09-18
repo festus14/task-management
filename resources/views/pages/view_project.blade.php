@@ -303,19 +303,9 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                 </div>
-                        <form id="editProtypeform" enctype="multipart/form-data">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="create-task">Project Type Name</label>
-                                    <input type="text" class="form-control" id="editprojTypeInput" name="name" placeholder="" value="" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" onclick="$('#EditProjectTypeModal').modal('hide');">Close</button>
-                                <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectType()" value="Update">
-                            </div>
-                        </form>
+            <div id="editProjectTypeBody">
+
+            </div>
             </div>
         </div>
     </div>
@@ -1128,14 +1118,13 @@
                     $.ajax({
                         type: "PUT",
                         url: '{{ url("/api/v1/projects") }}'+ '/'+ proID,
-                        data:formdata,
+                        data: formdata,
                         success: function (data) {
                             swal({
                                 title: "Success!",
                                 text: "Project Edited!",
                                 icon: "success",
                                 confirmButtonColor: "#DD6B55",
-                                // confirmButtonText: "OK",
                             });
                             window.setTimeout(function(){
                                 location.reload();
@@ -1155,6 +1144,8 @@
 
                     })
                 }
+
+
 
 
             //  Edit Project Sub form
@@ -2375,11 +2366,12 @@
          //Edit Project Type
             var editProjectTypeData;
             function editProjectType(type_id){
+                console.log(type_id)
             $.ajax({
                 type: "GET",
-                url: "/api/v1/project-types/" + type_id,
+                url: "/api/v1/project-types" + "/" + type_id,
                 success: function(data){
-                    console.log(data)
+                    console.log(data);
                     editProjectTypeData = data.data;
                     $('#editprojTypeInput').val(editProjectTypeData.name);
                 },
@@ -2390,20 +2382,37 @@
 
 
             })
+
+
+            let editProjectTypeBody = document.getElementById('editProjectTypeBody');
+            editProjectTypeBody.innerHTML = `
+            <form id="editProtypeform" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="create-task">Project type name</label>
+                            <input type="text" class="form-control" id="editprojTypeInput" name="name" placeholder="" value="" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="$('#EditProjectTypeModal').modal('hide');">Close</button>
+                        <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectType(${type_id})" value="Update">
+                    </div>
+                </form>
+                `
         }
 
-        function submitEditProjectType(){
+        function submitEditProjectType(typeId){
             $.ajax({
                     type: "PUT",
-                    url: "/api/v1/project-types" + "/" ,
+                    data: $('#editProtypeform').serialize(),
+                    url: "/api/v1/project-types" + "/" + typeId,
                     success: function (data) {
-
                         swal({
                             title: "Success!",
-                            text: "Project Type Edited!",
+                            text: "Project type edited!",
                             icon: "success",
                             confirmButtonColor: "#DD6B55",
-                            // confirmButtonText: "OK",
                         });
                         window.setTimeout(function(){
                             location.reload();
@@ -2412,7 +2421,7 @@
                         },
                         error: function (error) {
                         swal({
-                            title: "Project Type Editing Failed!",
+                            title: "Project type editing failed!",
                             icon: "error",
                             confirmButtonColor: "#fc3",
                             confirmButtonText: "OK",
