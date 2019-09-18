@@ -779,11 +779,11 @@
                             render: function (data, type, full, meta) {
                             return '\<button class="btn btn-secondary dropdown-toggle" onclick="editTaskCategory('+full.id+')" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                         <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
-                                                                <a class="link" href="#">\
-                                                                    <i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskCategory" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
-                                                                </a>\
-                                                                <button onclick="deleteSingleTaskCategory('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
-                                                            </div>\
+                                            <a class="link" href="#">\
+                                                <i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskCategory" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
+                                            </a>\
+                                            <button onclick="deleteSingleTaskCategory('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
+                                        </div>\
                                                 ';
                             }
                     },
@@ -1602,7 +1602,7 @@
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label for="client-list">Select Client</label>
-                                            <select id="client-list" name="client_id" class="form-control">
+                                            <select id="client-list" onchange="filterType()" name="client_id" class="form-control">
                                                 <option value="" selected> </option>
                                                 ${Object.keys(data.data.clients).map((key, index) => `<option value="${key}">${data.data.clients[key]}</option>`)}
                                             </select>
@@ -1610,9 +1610,8 @@
 
                                         <div class="form-group">
                                             <label>Select Project</label>
-                                            <select id="project-list" name="project_id" class="selectDesign form-control">
-                                                    <option value="" selected> </option>
-                                                    ${Object.keys(data.data.projects).map((key, index) => `<option value="${key}">${data.data.projects[key]}</option>`)}
+                                            <select id="project-list" onchange="filterSubtype()" name="project_id" class="selectDesign form-control">
+
                                             </select>
                                         </div>
                                     </div>
@@ -1620,8 +1619,7 @@
                                         <div class="form-group">
                                             <label>Select Project Subtype</label>
                                             <select id="project-subtype-list" name="project_subtype_id" class="form-control">
-                                                    <option value="" selected> </option>
-                                                    ${Object.keys(data.data.projects_sub_type).map((key, index) => `<option value="${key}">${data.data.projects_sub_type[key]}</option>`)}
+
                                             </select>
                                         </div>
 
@@ -1732,6 +1730,51 @@
                                                     }
                                                 });
                                             }
+
+                    function filterType(){
+                        let typeVal = document.getElementById("client-list").value;
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ url('/api/v1/clients')}}" + '/' + typeVal,
+                            success: function (data) {
+                                document.getElementById('project-list').innerHTML = `
+                                <option value="" selected></option> ` +
+                                data.data.projects.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                + `
+                                `
+                            },
+                            error: function (data) {
+                                document.getElementById('project-list').innerHTML =
+                                `
+                                <option value="" selected></option>
+                                `
+                                console.log('Error:', data);
+                            }
+                        });
+                    }
+
+
+                    function filterSubtype(){
+                        let subtypeVal = document.getElementById("project-list").value;
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ url('/api/v1/project-types')}}" + '/' + subtypeVal,
+                            success: function (data) {
+                                document.getElementById('project-subtype-list').innerHTML = `
+                                <option value="" selected>Hello</option>
+                                <option value="${data.data.id}">${data.data.name}</option>
+
+                                `
+                            },
+                            error: function (data) {
+                                `
+                                <option value="" selected></option>
+                                `
+
+                                // console.log('Error:', data);
+                            }
+                        });
+                    }
 
 
                 //Edit Task

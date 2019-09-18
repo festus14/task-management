@@ -998,7 +998,7 @@
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="exampleFormControlSelect1">Project Sub-type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypemainModal" onclick="displayAddPsubtype()" style="float:right;"></i>
-                                    <select class="form-control" id="projectSubtypeId1"  name="project_subtype_id" required>
+                                    <select class="form-control" id="projectSubtypeId1"  name="project_subtype_id">
 
                                     </select>
                                 </div>
@@ -1116,6 +1116,9 @@
                                 `
                             },
                             error: function (data) {
+                                `
+                                <option value="" selected></option>
+                                `
                                 console.log('Error:', data);
                             }
                         });
