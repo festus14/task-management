@@ -1420,26 +1420,26 @@
         var editProjectData;
     function editProject(project_id){
         $.ajax({
-                        type: "GET",
-                        url: "/api/v1/projects/" + project_id,
-                        success: function(data){
-                            editProjectData = data.data;
-                            $('#client_list').val(editProjectData.client_id + "");
-                            $('#project_name').val(editProjectData.name);
-                            $('#manager_id').val(editProjectData.manager_id + "");
-                            $('#projtypeboy').val(editProjectData.project_type_id + "");
-                            $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
-                            $('#starting-date').val(editProjectData.starting_date);
-                            $('#Deadline').val(editProjectData.deadline);
-                            $('#teammembers').val(editProjectData.team_members);
-                            console.log(editProjectData);
-                        },
+                type: "GET",
+                url: "/api/v1/projects/" + project_id,
+                success: function(data){
+                    editProjectData = data.data;
+                    $('#client_list').val(editProjectData.client_id + "");
+                    $('#project_name').val(editProjectData.name);
+                    $('#manager_id').val(editProjectData.manager_id + "");
+                    $('#projtypeboy').val(editProjectData.project_type_id + "");
+                    $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
+                    $('#starting-date').val(editProjectData.starting_date);
+                    $('#Deadline').val(editProjectData.deadline);
+                    $('#teammembers').val(editProjectData.team_members);
+                    console.log(editProjectData);
+                },
 
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
+                error: function (data) {
+                    console.log('Error:', data);
+                }
 
-                    })
+            })
 
                 $.ajax({
                     type: "GET",
@@ -1564,7 +1564,7 @@
 
                                     })
 
-                                    }
+                                }
 
 
 
@@ -2643,58 +2643,57 @@
 
 
 
-            $(document).ready(function () {
-  window._token = $('meta[name="csrf-token"]').attr('content')
+        $(document).ready(function () {
 
-  var allEditors = document.querySelectorAll('.ckeditor');
-  for (var i = 0; i < allEditors.length; ++i) {
-    ClassicEditor.create(allEditors[i]);
-  }
+            var allEditors = document.querySelectorAll('.ckeditor');
+            for (var i = 0; i < allEditors.length; ++i) {
+                ClassicEditor.create(allEditors[i]);
+            }
 
-  moment.updateLocale('en', {
-    week: {dow: 1} // Monday is the first day of the week
-  })
+            moment.updateLocale('en', {
+                week: {dow: 1} // Monday is the first day of the week
+            })
 
-  $('.date').datetimepicker({
-    format: 'DD-MM-YYYY',
-    locale: 'en'
-  })
+            $('.date').datetimepicker({
+                format: 'DD-MM-YYYY',
+                locale: 'en'
+            })
 
-  $('.datetime').datetimepicker({
-    format: 'DD-MM-YYYY HH:mm:ss',
-    locale: 'en',
-    sideBySide: true
-  })
+            $('.datetime').datetimepicker({
+                format: 'DD-MM-YYYY HH:mm:ss',
+                locale: 'en',
+                sideBySide: true
+            })
 
-  $('.timepicker').datetimepicker({
-    format: 'HH:mm:ss'
-  })
+            $('.timepicker').datetimepicker({
+                format: 'HH:mm:ss'
+            })
 
-  $('.select-all').click(function () {
-    let $select2 = $(this).parent().siblings('.select2')
-    $select2.find('option').prop('selected', 'selected')
-    $select2.trigger('change')
-  })
-  $('.deselect-all').click(function () {
-    let $select2 = $(this).parent().siblings('.select2')
-    $select2.find('option').prop('selected', '')
-    $select2.trigger('change')
-  })
+            $('.select-all').click(function () {
+                let $select2 = $(this).parent().siblings('.select2')
+                $select2.find('option').prop('selected', 'selected')
+                $select2.trigger('change')
+            })
+            $('.deselect-all').click(function () {
+                let $select2 = $(this).parent().siblings('.select2')
+                $select2.find('option').prop('selected', '')
+                $select2.trigger('change')
+            })
 
-  $('.select2').select2()
+            $('.select2').select2()
 
-  $('.treeview').each(function () {
-    var shouldExpand = false
-    $(this).find('li').each(function () {
-      if ($(this).hasClass('active')) {
-        shouldExpand = true
-      }
-    })
-    if (shouldExpand) {
-      $(this).addClass('active')
-    }
-  })
-})
+            $('.treeview').each(function () {
+                var shouldExpand = false
+                $(this).find('li').each(function () {
+                if ($(this).hasClass('active')) {
+                    shouldExpand = true
+                }
+                })
+                if (shouldExpand) {
+                $(this).addClass('active')
+                }
+            })
+        })
 
     </script>
 

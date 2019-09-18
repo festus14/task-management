@@ -148,7 +148,7 @@
 
         {{-- Create Client Modal --}}
         <div style="margin-right: 15%; margin-bottom: 5%;">
-            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air btn-success pull-right" id="createClient" style="background-color:; color:white;" data-toggle="modal" data-target="#createClientModal">
+            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air btn-success pull-right" id="createClient" style="background-color:; color:white;" data-toggle="modal" onclick="changeFormat()" data-target="#createClientModal">
                     <span>
                         <i class="la la-plus"></i>
                         <span>
@@ -172,15 +172,15 @@
                                 <form id="clientForm" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row col-md-12">
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="company-name">Company Name</label>
-                                                <input type="text" name="name" class="form-control" id="company-name" placeholder="" required>
-                                            </div>
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label for="company-name">Company Name</label>
+                                            <input type="text" name="name" class="form-control" id="company-name" required>
+                                        </div>
 
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="date-of-eng">Date Of Engagement</label>
-                                                <input type="text" id="date_of_engagement" name="date_of_engagement" class="form-control date" value="" required>
-                                            </div>
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label for="date-of-eng">Date Of Engagement</label>
+                                            <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                        </div>
                                     </div>
                                     <div class="row col-md-12">
                                             <div class="col-md-6 form-group mt-3">
@@ -191,7 +191,7 @@
 
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="expiry-date">Expiry Date</label>
-                                                <input type="text" id="expiry_date" name="expiry_date" class="form-control date" value="" required>
+                                                <input type="text" id="expiry-date" name="expiry_date" class="form-control date" required>
                                             </div>
 
 
@@ -223,6 +223,27 @@
           {{-- End Create Client Modal --}}
 
 
+          <!-- Edit Client Modal -->
+<div class="modal fade" id="editClientModalBody" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Client</h5>
+                <button type="button" class="close" onclick="$('#editClientModalBody').modal('hide');" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="editClientBody" class="modal-body col-md-12">
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
     <!-- Begin: List Client -->
     <div class="m-content" style="max-width: 100%">
         <div class="m-portlet__body  m-portlet__body--no-padding" style="max-width: 100%">
@@ -248,158 +269,6 @@
 
     <!-- More Info Modal -->
     <div id="moreProjectInfo">
-
-<!-- Comment Modal -->
-    {{-- <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:100vh; min-height: 100px; max-width: 100%; min-width: 100px; overflow:hidden;" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Project Comments</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-                </div>
-                <div class="modal-body">
-                    <div class="m-content">
-                        <div class="row">
-                            <div class="col-lg-6">
-
-                                <div class="m-portlet__body">
-                                    <div class="m-card-profile">
-                                        <div class="m-card-profile__title m--hide">
-                                            Comments
-                                        </div>
-                                        <div class="m-card-profile__pic">
-                                            <div class="m-card-profile__pic-wrapper">
-                                                <img alt="" src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded" />
-                                            </div>
-                                        </div>
-                                        <div class="m-card-profile__details">
-                                            <span class="m-card-profile__name">
-                                                            Project Name
-                                                        </span>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
-                                    <div class="m-portlet__head">
-                                        <div class="m-portlet__head-tools">
-                                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-
-                                                <li class="nav-item m-tabs__item">
-                                                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
-                                                                Comments
-                                                            </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                    <!-- <div class="tab-content"> -->
-                                    <!-- <div class="tab-pane active" id="m_user_profile_tab_1"> -->
-                                    <div class=" m-scrollable">
-                                        <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
-                                            <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-                                                <div class="m-messenger__messages mCS-autoHide" style="height: 356px; max-height: auto; position: relative; overflow: hidden;">
-                                                    <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: auto; position: absolute;
-
-                                                    overflow-y: scroll; scrollbar-width: thin;">
-                                                        <div id="mCSB_3_container" class="mCSB_container" style="top:0; left:0;" dir="ltr">
-                                                            <br>
-                                                            <span id="filler"> </span>
-
-                                                            <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
-                                                                <div class="m-messenger__message m-messenger__message--in">
-                                                                    <div class="m-messenger__message-pic">
-                                                                        <img alt="" src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded" />
-                                                                    </div>
-                                                                    <div class="m-messenger__message-body">
-                                                                        <div class="m-messenger__message-arrow"></div>
-                                                                        <div class="m-messenger__message-content">
-                                                                            <div class="m-messenger__message-username">
-                                                                                <span class="secondary"><strong>Tomiwa wrote</strong></span>
-                                                                                <span id="datee" style="float: right;"></span>
-                                                                            </div>
-                                                                            <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; word-wrap: break-word; max-height: 4000px; display: flex; flex-direction: column;">
-                                                                                Hi Ayo. What time will be the meeting ? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel a ratione unde veritatis hic quidem totam quas, minima officiis ab sapiente necessitatibus doloribus vitae nesciunt atque deserunt.
-                                                                                <br/>
-                                                                                <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
-                                                                                </div>
-                                                                                <br>
-                                                                                <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
-
-                                                                                <div class="collapse" id="collapseReply">
-                                                                                    <br>
-                                                                                    <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button class="m-btn--pill btn btn-primary" type="submit" onclick="addReply()" style="margin-top: 5px; float: right;">Reply</button>
-                                                                                </div>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div id=" mCSB_3_scrollbar_vertical " class="mCSB_scrollTools mCSB_3_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical " style="display: block;">
-                                                        <div class=" mCSB_draggerContainer ">
-                                                            <div id="mCSB_3_dragger_vertical " class="mCSB_dragger " style="position: absolute; min-height: 50px; display: block; height: 114px; max-height: 319px; top: 0px; ">
-                                                                <div class="mCSB_dragger_bar " style="line-height: auto; "></div>
-                                                            </div>
-                                                            <div class="mCSB_draggerRail "></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="m-messenger__seperator "></div>
-                                                <div class="m-messenger__form " style="width: 100%; ">
-                                                    <div class="m-messenger__form-controls ">
-                                                        <button type="button" class="m-btn--pill btn btn-primary" data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
-                                                                    Make Comment
-                                                                </button>
-                                                        <!-- Make new Commment Modal -->
-                                                        <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
-                                                                        <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <textarea class="form-control " id="Textarea2" rows="4 " required></textarea>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
-                                                                        <button type="button" class="m-btn--pill btn btn-primary" class="" onclick="addComment(), $('#exampleModal').modal('toggle');">Comment</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End Make new Commment Modal -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class=" tab-pane " id="m_user_profile_tab_2 "></div>
-                                    <div class="tab-pane " id="m_user_profile_tab_3 "></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div> --}}
-<!-- endComment Modal -->
 
     </div>
 
@@ -438,18 +307,25 @@
             url: '{{ url("/api/v1/clients") }}',
             success: function (data) {
 
-                let card = document.getElementById('client-cards');
+                let clientCard = document.getElementById('client-cards');
                 let projectCard = document.getElementById('client-project-modal');
                 let taskCard = document.getElementById('client-task-modal');
 
                     data.data.map((datum, i) => {
-                    card.innerHTML = card.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
+                    clientCard.innerHTML = clientCard.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                     <div class="m-widget24">
+                        <div id="editDeleteBody" style="display: inline-block; margin-right: 10%;" class="pull-right" >
+                            <a onclick="editClient(${datum.id})" class="btn btn-sm m-btn--pill" href="#" style="display: inline-block;">
+                                <i class="fa fa-pencil" style="color:black;" data-toggle="modal" data-target="#editClientModalBody"><span style="font-weight:100;"></span></i>
+                            </a>
+                            <button onclick="deleteClient(${datum.id})" class="btn btn-sm m-btn--pill" style="border: none; background-color: white; display: inline-block;"><a class="btn" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a></button>
+                        </div>
                         <div class="m-widget24__item">
                             <div class="body-header" style="">
                                 <div class="" style=" float: left">
                                     <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
                                         width="80px" height="80px" style="border-radius: 1000px">
+
                                 </div>
                                 <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
                                     ${datum.name}
@@ -572,6 +448,198 @@
             console.log('Error:', data);
         }
         });
+
+
+
+        var clientData;
+        function editClient(client_id){
+
+            $.ajax({
+                type: "GET",
+                url: "/api/v1/clients/" + client_id,
+                success: function(data){
+                    clientData = data.data;
+                },
+
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+
+            })
+
+            $.ajax({
+                    type: "GET",
+                    url: "/api/v1/clients",
+                    success: function(data){
+                    let editClientBody = document.getElementById('editClientBody');
+                    editClientBody.innerHTML = `
+                            <div class="col-md-12 ">
+                                <form id="editClientForm" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label for="company-name">Company Name</label>
+                                            <input value="${clientData.name}" type="text" name="name" class="form-control" id="company-name" required>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label for="date-of-eng">Date Of Engagement</label>
+                                            <input value="${clientData.date_of_engagement}" type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="address">Address</label>
+                                                <input type="text" value="${clientData.address}" name="address" class="form-control" id="address" placeholder="" required>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="expiry-date">Expiry Date</label>
+                                                <input type="text" id="expiry-date" value="${clientData.expiry_date}" name="expiry_date" class="form-control date" required>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" value="${clientData.email}" class="form-control" id="email" required>
+                                            </div>
+
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="phone-num">Phone Number</label>
+                                                <input type="" name="phone" class="form-control" value="${clientData.phone}" id="phone-num" required>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-3 form-group mt-3">
+                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditClient(${clientData.id})" value="{{ trans('global.edit') }}">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                    `
+                    var allEditors = document.querySelectorAll('.ckeditor');
+                        for (var i = 0; i < allEditors.length; ++i) {
+                            ClassicEditor.create(allEditors[i]);
+                        }
+
+                        moment.updateLocale('en', {
+                            week: {dow: 1} // Monday is the first day of the week
+                        });
+
+                        $('.date').datetimepicker({
+                            format: 'DD-MM-YYYY',
+                            locale: 'en'
+                        });
+
+                        $('.datetime').datetimepicker({
+                            format: 'DD-MM-YYYY HH:mm:ss',
+                            locale: 'en',
+                            sideBySide: true
+                        });
+
+                        $('.timepicker').datetimepicker({
+                            format: 'HH:mm:ss'
+                        });
+
+                        $('.select-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2')
+                            $select2.find('option').prop('selected', 'selected')
+                            $select2.trigger('change')
+                        });
+                        $('.deselect-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2');
+                            $select2.find('option').prop('selected', '');
+                            $select2.trigger('change')
+                        });
+
+                        $('.select2').select2();
+                    },
+
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+
+                })
+
+            }
+
+
+            function submitEditClient(client_id){
+                let formdata = $('#editClientForm').serialize();
+                    $.ajax({
+                        type: "PUT",
+                        url: '{{ url("/api/v1/clients") }}'+ '/'+ client_id,
+                        data:formdata,
+                        success: function (data) {
+                            swal({
+                                title: "Success!",
+                                text: "Client Edited!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            window.setTimeout(function(){
+                                location.reload();
+                            }, 3000)
+
+                            },
+                            error: function (error) {
+                            swal({
+                                title: "Client Editing Failed!",
+                                text: "Please check the missing fields!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                            }
+
+
+                    })
+            }
+
+
+        function deleteClient(client_id){
+            swal({
+                title: "Are you sure?",
+                text: "This Client will be deleted!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('api/v1/clients')}}" + '/' + client_id,
+                        success: function (data) {
+                            swal("Deleted!", "Client successfully deleted.", "success");
+                            window.setTimeout(function(){
+                                location.reload();
+                            } , 2500);
+                        },
+
+                        error: function (data) {
+                            swal("Delete failed", "Please try again", "error");
+                        }
+
+                        });
+                        }
+
+                else {
+                        swal("Cancelled", "Delete cancelled", "error");
+                    }
+
+                });
+        }
 
 
         //   Function for calling Client Projects on the DT
@@ -1079,27 +1147,97 @@
                         })
             }
 
-            //Posting-Create client
-            function createCliento(){
-                    $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                    $.ajax({
-                    type: "POST",
-                    url: "/admin/clients",
-                    data: $('#clientForm').serialize(),
-                    success: function (data) {
-                        alert(data.success);
-                        location.reload();
-                    },
-                    error: function (error) {
-                        alert("Client creation failed");
+            function changeFormat(){
+                var allEditors = document.querySelectorAll('.ckeditor');
+                    for (var i = 0; i < allEditors.length; ++i) {
+                        ClassicEditor.create(allEditors[i]);
                     }
 
-                    });
-                 }
+                    moment.updateLocale('en', {
+                        week: {dow: 1} // Monday is the first day of the week
+                    })
+
+                    $('.date').datetimepicker({
+                        format: 'DD-MM-YYYY',
+                        locale: 'en'
+                    })
+
+                    $('.datetime').datetimepicker({
+                        format: 'DD-MM-YYYY HH:mm:ss',
+                        locale: 'en',
+                        sideBySide: true
+                    })
+
+                    $('.timepicker').datetimepicker({
+                        format: 'HH:mm:ss'
+                    })
+
+                    $('.select-all').click(function () {
+                        let $select2 = $(this).parent().siblings('.select2')
+                        $select2.find('option').prop('selected', 'selected')
+                        $select2.trigger('change')
+                    })
+                    $('.deselect-all').click(function () {
+                        let $select2 = $(this).parent().siblings('.select2')
+                        $select2.find('option').prop('selected', '')
+                        $select2.trigger('change')
+                    })
+
+                    $('.select2').select2()
+
+                    $('.treeview').each(function () {
+                        var shouldExpand = false
+                        $(this).find('li').each(function () {
+                        if ($(this).hasClass('active')) {
+                            shouldExpand = true
+                        }
+                        })
+                        if (shouldExpand) {
+                        $(this).addClass('active')
+                        }
+                    })
+            }
+
+            //Posting-Create client
+            function createCliento(){
+                let formData = $('#clientForm').serialize();
+                $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/clients") }}',
+                    data: FormData,
+
+                    success: function (data) {
+                        console.log(data)
+                        return
+                        swal({
+                            title: "Success!",
+                            text: "Client Added!",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                            // confirmButtonText: "OK",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 3000)
+
+                    },
+                    error: function (error) {
+                        console.log(error)
+                        swal({
+                            title: "Client can not be created",
+                            text: "Please check the missing fields!",
+                            icon: "error",
+                            confirmButtonColor: "#fc3",
+                            confirmButtonText: "OK",
+                        });
+                    }
+                });
+            }
 
             // Search Through Task Documents FUnction
         function searchTaskDocument() {
