@@ -394,6 +394,25 @@
         </div>
     <!--End modalled projType Modal -->
 
+    <!--Edit TaskStatus Modal -->
+<div class="modal fade" id="editTaskStatusModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Task Status Type</h5>
+                <button type="button" class="close" onclick="$('#editTaskStatusModal').modal('hide');" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+            </div>
+            <div id="editTaskStatusBody">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Edit projType Modal -->
+
+
 @endsection
 @section('javascript')
 <script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
@@ -744,7 +763,7 @@
 
 
             function getTaskCategoryAjaxDT(){
-                if ( $.fn.dataTable.isDataTable( '#kt_table_task_status') ) {
+                if ( $.fn.dataTable.isDataTable( '##kt_table_task_category') ) {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable();
                 }else {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable({
@@ -863,10 +882,10 @@
                             orderable: false,
                             searchable: false,
                             render: function (data, type, full, meta) {
-                            return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskStatusbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                            return '\<button class="btn btn-secondary dropdown-toggle" onclick="editTaskStatusModal('+full.id+')" type="button" id="taskStatusbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                                     <div class="dropdown-menu" aria-labelledby="taskStatusbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
                                                     <a class="link" href="#">\
-                                                        <i class="fa fa-pencil" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
+                                                        <i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskStatusModal" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
                                                     </a>\
                                                     <button onclick="deleteSingleTaskStatus('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                                                 </div>\
@@ -879,6 +898,67 @@
 
                 }
             }
+
+                var editStatusData;
+            function editTaskStatusModal(taskStatusId){
+                $.ajax({
+                        type: "GET",
+                        url: "/api/v1/task-statuses/" + taskStatusId,
+                        success: function(data){
+                            editStatusData = data.data;
+                            $('#editStatusInput').val(editStatusData.name);
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+                let editTaskModalBody = document.getElementById('editTaskStatusBody');
+                editTaskModalBody.innerHTML = `
+                <form id="editTaskStatusform" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="create-task">Status name</label>
+                            <input type="text" class="form-control" id="editStatusInput" name="name" placeholder="" value="" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="$('#editTaskStatusModal').modal('hide');">Close</button>
+                        <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskStatus(${taskStatusId})" value="Update">
+                    </div>
+                </form>
+                `
+            }
+
+
+            function submitEditTaskStatus(taskStatusId){
+            $.ajax({
+                    type: "PUT",
+                    data:  $('#editTaskStatusform').serialize(),
+                    url: "/api/v1/task-statuses" + "/" + taskStatusId,
+                    success: function (data) {
+                        swal({
+                            title: "Success!",
+                            text: "Task status edited!",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 3000)
+
+                        },
+                        error: function (error) {
+                        swal({
+                            title: "TAsk status edit failed!",
+                            icon: "error",
+                            confirmButtonColor: "#fc3",
+                            confirmButtonText: "OK",
+                        });
+                        }
+                });
+        }
 
 
             // Delete Task Status
@@ -1599,7 +1679,7 @@
                         <form class="form" id="addTaskform" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-6">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="client-list">Select Client</label>
                                             <select id="client-list" onchange="filterType()" name="client_id" class="form-control">
@@ -1615,7 +1695,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-6">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Select Project Subtype</label>
                                             <select id="project-subtype-list" name="project_subtype_id" class="form-control">
@@ -1629,7 +1709,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Task Category</label>
                                             <select id="task-category" name="category_id" class="selectDesign form-control">
@@ -1638,7 +1718,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Task Status</label>
                                             <select id="task-status" name="status_id" class="selectDesign form-control">
@@ -1647,7 +1727,7 @@
                                                 </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
@@ -1657,7 +1737,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 col-sm-6">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
@@ -1668,13 +1748,13 @@
                                     </div>
 
 
-                                    <div class="col-md-3 col-sm-3">
+                                    <div class="col-md-3 col-sm-12">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
                                             <input type="text" name="starting_date" class="form-control datetime" id="starting-date" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3">
+                                    <div class="col-md-3 col-sm-12">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
                                             <input type="text" name="ending_date" class="form-control datetime" id="deadline" required>
@@ -1691,43 +1771,46 @@
                         `
                         window._token = $('meta[name="csrf-token"]').attr('content');
 
-                                var allEditors = document.querySelectorAll('.ckeditor');
-                                for (var i = 0; i < allEditors.length; ++i) {
-                                    ClassicEditor.create(allEditors[i]);
-                                }
+                        var allEditors = document.querySelectorAll('.ckeditor');
+                        for (var i = 0; i < allEditors.length; ++i) {
+                            ClassicEditor.create(allEditors[i]);
+                        }
 
-                                moment.updateLocale('en', {
-                                    week: {dow: 1} // Monday is the first day of the week
-                                });
+                        moment.updateLocale('en', {
+                            week: {dow: 1} // Monday is the first day of the week
+                        });
 
-                                $('.date').datetimepicker({
-                                    format: 'DD-MM-YYYY',
-                                    locale: 'en'
-                                });
+                        $('.date').datetimepicker({
+                            format: 'DD-MM-YYYY',
+                            locale: 'en'
+                        });
 
-                                $('.datetime').datetimepicker({
-                                    format: 'DD-MM-YYYY HH:mm:ss',
-                                    locale: 'en',
-                                    sideBySide: true
-                                });
+                        $('.datetime').datetimepicker({
+                            format: 'DD-MM-YYYY HH:mm:ss',
+                            locale: 'en',
+                            sideBySide: true
+                        });
 
-                                $('.timepicker').datetimepicker({
-                                    format: 'HH:mm:ss'
-                                });
+                        $('.timepicker').datetimepicker({
+                            format: 'HH:mm:ss'
+                        });
 
-                                $('.select-all').click(function () {
-                                    let $select2 = $(this).parent().siblings('.select2')
-                                    $select2.find('option').prop('selected', 'selected')
-                                    $select2.trigger('change')
-                                });
-                                $('.deselect-all').click(function () {
-                                    let $select2 = $(this).parent().siblings('.select2');
-                                    $select2.find('option').prop('selected', '');
-                                    $select2.trigger('change')
-                                });
+                        $('.select-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2')
+                            $select2.find('option').prop('selected', 'selected')
+                            $select2.trigger('change')
+                        });
+                        $('.deselect-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2');
+                            $select2.find('option').prop('selected', '');
+                            $select2.trigger('change')
+                        });
 
-                                $('.select2').select2();
-                                                    }
+                        $('.select2').select2();
+                                    },
+                                    error: function (data) {
+                                        console.log('Error:', data);
+                                    }
                                                 });
                                             }
 
@@ -1810,7 +1893,6 @@
                         url: "/api/v1/create_task",
                         success: function(data){
                             var allData = data.data;
-                            // console.log(allData)
                         let editTaskBody = document.getElementById('editTaskBody');
                         editTaskBody.innerHTML = `
                             <div class="modal-body">
@@ -1956,15 +2038,30 @@
                 function submitEditTaskForm(taskID){
                     $.ajax({
                         type: "PUT",
+                        data: $('#editTaskform').serialize(),
                         url: "/api/v1/tasks/" + taskID,
                         success: function (data) {
-                            console.log(data)
-                            location.reload();
-                        },
+                            swal({
+                                title: "Success!",
+                                text: "Task successfully edited!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            window.setTimeout(function(){
+                                location.reload();
+                            }, 3000)
 
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
+                            },
+                            error: function (error) {
+                            swal({
+                                title: "Task editing failed!",
+                                text: "Please check the missing fields!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                            }
 
                     })
                 }
@@ -2054,6 +2151,7 @@
                 });
             }
 
+
         //  Edit TaskCategory
          var editTaskCategoryData;
             function editTaskCategory(task_id){
@@ -2082,7 +2180,7 @@
                 success: function(data){
                 var editTaskCatData = data.data;
                 let editTaskBody = document.getElementById('editTaskCategoryModalbody');
-                editTaskBody.innerHTML = `
+                editTaskBody.innerHTML =`
                 <form  id="addtaskCategoryform" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
@@ -2118,7 +2216,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createTaskCategory();" value="{{ trans('global.update') }}">
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskCategory(${task_id});" value="{{ trans('global.update') }}">
                         </div>
                     </form>
 
@@ -2128,7 +2226,37 @@
 
         }
 
+        function submitEditTaskCategory(taskID){
+            console.log('got here')
+                    $.ajax({
+                        type: "PUT",
+                        data: $('#addtaskCategoryform').serialize(),
+                        url: "/api/v1/tast-categories/" + taskID,
+                        success: function (data) {
+                            swal({
+                                title: "Success!",
+                                text: "Task category successfully edited!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            window.setTimeout(function(){
+                                location.reload();
+                            }, 3000)
 
+                            },
+                            error: function (error) {
+                            swal({
+                                title: "Task category editing failed!",
+                                text: "Please check the missing fields!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                            }
+
+                    })
+                }
 
         function postCreateTaskCategory(){
             $.ajaxSetup({
