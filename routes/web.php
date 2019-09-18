@@ -160,6 +160,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/get_project_subtype/{project_id}', 'ProjectPagesController@projectTypeAPI')->name('get_project_subtype');
     Route::get('view_task', 'TaskPagesController@viewTask')->name('view_task');
 
+
 });
-
-

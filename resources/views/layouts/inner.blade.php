@@ -808,7 +808,7 @@
                     <!-- END: Aside Menu -->
                 </div>
                 <!-- END: Left Aside -->
-                <div class="m-grid__item m-grid__item--fluid m-wrapper">
+                <div class="m-grid__item m-grid__item--fluid m-wrapper" style="box-sizing: border-box">
                     <!-- BEGIN: Subheader -->
                     <div class="m-subheader ">
                         <div class="d-flex align-items-center">
@@ -834,7 +834,7 @@
                     </div>
                     <!-- END: Subheader -->
 
-                        <div class="m-content" style="width: 99%;">
+                        <div class="m-content" style="width: 99%; box-sizing: border-box" data-select2-id="6">
                             <!-- Inner page content goes here -->
                             @yield('content')
                             <!-- <div>

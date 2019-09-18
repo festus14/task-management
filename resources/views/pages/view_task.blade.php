@@ -1599,7 +1599,7 @@
                         <form class="form" id="addTaskform" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-6">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="client-list">Select Client</label>
                                             <select id="client-list" name="client_id" class="form-control">
@@ -1616,7 +1616,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-6">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Select Project Subtype</label>
                                             <select id="project-subtype-list" name="project_subtype_id" class="form-control">
@@ -1631,7 +1631,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Task Category</label>
                                             <select id="task-category" name="category_id" class="selectDesign form-control">
@@ -1640,7 +1640,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Task Status</label>
                                             <select id="task-status" name="status_id" class="selectDesign form-control">
@@ -1649,7 +1649,7 @@
                                                 </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
@@ -1659,7 +1659,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 col-sm-6">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
@@ -1670,13 +1670,13 @@
                                     </div>
 
 
-                                    <div class="col-md-3 col-sm-3">
+                                    <div class="col-md-3 col-sm-12">
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
                                             <input type="text" name="starting_date" class="form-control datetime" id="starting-date" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3">
+                                    <div class="col-md-3 col-sm-12">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
                                             <input type="text" name="ending_date" class="form-control datetime" id="deadline" required>
@@ -1693,43 +1693,46 @@
                         `
                         window._token = $('meta[name="csrf-token"]').attr('content');
 
-                                var allEditors = document.querySelectorAll('.ckeditor');
-                                for (var i = 0; i < allEditors.length; ++i) {
-                                    ClassicEditor.create(allEditors[i]);
-                                }
+                        var allEditors = document.querySelectorAll('.ckeditor');
+                        for (var i = 0; i < allEditors.length; ++i) {
+                            ClassicEditor.create(allEditors[i]);
+                        }
 
-                                moment.updateLocale('en', {
-                                    week: {dow: 1} // Monday is the first day of the week
-                                });
+                        moment.updateLocale('en', {
+                            week: {dow: 1} // Monday is the first day of the week
+                        });
 
-                                $('.date').datetimepicker({
-                                    format: 'DD-MM-YYYY',
-                                    locale: 'en'
-                                });
+                        $('.date').datetimepicker({
+                            format: 'DD-MM-YYYY',
+                            locale: 'en'
+                        });
 
-                                $('.datetime').datetimepicker({
-                                    format: 'DD-MM-YYYY HH:mm:ss',
-                                    locale: 'en',
-                                    sideBySide: true
-                                });
+                        $('.datetime').datetimepicker({
+                            format: 'DD-MM-YYYY HH:mm:ss',
+                            locale: 'en',
+                            sideBySide: true
+                        });
 
-                                $('.timepicker').datetimepicker({
-                                    format: 'HH:mm:ss'
-                                });
+                        $('.timepicker').datetimepicker({
+                            format: 'HH:mm:ss'
+                        });
 
-                                $('.select-all').click(function () {
-                                    let $select2 = $(this).parent().siblings('.select2')
-                                    $select2.find('option').prop('selected', 'selected')
-                                    $select2.trigger('change')
-                                });
-                                $('.deselect-all').click(function () {
-                                    let $select2 = $(this).parent().siblings('.select2');
-                                    $select2.find('option').prop('selected', '');
-                                    $select2.trigger('change')
-                                });
+                        $('.select-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2')
+                            $select2.find('option').prop('selected', 'selected')
+                            $select2.trigger('change')
+                        });
+                        $('.deselect-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2');
+                            $select2.find('option').prop('selected', '');
+                            $select2.trigger('change')
+                        });
 
-                                $('.select2').select2();
-                                                    }
+                        $('.select2').select2();
+                                    },
+                                    error: function (data) {
+                                        console.log('Error:', data);
+                                    }
                                                 });
                                             }
 
@@ -1767,7 +1770,6 @@
                         url: "/api/v1/create_task",
                         success: function(data){
                             var allData = data.data;
-                            // console.log(allData)
                         let editTaskBody = document.getElementById('editTaskBody');
                         editTaskBody.innerHTML = `
                             <div class="modal-body">
@@ -1913,7 +1915,7 @@
                 function submitEditTaskForm(taskID){
                     $.ajax({
                         type: "PUT",
-                        url: "/api/v1/tasks" + taskID,
+                        url: "/api/v1/tasks/" + taskID,
                         success: function (data) {
                             swal({
                                 title: "Success!",
