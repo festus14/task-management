@@ -44,6 +44,10 @@
             float: right !important;
             width: 40% !important;
         }
+        .error {
+    color: red;
+    font-size: 90%;
+}
     </style>
 </head>
 <!-- end::Head -->

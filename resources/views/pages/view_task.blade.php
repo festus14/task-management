@@ -1686,6 +1686,7 @@
                                                 <option value="" selected> </option>
                                                 ${Object.keys(data.data.clients).map((key, index) => `<option value="${key}">${data.data.clients[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="clientErr"></div>
                                         </div>
 
                                         <div class="form-group">
@@ -1694,6 +1695,7 @@
                                                     <option value="" selected> </option>
                                                     ${Object.keys(data.data.projects).map((key, index) => `<option value="${key}">${data.data.projects[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="projListErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -1703,11 +1705,13 @@
                                                     <option value="" selected> </option>
                                                     ${Object.keys(data.data.projects_sub_type).map((key, index) => `<option value="${key}">${data.data.projects_sub_type[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="projSubErr"></div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
                                             <input type="text" name="name" class="form-control" id="create-task" placeholder="Enter Task Name" required>
+                                            <div class="error" id="nameErr"></div>
                                         </div>
 
                                     </div>
@@ -1718,6 +1722,7 @@
                                                     <option value="" selected> </option>
                                                     ${Object.keys(data.data.categories).map((key, index) => `<option value="${key}">${data.data.categories[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="categoryErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-12">
@@ -1727,6 +1732,7 @@
                                                     <option value="" selected> </option>
                                                     ${Object.keys(data.data.statuses).map((key, index) => `<option value="${key}" >${data.data.statuses[key]}</option>`)}
                                                 </select>
+                                                <div class="error" id="statusErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-12">
@@ -1736,6 +1742,7 @@
                                                     <option value="" selected> </option>
                                                     ${Object.keys(data.data.managers).map((key, index) => `<option value="${key}">${data.data.managers[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="managerErr"></div>
                                         </div>
                                     </div>
 
@@ -1746,6 +1753,7 @@
                                             <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" class="form-control select2" required>
                                                 ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="assignErr"></div>
                                         </div>
                                     </div>
 
@@ -1754,18 +1762,20 @@
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
                                             <input type="text" name="starting_date" class="form-control datetime" id="starting-date" required>
+                                            <div class="error" id="startErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-12">
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
                                             <input type="text" name="ending_date" class="form-control datetime" id="deadline" required>
+                                            <div class="error" id="endErr"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTask();" value="{{ trans('global.create') }}">
+                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateCreateTaskForm();" value="{{ trans('global.create') }}">
                                 </div>
                             </form>
 
@@ -2275,8 +2285,140 @@
                 }
                 });
                 }
+    function printError(elemId, hintMsg) {
+          document.getElementById(elemId).innerHTML = hintMsg;
+        }
+
+   function validateCreateTaskForm() {
+    // Retrieving the values of form elements
+    let clientlist = $('#client-list').val();
+    let projectlist = $('#project-list').val();
+    let projSubList = $('#project-subtype-list').val();
+    let taskName = $('#create-task').val();
+    let taskCat = $('#task-category').val();
+    let taskStat = $('#task-status').val();
+    let manager = $('#manager').val();
+    let assignedTos = $('#assinged_tos').val();
+    let startDate = $('#starting-date').val();
+    let deadline = $('#deadline').val();
 
 
+	// Defining error variables with a default value
+    var clientErr = projListErr = projSubErr = nameErr = categoryErr = statusErr = managerErr = assignErr = startErr = endErr = true;
+
+     // Validate client
+     if(clientlist == "") {
+        printError("clientErr", "Please select a client");
+    } else {
+        printError("clientErr", "");
+        clientErr = false;
+    }
+    // Validate project
+    if(projectlist == "") {
+            printError("projListErr", "Please select a project");
+        } else {
+            printError("projListErr", "");
+            projListErr = false;
+        }
+    // Validate project sub
+    if(projSubList == "") {
+           printError("projSubErr", "Please select a project subtype");
+       } else {
+           printError("projSubErr", "");
+           projSubErr = false;
+       }
+
+    // Validate name
+    if(taskName == "") {
+        printError("nameErr", "Please input a task name");
+    } else {
+        // var regex = /^[a-zA-Z\s]+$/;
+        // if(regex.test(taskName) === false) {
+        //     printError("nameErr", "Please input a valid task name");
+        // }
+        // else {
+            printError("nameErr", "");
+            nameErr = false;
+        // }
+    }
+    if(taskName){
+        taskName = taskName.toUpperCase();
+            $.ajax({
+                type: "GET",
+                url: "/api/v1/tasks",
+                success: function (data) {
+                for(let i=0; i<data.data.length; i++){
+                    if(data.data[i].name.toUpperCase()==taskName){
+                        printError("nameErr", "Task name already exists");
+                    }
+                }
+                },
+
+                error: function (data) {
+
+                }
+
+            })
+        }
+    // Validate task category
+    if(taskCat == "") {
+            printError("categoryErr", "Select a category");
+        } else {
+            printError("categoryErr", "");
+            categoryErr = false;
+        }
+
+    // Validate task status
+    if(taskStat == "") {
+            printError("statusErr", "Select a status");
+        } else {
+            printError("statusErr", "");
+            statusErr = false;
+        }
+
+    // Validate task manager
+    if(manager == "") {
+            printError("managerErr", "Select a manager");
+        } else {
+            printError("managerErr", "");
+            managerErr = false;
+        }
+
+    // Validate assigned tos
+    if(assignedTos == "") {
+            printError("assignErr", "Please select a member");
+        } else {
+            printError("assignErr", "");
+            assignErr = false;
+        }
+
+    // Validate start date
+    if(startDate == "") {
+            printError("startErr", "Pick a date");
+        } else {
+            printError("startErr", "");
+            startErr = false;
+        }
+
+
+    // Validate deadline
+    if(deadline == "") {
+            printError("endErr", "Pick a date");
+        } else {
+            printError("endErr", "");
+            endErr = false;
+        }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if((clientErr || projListErr || projSubErr || nameErr || categoryErr || statusErr|| managerErr || assignErr || startErr || endErr) == true) {
+       return false;
+    } else {
+
+        postCreateTask();
+    }
+};
     </script>
 
 
