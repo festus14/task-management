@@ -315,10 +315,10 @@
                     clientCard.innerHTML = clientCard.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                     <div class="m-widget24">
                         <div id="editDeleteBody" style="display: inline-block; margin-right: 10%;" class="pull-right" >
-                            <a onclick="editClient(${datum.id})" class="btn btn-sm m-btn--pill" href="#" style="display: inline-block;">
+                            <a onclick="editClient(${datum.id})" class="btn btn-sm m-btn--pill" href="#" style="display: inline;">
                                 <i class="fa fa-pencil" style="color:black;" data-toggle="modal" data-target="#editClientModalBody"><span style="font-weight:100;"></span></i>
                             </a>
-                            <button onclick="deleteClient(${datum.id})" class="btn btn-sm m-btn--pill" style="border: none; background-color: white; display: inline-block;"><a class="btn" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a></button>
+                            <button onclick="deleteClient(${datum.id})" class="btn btn-sm m-btn--pill" style="border: none; background-color: white; display: inline;"><a class="btn" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a></button>
                         </div>
                         <div class="m-widget24__item">
                             <div class="body-header" style="">

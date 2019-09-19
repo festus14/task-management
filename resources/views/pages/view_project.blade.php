@@ -956,22 +956,25 @@
                                         data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
                                     </select>
+                                    <div class="error" id="clientErr"></div>
                                 </div>
 
                                 <div class="col-md-6 form-group mt-3">
                                         <label for="create-project">Project Name</label>
                                     <input type="text" name="name" class="form-control" id="create-project" placeholder="" required>
+                                    <div class="error" id="nameErr"></div>
                                 </div>
                             </div>
                             <div class="row col-md-12">
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project">Manager</label><br>
-                                    <select name="manager_id" class="form-control" style="width:100%;" required>
+                                    <select id="manager_id" name="manager_id" class="form-control" style="width:100%;" required>
                                         <option value="" selected></option>
                                         ` +
                                         data.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
                                     </select>
+                                    <div class="error" id="managerErr"></div>
                                 </div>
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project-type">Project Type</label>
@@ -982,6 +985,7 @@
                                         data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
                                     </select>
+                                    <div class="error" id="projTypeErr"></div>
                                 </div>
 
 
@@ -991,6 +995,7 @@
                                     <select class="form-control" id="projectSubtypeId1"  name="project_subtype_id">
 
                                     </select>
+                                    <div class="error" id="projSubErr"></div>
                                 </div>
                             </div>
                             <div class="row col-md-12 ">
@@ -998,25 +1003,28 @@
                                 <div class="col-md-3 form-group mt-3">
                                     <label for="starting-date">Start Date</label>
                                     <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
+                                    <div class="error" id="startErr"></div>
                                 </div>
 
                                 <div class="col-md-3 form-group mt-3">
                                     <label for="Deadline">Deadline</label>
                                     <input type="text" class="form-control datetime" name="deadline" id="Deadline" required>
+                                    <div class="error" id="endErr"></div>
                                 </div>
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Team members</label><br>
-                                    <select multiple class="form-control select2" name="team_members[]" style="width:100%;"required>
+                                    <select multiple class="form-control select2" id="teammembers" name="team_members[]" style="width:100%;"required>
 
                                         ` +
                                         data.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                     + `
                                     </select>
+                                    <div class="error" id="membersErr"></div>
                                 </div>
 
 
                                 <div class="col-md-2 form-group mt-3">
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="createProject();" value="Create">
+                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateCreateProjectForm();" value="Create">
                                 </div>
                             </div>
                         </form>
@@ -1151,7 +1159,25 @@
 
 
             //  Edit Project Sub form
+            var editSubData
         function editProjectSubtype(sub_id){
+
+            $.ajax({
+                        type: "GET",
+                        url: "/api/v1/project-sub-types/" + sub_id,
+                        success: function(data){
+                            editData = data.data;
+                            $('#sub-type').val(editSubData[0].name);
+                            $('#projecttype').val(editSubData.project_type_id + "");
+                            console.log(editData);
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+
             $.ajax({
                 type: "GET",
                 url: "/api/v1/project-sub-types",
@@ -1459,7 +1485,7 @@
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 form-group mt-3">
                                                     <label for="create-project">Manager</label><br>
-                                                    <select name="manager_id" class="form-control select2" style="width:100%;" required>
+                                                    <select id ="manager_id" name="manager_id" class="form-control select2" style="width:100%;" required>
                                                         ` +
                                                         projData.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
@@ -1993,7 +2019,7 @@
 
                     swal({
                         title: "Success!",
-                        text: "Project Document Submitted!",
+                        text: "Project document submitted!",
                         icon: "success",
                         confirmButtonColor: "#DD6B55",
                         // confirmButtonText: "OK",
@@ -2005,7 +2031,7 @@
                     },
                     error: function (error) {
                     swal({
-                        title: "Project Document Wasn't Created!",
+                        title: "Project document wasn't created!",
                         icon: "error",
                         confirmButtonColor: "#fc3",
                         confirmButtonText: "OK",
@@ -2642,61 +2668,127 @@
                 });
             }
 
+            function printError(elemId, hintMsg) {
+          document.getElementById(elemId).innerHTML = hintMsg;
+        }
+
+   function validateCreateProjectForm() {
+    // Retrieving the values of form elements
+    let clientlist = $('#client-list').val();
+    let projectSublist = $('#projectSubtypeId1').val();
+    let projTypelist = $('#projtypeboy1').val();
+    let projectName = $('#create-project').val();
+    let manager = $('#manager_id').val();
+    let teamMembers = $('#teammembers').val();
+    let startDate = $('#starting-date').val();
+    let deadline = $('#Deadline').val();
 
 
+	// Defining error variables with a default value
+    var clientErr = projTypeErr = projSubErr = nameErr = managerErr = membersErr = startErr = endErr = true;
 
-        $(document).ready(function () {
+     // Validate client
+     if(clientlist == "") {
+        printError("clientErr", "Please select a client");
+    } else {
+        printError("clientErr", "");
+        clientErr = false;
+    }
+    // Validate project
+    if(projTypelist == "") {
+            printError("projTypeErr", "Please select a project type");
+        } else {
+            printError("projTypeErr", "");
+            projTypeErr = false;
+        }
+    // Validate project sub
+    if(projectSublist == "") {
+           printError("projSubErr", "Please select a project subtype");
+       } else {
+           printError("projSubErr", "");
+           projSubErr = false;
+       }
 
-            var allEditors = document.querySelectorAll('.ckeditor');
-            for (var i = 0; i < allEditors.length; ++i) {
-                ClassicEditor.create(allEditors[i]);
-            }
+    // Validate name
 
-            moment.updateLocale('en', {
-                week: {dow: 1} // Monday is the first day of the week
-            })
-
-            $('.date').datetimepicker({
-                format: 'DD-MM-YYYY',
-                locale: 'en'
-            })
-
-            $('.datetime').datetimepicker({
-                format: 'DD-MM-YYYY HH:mm:ss',
-                locale: 'en',
-                sideBySide: true
-            })
-
-            $('.timepicker').datetimepicker({
-                format: 'HH:mm:ss'
-            })
-
-            $('.select-all').click(function () {
-                let $select2 = $(this).parent().siblings('.select2')
-                $select2.find('option').prop('selected', 'selected')
-                $select2.trigger('change')
-            })
-            $('.deselect-all').click(function () {
-                let $select2 = $(this).parent().siblings('.select2')
-                $select2.find('option').prop('selected', '')
-                $select2.trigger('change')
-            })
-
-            $('.select2').select2()
-
-            $('.treeview').each(function () {
-                var shouldExpand = false
-                $(this).find('li').each(function () {
-                if ($(this).hasClass('active')) {
-                    shouldExpand = true
+    if(projectName == "") {
+        printError("nameErr", "Please input a project name");
+    } else {
+        var regex = /^[a-zA-Z\s]+$/;
+        if(regex.test(projectName) === false) {
+            printError("nameErr", "Please input a valid project name");
+        } else {
+            printError("nameErr", "");
+            nameErr = false;
+        }
+    }
+    if(projectName){
+        projectName = projectName.toUpperCase();
+            $.ajax({
+                type: "GET",
+                url: "/api/v1/projects",
+                success: function (data) {
+                for(let i=0; i<data.data.length; i++){
+                    if(data.data[i].name.toUpperCase() ==projectName){
+                        printError("nameErr", "Project name already exists");
+                        nameErr = true;
+                    }
                 }
-                })
-                if (shouldExpand) {
-                $(this).addClass('active')
-                }
-            })
-        })
+                },
 
+                error: function (data) {
+
+                }
+
+            })
+        }else {
+            printError("nameErr", "");
+            nameErr = false;
+        }
+
+    // Validate task manager
+    if(manager == "") {
+            printError("managerErr", "Select a manager");
+        } else {
+            printError("managerErr", "");
+            managerErr = false;
+        }
+
+    // Validate members
+    if(teamMembers == "") {
+            printError("membersErr", "Please select a member");
+        } else {
+            printError("membersErr", "");
+            membersErr = false;
+        }
+
+    // Validate start date
+    if(startDate == "") {
+            printError("startErr", "Pick a date");
+        } else {
+            printError("startErr", "");
+            startErr = false;
+        }
+
+
+    // Validate deadline
+    if(deadline == "") {
+            printError("endErr", "Pick a date");
+        } else {
+            printError("endErr", "");
+            endErr = false;
+        }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if((clientErr || projTypeErr || projSubErr || nameErr || managerErr || membersErr|| startErr || endErr) == true) {
+       return false;
+    } else {
+
+        createProject();
+    }
+};
     </script>
 
        @endsection
