@@ -53,8 +53,8 @@
                                         </span>
                                     </span>
                                 </a>
-                                <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="taskCategoryId" data-toggle="modal" data-target="#taskcategoryDatatable">
-                                        <span onclick="getTaskCategoryAjaxDT()">
+                                <a onclick="getTaskCategoryAjaxDT()" class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="taskCategoryId" data-toggle="modal" data-target="#taskcategoryDatatable">
+                                        <span>
                                                 <span>
                                                     Task Category
                                                 </span>
@@ -112,12 +112,12 @@
     {{-- end Create task Model --}}
 
     <!-- Edit task Modal -->
-    <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editTaskModalMain" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
-                        <button type="button" class="close" onclick="$('#editTaskModal').modal('hide');" aria-label="Close">
+                        <button type="button" class="close" onclick="$('#editTaskModalMain').modal('hide');" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -210,6 +210,8 @@
     <!-- More Info Modal -->
     <div id="moreInfo">
 
+    </div>
+
     <!-- Add Document Modal -->
     <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
@@ -284,16 +286,16 @@
     {{-- end Task Category Modal --}}
 
        {{-- edit Task Category Modal --}}
-       <div class="modal fade" id="editTaskCategory" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+       <div class="modal fade" id="editTaskCategoryModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="edittaskCategoryId">Edit Task Category</h5>
-                    <button type="button" class="close" onclick="$('#editTaskCategory').modal('hide');" aria-label="Close">
+                    <h5 class="modal-title" id="edittaskCategoryHead">Edit Task Category</h5>
+                    <button type="button" class="close" onclick="$('#editTaskCategoryModal').modal('hide');" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                 </div>
-                <div id="editTaskCategoryModalbody" class="modal-body">
+                <div id="editTaskCategoryModalBody" class="modal-body">
 
                 </div>
             </div>
@@ -707,11 +709,11 @@
                     orderable: false,
                     searchable: false,
                     render: function (data, type, full, meta) {
-                    return '\<button onclick="displayTaskInfo('+full.id+'), editTask('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                    return '\<button onclick="displayTaskInfo('+full.id+'), editTaskMain('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                 <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
                                 <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> <span style="font-weight:100;"> View </span></i>\
                                 </a>\
-                                <a class="link" href="#"><i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskModal" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
+                                <a class="link" href="#"><i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskModalMain" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
                                 </a>\
                             <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
@@ -763,7 +765,7 @@
 
 
             function getTaskCategoryAjaxDT(){
-                if ( $.fn.dataTable.isDataTable( '##kt_table_task_category') ) {
+                if ( $.fn.dataTable.isDataTable( '#kt_table_task_category') ) {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable();
                 }else {
                     var kt_table_task_category = $('#kt_table_task_category').DataTable({
@@ -798,8 +800,8 @@
                             render: function (data, type, full, meta) {
                             return '\<button class="btn btn-secondary dropdown-toggle" onclick="editTaskCategory('+full.id+')" type="button" id="taskcategoryToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                         <div class="dropdown-menu" aria-labelledby="taskcategoryToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
-                                            <a class="link" href="#">\
-                                                <i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskCategory" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
+                                            <a class="link" data-toggle="modal" data-target="#editTaskCategoryModal" href="#">\
+                                                <i class="fa fa-pencil" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
                                             </a>\
                                             <button onclick="deleteSingleTaskCategory('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                                         </div>\
@@ -1066,10 +1068,6 @@
                                     </div>
                                 </div>
                             </div>
-                                    <!--end::Portlet-->
-
-
-                                        <!-- End main Content of More-info -->
 
                                         <div class="modal-footer">
                                         </div>
@@ -1862,31 +1860,8 @@
 
                 //Edit Task
                 var editData;
-            function editTask(task_id) {
+            function editTaskMain(task_id) {
 
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/v1/tasks/" + task_id,
-                        success: function(data){
-                            editData = data.data;
-                            $('#create-task').val(editData.name);
-                            $('#client-list').val(editData.client_id + "");
-                            $('#project-list').val(editData.project_id + "");
-                            $('#task-status').val(editData.status_id + "");
-                            $('#manager').val(editData.manager_id + "");
-                            $('#task-category').val(editData.category_id + "");
-                            $('#project-subtype-list').val(editData.project_subtype_id + "");
-                            $('#assinged_tos').val(editData.assinged_tos + "");
-                            $('#starting-date').val(editData.starting_date);
-                            $('#deadline').val(editData.ending_date);
-                            console.log(editData);
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
 
                     $.ajax({
                         type: "GET",
@@ -1902,14 +1877,14 @@
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label for="client-list">Select Client</label>
-                                            <select id="client-list" name="client_id" class="selectDesign form-control" selected="3">
+                                            <select id="client-list" onchange="editFilterType()" name="client_id" class="selectDesign form-control" selected="3">
                                                 ${Object.keys(allData.clients).map((key, index) => `<option value="${key}">${allData.clients[key]}</option>`)}
                                             </select>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Select Project</label>
-                                            <select id="project-list" name="project_id" class="selectDesign form-control">
+                                            <select id="project-list" onchange="editFilterSubType()" name="project_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
                                             </select>
                                         </div>
@@ -1981,12 +1956,37 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskForm(${task_id});" value="Submit">
+                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskForm(${task_id});" value="Update">
                                 </div>
                             </form>
 
                         </div>
                         `
+
+                        $.ajax({
+                        type: "GET",
+                        url: "/api/v1/tasks/" + task_id,
+                        success: function(data){
+                            editData = data.data;
+                            $('#create-task').val(editData.name);
+                            $('#client-list').val(editData.client_id + "");
+                            $('#project-list').val(editData.project_id + "");
+                            $('#task-status').val(editData.status_id + "");
+                            $('#manager').val(editData.manager_id + "");
+                            $('#task-category').val(editData.category_id + "");
+                            $('#project-subtype-list').val(editData.project_subtype_id + "");
+                            $('#assinged_tos').val(editData.assinged_tos + "");
+                            $('#starting-date').val(editData.starting_date);
+                            $('#deadline').val(editData.ending_date);
+                            console.log(editData);
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+
                         window._token = $('meta[name="csrf-token"]').attr('content');
 
                             var allEditors = document.querySelectorAll('.ckeditor');
@@ -2035,11 +2035,57 @@
 
                     }
 
+
+                    function editFilterType(){
+                        let typeVal = document.getElementById("client-list").value;
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ url('/api/v1/clients')}}" + '/' + typeVal,
+                            success: function (data) {
+                                document.getElementById('project-list').innerHTML = `
+                                <option value="" selected></option> ` +
+                                data.data.projects.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                + `
+                                `
+                            },
+                            error: function (data) {
+                                document.getElementById('project-list').innerHTML =
+                                `
+                                <option value="" selected></option>
+                                `
+                                console.log('Error:', data);
+                            }
+                        });
+                    }
+
+                    function editFilterSubType(){
+                        let subtypeVal = document.getElementById("project-list").value;
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ url('/api/v1/project-types')}}" + '/' + subtypeVal,
+                            success: function (data) {
+                                document.getElementById('project-subtype-list').innerHTML = `
+                                <option value="" selected></option> ` +
+                                data.data.sub_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                + `
+                                `
+                            },
+                            error: function (data) {
+                                document.getElementById('project-subtype-list').innerHTML = `
+                                <option value="" selected></option>
+                                `
+
+                                // console.log('Error:', data);
+                            }
+                        });
+                    }
+
                 function submitEditTaskForm(taskID){
+                    let formdata = $('#editTaskform').serialize();
                     $.ajax({
                         type: "PUT",
-                        data: $('#editTaskform').serialize(),
                         url: "/api/v1/tasks/" + taskID,
+                        data: formdata,
                         success: function (data) {
                             swal({
                                 title: "Success!",
@@ -2106,17 +2152,17 @@
                         let createTaskCategory = document.getElementById('taskCategoryModalbody');
                         createTaskCategory.innerHTML =
                         `
-                        <form  id="editTaskCategoryform" enctype="multipart/form-data">
+                        <form  id="addTaskCategoryForm" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
                             <div class="col-md-6 form-group mt-3">
-                                <label>Name</label>
+                                <label for="category-name">Name</label>
                                 <input type="text" class="form-control" name="name" id="category-name" placeholder="">
                             </div>
 
                             <div class="col-md-6 form-group mt-3">
                                 <label>Project Type</label>
-                                <select id="projectTypeList"  name="project_type_id" class="selectDesign form-control">
+                                <select onchange="filterCategorySub()" id="createProjectTypeList"  name="project_type_id" class="selectDesign form-control">
                                         <option value=""> </option>
                                         ${Object.keys(data.data.project_types).map((key, index) => `<option value="${key}">${data.data.project_types[key]}</option>`)}
                                 </select>
@@ -2124,10 +2170,9 @@
                         </div>
                         <div class="col-md-12 row">
                                 <div class="col-md-6 form-group mt-3">
-                                    <label>Sub Category</label>
-                                    <select id="subCategory" name="sub_category_id" class="selectDesign form-control">
-                                            <option value=""> </option>
-                                        ${Object.keys(data.data.projects_sub_types).map((key, index) => `<option value="${key}">${data.data.projects_sub_types[key]}</option>`)}
+                                    <label>Project Subtype</label>
+                                    <select id="createSubCategory" name="sub_category_id" class="selectDesign form-control">
+
                                     </select>
                                 </div>
 
@@ -2152,54 +2197,56 @@
             }
 
 
+            function filterCategorySub(){
+                let typeVal = document.getElementById("createProjectTypeList").value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('/api/v1/project-types')}}" + '/' + typeVal,
+                    success: function (data) {
+                        document.getElementById('createSubCategory').innerHTML = `
+                        <option value="" selected></option>
+                        <option value="${data.data.id}">${data.data.name}</option>
+                        `
+                    },
+                    error: function (data) {
+                        document.getElementById('createSubCategory').innerHTML = `
+                            <option value="" selected></option>
+                        `
+                        console.log('Error:', data);
+                    }
+                });
+            }
+
+
         //  Edit TaskCategory
          var editTaskCategoryData;
             function editTaskCategory(task_id){
-                $.ajax({
-                        type: "GET",
-                        url: "/api/v1/tast-categories/" + task_id,
-                        success: function(data){
-                            editTaskCategoryData = data.data;
-                            $('#categoryName').val(editTaskCategoryData.name);
-                            $('#projectTypeList').val(editTaskCategoryData.project_type_id + "");
-                            $('#subCategory').val(editTaskCategoryData.sub_category_id + "");
-                            $('#weightId').val(editTaskCategoryData.weight);
-                            $('#descriptionID').val(editTaskCategoryData.description);
-                            console.log(editTaskCategoryData);
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-
             $.ajax({
                 type: "GET",
                 url: "/api/v1/create_task_categories",
                 success: function(data){
                 var editTaskCatData = data.data;
-                let editTaskBody = document.getElementById('editTaskCategoryModalbody');
-                editTaskBody.innerHTML =`
-                <form  id="addtaskCategoryform" enctype="multipart/form-data">
+                let editTaskCatBody = document.getElementById('editTaskCategoryModalBody');
+                editTaskCatBody.innerHTML = `
+                <form id="editTaskCategoryForm" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12 row">
                             <div class="col-md-6 form-group mt-3">
                                 <label>Name</label>
-                                <input type="text" class="form-control" value="" name="name" id="categoryName" placeholder="">
+                                <input type="text" class="form-control" name="name" id="categoryName" placeholder="">
                             </div>
 
                             <div class="col-md-6 form-group mt-3">
                                 <label>Project Type</label>
-                                <select id="projectTypeList" name="project_type_id" class="selectDesign form-control">
-                                        ${Object.keys(editTaskCatData.project_types).map((key, index) => `<option value="${key}">${editTaskCatData.project_types[key]}</option>`)}
+                                <select id="projectTypeList" onchange="editFilterCategorySub()" name="project_type_id" class="selectDesign form-control">
+                                    ${Object.keys(editTaskCatData.project_types).map((key, index) => `<option value="${key}">${editTaskCatData.project_types[key]}</option>`)}
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12 row">
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Sub Category</label>
-                                    <select id="subCategory" name="sub_category_id" class="selectDesign form-control">
+                                    <select id="editSubCategory" name="sub_category_id" class="selectDesign form-control">
                                         ${Object.keys(editTaskCatData.projects_sub_types).map((key, index) => `<option value="${key}">${editTaskCatData.projects_sub_types[key]}</option>`)}
                                     </select>
                                 </div>
@@ -2223,40 +2270,80 @@
                         `
                 }
             })
+            $.ajax({
+                type: "GET",
+                url: "/api/v1/tast-categories/" + task_id,
+                success: function(data){
+                    editTaskCategoryData = data.data;
+                console.log(editTaskCategoryData)
+                    $('#categoryName').val(editTaskCategoryData.name);
+                    $('#projectTypeList').val(editTaskCategoryData.project_type_id + "");
+                    $('#editSubCategory').val(editTaskCategoryData.sub_category_id + "");
+                    $('#weightId').val(editTaskCategoryData.weight);
+                    $('#descriptionID').val(editTaskCategoryData.description);
+                },
+
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+
+            })
+
 
         }
 
+        function editFilterCategorySub(){
+            let typeVal = document.getElementById("projectTypeList").value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('/api/v1/project-types')}}" + '/' + typeVal,
+                    success: function (data) {
+                        document.getElementById('editSubCategory').innerHTML = `
+                        <option value="" selected></option>
+                        <option value="${data.data.id}">${data.data.name}</option>
+                        `
+                    },
+                    error: function (data) {
+                        document.getElementById('editSubCategory').innerHTML = `
+                            <option value="" selected></option>
+                        `
+                        console.log('Error:', data);
+                    }
+                });
+        }
+
         function submitEditTaskCategory(taskID){
-            console.log('got here')
-                    $.ajax({
-                        type: "PUT",
-                        data: $('#addtaskCategoryform').serialize(),
-                        url: "/api/v1/tast-categories/" + taskID,
-                        success: function (data) {
-                            swal({
-                                title: "Success!",
-                                text: "Task category successfully edited!",
-                                icon: "success",
-                                confirmButtonColor: "#DD6B55",
-                                // confirmButtonText: "OK",
-                            });
-                            window.setTimeout(function(){
-                                location.reload();
-                            }, 3000)
+            let formdata = $('#editTaskCategoryForm').serialize();
+            console.log(formdata)
+            $.ajax({
+                type: "PUT",
+                url: '{{ url("/api/v1/tast-categories") }}'+ '/'+ taskID,
+                data: formdata,
+                success: function (data) {
+                    swal({
+                        title: "Success!",
+                        text: "Task category successfully edited!",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
+                    });
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 3000)
 
-                            },
-                            error: function (error) {
-                            swal({
-                                title: "Task category editing failed!",
-                                text: "Please check the missing fields!",
-                                icon: "error",
-                                confirmButtonColor: "#fc3",
-                                confirmButtonText: "OK",
-                            });
-                            }
+                    },
+                    error: function (error) {
+                    swal({
+                        title: "Task category editing failed!",
+                        text: "Please check the missing fields!",
+                        icon: "error",
+                        confirmButtonColor: "#fc3",
+                        confirmButtonText: "OK",
+                    });
+                    }
 
-                    })
-                }
+            })
+        }
 
         function postCreateTaskCategory(){
             $.ajaxSetup({
@@ -2267,7 +2354,7 @@
                 $.ajax({
                 type: "POST",
                 url: '{{ url("/api/v1/tast-categories") }}',
-                data: $('#addtaskCategoryform').serialize(),
+                data: $('#addTaskCategoryForm').serialize(),
                 success: function (data) {
                     $('#addTaskCategory').modal('hide');
                     swal({

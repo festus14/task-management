@@ -1117,7 +1117,6 @@
 
                     function submitEditProjectForm(proID){
                     let formdata = $('#editProjectform').serialize();
-                    console.log(formdata);
                     $.ajax({
                         type: "PUT",
                         url: '{{ url("/api/v1/projects") }}'+ '/'+ proID,
