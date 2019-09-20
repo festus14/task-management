@@ -2461,25 +2461,19 @@
     // Validate name
     if(taskName == "") {
         printError("nameErr", "Please input a task name");
-    } else {
-        // var regex = /^[a-zA-Z\s]+$/;
-        // if(regex.test(taskName) === false) {
-        //     printError("nameErr", "Please input a valid task name");
-        // }
-        // else {
-            printError("nameErr", "");
-            nameErr = false;
-        // }
-    }
-    if(taskName){
+    } else if(taskName){
         taskName = taskName.toUpperCase();
             $.ajax({
                 type: "GET",
                 url: "/api/v1/tasks",
                 success: function (data) {
                 for(let i=0; i<data.data.length; i++){
-                    if(data.data[i].name.toUpperCase()==taskName){
+                    if(data.data[i].name.toUpperCase()===taskName){
                         printError("nameErr", "Task name already exists");
+                        break;
+                    }else if (data.data[i].name.toUpperCase() !== taskName){
+                        printError("nameErr", "");
+                        nameErr = false;
                     }
                 }
                 },

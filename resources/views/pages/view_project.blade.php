@@ -2711,29 +2711,37 @@
 
     // Validate name
 
+    // if(projectName == "") {
+    //     printError("nameErr", "Please input a project name");
+    // } else {
+    //     var regex = /^[a-zA-Z\s]+$/;
+    //     if(regex.test(projectName) === false) {
+    //         printError("nameErr", "Please input a valid project name");
+    //     } else {
+    //         printError("nameErr", "");
+    //         nameErr = false;
+    //     }
+    // }
+
     if(projectName == "") {
         printError("nameErr", "Please input a project name");
-    } else {
-        var regex = /^[a-zA-Z\s]+$/;
-        if(regex.test(projectName) === false) {
-            printError("nameErr", "Please input a valid project name");
-        } else {
-            printError("nameErr", "");
-            nameErr = false;
-        }
-    }
-    if(projectName){
+    }else if(projectName){
         projectName = projectName.toUpperCase();
             $.ajax({
                 type: "GET",
                 url: "/api/v1/projects",
                 success: function (data) {
                 for(let i=0; i<data.data.length; i++){
-                    if(data.data[i].name.toUpperCase() ==projectName){
+                    if(data.data[i].name.toUpperCase() === projectName){
                         printError("nameErr", "Project name already exists");
-                        nameErr = true;
+                        // nameErr = true;
+                        break;
+                    }else if (data.data[i].name.toUpperCase() !== projectName){
+                        printError("nameErr", "");
+                        nameErr = false;
                     }
                 }
+
                 },
 
                 error: function (data) {
@@ -2741,9 +2749,6 @@
                 }
 
             })
-        }else {
-            printError("nameErr", "");
-            nameErr = false;
         }
 
     // Validate task manager
