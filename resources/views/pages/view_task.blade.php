@@ -417,9 +417,8 @@
 
 @endsection
 @section('javascript')
-<script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
-<script src="{{ asset('metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/validator/taskValidator.js') }}"></script>
 <script>
 
     function reinitializeDate(){
@@ -2459,31 +2458,46 @@
        }
 
     // Validate name
-    if(taskName == "") {
-        printError("nameErr", "Please input a task name");
-    } else if(taskName){
-        taskName = taskName.toUpperCase();
-            $.ajax({
-                type: "GET",
-                url: "/api/v1/tasks",
-                success: function (data) {
-                for(let i=0; i<data.data.length; i++){
-                    if(data.data[i].name.toUpperCase()===taskName){
-                        printError("nameErr", "Task name already exists");
-                        break;
-                    }else if (data.data[i].name.toUpperCase() !== taskName){
-                        printError("nameErr", "");
-                        nameErr = false;
-                    }
-                }
-                },
+    //f(taskName == "") {
+     //   printError("nameErr", "Please input a task name");
+   // } else if(taskName){
+     //   taskName = taskName.toUpperCase();
+       //     $.ajax({
+         //       type: "GET",
+           //     url: "/api/v1/tasks",
+             //   success: function (data) {
+               // for(let i=0; i<data.data.length; i++){
+                 //   if(data.data[i].name.toUpperCase()===taskName){
+                   //     printError("nameErr", "Task name already exists");
+                     //   nameErr = true;
+                       // console.log(i+'exists'+nameErr)
+                       // break;
+        //            }else{
+          //               if (data.data[i].name.toUpperCase() !== taskName){
+            //            console.log('doesnt exist')
+              //          printError("nameErr", "");
+                //        nameErr = false;
+                  //      //console.log(nameErr)
+                    //}
+                //}
+                //}
+                //},
 
-                error: function (data) {
+                //error: function (data) {
+//
+  //              }
+//
+  //          })
+    //        console.log(nameErr)
+     //   }
 
-                }
-
-            })
+     if(taskName == "") {
+            printError("nameErr", "Please input a task name");
+        } else {
+            printError("nameErr", "");
+            nameErr = false;
         }
+
     // Validate task category
     if(taskCat == "") {
             printError("categoryErr", "Select a category");
