@@ -398,7 +398,7 @@
 
 <!-- Edit Project SubType Modal -->
 <div class="modal fade" id="editProjectSubTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 50%; min-width: 350px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Project Subtype</h5>
@@ -633,6 +633,9 @@
 {{-- projectcomment js --}}
 @section('javascript')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/validator/editProjectValidator.js') }}"></script>
 
 <script>
     function ProjectTypeSubmit(){
@@ -1164,10 +1167,10 @@
                         type: "GET",
                         url: "/api/v1/project-sub-types/" + sub_id,
                         success: function(data){
-                            editData = data.data;
-                            $('#sub-type').val(editSubData[0].name);
-                            $('#projecttype').val(editSubData.project_type_id + "");
-                            console.log(editData);
+                            editSubData = data.data;
+                            $('#projecTttype').val(editSubData.project_type_id + "");
+                            $('#subTtype').val(editSubData[0].name);
+                            console.log(editSubData);
                         },
 
                         error: function (data) {
@@ -1188,20 +1191,22 @@
 
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
-                            <select id="projecttype" name="project_type_id" class="selectDesign form-control">
+                            <select id="projecTttype" name="project_type_id" class="selectDesign form-control">
                                 <option value = "" selected></option>
                                 ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                             </select>
+                            <div class="error" id="editProjectTTTypeErr"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="create-task">Subtype Name</label>
-                            <input type="text" class="form-control" name="name" id="sub-type" placeholder="">
+                            <input type="text" class="form-control" name="name" id="subTtype" placeholder="">
+                            <div class="error" id="editProjectSubTypeErr"></div>
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#editProjectSubTypeModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectSubtypeForm(${sub_id});" value="Update">
+                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="ValidateEditProjectSubType(${sub_id});" value="Update">
                 </div>
                 </form>
         `
@@ -1223,7 +1228,7 @@
                 $.ajax({
                 type: "PUT",
                 url: '{{ url("/api/v1/project-sub-types") }}' + '/' + sub_id,
-                data: $('#addprojsubtypeform2').serialize(),
+                data: $('#editProjectSubtypeForm').serialize(),
                 success: function (data) {
 
                     swal({
@@ -2571,21 +2576,22 @@
 
                                 <div class="form-group">
                                     <label for="project-type">Select Project Type</label>
-                                    <select id="projecttype" name="project_type_id" class="selectDesign form-control">
+                                    <select id="project-type" name="project_type_id" class="selectDesign form-control">
                                         <option value="" selected></option>
                                         ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
-
                                     </select>
+                                    <div class="error" id="projectTTTypeErr"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="create-task">Subtype Name</label>
                                     <input type="text" class="form-control" name="name" id="sub-type" placeholder="">
+                                    <div class="error" id="projectSubTypeErr"></div>
                                 </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#subtypemainModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                            <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtypeX();" value="{{ trans('global.create') }}">
+                            <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateProjectSubType();" value="{{ trans('global.create') }}">
                         </div>
                         </form>
 
@@ -2670,125 +2676,125 @@
           document.getElementById(elemId).innerHTML = hintMsg;
         }
 
-   function validateCreateProjectForm() {
-    // Retrieving the values of form elements
-    let clientlist = $('#client-list').val();
-    let projectSublist = $('#projectSubtypeId1').val();
-    let projTypelist = $('#projtypeboy1').val();
-    let projectName = $('#create-project').val();
-    let manager = $('#manager_id').val();
-    let teamMembers = $('#teammembers').val();
-    let startDate = $('#starting-date').val();
-    let deadline = $('#Deadline').val();
+//    function validateCreateProjectForm() {
+//     // Retrieving the values of form elements
+//     let clientlist = $('#client-list').val();
+//     let projectSublist = $('#projectSubtypeId1').val();
+//     let projTypelist = $('#projtypeboy1').val();
+//     let projectName = $('#create-project').val();
+//     let manager = $('#manager_id').val();
+//     let teamMembers = $('#teammembers').val();
+//     let startDate = $('#starting-date').val();
+//     let deadline = $('#Deadline').val();
 
 
-	// Defining error variables with a default value
-    var clientErr = projTypeErr = projSubErr = nameErr = managerErr = membersErr = startErr = endErr = true;
+// 	// Defining error variables with a default value
+//     var clientErr = projTypeErr = projSubErr = nameErr = managerErr = membersErr = startErr = endErr = true;
 
-     // Validate client
-     if(clientlist == "") {
-        printError("clientErr", "Please select a client");
-    } else {
-        printError("clientErr", "");
-        clientErr = false;
-    }
-    // Validate project
-    if(projTypelist == "") {
-            printError("projTypeErr", "Please select a project type");
-        } else {
-            printError("projTypeErr", "");
-            projTypeErr = false;
-        }
-    // Validate project sub
-    if(projectSublist == "") {
-           printError("projSubErr", "Please select a project subtype");
-       } else {
-           printError("projSubErr", "");
-           projSubErr = false;
-       }
+//      // Validate client
+//      if(clientlist == "") {
+//         printError("clientErr", "Please select a client");
+//     } else {
+//         printError("clientErr", "");
+//         clientErr = false;
+//     }
+//     // Validate project
+//     if(projTypelist == "") {
+//             printError("projTypeErr", "Please select a project type");
+//         } else {
+//             printError("projTypeErr", "");
+//             projTypeErr = false;
+//         }
+//     // Validate project sub
+//     if(projectSublist == "") {
+//            printError("projSubErr", "Please select a project subtype");
+//        } else {
+//            printError("projSubErr", "");
+//            projSubErr = false;
+//        }
 
-    // Validate name
+//     // Validate name
 
-    if(projectName == "") {
-        printError("nameErr", "Please input a project name");
-    } else {
-        var regex = /^[a-zA-Z\s]+$/;
-        if(regex.test(projectName) === false) {
-            printError("nameErr", "Please input a valid project name");
-        }
-        else {
-            printError("nameErr", "");
-            nameErr = false;
-        }
-    }
+//     if(projectName == "") {
+//         printError("nameErr", "Please input a project name");
+//     } else {
+//         var regex = /^[a-zA-Z\s]+$/;
+//         if(regex.test(projectName) === false) {
+//             printError("nameErr", "Please input a valid project name");
+//         }
+//         else {
+//             printError("nameErr", "");
+//             nameErr = false;
+//         }
+//     }
 
-    if(projectName){
-        projectName = projectName.toUpperCase();
-            $.ajax({
-                type: "GET",
-                url: "/api/v1/projects",
-                success: function (data) {
-                for(let i=0; i<data.data.length; i++){
-                    if(data.data[i].name.toUpperCase() ==projectName){
-                        printError("nameErr", "Project name already exists");
-                        nameErr = true;
-                    }
-                }
-                },
+//     if(projectName){
+//         projectName = projectName.toUpperCase();
+//             $.ajax({
+//                 type: "GET",
+//                 url: "/api/v1/projects",
+//                 success: function (data) {
+//                 for(let i=0; i<data.data.length; i++){
+//                     if(data.data[i].name.toUpperCase() ==projectName){
+//                         printError("nameErr", "Project name already exists");
+//                         nameErr = true;
+//                     }
+//                 }
+//                 },
 
-                error: function (data) {
+//                 error: function (data) {
 
-                }
+//                 }
 
-            })
-        }else {
-            printError("nameErr", "");
-            nameErr = false;
-        }
+//             })
+//         }else {
+//             printError("nameErr", "");
+//             nameErr = false;
+//         }
 
-    // Validate task manager
-    if(manager == "") {
-            printError("managerErr", "Select a manager");
-        } else {
-            printError("managerErr", "");
-            managerErr = false;
-        }
+//     // Validate task manager
+//     if(manager == "") {
+//             printError("managerErr", "Select a manager");
+//         } else {
+//             printError("managerErr", "");
+//             managerErr = false;
+//         }
 
-    // Validate members
-    if(teamMembers == "") {
-            printError("membersErr", "Please select a member");
-        } else {
-            printError("membersErr", "");
-            membersErr = false;
-        }
+//     // Validate members
+//     if(teamMembers == "") {
+//             printError("membersErr", "Please select a member");
+//         } else {
+//             printError("membersErr", "");
+//             membersErr = false;
+//         }
 
-    // Validate start date
-    if(startDate == "") {
-            printError("startErr", "Pick a date");
-        } else {
-            printError("startErr", "");
-            startErr = false;
-        }
-
-
-    // Validate deadline
-    if(deadline == "") {
-            printError("endErr", "Pick a date");
-        } else {
-            printError("endErr", "");
-            endErr = false;
-        }
+//     // Validate start date
+//     if(startDate == "") {
+//             printError("startErr", "Pick a date");
+//         } else {
+//             printError("startErr", "");
+//             startErr = false;
+//         }
 
 
-    // Prevent the form from being submitted if there are any errors
+//     // Validate deadline
+//     if(deadline == "") {
+//             printError("endErr", "Pick a date");
+//         } else {
+//             printError("endErr", "");
+//             endErr = false;
+//         }
 
-    if((clientErr || projTypeErr || projSubErr || nameErr || managerErr || membersErr|| startErr || endErr) == true) {
-       return false;
-    } else {
 
-        createProject();
-    }
-};
+//     // Prevent the form from being submitted if there are any errors
+
+//     if((clientErr || projTypeErr || projSubErr || nameErr || managerErr || membersErr|| startErr || endErr) == true) {
+//        return false;
+//     } else {
+
+//         createProject();
+//     }
+// };
     </script>
 
        @endsection

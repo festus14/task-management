@@ -50,3 +50,73 @@ function validateEditProjectType(type_id) {
         submitEditProjectType(type_id);
     }
 }
+
+function validateProjectSubType() {
+    // Retrieving the values of form elements
+    let projectType = $('#project-type').val();
+    let projectSubType = $('#sub-type').val();
+
+
+    // Defining error variable with a default value
+    var projectSubTypeErr = projectTTTypeErr = true;
+
+    if (projectType == "") {
+        console.log("projectype empty");
+        printError("projectTTTypeErr", "Please provide an input");
+    } else {
+        printError("projectTTTypeErr", "");
+        projectTTTypeErr = false;
+    }
+
+    if (projectSubType == "") {
+        printError("projectSubTypeErr", "Please provide an input");
+    } else {
+        printError("projectSubTypeErr", "");
+        projectSubTypeErr = false;
+    }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if ((projectSubTypeErr == true) || (projectTTTypeErr == true)) {
+        return false;
+    } else {
+
+        addProjectSubtypeX();
+    }
+};
+
+function ValidateEditProjectSubType(sub_id) {
+    // Retrieving the values of form elements
+    let editProjectType = $('#projecTttype').val();
+    let editProjectSubType = $('#subTtype').val();
+
+
+    // Defining error variable with a default value
+    var editProjectSubTypeErr = editProjectTTTypeErr = true;
+
+    if (editProjectType == "") {
+        console.log("projectype empty");
+        printError("editProjectTTTypeErr", "Please provide an input");
+    } else {
+        printError("editProjectTTTypeErr", "");
+        editProjectTTTypeErr = false;
+    }
+
+    if (editProjectSubType == "") {
+        printError("editProjectSubTypeErr", "Please provide an input");
+    } else {
+        printError("editProjectSubTypeErr", "");
+        editProjectSubTypeErr = false;
+    }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if ((editProjectSubTypeErr == true) || (editProjectTTTypeErr == true)) {
+        return false;
+    } else {
+
+        submitEditProjectSubtypeForm(sub_id);
+    }
+};

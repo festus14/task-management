@@ -53,40 +53,50 @@ function validateCreateProjectForm() {
     //     }
     // }
 
+    var allProjects;
+    $.ajax({
+        type: "GET",
+        url: "/api/v1/projects",
+        async: false,
+        success: function(data) {
+            allProjects = data;
+
+        },
+
+        error: function(data) {
+
+        }
+
+    })
+    console.log(allProjects)
+
     if (projectName == "") {
+        console.log("why na")
         printError("nameErr", "Please input a project name");
     } else if (projectName) {
         projectName = projectName.toUpperCase();
-        $.ajax({
-            type: "GET",
-            url: "/api/v1/projects",
-            success: function(data) {
-                for (let i = 0; i < data.data.length; i++) {
-                    if (data.data[i].name.toUpperCase() === projectName) {
-                        printError("nameErr", "Project name already exists");
-                        // nameErr = true;
-                        break;
-                    } else if (data.data[i].name.toUpperCase() !== projectName) {
-                        printError("nameErr", "");
-                        nameErr = false;
-                    }
-                }
 
-            },
-
-            error: function(data) {
-
+        for (let i = 0; i < allProjects.data.length; i++) {
+            if (allProjects.data[i].name.toUpperCase() === projectName) {
+                printError("nameErr", "Project name already exists");
+                nameErr = true;
+                console.log(nameErr);
+                break;
+            } else {
+                printError("nameErr", "");
+                nameErr = false;
+                console.log(nameErr)
             }
+        }
 
-        })
     }
-
-    if (projectName == "") {
-        printError("nameErr", "Please input a project name");
-    } else {
-        printError("nameErr", "");
-        nameErr = false;
-    }
+    console.log("nameerror " + nameErr);
+    // if (projectName == "") {
+    //     printError("nameErr", "Please input a project name");
+    // } else {
+    //     printError("nameErr", "");
+    //     nameErr = false;
+    // }
 
     // Validate task manager
     if (manager == "") {
@@ -125,9 +135,11 @@ function validateCreateProjectForm() {
     // Prevent the form from being submitted if there are any errors
 
     if ((clientErr || projTypeErr || projSubErr || nameErr || managerErr || membersErr || startErr || endErr) == true) {
+        console.log("oh ops")
         return false;
     } else {
 
+        console.log("should work")
         createProject();
     }
 };
