@@ -281,12 +281,11 @@
                             <div class="form-group">
                                 <label for="create-task">Project Type Name</label>
                                 <input type="text" class="form-control" id="projTypeId" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
-                                <div class="error" id="projectTypeErr"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');">Close</button>
-                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateProjectType()" value="{{ trans('global.create') }}">
+                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="addProject()" value="{{ trans('global.create') }}">
                         </div>
                     </form>
         </div>
@@ -634,9 +633,6 @@
 {{-- projectcomment js --}}
 @section('javascript')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/validator/editProjectValidator.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
 
 <script>
     function ProjectTypeSubmit(){
@@ -996,7 +992,7 @@
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="exampleFormControlSelect1">Project Sub-type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#subtypemainModal" onclick="displayAddPsubtype()" style="float:right;"></i>
-                                    <select class="form-control" id="projectSubtypeId1"  name="project_subtype_id">
+                                    <select class="form-control" id="projectSubtypeId1"  name="project_subtype_id" required>
 
                                     </select>
                                     <div class="error" id="projSubErr"></div>
@@ -1118,9 +1114,6 @@
                                 `
                             },
                             error: function (data) {
-                                `
-                                <option value="" selected></option>
-                                `
                                 console.log('Error:', data);
                             }
                         });
@@ -1129,6 +1122,7 @@
 
                     function submitEditProjectForm(proID){
                     let formdata = $('#editProjectform').serialize();
+                    console.log(formdata);
                     $.ajax({
                         type: "PUT",
                         url: '{{ url("/api/v1/projects") }}'+ '/'+ proID,
@@ -1440,26 +1434,26 @@
         var editProjectData;
     function editProject(project_id){
         $.ajax({
-                type: "GET",
-                url: "/api/v1/projects/" + project_id,
-                success: function(data){
-                    editProjectData = data.data;
-                    $('#client_list').val(editProjectData.client_id + "");
-                    $('#project_name').val(editProjectData.name);
-                    $('#managerId').val(editProjectData.manager_id + "");
-                    $('#projtypeboy').val(editProjectData.project_type_id + "");
-                    $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
-                    $('#startingDate').val(editProjectData.starting_date);
-                    $('#Dead-line').val(editProjectData.deadline);
-                    $('#team-members').val(editProjectData.team_members);
-                    //console.log(editProjectData);
-                },
+                        type: "GET",
+                        url: "/api/v1/projects/" + project_id,
+                        success: function(data){
+                            editProjectData = data.data;
+                            $('#client_list').val(editProjectData.client_id + "");
+                            $('#project_name').val(editProjectData.name);
+                            $('#manager_id').val(editProjectData.manager_id + "");
+                            $('#projtypeboy').val(editProjectData.project_type_id + "");
+                            $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
+                            $('#starting-date').val(editProjectData.starting_date);
+                            $('#Deadline').val(editProjectData.deadline);
+                            $('#teammembers').val(editProjectData.team_members);
+                            console.log(editProjectData);
+                        },
 
-                error: function (data) {
-                    console.log('Error:', data);
-                }
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
 
-            })
+                    })
 
                 $.ajax({
                     type: "GET",
@@ -1479,24 +1473,21 @@
                                                         projData.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
-                                                    <div class="error" id="editClientErr"></div>
                                                 </div>
 
                                                 <div class="col-md-6 form-group mt-3">
                                                         <label for="create-project">Project Name</label>
                                                     <input type="text" name="name" class="form-control" id="project_name" placeholder="" required>
-                                                    <div class="error" id="editNameErr"></div>
                                                 </div>
                                             </div>
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 form-group mt-3">
                                                     <label for="create-project">Manager</label><br>
-                                                    <select id ="manager_id" name="managerId" class="form-control select2" style="width:100%;" required>
+                                                    <select id ="manager_id" name="manager_id" class="form-control select2" style="width:100%;" required>
                                                         ` +
                                                         projData.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
-                                                    <div class="error" id="editManagerErr"></div>
                                                 </div>
                                                 <div class="col-md-4 form-group mt-3">
                                                     <label for="create-project-type">Project Type</label>
@@ -1505,7 +1496,6 @@
                                                         projData.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
-                                                    <div class="error" id="editProjTypeErr"></div>
                                                 </div>
 
                                                 <div class="col-md-4 form-group mt-3">
@@ -1515,34 +1505,30 @@
                                                         projData.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
-                                                    <div class="error" id="editProjSubErr"></div>
                                                 </div>
                                             </div>
                                             <div class="row col-md-12 ">
                                                 <div class="col-md-3 form-group">
                                                     <label for="starting-date">Start Date</label>
-                                                    <input type="text" class="form-control date" name="starting_date" id="startingDate" required>
-                                                    <div class="error" id="editStartErr"></div>
+                                                    <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
                                                 </div>
 
                                                 <div class="col-md-3 form-group">
                                                     <label for="Deadline">Deadline</label>
-                                                    <input type="text" class="form-control datetime" name="deadline" id="Dead-line" required>
-                                                    <div class="error" id="editEndErr"></div>
+                                                    <input type="text" class="form-control datetime" name="deadline" id="Deadline" required>
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label>Team members</label><br>
-                                                    <select multiple="multiple" class="form-control select2" id="team-members" name="team_members[]" style="width:100%;"required>
+                                                    <select multiple="multiple" class="form-control select2" id="teammembers" name="team_members[]" style="width:100%;"required>
                                                         ` +
                                                         projData.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
-                                                    <div class="error" id="editMembersErr"></div>
                                                 </div>
 
 
                                                 <div class="col-md-2 form-group mt-3">
-                                                    <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditProjectForm(${project_id});" value="Update">
+                                                    <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectForm(${project_id});" value="Update">
                                                 </div>
                                             </div>
                                         </form>
@@ -1592,7 +1578,7 @@
 
                                     })
 
-                                }
+                                    }
 
 
         @parent
@@ -2432,12 +2418,11 @@
                         <div class="form-group">
                             <label for="create-task">Project type name</label>
                             <input type="text" class="form-control" id="editprojTypeInput" name="name" placeholder="" value="" required>
-                            <div class="error" id="editProjectTypeErr"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="$('#EditProjectTypeModal').modal('hide');">Close</button>
-                        <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditProjectType(${type_id})" value="Update">
+                        <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectType(${type_id})" value="Update">
                     </div>
                 </form>
                 `
@@ -2681,7 +2666,129 @@
                 });
             }
 
+            function printError(elemId, hintMsg) {
+          document.getElementById(elemId).innerHTML = hintMsg;
+        }
 
+   function validateCreateProjectForm() {
+    // Retrieving the values of form elements
+    let clientlist = $('#client-list').val();
+    let projectSublist = $('#projectSubtypeId1').val();
+    let projTypelist = $('#projtypeboy1').val();
+    let projectName = $('#create-project').val();
+    let manager = $('#manager_id').val();
+    let teamMembers = $('#teammembers').val();
+    let startDate = $('#starting-date').val();
+    let deadline = $('#Deadline').val();
+
+
+	// Defining error variables with a default value
+    var clientErr = projTypeErr = projSubErr = nameErr = managerErr = membersErr = startErr = endErr = true;
+
+     // Validate client
+     if(clientlist == "") {
+        printError("clientErr", "Please select a client");
+    } else {
+        printError("clientErr", "");
+        clientErr = false;
+    }
+    // Validate project
+    if(projTypelist == "") {
+            printError("projTypeErr", "Please select a project type");
+        } else {
+            printError("projTypeErr", "");
+            projTypeErr = false;
+        }
+    // Validate project sub
+    if(projectSublist == "") {
+           printError("projSubErr", "Please select a project subtype");
+       } else {
+           printError("projSubErr", "");
+           projSubErr = false;
+       }
+
+    // Validate name
+
+    if(projectName == "") {
+        printError("nameErr", "Please input a project name");
+    } else {
+        var regex = /^[a-zA-Z\s]+$/;
+        if(regex.test(projectName) === false) {
+            printError("nameErr", "Please input a valid project name");
+        }
+        else {
+            printError("nameErr", "");
+            nameErr = false;
+        }
+    }
+
+    if(projectName){
+        projectName = projectName.toUpperCase();
+            $.ajax({
+                type: "GET",
+                url: "/api/v1/projects",
+                success: function (data) {
+                for(let i=0; i<data.data.length; i++){
+                    if(data.data[i].name.toUpperCase() ==projectName){
+                        printError("nameErr", "Project name already exists");
+                        nameErr = true;
+                    }
+                }
+                },
+
+                error: function (data) {
+
+                }
+
+            })
+        }else {
+            printError("nameErr", "");
+            nameErr = false;
+        }
+
+    // Validate task manager
+    if(manager == "") {
+            printError("managerErr", "Select a manager");
+        } else {
+            printError("managerErr", "");
+            managerErr = false;
+        }
+
+    // Validate members
+    if(teamMembers == "") {
+            printError("membersErr", "Please select a member");
+        } else {
+            printError("membersErr", "");
+            membersErr = false;
+        }
+
+    // Validate start date
+    if(startDate == "") {
+            printError("startErr", "Pick a date");
+        } else {
+            printError("startErr", "");
+            startErr = false;
+        }
+
+
+    // Validate deadline
+    if(deadline == "") {
+            printError("endErr", "Pick a date");
+        } else {
+            printError("endErr", "");
+            endErr = false;
+        }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if((clientErr || projTypeErr || projSubErr || nameErr || managerErr || membersErr|| startErr || endErr) == true) {
+       return false;
+    } else {
+
+        createProject();
+    }
+};
     </script>
 
        @endsection
