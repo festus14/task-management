@@ -169,7 +169,7 @@
                         </div>
                         <div id="createClientModalBody" class="modal-body col-md-12">
                             <div class="col-md-12 ">
-                                <form id="clientForm" enctype="multipart/form-data">
+                                <form class="form" id="clientForm" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row col-md-12">
                                         <div class="col-md-6 form-group mt-3">
@@ -178,34 +178,48 @@
                                         </div>
 
                                         <div class="col-md-6 form-group mt-3">
-                                            <label for="date-of-eng">Date Of Engagement</label>
-                                            <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                            <label for="status">Status</label>
+                                            <select id="status" name="status" class="form-control">
+                                                <option value="" disabled="" selected="">Please select</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
                                         </div>
+
+
                                     </div>
                                     <div class="row col-md-12">
+
+                                            <div class="col-md-4 form-group mt-3">
+                                                <label for="date-of-eng">Date Of Engagement</label>
+                                                <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                            </div>
+
+
+                                            <div class="col-md-4 form-group mt-3">
+                                                <label for="expiry-date">Expiry Date</label>
+                                                <input type="text" id="expiry-date" name="expiry_date" class="form-control date" required>
+                                            </div>
+
+                                            <div class="col-md-4 form-group mt-3">
+                                                <label for="phone-num">Phone Number</label>
+                                                <input type="" name="phone" class="form-control" id="phone-num" required>
+                                            </div>
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="address">Address</label>
                                                 <input type="text" name="address" class="form-control" id="address" placeholder="" required>
                                             </div>
 
-
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="expiry-date">Expiry Date</label>
-                                                <input type="text" id="expiry-date" name="expiry_date" class="form-control date" required>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="row col-md-12 ">
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="email">Email</label>
                                                 <input type="email" name="email" class="form-control" id="email" required>
                                             </div>
 
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" id="phone-num" required>
-                                            </div>
+
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-3 form-group mt-3">
@@ -314,11 +328,11 @@
                     data.data.map((datum, i) => {
                     clientCard.innerHTML = clientCard.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
                     <div class="m-widget24">
-                        <div id="editDeleteBody" style="display: inline-block; margin-right: 10%;" class="pull-right" >
-                            <a onclick="editClient(${datum.id})" class="btn btn-sm m-btn--pill" href="#" style="display: inline;">
+                        <div id="editDeleteBody" style="display: inline-block; margin-right: 10%;" class="pull-right btn-group" >
+                            <a onclick="editClient(${datum.id})" class="btn btn-sm" href="#" style="display: inline;">
                                 <i class="fa fa-pencil" style="color:black;" data-toggle="modal" data-target="#editClientModalBody"><span style="font-weight:100;"></span></i>
                             </a>
-                            <button onclick="deleteClient(${datum.id})" class="btn btn-sm m-btn--pill" style="border: none; background-color: white; display: inline;"><a class="btn" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a></button>
+                            <a onclick="deleteClient(${datum.id})" class="btn btn-sm" href="#" style="border: none; background-color: white; display: inline;"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a>
                         </div>
                         <div class="m-widget24__item">
                             <div class="body-header" style="">
@@ -601,8 +615,7 @@
                     })
             }
 
-
-        function deleteClient(client_id){
+            function deleteClient(client_id){
             swal({
                 title: "Are you sure?",
                 text: "This Client will be deleted!",
@@ -639,7 +652,8 @@
                     }
 
                 });
-        }
+            }
+
 
 
         //   Function for calling Client Projects on the DT
@@ -711,21 +725,42 @@
 //          Function for deleting single project
         function deleteSingleProject(proID){
 
-            var confirmDel = confirm("Do you want to delete the document?");
+            swal({
+                title: "Are you sure?",
+                text: "This Project will be deleted!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
-            if(confirmDel){
-                $.ajax({
-                    type: "DELETE",
-                    url: "api/v1/projects" + '/' + proID,
-                    success: function (data) {
-                        console.log(data);
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('api/v1/projects')}}" + '/' + proID,
+                        success: function (data) {
+                            swal("Deleted!", "Project successfully deleted.", "success");
+                            window.setTimeout(function(){
+                                location.reload();
+                            } , 2500);
+                        },
+
+                        error: function (data) {
+                            swal("Delete failed", "Please try again", "error");
+                        }
+
+                        });
+                        }
+
+                else {
+                        swal("Cancelled", "Delete cancelled", "error");
                     }
+
                 });
-            }
         }
 
         // Function for calling Projects tasks
@@ -1201,41 +1236,36 @@
             //Posting-Create client
             function createCliento(){
                 let formData = $('#clientForm').serialize();
+                console.log(formData)
                 $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                });
+                    });
                 $.ajax({
                     type: "POST",
                     url: '{{ url("/api/v1/clients") }}',
                     data: formData,
 
                     success: function (data) {
-                        console.log(data)
-                        return
+                        console.log("Im in success function with response")
+                        $('#createClientModal').modal('hide');
                         swal({
                             title: "Success!",
                             text: "Client Added!",
                             icon: "success",
                             confirmButtonColor: "#DD6B55",
-                            // confirmButtonText: "OK",
+                            confirmButtonText: "OK",
                         });
                         window.setTimeout(function(){
                             location.reload();
                         }, 3000)
 
                     },
-                    error: function (error) {
-                        console.log(error)
-                        swal({
-                            title: "Client can not be created",
-                            text: "Please check the missing fields!",
-                            icon: "error",
-                            confirmButtonColor: "#fc3",
-                            confirmButtonText: "OK",
-                        });
-                    }
+                    error: function (data) {
+                        console.log("Im in failure function")
+                    swal("Client creation failed", "Please check missing fields", "error");
+                }
                 });
             }
 
@@ -1282,21 +1312,41 @@
             // Function for deleting single task
         function deleteSingleTask(taskID){
 
-            var confirmDel = confirm("Do you want to delete the task?");
+            swal({
+                    title: "Are you sure?",
+                    text: "Everything relating to this task will be lost!",
+                    icon: "warning",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                     if (willDelete) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                            $.ajax({
+                                type: "DELETE",
+                                url: "{{ url('api/v1/tasks')}}" + '/' + taskID,
+                                success: function (data) {
+                                    swal("Deleted!", "Task has been successfully deleted.", "success");
+                                    window.setTimeout(function(){
+                                        location.reload();
+                                    } , 2500);
+                                },
+                                    error: function (data) {
+                                        swal("Delete failed", "Please try again", "error");
+                                    }
 
-            if(confirmDel){
-                $.ajax({
-                    type: "DELETE",
-                    url: "/api/v1/tasks" + '/' + taskID,
-                    success: function (data) {
-                        console.log(data);
-                        location.reload(true);
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
+                                });
+                            }
+
+             else {
+                        swal("Cancelled", "Delete cancelled", "error");
                     }
+
                 });
-            }
         }
 
         // Function Populating the project Document Modal
@@ -1409,5 +1459,6 @@
 
 
     </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @endsection
