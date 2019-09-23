@@ -241,6 +241,7 @@ function validateEditCreateTaskForm(task_id) {
     //        console.log(editTaskNameErr)
     //   }
 
+
     if (EditTaskName == "") {
         printError("editTaskNameErr", "Please input a task name");
     } else {

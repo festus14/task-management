@@ -1209,7 +1209,7 @@
                 $.ajax({
                     type: "POST",
                     url: '{{ url("/api/v1/clients") }}',
-                    data: FormData,
+                    data: formData,
 
                     success: function (data) {
                         console.log(data)
