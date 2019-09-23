@@ -305,7 +305,7 @@
 
     {{-- Task status datatable modal --}}
     <div class="modal fade" id="taskstatusDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:70%; min-width:400px;">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:60%; min-width:300px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Task Status</h5>
@@ -384,11 +384,12 @@
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" value="" class="form-control" id="statusInput" name="name" placeholder="">
+                            <div class="error" id="taskStatusErr"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="$('#AddStatus').modal('hide');" >Close</button>
-                        <button id="addStatusSubmit" onclick="postTaskStatus();" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
+                        <button id="addStatusSubmit" onclick="validateStatus();" class="btn btn-primary" style="background-color:#8a2a2b; color:white;">Add</button>
                     </div>
                 </form>
                 </div>
@@ -922,11 +923,12 @@
                         <div class="form-group">
                             <label for="create-task">Status name</label>
                             <input type="text" class="form-control" id="editStatusInput" name="name" placeholder="" value="" required>
+                            <div class="error" id="editSaskStatusErr"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="$('#editTaskStatusModal').modal('hide');">Close</button>
-                        <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskStatus(${taskStatusId})" value="Update">
+                        <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditStatus(${taskStatusId})" value="Update">
                     </div>
                 </form>
                 `
@@ -952,7 +954,7 @@
                         },
                         error: function (error) {
                         swal({
-                            title: "TAsk status edit failed!",
+                            title: "Task status edit failed!",
                             icon: "error",
                             confirmButtonColor: "#fc3",
                             confirmButtonText: "OK",
@@ -1889,6 +1891,7 @@
                                             <select id="client-list" onchange="editFilterType()" name="client_id" class="selectDesign form-control" selected="3">
                                                 ${Object.keys(allData.clients).map((key, index) => `<option value="${key}">${allData.clients[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="editClientErr"></div>
                                         </div>
 
                                         <div class="form-group">
@@ -1896,6 +1899,7 @@
                                             <select id="project-list" onchange="editFilterSubType()" name="project_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="editProjectErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
@@ -1904,11 +1908,13 @@
                                             <select id="project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.projects_sub_type).map((key, index) => `<option value="${key}">${allData.projects_sub_type[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="editProjectSubTypeErr"></div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="create-task">Task Name</label>
                                             <input type="text" name="name" class="form-control" id="create-task" placeholder="Enter Task Name" required>
+                                            <div class="error" id="editTaskNameErr"></div>
                                         </div>
 
                                     </div>
@@ -1918,6 +1924,7 @@
                                             <select id="task-category" name="category_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.categories).map((key, index) => `<option value="${key}">${allData.categories[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="editTaskCatErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
@@ -1926,6 +1933,7 @@
                                             <select id="task-status" name="status_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.statuses).map((key, index) => `<option value="${key}" >${allData.statuses[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="editTaskStatusErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
@@ -1934,6 +1942,7 @@
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.managers).map((key, index) => `<option value="${key}">${allData.managers[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="editManagerErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
@@ -1943,6 +1952,7 @@
                                             <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" required class="form-control select2">
                                                 ${Object.keys(allData.assinged_tos).map((key, index) => `<option value="${key}">${allData.assinged_tos[key]}</option>`)}
                                             </select>
+                                            <div class="error" id="editAssignedTosErr"></div>
                                         </div>
                                     </div>
 
@@ -1950,6 +1960,7 @@
                                         <div class="form-group">
                                             <label for="starting-date">Starting Date</label>
                                             <input type="text" name="starting_date" class="form-control datetime" id="starting-date" required>
+                                            <div class="error" id="editStartErr"></div>
                                         </div>
                                     </div>
 
@@ -1957,6 +1968,7 @@
                                         <div class="form-group">
                                             <label for="deadline">Deadline</label>
                                             <input type="text" name="ending_date" class="form-control datetime" id="deadline" required>
+                                            <div class="error" id="editEndErr"></div>
                                         </div>
                                     </div>
 
@@ -1965,7 +1977,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskForm(${task_id});" value="Update">
+                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateEditCreateTaskForm(${task_id});" value="Update">
                                 </div>
                             </form>
 
@@ -2167,6 +2179,7 @@
                             <div class="col-md-6 form-group mt-3">
                                 <label for="category-name">Name</label>
                                 <input type="text" class="form-control" name="name" id="category-name" placeholder="">
+                                <div class="error" id="categoryNameErr"></div>
                             </div>
 
                             <div class="col-md-6 form-group mt-3">
@@ -2175,6 +2188,7 @@
                                         <option value=""> </option>
                                         ${Object.keys(data.data.project_types).map((key, index) => `<option value="${key}">${data.data.project_types[key]}</option>`)}
                                 </select>
+                                <div class="error" id="projectTypeeErr"></div>
                             </div>
                         </div>
                         <div class="col-md-12 row">
@@ -2183,21 +2197,24 @@
                                     <select id="createSubCategory" name="sub_category_id" class="selectDesign form-control">
 
                                     </select>
+                                    <div class="error" id="subtypeeErr"></div>
                                 </div>
 
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Weight</label>
                                     <input type="number"  name="weight" value="" class="form-control" id="weightId" placeholder="">
+                                    <div class="error" id="weightErr"></div>
                                 </div>
                         </div>
                         <div class=" row col-md-12">
                             <div class="col-md-12 form-group mt-3">
                                 <label for="exampleFormControlTextarea1">Description</label>
                                 <textarea class="form-control" name="description" id="descriptionID" rows="3"></textarea>
+                                <div class="error" id="descriptionErr"></div>
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="postCreateTaskCategory();" value="{{ trans('global.create') }}">
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateTaskCategory();" value="{{ trans('global.create') }}">
                         </div>
                     </form>
                         `
@@ -2243,13 +2260,15 @@
                             <div class="col-md-6 form-group mt-3">
                                 <label>Name</label>
                                 <input type="text" class="form-control" name="name" id="categoryName" placeholder="">
+                                <div class="error" id="editCategoryNameErr"></div>
                             </div>
 
                             <div class="col-md-6 form-group mt-3">
                                 <label>Project Type</label>
-                                <select id="projectTypeList" onchange="editFilterCategorySub()" name="project_type_id" class="selectDesign form-control">
+                                <select id="projectTypeListt" onchange="editFilterCategorySub()" name="project_type_id" class="selectDesign form-control">
                                     ${Object.keys(editTaskCatData.project_types).map((key, index) => `<option value="${key}">${editTaskCatData.project_types[key]}</option>`)}
                                 </select>
+                                <div class="error" id="editProjectTypeeErr"></div>
                             </div>
                         </div>
                         <div class="col-md-12 row">
@@ -2258,21 +2277,24 @@
                                     <select id="editSubCategory" name="sub_category_id" class="selectDesign form-control">
                                         ${Object.keys(editTaskCatData.projects_sub_types).map((key, index) => `<option value="${key}">${editTaskCatData.projects_sub_types[key]}</option>`)}
                                     </select>
+                                    <div class="error" id="editSubtypeeErr"></div>
                                 </div>
 
                                 <div class="col-md-6 form-group mt-3">
                                     <label>Weight</label>
-                                    <input type="number"  name="weight" value="" class="form-control" id="weightId" placeholder="">
+                                    <input type="number"  name="weight" value="" class="form-control" id="editWeightId" placeholder="">
+                                    <div class="error" id="editWeightErr"></div>
                                 </div>
                         </div>
                         <div class=" row col-md-12">
                             <div class="col-md-12 form-group mt-3">
                                 <label for="exampleFormControlTextarea1">Description</label>
-                                <textarea class="form-control" name="description" id="descriptionID" rows="3"></textarea>
+                                <textarea class="form-control" name="description" id="editDescriptionID" rows="3"></textarea>
+                                <div class="error" id="editDescriptionErr"></div>
                             </div>
                         </div>
                         <div class="col-md-3 form-group mt-2">
-                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditTaskCategory(${task_id});" value="{{ trans('global.update') }}">
+                            <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateEditTaskCategory(${task_id});" value="{{ trans('global.update') }}">
                         </div>
                     </form>
 
@@ -2418,145 +2440,7 @@
           document.getElementById(elemId).innerHTML = hintMsg;
         }
 
-   function validateCreateTaskForm() {
-    // Retrieving the values of form elements
-    let clientlist = $('#client-list').val();
-    let projectlist = $('#project-list').val();
-    let projSubList = $('#project-subtype-list').val();
-    let taskName = $('#create-task').val();
-    let taskCat = $('#task-category').val();
-    let taskStat = $('#task-status').val();
-    let manager = $('#manager').val();
-    let assignedTos = $('#assinged_tos').val();
-    let startDate = $('#starting-date').val();
-    let deadline = $('#deadline').val();
 
-
-	// Defining error variables with a default value
-    var clientErr = projListErr = projSubErr = nameErr = categoryErr = statusErr = managerErr = assignErr = startErr = endErr = true;
-
-     // Validate client
-     if(clientlist == "") {
-        printError("clientErr", "Please select a client");
-    } else {
-        printError("clientErr", "");
-        clientErr = false;
-    }
-    // Validate project
-    if(projectlist == "") {
-            printError("projListErr", "Please select a project");
-        } else {
-            printError("projListErr", "");
-            projListErr = false;
-        }
-    // Validate project sub
-    if(projSubList == "") {
-           printError("projSubErr", "Please select a project subtype");
-       } else {
-           printError("projSubErr", "");
-           projSubErr = false;
-       }
-
-    // Validate name
-    //f(taskName == "") {
-     //   printError("nameErr", "Please input a task name");
-   // } else if(taskName){
-     //   taskName = taskName.toUpperCase();
-       //     $.ajax({
-         //       type: "GET",
-           //     url: "/api/v1/tasks",
-             //   success: function (data) {
-               // for(let i=0; i<data.data.length; i++){
-                 //   if(data.data[i].name.toUpperCase()===taskName){
-                   //     printError("nameErr", "Task name already exists");
-                     //   nameErr = true;
-                       // console.log(i+'exists'+nameErr)
-                       // break;
-        //            }else{
-          //               if (data.data[i].name.toUpperCase() !== taskName){
-            //            console.log('doesnt exist')
-              //          printError("nameErr", "");
-                //        nameErr = false;
-                  //      //console.log(nameErr)
-                    //}
-                //}
-                //}
-                //},
-
-                //error: function (data) {
-//
-  //              }
-//
-  //          })
-    //        console.log(nameErr)
-     //   }
-
-     if(taskName == "") {
-            printError("nameErr", "Please input a task name");
-        } else {
-            printError("nameErr", "");
-            nameErr = false;
-        }
-
-    // Validate task category
-    if(taskCat == "") {
-            printError("categoryErr", "Select a category");
-        } else {
-            printError("categoryErr", "");
-            categoryErr = false;
-        }
-
-    // Validate task status
-    if(taskStat == "") {
-            printError("statusErr", "Select a status");
-        } else {
-            printError("statusErr", "");
-            statusErr = false;
-        }
-
-    // Validate task manager
-    if(manager == "") {
-            printError("managerErr", "Select a manager");
-        } else {
-            printError("managerErr", "");
-            managerErr = false;
-        }
-
-    // Validate assigned tos
-    if(assignedTos == "") {
-            printError("assignErr", "Please select a member");
-        } else {
-            printError("assignErr", "");
-            assignErr = false;
-        }
-
-    // Validate start date
-    if(startDate == "") {
-            printError("startErr", "Pick a date");
-        } else {
-            printError("startErr", "");
-            startErr = false;
-        }
-
-
-    // Validate deadline
-    if(deadline == "") {
-            printError("endErr", "Pick a date");
-        } else {
-            printError("endErr", "");
-            endErr = false;
-        }
-
-
-    // Prevent the form from being submitted if there are any errors
-
-    if((clientErr || projListErr || projSubErr || nameErr || categoryErr || statusErr|| managerErr || assignErr || startErr || endErr) == true) {
-       return false;
-    } else {
-
-        postCreateTask();
-    }
-};
     </script>
 
 

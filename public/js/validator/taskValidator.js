@@ -1,7 +1,3 @@
-function printError(elemId, hintMsg) {
-    document.getElementById(elemId).innerHTML = hintMsg;
-}
-
 function validateCreateTaskForm() {
     // Retrieving the values of form elements
     let clientlist = $('#client-list').val();
@@ -84,7 +80,7 @@ function validateCreateTaskForm() {
 
     // Validate task category
     if (taskCat == "") {
-        printError("categoryErr", "Select a category");
+        printError("categoryErr", "Please select a category");
     } else {
         printError("categoryErr", "");
         categoryErr = false;
@@ -92,7 +88,7 @@ function validateCreateTaskForm() {
 
     // Validate task status
     if (taskStat == "") {
-        printError("statusErr", "Select a status");
+        printError("statusErr", "Please select a status");
     } else {
         printError("statusErr", "");
         statusErr = false;
@@ -100,7 +96,7 @@ function validateCreateTaskForm() {
 
     // Validate task manager
     if (manager == "") {
-        printError("managerErr", "Select a manager");
+        printError("managerErr", "Please select a manager");
     } else {
         printError("managerErr", "");
         managerErr = false;
@@ -139,5 +135,320 @@ function validateCreateTaskForm() {
     } else {
 
         postCreateTask();
+    }
+};
+
+function validateEditCreateTaskForm(task_id) {
+    // Retrieving the values of form elements
+    let EditClientlist = $('#client-list').val();
+    let EditProjectlist = $('#project-list').val();
+    let EditProjSubList = $('#project-subtype-list').val();
+    let EditTaskName = $('#create-task').val();
+    let EditTaskCat = $('#task-category').val();
+    let EditTaskStat = $('#task-status').val();
+    let EditManager = $('#manager').val();
+    let EditAssignedTos = $('#assinged_tos').val();
+    let EditStartDate = $('#starting-date').val();
+    let EditDeadline = $('#deadline').val();
+
+
+    // Defining error variables with a default value
+    var editClientErr = editProjectErr = editProjectSubTypeErr = editTaskNameErr = editTaskCatErr = editTaskStatusErr = editManagerErr = editAssignedTosErr = editStartErr = editEndErr = true;
+
+    // Validate client
+    if (EditClientlist == "") {
+        printError("editClientErr", "Please select a client");
+    } else {
+        printError("editClientErr", "");
+        editClientErr = false;
+    }
+    // Validate project
+    if (EditProjectlist == "") {
+        printError("editProjectErr", "Please select a project");
+    } else {
+        printError("editProjectErr", "");
+        editProjectErr = false;
+    }
+    // Validate project sub
+    if (EditProjSubList == "") {
+        printError("editProjectSubTypeErr", "Please select a project subtype");
+    } else {
+        printError("editProjectSubTypeErr", "");
+        editProjectSubTypeErr = false;
+    }
+
+    // Validate name
+    //f(EditTaskName == "") {
+    //   printError("editTaskNameErr", "Please input a task name");
+    // } else if(EditTaskName){
+    //   EditTaskName = EditTaskName.toUpperCase();
+    //     $.ajax({
+    //       type: "GET",
+    //     url: "/api/v1/tasks",
+    //   success: function (data) {
+    // for(let i=0; i<data.data.length; i++){
+    //   if(data.data[i].name.toUpperCase()===EditTaskName){
+    //     printError("editTaskNameErr", "Task name already exists");
+    //   editTaskNameErr = true;
+    // console.log(i+'exists'+editTaskNameErr)
+    // break;
+    //            }else{
+    //               if (data.data[i].name.toUpperCase() !== EditTaskName){
+    //            console.log('doesnt exist')
+    //          printError("editTaskNameErr", "");
+    //        editTaskNameErr = false;
+    //      //console.log(editTaskNameErr)
+    //}
+    //}
+    //}
+    //},
+
+    //error: function (data) {
+    //
+    //              }
+    //
+    //          })
+    //        console.log(editTaskNameErr)
+    //   }
+
+    if (EditTaskName == "") {
+        printError("editTaskNameErr", "Please input a task name");
+    } else {
+        printError("editTaskNameErr", "");
+        editTaskNameErr = false;
+    }
+
+    // Validate task category
+    if (EditTaskCat == "") {
+        printError("editTaskCatErr", "Please select a category");
+    } else {
+        printError("editTaskCatErr", "");
+        editTaskCatErr = false;
+    }
+
+    // Validate task status
+    if (EditTaskStat == "") {
+        printError("editTaskStatusErr", "Please select a status");
+    } else {
+        printError("editTaskStatusErr", "");
+        editTaskStatusErr = false;
+    }
+
+    // Validate task EditManager
+    if (EditManager == "") {
+        printError("editManagerErr", "Please select a manager");
+    } else {
+        printError("editManagerErr", "");
+        editManagerErr = false;
+    }
+
+    // Validate assigned tos
+    if (EditAssignedTos == "") {
+        printError("editAssignedTosErr", "Please select a member");
+    } else {
+        printError("editAssignedTosErr", "");
+        editAssignedTosErr = false;
+    }
+
+    // Validate start date
+    if (EditStartDate == "") {
+        printError("editStartErr", "Pick a date");
+    } else {
+        printError("editStartErr", "");
+        editStartErr = false;
+    }
+
+
+    // Validate deadline
+    if (EditDeadline == "") {
+        printError("editEndErr", "Pick a date");
+    } else {
+        printError("editEndErr", "");
+        editEndErr = false;
+    }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if ((editClientErr || editProjectErr || editProjectSubTypeErr || editTaskNameErr || editTaskCatErr || editTaskStatusErr || editManagerErr || editAssignedTosErr || editStartErr || editEndErr) == true) {
+        return false;
+    } else {
+
+        submitEditTaskForm(task_id)
+    }
+};
+
+function validateTaskCategory() {
+    // Retrieving the values of form elements
+    let categoryName = $('#category-name').val();
+    let projType = $('#createProjectTypeList').val();
+    let projSubType = $('#createSubCategory').val();
+    let weight = $('#weightId').val();
+    let description = $('#descriptionID').val();
+
+
+
+    // Defining error variables with a default value
+    var categoryNameErr = projectTypeeErr = subtypeeErr = weightErr = descriptionErr = true;
+
+    if (categoryName == "") {
+        printError("categoryNameErr", "Please input a name");
+    } else {
+        printError("categoryNameErr", "");
+        categoryNameErr = false;
+    }
+    // Validate project
+    if (projType == "") {
+        printError("projectTypeeErr", "Please select a project type");
+    } else {
+        printError("projectTypeeErr", "");
+        projectTypeeErr = false;
+    }
+    // Validate project sub
+    if (projSubType == "") {
+        printError("subtypeeErr", "Please select a project subtype");
+    } else {
+        printError("subtypeeErr", "");
+        subtypeeErr = false;
+    }
+
+    if (weight == "") {
+        printError("weightErr", "Please fill in this field");
+    } else {
+        printError("weightErr", "");
+        weightErr = false;
+    }
+
+
+    if (description == "") {
+        printError("descriptionErr", "Please fill in this field");
+    } else {
+        printError("descriptionErr", "");
+        descriptionErr = false;
+    }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if ((categoryNameErr || projectTypeeErr || subtypeeErr || descriptionErr || weightErr) == true) {
+        return false;
+    } else {
+
+        postCreateTaskCategory();
+    }
+};
+
+
+function validateEditTaskCategory(task_id) {
+    // Retrieving the values of form elements
+    let editCategoryName = $('#categoryName').val();
+    let editProjType = $('#projectTypeListt').val();
+    let editProjSubType = $('#editSubCategory').val();
+    let editWeight = $('#editWeightId').val();
+    let editDescription = $('#editDescriptionID').val();
+
+
+
+    // Defining error variables with a default value
+    var editCategoryNameErr = editProjectTypeeErr = editSubtypeeErr = editWeightErr = editDescriptionErr = true;
+
+    if (editCategoryName == "") {
+        printError("editCategoryNameErr", "Please input a name");
+    } else {
+        printError("editCategoryNameErr", "");
+        editCategoryNameErr = false;
+    }
+
+    if (editProjType == "") {
+        printError("editProjectTypeeErr", "Please select a project type");
+    } else {
+        printError("editProjectTypeeErr", "");
+        editProjectTypeeErr = false;
+    }
+
+    if (editProjSubType == "") {
+        printError("editSubtypeeErr", "Please select a project subtype");
+    } else {
+        printError("editSubtypeeErr", "");
+        editSubtypeeErr = false;
+    }
+
+    if (editWeight == "") {
+        printError("editWeightErr", "Please fill in this field");
+    } else {
+        printError("editWeightErr", "");
+        editWeightErr = false;
+    }
+
+
+    if (editDescription == "") {
+        printError("editDescriptionErr", "Please fill in this field");
+    } else {
+        printError("editDescriptionErr", "");
+        editDescriptionErr = false;
+    }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if ((editCategoryNameErr || editProjectTypeeErr || editSubtypeeErr || editDescriptionErr || editWeightErr) == true) {
+        return false;
+    } else {
+
+        submitEditTaskCategory(task_id);
+
+    }
+};
+
+
+function validateStatus() {
+    // Retrieving the values of form elements
+    let taskStatus = $('#statusInput').val();
+
+
+    // Defining error variable with a default value
+    var taskStatusErr = true;
+
+    if (taskStatus == "") {
+        printError("taskStatusErr", "Please provide an input");
+    } else {
+        printError("taskStatusErr", "");
+        taskStatusErr = false;
+    }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if (taskStatusErr == true) {
+        return false;
+    } else {
+
+        postTaskStatus();
+    }
+};
+
+function validateEditStatus(taskStatusId) {
+    // Retrieving the values of form elements
+    let editTaskStatus = $('#editStatusInput').val();
+
+
+    // Defining error variable with a default value
+    var editTaskStatusErr = true;
+
+    if (editTaskStatus == "") {
+        printError("editTaskStatusErr", "Please provide an input");
+    } else {
+        printError("editTaskStatusErr", "");
+        editTaskStatusErr = false;
+    }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if (editTaskStatusErr == true) {
+        return false;
+    } else {
+
+        submitEditTaskStatus(taskStatusId);
     }
 };

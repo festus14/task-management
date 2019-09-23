@@ -399,7 +399,7 @@
 
 <!-- Edit Project SubType Modal -->
 <div class="modal fade" id="editProjectSubTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 50%; min-width: 350px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Project Subtype</h5>
@@ -1170,10 +1170,10 @@
                         type: "GET",
                         url: "/api/v1/project-sub-types/" + sub_id,
                         success: function(data){
-                            editData = data.data;
-                            $('#sub-type').val(editSubData[0].name);
-                            $('#projecttype').val(editSubData.project_type_id + "");
-                            console.log(editData);
+                            editSubData = data.data;
+                            $('#projecTttype').val(editSubData.project_type_id + "");
+                            $('#subTtype').val(editSubData[0].name);
+                            console.log(editSubData);
                         },
 
                         error: function (data) {
@@ -1194,20 +1194,22 @@
 
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
-                            <select id="projecttype" name="project_type_id" class="selectDesign form-control">
+                            <select id="projecTttype" name="project_type_id" class="selectDesign form-control">
                                 <option value = "" selected></option>
                                 ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                             </select>
+                            <div class="error" id="editProjectTTTypeErr"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="create-task">Subtype Name</label>
-                            <input type="text" class="form-control" name="name" id="sub-type" placeholder="">
+                            <input type="text" class="form-control" name="name" id="subTtype" placeholder="">
+                            <div class="error" id="editProjectSubTypeErr"></div>
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#editProjectSubTypeModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectSubtypeForm(${sub_id});" value="Update">
+                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="ValidateEditProjectSubType(${sub_id});" value="Update">
                 </div>
                 </form>
         `
@@ -1229,7 +1231,7 @@
                 $.ajax({
                 type: "PUT",
                 url: '{{ url("/api/v1/project-sub-types") }}' + '/' + sub_id,
-                data: $('#addprojsubtypeform2').serialize(),
+                data: $('#editProjectSubtypeForm').serialize(),
                 success: function (data) {
 
                     swal({
@@ -2586,21 +2588,22 @@
 
                                 <div class="form-group">
                                     <label for="project-type">Select Project Type</label>
-                                    <select id="projecttype" name="project_type_id" class="selectDesign form-control">
+                                    <select id="project-type" name="project_type_id" class="selectDesign form-control">
                                         <option value="" selected></option>
                                         ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
-
                                     </select>
+                                    <div class="error" id="projectTTTypeErr"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="create-task">Subtype Name</label>
                                     <input type="text" class="form-control" name="name" id="sub-type" placeholder="">
+                                    <div class="error" id="projectSubTypeErr"></div>
                                 </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#subtypemainModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                            <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="addProjectSubtypeX();" value="{{ trans('global.create') }}">
+                            <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateProjectSubType();" value="{{ trans('global.create') }}">
                         </div>
                         </form>
 
