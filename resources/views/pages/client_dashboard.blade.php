@@ -528,7 +528,7 @@
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditClient(${clientData.id})" value="{{ trans('global.edit') }}">
+                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditClient(${clientData.id})" value="{{ trans('global.Update') }}">
                                             </div>
                                         </div>
                                     </form>
@@ -583,11 +583,11 @@
 
 
             function submitEditClient(client_id){
-                let formdata = $('#editClientForm').serialize();
+                let formData = $('#editClientForm').serialize();
                     $.ajax({
                         type: "PUT",
                         url: '{{ url("/api/v1/clients") }}'+ '/'+ client_id,
-                        data:formdata,
+                        data: formData,
                         success: function (data) {
                             swal({
                                 title: "Success!",

@@ -570,61 +570,6 @@
             </div>
         </div>
         <!-- endComment Modal -->
-        <!-- Add Document Modal -->
-
-        {{-- <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
-                        <button type="button" class="close" onclick="$('#addReportModal').modal('hide');" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" method="" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label for="client-list">Select Client</label>
-                                        <select id="client-list" class="selectDesign form-control"></select>
-                                    </div>
-
-                                    <div class="form-group mt-3">
-                                        <label for="document-name">Document Name</label>
-                                        <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
-                                    </div>
-
-                                    <div class="form-group mt-4">
-                                        <input style="background: #f1f1f1" type="file" name="files[]" multiple />
-                                    </div>
-
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label for="project-list">Project Name</label>
-                                        <select id="project-list" class="selectDesign form-control"></select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="task-list">Version</label>
-                                        <input type="text" class="form-control" id="version" placeholder="Enter Version">
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-3 form-group mt-2">
-                                    <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        <!-- End Add Document Modal -->
 
 
 
@@ -948,7 +893,7 @@
                 let probSubtypeBody = document.getElementById('subtypeModalBody');
                     createProjectBody.innerHTML = `
                     <div class="col-md-12 ">
-                        <form id="addprojectform" enctype="multipart/form-data">
+                        <form id="addProjectForm" enctype="multipart/form-data">
                             @csrf
                             <div class="row col-md-12">
                                 <div class="col-md-6 form-group mt-3">
@@ -1350,7 +1295,7 @@
             $.ajax({
                     type: "POST",
                     url: '{{ url("/api/v1/projects") }}',
-                    data: $('#addprojectform').serialize(),
+                    data: $('#addProjectForm').serialize(),
                     success: function (data) {
 
                         swal({
@@ -1878,7 +1823,7 @@
                                 </button>
                     </div>
                     <div class="modal-body">
-                            <form id="addprojectform" enctype="multipart/form-data">
+                            <form id="addProjectReportForm" enctype="multipart/form-data">
                                  @csrf
                             <div class=" row col-md-12">
                                 <div class="col-md-12 form-group mt-3">
@@ -1888,10 +1833,10 @@
                             </div>
                             <div class="col-md-12 row">
                                 <div class="col-md-6 form-group mt-3">
-                                    <input type="hidden" value="${data.data.reports.client_id}" name="client_id" id="client" class="form-control" id="address" placeholder="">
+                                    <input type="hidden" value="${data.data.client_id}" name="client_id" id="client" class="form-control">
                                 </div>
                                 <div class="col-md-6 form-group mt-3">
-                                    <input type="hidden" value="${data.data.reports.project_id}" name="project_id" id="project" class="form-control" id="address" placeholder="">
+                                    <input type="hidden" value="${data.data.id}" name="project_id" id="project" class="form-control">
                                 </div>
                             </div>
 
@@ -1907,7 +1852,7 @@
                                     </fieldset>
                                     <div class="row col-md-12">
                                         <div class="col-md-3 form-group mt-3">
-                                            <input type="button" onclick="submitProjectReport()" class="btn btn-block" style="background-color:#8a2a2b; color:white;">
+                                            <input type="button" onclick="submitProjectReport()" class="btn btn-block" value = "Submit" style="background-color:#8a2a2b; color:white;">
 
                                         </div>
                                     </div>
@@ -1930,7 +1875,7 @@
                                 </button>
                     </div>
                     <div class="modal-body">
-                        <form enctype="multipart/form-data">
+                        <form id = "submitDoc" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">
@@ -1986,11 +1931,13 @@
         }
 
         function submitProjectReport(){
+            let formData = $('#addProjectReportForm').serialize();
+            console.log(formData)
             $.ajax({
                 type: "POST",
                 url: "/api/v1/project-reports",
+                data: formData,
                 success: function (data) {
-
                     swal({
                         title: "Success!",
                         text: "Project Report Submitted!",
@@ -2002,24 +1949,26 @@
                         location.reload();
                     }, 3000)
 
-                    },
-                    error: function (error) {
+                },
+                error: function (error) {
                     swal({
                         title: "Project Report Wasn't Created!",
                         icon: "error",
                         confirmButtonColor: "#fc3",
                         confirmButtonText: "OK",
                     });
-                    }
+                }
             });
         }
 
         function submitProjectDoc(){
+            let formData = $('#submitDoc').serialize();
+            console.log(formData);
             $.ajax({
                 type: "POST",
                 url: "/api/v1/documents",
+                data: formData,
                 success: function (data) {
-
                     swal({
                         title: "Success!",
                         text: "Project document submitted!",
@@ -2397,7 +2346,6 @@
          //Edit Project Type
             var editProjectTypeData;
             function editProjectType(type_id){
-                console.log(type_id)
             $.ajax({
                 type: "GET",
                 url: "/api/v1/project-types" + "/" + type_id,

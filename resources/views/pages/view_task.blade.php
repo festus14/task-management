@@ -213,58 +213,6 @@
     </div>
 
     <!-- Add Document Modal -->
-    <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle"><i class="la la-plus"></i> Add Document</h5>
-                    <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label for="client-list">Select Client</label>
-                                    <select id="client-list" class="selectDesign form-control"></select>
-                                </div>
-
-                                <div class="form-group mt-3">
-                                    <label for="document-name">Document Name</label>
-                                    <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
-                                </div>
-
-                                <div class="form-group mt-4">
-                                    <input style="background: #f1f1f1" type="file" name="files[]" multiple />
-                                </div>
-
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label for="project-list">Project Name</label>
-                                    <select id="project-list" class="selectDesign form-control"></select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="task-list">Version</label>
-                                    <input type="text" class="form-control" id="version" placeholder="Enter Version">
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-3 form-group mt-2">
-                                <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- End Add Document Modal -->
 
     {{-- Add Task Category Modal --}}
@@ -1299,7 +1247,7 @@
                                     </div>
 
                                     <div class="form-group mt-4">
-                                        <input style="background: #f1f1f1" type="file" name="document" multiple />
+                                        <input style="background: #f1f1f1" type="file" name="file" multiple />
                                     </div>
 
                                 </div>
@@ -1351,18 +1299,33 @@
                     type: "POST",
                     url: "/api/v1/project-reports",
                     data: $('#taskReportForm').serialize(),
-                    success: function (data){
-                        alert(data.success);
-                        $('#taskReportForm').modal('hide');
-                        document.getElementById('report-textarea').value = "";
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
+                    success: function (data) {
+                    swal({
+                        title: "Success!",
+                        text: "Task Report Submitted!",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
+                    });
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 3000)
+
+                },
+                error: function (error) {
+                    swal({
+                        title: "Task report wasn't created!",
+                        icon: "error",
+                        confirmButtonColor: "#fc3",
+                        confirmButtonText: "OK",
+                    });
+                }
                 });
             }
 
             function submitTaskDocument(){
+                let formData = $('#taskDocumentForm').serialize();
+                console.log(formData)
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1371,15 +1334,28 @@
                 $.ajax({
                     type: "POST",
                     url: "/api/v1/task-documents",
-                    data: $('#taskDocumentForm').serialize(),
-                    success: function (data){
-                        alert(data.success);
-                        $('#taskDocumentForm').modal('hide');
+                    data: formData,
+                    success: function (data) {
+                    swal({
+                        title: "Success!",
+                        text: "Task document submitted!",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
+                    });
+                    window.setTimeout(function(){
                         location.reload();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
+                    }, 3000)
+
+                },
+                error: function (error) {
+                    swal({
+                        title: "Task document wasn't created!",
+                        icon: "error",
+                        confirmButtonColor: "#fc3",
+                        confirmButtonText: "OK",
+                    });
+                }
                 });
             }
 
@@ -2102,11 +2078,11 @@
                     }
 
                 function submitEditTaskForm(taskID){
-                    let formdata = $('#editTaskform').serialize();
+                    let formData = $('#editTaskform').serialize();
                     $.ajax({
                         type: "PUT",
                         url: "/api/v1/tasks/" + taskID,
-                        data: formdata,
+                        data: formData,
                         success: function (data) {
                             swal({
                                 title: "Success!",
