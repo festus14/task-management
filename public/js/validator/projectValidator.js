@@ -39,19 +39,6 @@ function validateCreateProjectForm() {
         projSubErr = false;
     }
 
-    // Validate name
-
-    // if(projectName == "") {
-    //     printError("nameErr", "Please input a project name");
-    // } else {
-    //     var regex = /^[a-zA-Z\s]+$/;
-    //     if(regex.test(projectName) === false) {
-    //         printError("nameErr", "Please input a valid project name");
-    //     } else {
-    //         printError("nameErr", "");
-    //         nameErr = false;
-    //     }
-    // }
 
     var allProjects;
     $.ajax({
@@ -68,10 +55,8 @@ function validateCreateProjectForm() {
         }
 
     })
-    console.log(allProjects)
 
     if (projectName == "") {
-        console.log("why na")
         printError("nameErr", "Please input a project name");
     } else if (projectName) {
         projectName = projectName.toUpperCase();
@@ -80,23 +65,14 @@ function validateCreateProjectForm() {
             if (allProjects.data[i].name.toUpperCase() === projectName) {
                 printError("nameErr", "Project name already exists");
                 nameErr = true;
-                console.log(nameErr);
                 break;
             } else {
                 printError("nameErr", "");
                 nameErr = false;
-                console.log(nameErr)
             }
         }
 
     }
-    console.log("nameerror " + nameErr);
-    // if (projectName == "") {
-    //     printError("nameErr", "Please input a project name");
-    // } else {
-    //     printError("nameErr", "");
-    //     nameErr = false;
-    // }
 
     // Validate task manager
     if (manager == "") {
@@ -135,11 +111,98 @@ function validateCreateProjectForm() {
     // Prevent the form from being submitted if there are any errors
 
     if ((clientErr || projTypeErr || projSubErr || nameErr || managerErr || membersErr || startErr || endErr) == true) {
-        console.log("oh ops")
+        return false;
+    } else {
+        createProject();
+    }
+};
+
+function validateEditProjectForm(project_id) {
+    console.log('here')
+        // Retrieving the values of form elements
+    let editClientlist = $('#client_list').val();
+    let editProjectSublist = $('#project_subtype_id').val();
+    let editProjTypelist = $('#projtypeboy').val();
+    let editProjectName = $('#project_name').val();
+    let editManager = $('#managerId').val();
+    let editTeamMembers = $('#team-members').val();
+    let editStartDate = $('#startingDate').val();
+    let editDeadline = $('#Dead-line').val();
+
+
+    // Defining error variables with a default value
+    var editClientErr = editProjTypeErr = editProjSubErr = editNameErr = editManagerErr = editMembersErr = editStartErr = editEndErr = true;
+
+    // Validate client
+    if (editClientlist == "") {
+        printError("editClientErr", "Please select a client");
+    } else {
+        printError("editClientErr", "");
+        editClientErr = false;
+    }
+    // Validate project
+    if (editProjTypelist == "") {
+        printError("editProjTypeErr", "Please select a project type");
+    } else {
+        printError("editProjTypeErr", "");
+        editProjTypeErr = false;
+    }
+    // Validate project sub
+    if (editProjectSublist == "") {
+        printError("editProjSubErr", "Please select a project subtype");
+    } else {
+        printError("editProjSubErr", "");
+        editProjSubErr = false;
+    }
+
+    // Validate name
+    if (editProjectName == "") {
+        printError("editNameErr", "Please input a project name");
+    } else {
+        printError("editNameErr", "");
+        editNameErr = false;
+    }
+
+    // Validate task manager
+    if (editManager == "") {
+        printError("editManagerErr", "Select a manager");
+    } else {
+        printError("editManagerErr", "");
+        editManagerErr = false;
+    }
+
+    // Validate members
+    if (editTeamMembers == "") {
+        printError("editMembersErr", "Please select a member");
+    } else {
+        printError("editMembersErr", "");
+        editMembersErr = false;
+    }
+
+    // Validate start date
+    if (editStartDate == "") {
+        printError("editStartErr", "Pick a date");
+    } else {
+        printError("editStartErr", "");
+        editStartErr = false;
+    }
+
+
+    // Validate deadline
+    if (editDeadline == "") {
+        printError("editEndErr", "Pick a date");
+    } else {
+        printError("editEndErr", "");
+        editEndErr = false;
+    }
+
+
+    // Prevent the form from being submitted if there are any errors
+
+    if ((editClientErr || editProjTypeErr || editProjSubErr || editNameErr || editManagerErr || editMembersErr || editStartErr || editEndErr) == true) {
         return false;
     } else {
 
-        console.log("should work")
-        createProject();
+        submitEditProjectForm(project_id);
     }
 };

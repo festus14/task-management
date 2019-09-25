@@ -23,6 +23,7 @@
         "vue": "^2.5.17"
     },
     "dependencies": {
-        "@material-ui/icons": "^4.2.1"
+        "@material-ui/icons": "^4.2.1",
+        "jshint": "^2.10.2"
     }
 }

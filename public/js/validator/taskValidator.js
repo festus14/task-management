@@ -37,39 +37,6 @@ function validateCreateTaskForm() {
         projSubErr = false;
     }
 
-    // Validate name
-    //f(taskName == "") {
-    //   printError("nameErr", "Please input a task name");
-    // } else if(taskName){
-    //   taskName = taskName.toUpperCase();
-    //     $.ajax({
-    //       type: "GET",
-    //     url: "/api/v1/tasks",
-    //   success: function (data) {
-    // for(let i=0; i<data.data.length; i++){
-    //   if(data.data[i].name.toUpperCase()===taskName){
-    //     printError("nameErr", "Task name already exists");
-    //   nameErr = true;
-    // console.log(i+'exists'+nameErr)
-    // break;
-    //            }else{
-    //               if (data.data[i].name.toUpperCase() !== taskName){
-    //            console.log('doesnt exist')
-    //          printError("nameErr", "");
-    //        nameErr = false;
-    //      //console.log(nameErr)
-    //}
-    //}
-    //}
-    //},
-
-    //error: function (data) {
-    //
-    //              }
-    //
-    //          })
-    //        console.log(nameErr)
-    //   }
     var allTasks;
     $.ajax({
         type: "GET",
@@ -85,10 +52,8 @@ function validateCreateTaskForm() {
         }
 
     })
-    console.log(allTasks)
 
     if (taskName == "") {
-        console.log("why na")
         printError("nameErr", "Please input a project name");
     } else if (taskName) {
         taskName = taskName.toUpperCase();
@@ -97,12 +62,10 @@ function validateCreateTaskForm() {
             if (allTasks.data[i].name.toUpperCase() === taskName) {
                 printError("nameErr", "Task name already exists");
                 nameErr = true;
-                console.log(nameErr);
                 break;
             } else {
                 printError("nameErr", "");
                 nameErr = false;
-                console.log(nameErr)
             }
         }
 
@@ -207,41 +170,6 @@ function validateEditCreateTaskForm(task_id) {
         editProjectSubTypeErr = false;
     }
 
-    // Validate name
-    //f(EditTaskName == "") {
-    //   printError("editTaskNameErr", "Please input a task name");
-    // } else if(EditTaskName){
-    //   EditTaskName = EditTaskName.toUpperCase();
-    //     $.ajax({
-    //       type: "GET",
-    //     url: "/api/v1/tasks",
-    //   success: function (data) {
-    // for(let i=0; i<data.data.length; i++){
-    //   if(data.data[i].name.toUpperCase()===EditTaskName){
-    //     printError("editTaskNameErr", "Task name already exists");
-    //   editTaskNameErr = true;
-    // console.log(i+'exists'+editTaskNameErr)
-    // break;
-    //            }else{
-    //               if (data.data[i].name.toUpperCase() !== EditTaskName){
-    //            console.log('doesnt exist')
-    //          printError("editTaskNameErr", "");
-    //        editTaskNameErr = false;
-    //      //console.log(editTaskNameErr)
-    //}
-    //}
-    //}
-    //},
-
-    //error: function (data) {
-    //
-    //              }
-    //
-    //          })
-    //        console.log(editTaskNameErr)
-    //   }
-
-
     if (EditTaskName == "") {
         printError("editTaskNameErr", "Please input a task name");
     } else {
@@ -310,6 +238,23 @@ function validateEditCreateTaskForm(task_id) {
 };
 
 function validateTaskCategory() {
+    var allTaskCategories;
+    $.ajax({
+        type: "GET",
+        url: "/api/v1/tast-categories",
+        async: false,
+        success: function(data) {
+            allTaskCategories = data;
+
+        },
+
+        error: function(data) {
+
+        }
+
+    })
+
+
     // Retrieving the values of form elements
     let categoryName = $('#category-name').val();
     let projType = $('#createProjectTypeList').val();
@@ -323,11 +268,29 @@ function validateTaskCategory() {
     var categoryNameErr = projectTypeeErr = subtypeeErr = weightErr = descriptionErr = true;
 
     if (categoryName == "") {
-        printError("categoryNameErr", "Please input a name");
-    } else {
-        printError("categoryNameErr", "");
-        categoryNameErr = false;
+        printError("categoryNameErr", "Please input a project name");
+    } else if (categoryName) {
+        categoryName = categoryName.toUpperCase();
+
+        for (let i = 0; i < allTaskCategories.data.length; i++) {
+            if (allTaskCategories.data[i].name.toUpperCase() === categoryName) {
+                printError("categoryNameErr", "Task category already exists");
+                categoryNameErr = true;
+                break;
+            } else {
+                printError("categoryNameErr", "");
+                categoryNameErr = false;
+            }
+        }
+
     }
+
+    // if (categoryName == "") {
+    //     printError("categoryNameErr", "Please input a name");
+    // } else {
+    //     printError("categoryNameErr", "");
+    //     categoryNameErr = false;
+    // }
     // Validate project
     if (projType == "") {
         printError("projectTypeeErr", "Please select a project type");
@@ -433,7 +396,22 @@ function validateEditTaskCategory(task_id) {
 
 
 function validateStatus() {
-    // Retrieving the values of form elements
+    var allTaskStatuses;
+    $.ajax({
+            type: "GET",
+            url: "/api/v1/task-statuses",
+            async: false,
+            success: function(data) {
+                allTaskStatuses = data;
+
+            },
+
+            error: function(data) {
+
+            }
+
+        })
+        // Retrieving the values of form elements
     let taskStatus = $('#statusInput').val();
 
 
@@ -441,10 +419,21 @@ function validateStatus() {
     var taskStatusErr = true;
 
     if (taskStatus == "") {
-        printError("taskStatusErr", "Please provide an input");
-    } else {
-        printError("taskStatusErr", "");
-        taskStatusErr = false;
+        printError("taskStatusErr", "Please input a project name");
+    } else if (taskStatus) {
+        taskStatus = taskStatus.toUpperCase();
+
+        for (let i = 0; i < allTaskStatuses.data.length; i++) {
+            if (allTaskStatuses.data[i].name.toUpperCase() === taskStatus) {
+                printError("taskStatusErr", "Task status already exists");
+                taskStatusErr = true;
+                break;
+            } else {
+                printError("taskStatusErr", "");
+                taskStatusErr = false;
+            }
+        }
+
     }
 
 

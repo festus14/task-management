@@ -48,6 +48,7 @@
     color: red;
     font-size: 90%;
 }
+
     </style>
 </head>
 <!-- end::Head -->
@@ -838,7 +839,7 @@
                     </div>
                     <!-- END: Subheader -->
 
-                        <div class="m-content" style="width: 99%; box-sizing: border-box" data-select2-id="6">
+                        <div class="m-content container" style="width: 99%; box-sizing: border-box" data-select2-id="6">
                             <!-- Inner page content goes here -->
                             @yield('content')
                             <!-- <div>

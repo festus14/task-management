@@ -923,7 +923,7 @@
                         <div class="form-group">
                             <label for="create-task">Status name</label>
                             <input type="text" class="form-control" id="editStatusInput" name="name" placeholder="" value="" required>
-                            <div class="error" id="editSaskStatusErr"></div>
+                            <div class="error" id="editTaskStatusErr"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1480,18 +1480,18 @@
                                                                                     <span class="secondary"><strong>Tomiwa</strong></span>
                                                                                     <span id="datee" style="float: right;">${elem.created_at}</span>
                                                                                 </div>
-                                                                                <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;">
+                                                                                <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                                 ${elem.comments}
                                                                                     <br/>
-                                                                                    <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
+                                                                                    <div id="${elem.id}replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
                                                                                 <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
 
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
-                                                                                    <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <textarea class="form-control" name="replytext" id="${elem.id}replyTextId" rows="1" style="width: 100%" required></textarea>
+                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply(${elem.id})" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 
@@ -1588,28 +1588,7 @@
                         </div>
                         </div>
                     </div>`
-//                     :
-//             `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-//     <div class="m-messenger__message m-messenger__message--out">
 
-//         <div class="m-messenger__message-body">
-//             <div class="m-messenger__message-arrow"></div>
-//             <div class="m-messenger__message-content">
-//             <div class="m-messenger__message-username">
-//             <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-//             <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-
-//                 </div>
-//                 <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
-//                     ${elem.comment}
-//                 </div>
-//             </div>
-//         </div>
-//         <div class="m-messenger__message-pic">
-//         <img src="assets/app/media/img//users/user3.jpg" alt="" class="mCS_img_loaded">
-//     </div>
-//     </div>
-// </div>`
         document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
 
     }
@@ -1627,8 +1606,8 @@
            document.getElementById("Textarea2").value = "";
        }
 
-       function addReply() {
-           parentComment = document.getElementById("replydiv");
+       function addReply(id) {
+           parentComment = document.getElementById(`${id}replydiv`);
            childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
            <div class="m-messenger__message m-messenger__message--out">
 
@@ -1637,12 +1616,12 @@
                    <div class="m-messenger__message-content">
                    <div class="m-messenger__message-username">
                    <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
-                   <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
+                   <span class="datee" style="float: right; color: #0c2a7a">2019-08-25 16:58:51</span>
 
                        </div>
 
                        <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-                         ${document.getElementById("replyTextId").value}
+                         ${document.getElementById(`${id}replyTextId`).value}
                                  </p>
                        </div>
                        </br>
@@ -1654,7 +1633,7 @@
            </div>
        </div>`;
            parentComment.innerHTML = parentComment.innerHTML + childComment;
-           document.getElementById("replyTextId").value = "";
+           document.getElementById(`${id}replyTextId`).value = "";
        }
 
 
@@ -1873,6 +1852,29 @@
                 var editData;
             function editTaskMain(task_id) {
 
+                $.ajax({
+                        type: "GET",
+                        url: "/api/v1/tasks/" + task_id,
+                        success: function(data){
+                            editData = data.data;
+                            $('#create-task').val(editData.name);
+                            $('#client-list').val(editData.client_id + "");
+                            $('#project-list').val(editData.project_id + "");
+                            $('#task-status').val(editData.status_id + "");
+                            $('#manager').val(editData.manager_id + "");
+                            $('#task-category').val(editData.category_id + "");
+                            $('#project-subtype-list').val(editData.project_subtype_id + "");
+                            $('#assinged_tos').val(editData.assinged_tos + "");
+                            $('#starting-date').val(editData.starting_date);
+                            $('#deadline').val(editData.ending_date);
+                            console.log(editData);
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
 
                     $.ajax({
                         type: "GET",
@@ -1983,30 +1985,6 @@
 
                         </div>
                         `
-
-                        $.ajax({
-                        type: "GET",
-                        url: "/api/v1/tasks/" + task_id,
-                        success: function(data){
-                            editData = data.data;
-                            $('#create-task').val(editData.name);
-                            $('#client-list').val(editData.client_id + "");
-                            $('#project-list').val(editData.project_id + "");
-                            $('#task-status').val(editData.status_id + "");
-                            $('#manager').val(editData.manager_id + "");
-                            $('#task-category').val(editData.category_id + "");
-                            $('#project-subtype-list').val(editData.project_subtype_id + "");
-                            $('#assinged_tos').val(editData.assinged_tos + "");
-                            $('#starting-date').val(editData.starting_date);
-                            $('#deadline').val(editData.ending_date);
-                            console.log(editData);
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
 
                         window._token = $('meta[name="csrf-token"]').attr('content');
 
@@ -2419,8 +2397,8 @@
                 url: '{{ url("/api/v1/task-statuses") }}',
                 data: $('#addStatusform').serialize(),
                 success: function (data) {
-                    $('#AddStatus').modal('hide');
-                    document.getElementById('statusInput').value = "";
+                    //$('#AddStatus').modal('hide');
+                    //document.getElementById('statusInput').value = "";
                     swal({
                         title: "Success!",
                         text: "Task status created!",
@@ -2429,15 +2407,16 @@
                         });
                         window.setTimeout(function(){
                             location.reload();
-                        } , 2500);
+                        } , 3000);
                 },
                 error: function (error) {
                     swal("Task creation failed", "Please check missing fields", "error");
                 }
                 });
                 }
-    function printError(elemId, hintMsg) {
-          document.getElementById(elemId).innerHTML = hintMsg;
+
+            function printError(elemId, hintMsg) {
+                document.getElementById(elemId).innerHTML = hintMsg;
         }
 
 

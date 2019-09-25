@@ -281,11 +281,12 @@
                             <div class="form-group">
                                 <label for="create-task">Project Type Name</label>
                                 <input type="text" class="form-control" id="projTypeId" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
+                                <div class="error" id="projectTypeErr"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');">Close</button>
-                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="addProject()" value="{{ trans('global.create') }}">
+                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateProjectType()" value="{{ trans('global.create') }}">
                         </div>
                     </form>
         </div>
@@ -396,8 +397,8 @@
 <!--End AddSubtype main Modal -->
 
 
-<!-- Edit Project SubType Modal -->
-<div class="modal fade" id="editProjectSubTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Edit Project SubType Modal -->
+    <div class="modal fade" id="editProjectSubTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 50%; min-width: 350px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -421,7 +422,7 @@
 
 
         <!-- Comment Modal -->
-        <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        {{-- <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -568,7 +569,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- endComment Modal -->
         <!-- Add Document Modal -->
 
@@ -625,7 +626,7 @@
             </div>
         </div> --}}
         <!-- End Add Document Modal -->
-
+    </div>
 
 
 @endsection
@@ -635,7 +636,6 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/validator/editProjectValidator.js') }}"></script>
 
 <script>
     function ProjectTypeSubmit(){
@@ -705,7 +705,8 @@
                         </div>
                         </div>
                     </div>`
-        document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
+        document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml;
+        document.getElementById("Textarea2").value = "";
 
     }
 
@@ -792,8 +793,8 @@
     //        document.getElementById("Textarea2").value = "";
     //    }
 
-       function addReply() {
-           parentComment = document.getElementById("replydiv");
+       function addReply(id) {
+           parentComment = document.getElementById(`${id}replydiv`);
            childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
            <div class="m-messenger__message m-messenger__message--out">
 
@@ -802,12 +803,12 @@
                    <div class="m-messenger__message-content">
                    <div class="m-messenger__message-username">
                    <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
-                   <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
+                   <span class="datee" style="float: right; color: #0c2a7a">2019-08-25 16:58:51</span>
 
                        </div>
 
                        <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-                         ${document.getElementById("replyTextId").value}
+                         ${document.getElementById(`${id}replyTextId`).value}
                                  </p>
                        </div>
                        </br>
@@ -819,7 +820,7 @@
            </div>
        </div>`;
            parentComment.innerHTML = parentComment.innerHTML + childComment;
-           document.getElementById("replyTextId").value = "";
+           document.getElementById(`${id}replyTextId`).value = "";
        }
 
     let languages = {
@@ -1366,7 +1367,6 @@
 
                     },
                     error: function (error) {
-                        console.log(error)
                         swal({
                             title: "Project Creation Failed!",
                             text: "Please check the missing fields!",
@@ -1448,8 +1448,8 @@
                             $('#manager_id').val(editProjectData.manager_id + "");
                             $('#projtypeboy').val(editProjectData.project_type_id + "");
                             $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
-                            $('#starting-date').val(editProjectData.starting_date);
-                            $('#Deadline').val(editProjectData.deadline);
+                            $('#startingDate').val(editProjectData.starting_date);
+                            $('#Dead-line').val(editProjectData.deadline);
                             $('#teammembers').val(editProjectData.team_members);
                             console.log(editProjectData);
                         },
@@ -1478,21 +1478,24 @@
                                                         projData.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
+                                                    <div class="error" id="editClientErr"></div>
                                                 </div>
 
                                                 <div class="col-md-6 form-group mt-3">
                                                         <label for="create-project">Project Name</label>
                                                     <input type="text" name="name" class="form-control" id="project_name" placeholder="" required>
+                                                    <div class="error" id="editNameErr"></div>
                                                 </div>
                                             </div>
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 form-group mt-3">
                                                     <label for="create-project">Manager</label><br>
-                                                    <select id ="manager_id" name="manager_id" class="form-control select2" style="width:100%;" required>
+                                                    <select id ="managerId" name="manager_id" class="form-control select2" style="width:100%;" required>
                                                         ` +
                                                         projData.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
+                                                    <div class="error" id="editManagerErr"></div>
                                                 </div>
                                                 <div class="col-md-4 form-group mt-3">
                                                     <label for="create-project-type">Project Type</label>
@@ -1501,6 +1504,7 @@
                                                         projData.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
+                                                    <div class="error" id="editProjTypeErr"></div>
                                                 </div>
 
                                                 <div class="col-md-4 form-group mt-3">
@@ -1510,17 +1514,20 @@
                                                         projData.project_subtypes.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
+                                                    <div class="error" id="editProjSubErr"></div>
                                                 </div>
                                             </div>
                                             <div class="row col-md-12 ">
                                                 <div class="col-md-3 form-group">
                                                     <label for="starting-date">Start Date</label>
-                                                    <input type="text" class="form-control date" name="starting_date" id="starting-date" required>
+                                                    <input type="text" class="form-control date" name="starting_date" id="startingDate" required>
+                                                    <div class="error" id="editStartErr"></div>
                                                 </div>
 
                                                 <div class="col-md-3 form-group">
                                                     <label for="Deadline">Deadline</label>
-                                                    <input type="text" class="form-control datetime" name="deadline" id="Deadline" required>
+                                                    <input type="text" class="form-control datetime" name="deadline" id="Dead-line" required>
+                                                    <div class="error" id="editEndErr"></div>
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label>Team members</label><br>
@@ -1529,11 +1536,12 @@
                                                         projData.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                                     + `
                                                     </select>
+                                                    <div class="error" id="editMembersErr"></div>
                                                 </div>
 
 
                                                 <div class="col-md-2 form-group mt-3">
-                                                    <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectForm(${project_id});" value="Update">
+                                                    <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditProjectForm(${project_id});" value="Update">
                                                 </div>
                                             </div>
                                         </form>
@@ -2127,15 +2135,15 @@
                                                                                 <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                                 ${elem.comments}
                                                                                     <br/>
-                                                                                    <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
+                                                                                    <div id="${elem.id}replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
                                                                                 <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
 
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
-                                                                                    <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <textarea class="form-control" name="replytext" id="${elem.id}replyTextId" rows="1" style="width: 100%" required></textarea>
+                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply(${elem.id})" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 
@@ -2195,7 +2203,6 @@
                             </div>
                         </div>
                     </div>
-                    </form>
 
                 </div>
             </div>
