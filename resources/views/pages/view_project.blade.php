@@ -1732,9 +1732,6 @@
                             </div>
 
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
-                        </div>
                     </div>
                 </div>
                 </div>
@@ -1805,9 +1802,6 @@
                             </div>
 
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
-                        </div>
                     </div>
                 </div>
                 </div>
@@ -1844,7 +1838,8 @@
                                     <fieldset class="col-md-12 form-group mt-3">
 
                                         <div>
-                                            <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
+
+                                            <input type="file" id="fileselect" name="file[]" multiple="multiple" />
                                         </div>
                                         <div id="messages">
 
@@ -1889,7 +1884,10 @@
                                     </div>
 
                                     <div class="form-group mt-4">
-                                        <input style="background: #f1f1f1" type="file" name="files[]" multiple />
+                                            <label for="file">{{ trans('cruds.document.fields.file') }}</label>
+                                                <div class="needsclick dropzone" id="file-dropzone">
+                                                    </div>
+                                        <!-- <input style="background: #f1f1f1" type="file" multiple /> -->
                                     </div>
 
                                 </div>
@@ -1930,7 +1928,63 @@
 
         }
 
+        var uploadedFileMap = {}
+Dropzone.options.fileDropzone = {
+    url: '{{ route('admin.documents.storeMedia') }}',
+    maxFilesize: 10, // MB
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 10
+    },
+    success: function (file, response) {
+      $('submitDoc').append('<input type="hidden" name="file[]" value="' + response.name + '">')
+      uploadedFileMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      var name = ''
+      if (typeof file.file_name !== 'undefined') {
+        name = file.file_name
+      } else {
+        name = uploadedFileMap[file.name]
+      }
+      $('submitDoc').find('input[name="file[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+@if(isset($document) && $document->file)
+          var files =
+            {!! json_encode($document->file) !!}
+              for (var i in files) {
+              var file = files[i]
+              this.options.addedfile.call(this, file)
+              file.previewElement.classList.add('dz-complete')
+              $('submitDoc').append('<input type="hidden" name="file[]" value="' + file.file_name + '">')
+            }
+@endif
+    },
+     error: function (file, response) {
+         if ($.type(response) === 'string') {
+             var message = response //dropzone sends it's own error messages in string
+         } else {
+             var message = response.errors.file
+         }
+         file.previewElement.classList.add('dz-error')
+         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+         _results = []
+         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+             node = _ref[_i]
+             _results.push(node.textContent = message)
+         }
+
+         return _results
+     }
+}
+
         function submitProjectReport(){
+
             let formData = $('#addProjectReportForm').serialize();
             console.log(formData)
             $.ajax({
@@ -1962,6 +2016,61 @@
         }
 
         function submitProjectDoc(){
+            console.log("Im Here")
+            var uploadedFileMap = {}
+Dropzone.options.fileDropzone = {
+    url: '{{ route('admin.documents.storeMedia') }}',
+    maxFilesize: 10, // MB
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 10
+    },
+    success: function (file, response) {
+      $('#submitDoc').append('<input type="hidden" name="file[]" value="' + response.name + '">')
+      uploadedFileMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      var name = ''
+      if (typeof file.file_name !== 'undefined') {
+        name = file.file_name
+      } else {
+        name = uploadedFileMap[file.name]
+      }
+      $('form').find('input[name="file[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+@if(isset($document) && $document->file)
+          var files =
+            {!! json_encode($document->file) !!}
+              for (var i in files) {
+              var file = files[i]
+              this.options.addedfile.call(this, file)
+              file.previewElement.classList.add('dz-complete')
+              $('#submitDoc').append('<input type="hidden" name="file[]" value="' + file.file_name + '">')
+            }
+@endif
+    },
+     error: function (file, response) {
+         if ($.type(response) === 'string') {
+             var message = response //dropzone sends it's own error messages in string
+         } else {
+             var message = response.errors.file
+         }
+         file.previewElement.classList.add('dz-error')
+         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+         _results = []
+         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+             node = _ref[_i]
+             _results.push(node.textContent = message)
+         }
+
+         return _results
+     }
+}
             let formData = $('#submitDoc').serialize();
             console.log(formData);
             $.ajax({

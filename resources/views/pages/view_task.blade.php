@@ -1094,9 +1094,6 @@
                             </div>
                             <!--end::Portlet-->
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
-                        </div>
                     </div>
                 </div>
                 </div>
@@ -1167,9 +1164,6 @@
                                 </div>
                             </div>
                             <!--end::Portlet-->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
                         </div>
                     </div>
                 </div>
@@ -1247,7 +1241,7 @@
                                     </div>
 
                                     <div class="form-group mt-4">
-                                        <input style="background: #f1f1f1" type="file" name="file" multiple />
+                                        <input style="background: #f1f1f1" type="file" name="document" multiple />
                                     </div>
 
                                 </div>

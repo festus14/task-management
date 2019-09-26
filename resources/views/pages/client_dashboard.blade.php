@@ -528,7 +528,7 @@
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditClient(${clientData.id})" value="{{ trans('global.Update') }}">
+                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditClient(${clientData.id})" value="Update">
                                             </div>
                                         </div>
                                     </form>
