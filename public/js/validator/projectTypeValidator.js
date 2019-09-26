@@ -1,4 +1,21 @@
-function validateProjectType(project_id) {
+function validateProjectType() {
+    var allProjectTyess;
+    $.ajax({
+        type: "GET",
+        url: "/api/v1/project-types",
+        async: false,
+        success: function(data) {
+            allProjectTyess = data;
+
+        },
+
+        error: function(data) {
+
+        }
+
+    })
+
+
     // Retrieving the values of form elements
     let projectType = $('#projTypeId').val();
 
@@ -7,12 +24,23 @@ function validateProjectType(project_id) {
     var projectTypeErr = true;
 
     if (projectType == "") {
-        printError("projectTypeErr", "Please provide an input");
-    } else {
-        printError("projectTypeErr", "");
-        projectTypeErr = false;
-    }
 
+        printError("projectTypeErr", "Please input a project name");
+    } else if (projectType) {
+        projectType = projectType.toUpperCase();
+
+        for (let i = 0; i < allProjectTyess.data.length; i++) {
+            if (allProjectTyess.data[i].name.toUpperCase() === projectType) {
+                printError("projectTypeErr", "Project type already exists");
+                projectTypeErr = true;
+                break;
+            } else {
+                printError("projectTypeErr", "");
+                projectTypeErr = false;
+            }
+        }
+
+    }
 
     // Prevent the form from being submitted if there are any errors
 
@@ -25,8 +53,7 @@ function validateProjectType(project_id) {
 };
 
 function validateEditProjectType(type_id) {
-    console.log('ok na')
-        // Retrieving the values of form elements
+    // Retrieving the values of form elements
     let editProjectType = $('#editprojTypeInput').val();
 
 
@@ -53,6 +80,20 @@ function validateEditProjectType(type_id) {
 
 function validateProjectSubType() {
     // Retrieving the values of form elements
+    var allProjectSubTyess;
+    $.ajax({
+        type: "GET",
+        url: "/api/v1/project-sub-types",
+        async: false,
+        success: function(data) {
+            allProjectSubTyess = data;
+
+        },
+        error: function(data) {
+
+        }
+
+    })
     let projectType = $('#project-type').val();
     let projectSubType = $('#sub-type').val();
 
@@ -60,8 +101,8 @@ function validateProjectSubType() {
     // Defining error variable with a default value
     var projectSubTypeErr = projectTTTypeErr = true;
 
+
     if (projectType == "") {
-        console.log("projectype empty");
         printError("projectTTTypeErr", "Please provide an input");
     } else {
         printError("projectTTTypeErr", "");
@@ -69,11 +110,29 @@ function validateProjectSubType() {
     }
 
     if (projectSubType == "") {
-        printError("projectSubTypeErr", "Please provide an input");
-    } else {
-        printError("projectSubTypeErr", "");
-        projectSubTypeErr = false;
+
+        printError("projectSubTypeErr", "Please input a project name");
+    } else if (projectSubType) {
+        projectSubType = projectSubType.toUpperCase();
+
+        for (let i = 0; i < allProjectSubTyess.data.length; i++) {
+            if (allProjectSubTyess.data[i].name.toUpperCase() === projectSubType) {
+                printError("projectSubTypeErr", "Project subtype already exists");
+                projectSubTypeErr = true;
+                break;
+            } else {
+                printError("projectSubTypeErr", "");
+                projectSubTypeErr = false;
+            }
+        }
+
     }
+    // if (projectSubType == "") {
+    //     printError("projectSubTypeErr", "Please provide an input");
+    // } else {
+    //     printError("projectSubTypeErr", "");
+    //     projectSubTypeErr = false;
+    // }
 
 
     // Prevent the form from being submitted if there are any errors
@@ -96,7 +155,6 @@ function ValidateEditProjectSubType(sub_id) {
     var editProjectSubTypeErr = editProjectTTTypeErr = true;
 
     if (editProjectType == "") {
-        console.log("projectype empty");
         printError("editProjectTTTypeErr", "Please provide an input");
     } else {
         printError("editProjectTTTypeErr", "");
