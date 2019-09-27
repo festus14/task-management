@@ -43,7 +43,7 @@ function validateCreateProjectForm() {
     var allProjects;
     $.ajax({
         type: "GET",
-        url: "/api/v1/projects",
+        url: "{{ url('/api/v1/projects') }}",
         async: false,
         success: function(data) {
             allProjects = data;

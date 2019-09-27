@@ -1617,7 +1617,7 @@
             $("#createTaskModal").modal('show');
                 $.ajax({
                     type: "GET",
-                    url: "/api/v1/create_task",
+                    url: {{ url('/api/v1/create_task') }},
                     success: function (data) {
                         let createTaskBody = document.getElementById('createTaskBody');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
