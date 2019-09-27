@@ -43,6 +43,9 @@
 }
 </style>
 @endsection
+      <div id='loader' style='display: none;'>
+        <img src='reload.gif' width='32px' height='32px'>
+      </div>
 <div class="m-portlet " id="m_portlet" style="width:90%; box-sizing:border-box; padding-right: 50px;">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
@@ -2265,6 +2268,12 @@
                     var kt_table_project_type = $('#kt_table_project_type').DataTable();
                 }else {
                     var kt_table_project_type = $('#kt_table_project_type').DataTable({
+
+        language: {
+            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '},
+
+
+
                         ajax: "{{ url('/api/v1/project-types') }}",
                         columns: [
                             { defaultContent : ""  },
