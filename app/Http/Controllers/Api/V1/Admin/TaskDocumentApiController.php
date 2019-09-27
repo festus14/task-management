@@ -39,8 +39,12 @@ class TaskDocumentApiController extends Controller
             return response()->json(['error'=> 'failed to create record'], 401);
         }
         try {
-            $task_document = TaskDocument::create($request->all());
-            return response()->json(['success' => 'record created successfully', 'data' => $task_document], 200);
+            $taskDocument = TaskDocument::create($request->all());
+
+            if ($request->input('document', false)) {
+                $taskDocument->addMedia(storage_path('tmp/uploads/' . $request->input('document')))->toMediaCollection('document');
+            }
+            return response()->json(['success' => 'record created successfully', 'data' => $taskDocument], 200);
         }
         catch(\Exception $e){
             return response()->json(['error'=> 'failed to create record'], 401);
@@ -65,6 +69,14 @@ class TaskDocumentApiController extends Controller
         }
         try {
             $updated_document = $taskDocument->update($request->all());
+            if ($request->input('document', false)) {
+                if (!$taskDocument->document || $request->input('document') !== $taskDocument->document->file_name) {
+                    $taskDocument->addMedia(storage_path('tmp/uploads/' . $request->input('document')))->toMediaCollection('document');
+                }
+            } elseif ($taskDocument->document) {
+                $taskDocument->document->delete();
+            }
+
             return response()->json(['success' => 'record updated successfully', 'data' => $updated_document], 200);
         }
         catch(\Exception $e){

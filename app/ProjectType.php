@@ -24,4 +24,8 @@ class ProjectType extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function project_sub_type(){
+        return $this->hasMany(ProjectSubType::class, 'project_type_id' , 'id');
+    }
 }

@@ -720,8 +720,8 @@
                         columns: [
                             { defaultContent : "" },
                             { "data": "name" },
-                            { "data": "project_type_id" },
-                            { "data": "sub_category_id" },
+                            { "data": "project_type.name" },
+                            { "data": "sub_category.name" },
                             { "data": "weight" },
                             { "data": "description" }
                         ],
@@ -852,7 +852,7 @@
             function editTaskStatusModal(taskStatusId){
                 $.ajax({
                         type: "GET",
-                        url: "/api/v1/task-statuses/" + taskStatusId,
+                        url: "{{ url('/api/v1/task-statuses') }}" + "/" + taskStatusId,
                         success: function(data){
                             editStatusData = data.data;
                             $('#editStatusInput').val(editStatusData.name);
@@ -886,7 +886,7 @@
             $.ajax({
                     type: "PUT",
                     data:  $('#editTaskStatusform').serialize(),
-                    url: "/api/v1/task-statuses" + "/" + taskStatusId,
+                    url: "{{ url('/api/v1/task-statuses') }}" + "/" + taskStatusId,
                     success: function (data) {
                         swal({
                             title: "Success!",
@@ -954,7 +954,7 @@
             function displayTaskInfo(task_id) {
                 $.ajax({
                     type: "GET",
-                    url: "/api/v1/tasks/" + task_id,
+                    url: "{{ url('/api/v1/tasks') }}" + "/" + task_id,
                     success: function (data) {
                         let moreInfo = document.getElementById("moreInfo")
                         moreInfo.innerHTML = `<div class="modal fade" id="moretaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -1290,7 +1290,7 @@
                 });
                 $.ajax({
                     type: "POST",
-                    url: "/api/v1/project-reports",
+                    url: "{{ url('/api/v1/project-reports') }}",
                     data: $('#taskReportForm').serialize(),
                     success: function (data) {
                     swal({
@@ -1326,7 +1326,7 @@
                 });
                 $.ajax({
                     type: "POST",
-                    url: "/api/v1/task-documents",
+                    url: "{{ url('/api/v1/task-documents') }}",
                     data: formData,
                     success: function (data) {
                     swal({
@@ -1371,7 +1371,7 @@
                 // Task Comments Scripts Goes Here
                 $.ajax({
                     type: "GET",
-                    url: "{{ url('/api/v1/tasks') }}"+ '/'+task_id,
+                    url: "{{ url('/api/v1/tasks') }}" + "/" + task_id,
                     success: function (data) {
                         let commentbody = document.getElementById('commentModal');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
@@ -1775,7 +1775,7 @@
                         let typeVal = document.getElementById("client-list").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/clients')}}" + '/' + typeVal,
+                            url: "{{ url('/api/v1/clients')}}" + "/" + typeVal,
                             success: function (data) {
                                 document.getElementById('project-list').innerHTML = `
                                 <option value="" selected></option> ` +
@@ -1798,7 +1798,7 @@
                         let subtypeVal = document.getElementById("project-list").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/project-types')}}" + '/' + subtypeVal,
+                            url: "{{ url('/api/v1/project-types')}}" + "/" + subtypeVal,
                             success: function (data) {
                                 document.getElementById('project-subtype-list').innerHTML = `
                                 <option value="" selected>Hello</option>
@@ -1823,7 +1823,7 @@
 
                 $.ajax({
                         type: "GET",
-                        url: "/api/v1/tasks/" + task_id,
+                        url: "{{ url('/api/v1/tasks/') }}" + "/" + task_id,
                         success: function(data){
                             editData = data.data;
                             $('#create-task').val(editData.name);
@@ -1847,7 +1847,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "/api/v1/create_task",
+                        url: "{{ url('/api/v1/create_task') }}",
                         success: function(data){
                             var allData = data.data;
                         let editTaskBody = document.getElementById('editTaskBody');
@@ -2008,7 +2008,7 @@
                         let typeVal = document.getElementById("client-list").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/clients')}}" + '/' + typeVal,
+                            url: "{{ url('/api/v1/clients')}}" + "/" + typeVal,
                             success: function (data) {
                                 document.getElementById('project-list').innerHTML = `
                                 <option value="" selected></option> ` +
@@ -2030,7 +2030,7 @@
                         let subtypeVal = document.getElementById("project-list").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/project-types')}}" + '/' + subtypeVal,
+                            url: "{{ url('/api/v1/project-types')}}" + "/" + subtypeVal,
                             success: function (data) {
                                 document.getElementById('project-subtype-list').innerHTML = `
                                 <option value="" selected></option> ` +
@@ -2052,7 +2052,7 @@
                     let formData = $('#editTaskform').serialize();
                     $.ajax({
                         type: "PUT",
-                        url: "/api/v1/tasks/" + taskID,
+                        url: "{{ url('/api/v1/tasks') }}" + "/" + taskID,
                         data: formData,
                         success: function (data) {
                             swal({
@@ -2196,7 +2196,7 @@
             function editTaskCategory(task_id){
             $.ajax({
                 type: "GET",
-                url: "/api/v1/create_task_categories",
+                url: "{{ url('/api/v1/create_task_categories') }}",
                 success: function(data){
                 var editTaskCatData = data.data;
                 let editTaskCatBody = document.getElementById('editTaskCategoryModalBody');
@@ -2250,7 +2250,7 @@
             })
             $.ajax({
                 type: "GET",
-                url: "/api/v1/tast-categories/" + task_id,
+                url: "{{ url('/api/v1/tast-categories') }}" + "/" + task_id,
                 success: function(data){
                     editTaskCategoryData = data.data;
                 console.log(editTaskCategoryData)
@@ -2274,7 +2274,7 @@
             let typeVal = document.getElementById("projectTypeList").value;
                 $.ajax({
                     type: "GET",
-                    url: "{{ url('/api/v1/project-types')}}" + '/' + typeVal,
+                    url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
                     success: function (data) {
                         document.getElementById('editSubCategory').innerHTML = `
                         <option value="" selected></option>
@@ -2295,7 +2295,7 @@
             console.log(formdata)
             $.ajax({
                 type: "PUT",
-                url: '{{ url("/api/v1/tast-categories") }}'+ '/'+ taskID,
+                url: '{{ url("/api/v1/tast-categories") }}'+ "/" + taskID,
                 data: formdata,
                 success: function (data) {
                     swal({
