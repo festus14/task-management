@@ -2090,7 +2090,7 @@
             });
                 $.ajax({
                 type: "POST",
-                url: '{{ url("/api/v1/tasks") }}',
+                url: "{{ url('/api/v1/tasks') }}",
                 data: $('#addTaskform').serialize(),
                 success: function (response) {
                     $('#createTaskModal').modal('hide');
