@@ -102,12 +102,12 @@ function validateProjectSubType() {
     var projectSubTypeErr = projectTTTypeErr = true;
 
 
-    if (projectType == "") {
-        printError("projectTTTypeErr", "Please provide an input");
-    } else {
-        printError("projectTTTypeErr", "");
-        projectTTTypeErr = false;
-    }
+    // if (projectType == "") {
+    //     printError("projectTTTypeErr", "Please provide an input");
+    // } else {
+    //     printError("projectTTTypeErr", "");
+    //     projectTTTypeErr = false;
+    // }
 
     if (projectSubType == "") {
 
@@ -127,13 +127,6 @@ function validateProjectSubType() {
         }
 
     }
-    // if (projectSubType == "") {
-    //     printError("projectSubTypeErr", "Please provide an input");
-    // } else {
-    //     printError("projectSubTypeErr", "");
-    //     projectSubTypeErr = false;
-    // }
-
 
     // Prevent the form from being submitted if there are any errors
 

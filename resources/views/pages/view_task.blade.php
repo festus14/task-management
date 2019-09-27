@@ -198,9 +198,6 @@
                         </div>
                         <!--end::Portlet-->
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="$('#taskcategoryDatatable').modal('hide');">Close</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -307,9 +304,6 @@
                         </div>
                         <!--end::Portlet-->
                     </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#taskstatusDatatable').modal('hide');">Close</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -369,6 +363,11 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/validator/taskValidator.js') }}"></script>
 <script>
+
+    $( document ).ready(function() {
+        getTaskCategoryAjaxDT();
+        getTaskStatusAjaxDT();
+    });
 
     function reinitializeDate(){
 

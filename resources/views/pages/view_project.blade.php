@@ -257,9 +257,6 @@
                 </div>
                 <!--end::Portlet-->
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="$('#ProjTypeDatatable').modal('hide');">Close</button>
-            </div>
         </div>
     </div>
 </div>
@@ -367,9 +364,6 @@
                         </div>
                     </div>
                     <!--end::Portlet-->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="$('#ProjSubTypeDatatable').modal('hide');">Close</button>
                 </div>
             </div>
         </div>
@@ -583,6 +577,12 @@
 <script type="text/javascript" src="{{ asset('js/validator/editProjectValidator.js') }}"></script>
 
 <script>
+
+     $( document ).ready(function() {
+        getProjetTypeDT();
+        getProjectSubTypeDT();
+    });
+
     function ProjectTypeSubmit(){
         $.ajaxSetup({
                 headers: {
@@ -1032,6 +1032,7 @@
                             let $select2 = $(this).parent().siblings('.select2')
                             $select2.find('option').prop('selected', 'selected')
                             $select2.trigger('change')
+                            console.log( $('#teammembers').val());
                         });
                         $('.deselect-all').click(function () {
                             let $select2 = $(this).parent().siblings('.select2');
@@ -1109,22 +1110,6 @@
         function editProjectSubtype(sub_id){
 
             $.ajax({
-                        type: "GET",
-                        url: "/api/v1/project-sub-types/" + sub_id,
-                        success: function(data){
-                            editSubData = data.data;
-                            $('#projecTttype').val(editSubData.project_type_id + "");
-                            $('#subTtype').val(editSubData[0].name);
-                            console.log(editSubData);
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-
-            $.ajax({
                 type: "GET",
                 url: "/api/v1/project-sub-types",
                 success: function (data) {
@@ -1136,16 +1121,15 @@
 
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
-                            <select id="projecTttype" name="project_type_id" class="selectDesign form-control">
-                                <option value = "" selected></option>
-                                ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
+                            <select id="projecTttype" name="project_type_id" class="form-control" required>
+                                ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_type.name}</option>`)}
                             </select>
                             <div class="error" id="editProjectTTTypeErr"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="create-task">Subtype Name</label>
-                            <input type="text" class="form-control" name="name" id="subTtype" placeholder="">
+                            <input type="text" class="form-control" name="name" id="subTtype">
                             <div class="error" id="editProjectSubTypeErr"></div>
                         </div>
                 </div>
@@ -1162,6 +1146,25 @@
                 }
 
             })
+
+            $.ajax({
+                        type: "GET",
+                        url: "/api/v1/project-sub-types/" + sub_id,
+                        success: function(data){
+                            editSubData = data.data;
+                            $('#projecTttype').val(editSubData[0].project_type_id + "");
+                            $('#subTtype').val(editSubData[0].name);
+
+                            console.log(editSubData[0].project_type_id);
+                            console.log(editSubData[0].name);
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+
         }
 
         function submitEditProjectSubtypeForm(sub_id){
@@ -1383,27 +1386,7 @@
             //  Edit Project form
         var editProjectData;
     function editProject(project_id){
-        $.ajax({
-                        type: "GET",
-                        url: "/api/v1/projects/" + project_id,
-                        success: function(data){
-                            editProjectData = data.data;
-                            $('#client_list').val(editProjectData.client_id + "");
-                            $('#project_name').val(editProjectData.name);
-                            $('#manager_id').val(editProjectData.manager_id + "");
-                            $('#projtypeboy').val(editProjectData.project_type_id + "");
-                            $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
-                            $('#starting-date').val(editProjectData.starting_date);
-                            $('#Deadline').val(editProjectData.deadline);
-                            $('#teammembers').val(editProjectData.team_members);
-                            console.log(editProjectData);
-                        },
 
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
 
                 $.ajax({
                     type: "GET",
@@ -1527,7 +1510,29 @@
                                         }
 
                                     })
+                                    $.ajax({
+                                            type: "GET",
+                                            url: "/api/v1/projects/" + project_id,
+                                            success: function(data){
+                                                editProjectData = data.data;
+                                                let team_members = editProjectData.team_members.map(elem => elem.name)
+                                                $('#client_list').val(editProjectData.client_id + "");
+                                                $('#project_name').val(editProjectData.name);
+                                                $('#manager_id').val(editProjectData.manager_id + "");
+                                                $('#projtypeboy').val(editProjectData.project_type_id + "");
+                                                $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
+                                                $('#starting-date').val(editProjectData.starting_date);
+                                                $('#Deadline').val(editProjectData.deadline);
+                                                $('#teammembers').val(team_members);
+                                                console.log( $('#teammembers').val());
+                                                console.log(editProjectData.team_members);
+                                            },
 
+                                            error: function (data) {
+                                                console.log('Error:', data);
+                                            }
+
+                                        })
                                     }
 
 
