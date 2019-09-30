@@ -1052,7 +1052,6 @@
                                 </button>
                                 </div>
                                 <div class="modal-body">
-                <!-- More-info content -->
                         <div class="col-md-12 m-portlet " id="m_portlet">
                             <div class="m-portlet__head">
                                 <div class="m-portlet__head-caption">
@@ -1112,7 +1111,7 @@
                                             </h6>
                                         </div>
                                     <div id="collapseNine" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample5">
-                                        <input type="textOne" id="myInputNine" onkeyup="searchReport()" placeholder="Search for report.." title="Type in a report">
+                                        <input type="textOne" id="myInputNine" onkeyup="searchTaskReport()" placeholder="Search for report.." title="Type in a report">
                                         <table id="myTableNine">
                                             <tr class="header">
                                                 <th>Name</th>
@@ -1147,10 +1146,6 @@
                         </div>
                     </div>
                 </div>
-                                    <!--end::Portlet-->
-
-
-                                        <!-- End main Content of More-info -->
 
                                         <div class="modal-footer">
                                         </div>
@@ -1236,7 +1231,6 @@
             //Posting-Create client
             function createCliento(){
                 let formData = $('#clientForm').serialize();
-                console.log(formData)
                 $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1248,7 +1242,6 @@
                     data: formData,
 
                     success: function (data) {
-                        console.log("Im in success function with response")
                         $('#createClientModal').modal('hide');
                         swal({
                             title: "Success!",
@@ -1263,7 +1256,6 @@
 
                     },
                     error: function (data) {
-                        console.log("Im in failure function")
                     swal("Client creation failed", "Please check missing fields", "error");
                 }
                 });

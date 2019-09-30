@@ -9,6 +9,43 @@
 @section('content')
 @section('css')
 <style>
+        /* Style for project members table */
+            #myInputNine {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
+
+                #myTableNine {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
+
+                #myTableNine th, #myTableNine td {
+                text-align: left;
+                padding: 12px;
+                }
+
+                #myTableNine tr {
+                border-bottom: 1px solid #ddd;
+                }
+
+                #myTableNine tr.header, #myTableNine tr:hover {
+                background-color: #f1f1f1;
+                }
+
+        </style>
+
+    <style>
+
+<style>
 
 /* comment scrollbar */
 /* width */
@@ -86,12 +123,12 @@
                 <tr>
                     <th>#</th>
                     <th>Client</th>
-                    <th>Name</th>
+                    <th>Project Name</th>
                     <th>Manager</th>
                     <th>Type</th>
                     <th>Subtype</th>
                     <th>Status</th>
-                    <th>Members</th>
+                    {{-- <th>Members</th> --}}
                     <th>Start_Date</th>
                     <th>Deadline</th>
                     <th>Tools</th>
@@ -628,11 +665,8 @@
 
 
     function addComment() {
-    // data.map((elem, i) => {
-    //     console.log(elem.comment)
         var commentMade;
         commentMade = document.getElementById("Textarea2").value;
-             console.log(commentMade);
         let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
                                 <div class="m-messenger__message m-messenger__message--out">
 
@@ -734,7 +768,6 @@
     //            comment: document.getElementById("Textarea2").value,
     //            id: 5
     //        }
-    //        console.log(newObj);
     //        data.push(newObj);
     //        mapComment();
     //        document.getElementById("Textarea2").value = "";
@@ -918,7 +951,7 @@
                             </div>
                             <div class="row col-md-12">
                                 <div class="col-md-4 form-group mt-3">
-                                    <label for="create-project">Manager</label><br>
+                                    <label for="manager_id">Manager</label><br>
                                     <select id="manager_id" name="manager_id" class="form-control" style="width:100%;" required>
                                         <option value="" selected></option>
                                         ` +
@@ -1035,7 +1068,6 @@
                             let $select2 = $(this).parent().siblings('.select2')
                             $select2.find('option').prop('selected', 'selected')
                             $select2.trigger('change')
-                            console.log( $('#teammembers').val());
                         });
                         $('.deselect-all').click(function () {
                             let $select2 = $(this).parent().siblings('.select2');
@@ -1075,7 +1107,6 @@
 
                     function submitEditProjectForm(proID){
                     let formdata = $('#editProjectform').serialize();
-                    console.log(formdata);
                     $.ajax({
                         type: "PUT",
                         url: '{{ url("/api/v1/projects") }}'+ '/'+ proID,
@@ -1158,9 +1189,6 @@
                             editSubData = data.data;
                             $('#projecTttype').val(editSubData[0].project_type_id + "");
                             $('#subTtype').val(editSubData[0].name);
-
-                            console.log(editSubData[0].project_type_id);
-                            console.log(editSubData[0].name);
                         },
 
                         error: function (data) {
@@ -1208,7 +1236,6 @@
 
                 });
                 // error: function (error) {
-                //     console.log(error);
                 //     alert("Project sub-type creation failed");
                 // }
 
@@ -1347,7 +1374,7 @@
                 { "data": "project_type.name" },
                 { "data": "project_subtype.name" },
                 { "data": "status.name" },
-                { "data": "team_members[, ].name" },
+                // { "data": "team_members[, ].name" },
                 { "data": "starting_date" },
                 { "data": "deadline" }
             ],
@@ -1367,7 +1394,7 @@
 
             },
             {
-                targets: 10,
+                targets: 9,
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
@@ -1528,8 +1555,6 @@
                                                 $('#starting-date').val(editProjectData.starting_date);
                                                 $('#Deadline').val(editProjectData.deadline);
                                                 $('#teammembers').val(team_members);
-                                                console.log( $('#teammembers').val());
-                                                console.log(editProjectData.team_members);
                                             },
 
                                             error: function (data) {
@@ -1651,6 +1676,35 @@
                                                 Report
                                             </span>
                                         </h6>
+                                    </div>
+                                </div>
+
+                                <div class="accordion" id="accordionExample5">
+                                    <div class="card">
+                                        <div class="card-header" id="headingnine">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    Project Members
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    <div id="collapseNine" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample5">
+                                        <input type="textOne" id="myInputNine" onkeyup="searchProjectMembers()" placeholder="Search for project member.." title="Type in a member">
+                                        <table id="myTableNine">
+                                            <tr class="header">
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            <tr class="">
+                                            </tr>
+                                            `+ data.data.team_members.map(item =>
+                                            `<tr>
+                                                <td>${item.name}</td>
+                                                <td>${item.email}</td>
+                                            </tr>`
+                                            )+`
+                                        </table>
                                     </div>
                                 </div>
 
@@ -1939,9 +1993,28 @@
 
         }
 
+        // Search Through Project Members FUnction
+    function searchProjectMembers(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputNine");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableNine");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
+
         function submitProjectReport(){
             let formData = $('#addProjectReportForm').serialize();
-            console.log(formData)
             $.ajax({
                 type: "POST",
                 url: "/api/v1/project-reports",
@@ -1972,7 +2045,6 @@
 
         function submitProjectDoc(){
             let formData = $('#submitDoc').serialize();
-            console.log(formData);
             $.ajax({
                 type: "POST",
                 url: "/api/v1/documents",
@@ -2365,7 +2437,6 @@
                 type: "GET",
                 url: "/api/v1/project-types" + "/" + type_id,
                 success: function(data){
-                    console.log(data);
                     editProjectTypeData = data.data;
                     $('#editprojTypeInput').val(editProjectTypeData.name);
                 },
@@ -2581,8 +2652,6 @@
                         alert("Project-type created");
                         displayAddProject();
                         $('#PModal').modal('hide');
-                        console.log(data);
-                        console.log(response);
                         return(data);
                     },
                     error: function (error) {

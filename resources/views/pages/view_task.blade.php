@@ -7,6 +7,41 @@
 @section('sub_header', 'Tasks')
 @section('css')
 <style>
+    /* Style for task members table */
+        #myInputNine {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableNine {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableNine th, #myTableNine td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableNine tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTableNine tr.header, #myTableNine tr:hover {
+            background-color: #f1f1f1;
+            }
+
+    </style>
+
+<style>
 
     /* comment scrollbar */
     /* width */
@@ -74,7 +109,7 @@
                                 <th>Name</th>
                                 <th>Manager</th>
                                 <th>Status</th>
-                                <th>Members</th>
+                                {{-- <th>Members</th> --}}
                                 <th>Start_Date</th>
                                 <th>Deadline</th>
                                 <th>Tools</th>
@@ -523,7 +558,6 @@
 
             function mapComment() {
                 data.map((elem, i) => {
-                    console.log(elem.comment)
                     var html = elem.id === 1 ?
                         `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
                 <div class="m-messenger__message m-messenger__message--out">
@@ -579,7 +613,6 @@
                     id: 5,
                     date: "12/3/1990"
                 }
-                console.log(newObj);
                 data.push(newObj);
                 mapComment();
                 document.getElementById("Textarea2").value = "";
@@ -632,7 +665,7 @@
                     { "data": "name" },
                     { "data": "manager.name" },
                     { "data": "status.name" },
-                    { "data": "assinged_tos[, ].name" },
+                    // { "data": "assinged_tos[, ].name" },
                     { "data": "starting_date" },
                     { "data": "ending_date" }
                 ],
@@ -652,13 +685,13 @@
 
                 },
                 {
-                    targets: 9,
+                    targets: 8,
                     orderable: false,
                     searchable: false,
                     render: function (data, type, full, meta) {
                     return '\<button onclick="displayTaskInfo('+full.id+'), editTaskMain('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
                                 <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
-                                <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal"   data-target="#moretaskInfoModal"> <span style="font-weight:100;"> View </span></i>\
+                                <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal"   data-target="#moreTaskInfoModal"> <span style="font-weight:100;"> View </span></i>\
                                 </a>\
                                 <a class="link" href="#"><i class="fa fa-pencil" data-toggle="modal" data-target="#editTaskModalMain" style="color:black;"><span style="font-weight:100;"> Edit </span></i>\
                                 </a>\
@@ -957,11 +990,11 @@
                     url: "{{ url('/api/v1/tasks') }}" + "/" + task_id,
                     success: function (data) {
                         let moreInfo = document.getElementById("moreInfo")
-                        moreInfo.innerHTML = `<div class="modal fade" id="moretaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        moreInfo.innerHTML = `<div class="modal fade" id="moreTaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" onclick="$('#moretaskInfoModal').modal('hide');" aria-label="Close">
+                                    <button type="button" class="close" onclick="$('#moreTaskInfoModal').modal('hide');" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
@@ -1002,6 +1035,35 @@
                                                 </h6>
                                             </div>
                                         </div>
+
+                                        <div class="accordion" id="accordionExample5">
+                                    <div class="card">
+                                        <div class="card-header" id="headingnine">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    Task Members
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    <div id="collapseNine" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample5">
+                                        <input type="textOne" id="myInputNine" onkeyup="searchTaskMembers()" placeholder="Search for task member.." title="Type in a member">
+                                        <table id="myTableNine">
+                                            <tr class="header">
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            <tr class="">
+                                            </tr>
+                                            `+ data.data.assinged_tos.map(item =>
+                                            `<tr>
+                                                <td>${item.name}</td>
+                                                <td>${item.email}</td>
+                                            </tr>`
+                                            )+`
+                                        </table>
+                                    </div>
+                                </div>
 
                                         <div onclick="taskComments(${data.data.id})" class="card">
                                             <div class="card-header" id="headingFour">
@@ -1279,7 +1341,28 @@
         }
 
         })
+
     }
+
+    // Search Through Task Members FUnction
+    function searchTaskMembers(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputNine");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableNine");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
 
             // Function for submitting task report
             function submitTaskReport(){
@@ -1318,7 +1401,6 @@
 
             function submitTaskDocument(){
                 let formData = $('#taskDocumentForm').serialize();
-                console.log(formData)
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1533,10 +1615,8 @@
 
             function addComment() {
     // data.map((elem, i) => {
-    //     console.log(elem.comment)
         var commentMade;
         commentMade = document.getElementById("Textarea2").value;
-             console.log(commentMade);
         let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
                                 <div class="m-messenger__message m-messenger__message--out">
 
@@ -1569,7 +1649,6 @@
                comment: document.getElementById("Textarea2").value,
                id: 5
            }
-           console.log(newObj);
            data.push(newObj);
            mapComment();
            document.getElementById("Textarea2").value = "";
@@ -1637,17 +1716,18 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Select Project</label>
-                                            <select id="project-list" onchange="filterSubtype()" name="project_id" class="selectDesign form-control">
+                                            <label>Select Project Subtype</label>
+                                            <select id="project-subtype-list" name="project_subtype_id" class="form-control">
 
                                             </select>
+
                                             <div class="error" id="projListErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label>Select Project Subtype</label>
-                                            <select id="project-subtype-list" name="project_subtype_id" class="form-control">
+                                            <label>Select Project</label>
+                                            <select id="project-list" onchange="filterSubtype()" name="project_id" class="selectDesign form-control">
 
                                             </select>
                                             <div class="error" id="projSubErr"></div>
@@ -1810,8 +1890,6 @@
                                 `
                                 <option value="" selected></option>
                                 `
-
-                                // console.log('Error:', data);
                             }
                         });
                     }
@@ -1836,7 +1914,6 @@
                             $('#assinged_tos').val(editData.assinged_tos + "");
                             $('#starting-date').val(editData.starting_date);
                             $('#deadline').val(editData.ending_date);
-                            console.log(editData);
                         },
 
                         error: function (data) {
@@ -2042,8 +2119,6 @@
                                 document.getElementById('project-subtype-list').innerHTML = `
                                 <option value="" selected></option>
                                 `
-
-                                // console.log('Error:', data);
                             }
                         });
                     }
@@ -2253,7 +2328,6 @@
                 url: "{{ url('/api/v1/tast-categories') }}" + "/" + task_id,
                 success: function(data){
                     editTaskCategoryData = data.data;
-                console.log(editTaskCategoryData)
                     $('#categoryName').val(editTaskCategoryData.name);
                     $('#projectTypeList').val(editTaskCategoryData.project_type_id + "");
                     $('#editSubCategory').val(editTaskCategoryData.sub_category_id + "");
@@ -2292,7 +2366,6 @@
 
         function submitEditTaskCategory(taskID){
             let formdata = $('#editTaskCategoryForm').serialize();
-            console.log(formdata)
             $.ajax({
                 type: "PUT",
                 url: '{{ url("/api/v1/tast-categories") }}'+ "/" + taskID,
