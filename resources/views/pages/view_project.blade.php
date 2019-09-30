@@ -83,7 +83,7 @@
       <div id='loader' style='display: none;'>
         <img src='reload.gif' width='32px' height='32px'>
       </div>
-<div class="m-portlet " id="m_portlet" style="width:90%; box-sizing:border-box; padding-right: 50px;">
+<div class="m-portlet " id="m_portlet" style="width:100%; box-sizing:border-box; padding-right: 50px;">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
             <div class="m-portlet__head-title">
@@ -117,8 +117,8 @@
             </ul>
         </div>
     </div>
-    <div class="m-portlet__body table-responsive" style="overflow-x:auto;">
-        <table id="kt_table_projects" class="table table-striped table-hover">
+    <div class="m-portlet__body" style="overflow-x:auto;">
+        <table id="kt_table_projects" class="table table-striped table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th>#</th>
@@ -211,10 +211,10 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="PModalLabel">Add Project Type</h5>
                 <button type="button" class="close" onclick="$('#PModal').modal('hide');" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <form id="addprojtypeform1" enctype="multipart/form-data">
+            <form id="addprojtypeformIn" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
@@ -224,7 +224,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="$('#PModal').modal('hide');">Close</button>
-                    <input type="button" id="submitProType" onsubmit="ProjectTypeSubmit()" class="btn btn-primary" style="background-color:#8a2a2b; color:white;" value="Add">
+                    <input type="button" onclick="ProjectTypeSubmitIn()" class="btn btn-primary" style="background-color:#8a2a2b; color:white;" value="Add">
                 </div>
             </form>
         </div>
@@ -631,7 +631,7 @@
                 });
                 $.ajax({
                 type: "POST",
-                url: "{{ url('/api/v1/project-types') }}",
+                url: "/api/v1/project-types",
                 data: $('#addprojtypeform1').serialize(),
                 success: function (data) {
 
@@ -648,6 +648,41 @@
                         $('#subtypemainModal').modal('hide');
                         location.reload();
                     }, 3000)
+
+                    },
+                    error: function (error) {
+                    swal({
+                        title: "Project type creation failed",
+                        text: "Please check the missing fields!",
+                        icon: "error",
+                        confirmButtonColor: "#fc3",
+                        confirmButtonText: "OK",
+                    });
+                    }
+
+                });
+    }
+
+    function ProjectTypeSubmitIn(){
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                type: "POST",
+                url: "/api/v1/project-types",
+                data: $('#addprojtypeformIn').serialize(),
+                success: function (data) {
+
+                    swal({
+                        title: "Success!",
+                        text: "Project Type Created!",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
+                    });
+
 
                     },
                     error: function (error) {
@@ -1099,7 +1134,9 @@
                                 `
                             },
                             error: function (data) {
-                                console.log('Error:', data);
+                                `
+                                <option value="" selected></option>
+                                `
                             }
                         });
                     }

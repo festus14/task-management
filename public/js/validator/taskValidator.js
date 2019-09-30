@@ -40,7 +40,7 @@ function validateCreateTaskForm() {
     var allTasks;
     $.ajax({
         type: "GET",
-        url: "{{ url('/api/v1/tasks') }}",
+        url: "/api/v1/tasks",
         async: false,
         success: function(data) {
             allTasks = data;
