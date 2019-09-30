@@ -963,7 +963,7 @@
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project-type">Project Type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                                    <select class="form-control" id="projtypeboy1" onchange="filterSubtype()" name="project_type_id" required>
+                                    <select class="form-control" id="projTypeBody1" onchange="filterSubtype()" name="project_type_id" required>
                                         <option value="" selected></option>
                                         ` +
                                         data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
@@ -1086,7 +1086,7 @@
 
 
                     function filterSubtype(){
-                        let typeVal = document.getElementById("projtypeboy1").value;
+                        let typeVal = document.getElementById("projTypeBody1").value;
                         $.ajax({
                             type: "GET",
                             url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
@@ -2712,7 +2712,7 @@
 //     // Retrieving the values of form elements
 //     let clientlist = $('#client-list').val();
 //     let projectSublist = $('#projectSubtypeId1').val();
-//     let projTypelist = $('#projtypeboy1').val();
+//     let projTypelist = $('#projTypeBody1').val();
 //     let projectName = $('#create-project').val();
 //     let manager = $('#manager_id').val();
 //     let teamMembers = $('#teammembers').val();
