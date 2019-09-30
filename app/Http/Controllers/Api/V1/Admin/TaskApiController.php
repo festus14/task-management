@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskApiController extends Controller
 {
+
     public function index()
     {
 
@@ -122,7 +123,6 @@ class TaskApiController extends Controller
             $statuses = TaskStatus::all()->pluck('name', 'id');
 
             $projects = Project::all()->pluck('name', 'id');
-
             $projects_sub_type = ProjectSubType::all()->pluck('name', 'id');
 
             $clients = Client::all()->pluck('name', 'id');

@@ -15,7 +15,7 @@ class ProjectTypeApiController extends Controller
     public function index()
     {
         try {
-            $projectTypes = ProjectType::all();
+            $projectTypes = ProjectType::with('project_sub_type')->get();
             return response()->json(['data' => $projectTypes], 200);
         }
         catch(\Exception $e){
@@ -72,9 +72,10 @@ class ProjectTypeApiController extends Controller
         }
     }
 
-    public function show(ProjectType $projectType)
+    public function show($id)
     {
         try {
+            $projectType = ProjectType::with('project_sub_type')->findOrFail($id);
             return response()->json(['data' => $projectType], 200);
         }
         catch(\Exception $e){

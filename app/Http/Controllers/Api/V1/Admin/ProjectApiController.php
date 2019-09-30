@@ -74,10 +74,9 @@ class ProjectApiController extends Controller
                             $message->to($member->email, $member->name);
                         }
                     }
-//                $message->cc('dennis.ogbeide@stransact.com', 'HR');
-//                $message->cc('yomi.salawu@stransact.com', 'Partner');
+                    $message->cc('dennis.ogbeide@stransact.com', 'HR');
+                    $message->cc('yomi.salawu@stransact.com', 'Partner');
                     $message->cc('tunde.awopegba@stransact.com', 'App Admin');
-                    $message->cc('sosanyaayonitemi@gmail.com', 'App Tester');
                     $message->subject('New Project Created ' . now());
                 });
             return response()->json(['success' => 'record created successfully', 'data' => $project], 200);

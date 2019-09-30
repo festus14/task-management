@@ -20,7 +20,7 @@ class TastCategoryApiController extends Controller
     public function index()
     {
         try {
-            $tastCategories = TastCategory::all();
+            $tastCategories = TastCategory::with('project_type')->with('sub_category')->get();
             return response()->json(['data' => $tastCategories], 200);
         }
         catch(\Exception $e){

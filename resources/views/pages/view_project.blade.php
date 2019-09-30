@@ -9,6 +9,39 @@
 @section('content')
 @section('css')
 <style>
+        /* Style for project members table */
+            #myInputNine {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
+
+                #myTableNine {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
+
+                #myTableNine th, #myTableNine td {
+                text-align: left;
+                padding: 12px;
+                }
+
+                #myTableNine tr {
+                border-bottom: 1px solid #ddd;
+                }
+
+                #myTableNine tr.header, #myTableNine tr:hover {
+                background-color: #f1f1f1;
+                }
+
+
 
 /* comment scrollbar */
 /* width */
@@ -41,8 +74,33 @@
 .btn.dropdown-toggle:focus {
     outline: none !important;
 }
+
+/* loader */
+#loading {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 240px;
+  z-index: 100;
+}
 </style>
 @endsection
+@section('content')
+<div id="loading">
+<img id="loading-image" src={{ url('loader/Preloader_3.gif')}} alt="Loading..." />
+  </div>
 <div class="m-portlet " id="m_portlet" style="width:90%; box-sizing:border-box; padding-right: 50px;">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
@@ -83,12 +141,12 @@
                 <tr>
                     <th>#</th>
                     <th>Client</th>
-                    <th>Name</th>
+                    <th>Project Name</th>
                     <th>Manager</th>
                     <th>Type</th>
                     <th>Subtype</th>
                     <th>Status</th>
-                    <th>Members</th>
+                    {{-- <th>Members</th> --}}
                     <th>Start_Date</th>
                     <th>Deadline</th>
                     <th>Tools</th>
@@ -578,13 +636,13 @@
 
 <script>
 
-//     window.onload = function() {
-//         getProjetTypeDT();
-// };
-$(document).ready(function() {
-    getProjetTypeDT();
-    getProjectSubTypeDT();
-});
+  $(window).on('load', function() {
+    $('#loading').hide();
+   });
+     $( document ).ready(function() {
+        getProjetTypeDT();
+        getProjectSubTypeDT();
+    });
 
     function ProjectTypeSubmit(){
         $.ajaxSetup({
@@ -628,11 +686,8 @@ $(document).ready(function() {
 
 
     function addComment() {
-    // data.map((elem, i) => {
-    //     console.log(elem.comment)
         var commentMade;
         commentMade = document.getElementById("Textarea2").value;
-             console.log(commentMade);
         let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
                                 <div class="m-messenger__message m-messenger__message--out">
 
@@ -734,14 +789,13 @@ $(document).ready(function() {
     //            comment: document.getElementById("Textarea2").value,
     //            id: 5
     //        }
-    //        console.log(newObj);
     //        data.push(newObj);
     //        mapComment();
     //        document.getElementById("Textarea2").value = "";
     //    }
 
-       function addReply() {
-           parentComment = document.getElementById("replydiv");
+       function addReply(id) {
+           parentComment = document.getElementById(`${id}replydiv`);
            childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
            <div class="m-messenger__message m-messenger__message--out">
 
@@ -750,12 +804,12 @@ $(document).ready(function() {
                    <div class="m-messenger__message-content">
                    <div class="m-messenger__message-username">
                    <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
-                   <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
+                   <span class="datee" style="float: right; color: #0c2a7a">2019-08-25 16:58:51+</span>
 
                        </div>
 
                        <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-                         ${document.getElementById("replyTextId").value}
+                        ${document.getElementById(`${id}replyTextId`).value}
                                  </p>
                        </div>
                        </br>
@@ -767,7 +821,7 @@ $(document).ready(function() {
            </div>
        </div>`;
            parentComment.innerHTML = parentComment.innerHTML + childComment;
-           document.getElementById("replyTextId").value = "";
+           document.getElementById(`${id}replyTextId`).value = "";
        }
 
     let languages = {
@@ -918,7 +972,7 @@ $(document).ready(function() {
                             </div>
                             <div class="row col-md-12">
                                 <div class="col-md-4 form-group mt-3">
-                                    <label for="create-project">Manager</label><br>
+                                    <label for="manager_id">Manager</label><br>
                                     <select id="manager_id" name="manager_id" class="form-control" style="width:100%;" required>
                                         <option value="" selected></option>
                                         ` +
@@ -930,7 +984,7 @@ $(document).ready(function() {
                                 <div class="col-md-4 form-group mt-3">
                                     <label for="create-project-type">Project Type</label>
                                     <i class="m-nav__link-icon flaticon-plus" data-toggle="modal" data-target="#PModal" style="float:right;"></i>
-                                    <select class="form-control" id="projtypeboy1" onchange="filterSubtype()" name="project_type_id" required>
+                                    <select class="form-control" id="projTypeBody1" onchange="filterSubtype()" name="project_type_id" required>
                                         <option value="" selected></option>
                                         ` +
                                         data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
@@ -1053,15 +1107,16 @@ $(document).ready(function() {
 
 
                     function filterSubtype(){
-                        let typeVal = document.getElementById("projtypeboy1").value;
+                        let typeVal = document.getElementById("projTypeBody1").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/project-types')}}" + '/' + typeVal,
+                            url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
                             success: function (data) {
                                 document.getElementById('projectSubtypeId1').innerHTML = `
-                                <option value="" selected></option>
-                                <option value="${data.data.id}">${data.data.name}</option>
-
+                                <option value="" selected></option> `
+                                 +
+                                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                + `
                                 `
                             },
                             error: function (data) {
@@ -1073,7 +1128,6 @@ $(document).ready(function() {
 
                     function submitEditProjectForm(proID){
                     let formdata = $('#editProjectform').serialize();
-                    console.log(formdata);
                     $.ajax({
                         type: "PUT",
                         url: '{{ url("/api/v1/projects") }}'+ '/'+ proID,
@@ -1112,22 +1166,6 @@ $(document).ready(function() {
         function editProjectSubtype(sub_id){
 
             $.ajax({
-                        type: "GET",
-                        url: "/api/v1/project-sub-types/" + sub_id,
-                        success: function(data){
-                            editSubData = data.data;
-                            $('#projecTttype').val(editSubData.project_type_id + "");
-                            $('#subTtype').val(editSubData[0].name);
-                            console.log(editSubData);
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-
-            $.ajax({
                 type: "GET",
                 url: "/api/v1/project-sub-types",
                 success: function (data) {
@@ -1139,16 +1177,15 @@ $(document).ready(function() {
 
                         <div class="form-group">
                             <label for="project-type">Select Project Type</label>
-                            <select id="projecTttype" name="project_type_id" class="selectDesign form-control">
-                                <option value = "" selected></option>
-                                ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
+                            <select id="projecTttype" name="project_type_id" class="form-control" required>
+                                ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_type.name}</option>`)}
                             </select>
                             <div class="error" id="editProjectTTTypeErr"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="create-task">Subtype Name</label>
-                            <input type="text" class="form-control" name="name" id="subTtype" placeholder="">
+                            <input type="text" class="form-control" name="name" id="subTtype">
                             <div class="error" id="editProjectSubTypeErr"></div>
                         </div>
                 </div>
@@ -1165,6 +1202,22 @@ $(document).ready(function() {
                 }
 
             })
+
+            $.ajax({
+                        type: "GET",
+                        url: "/api/v1/project-sub-types/" + sub_id,
+                        success: function(data){
+                            editSubData = data.data;
+                            $('#projecTttype').val(editSubData[0].project_type_id + "");
+                            $('#subTtype').val(editSubData[0].name);
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+
         }
 
         function submitEditProjectSubtypeForm(sub_id){
@@ -1204,7 +1257,6 @@ $(document).ready(function() {
 
                 });
                 // error: function (error) {
-                //     console.log(error);
                 //     alert("Project sub-type creation failed");
                 // }
 
@@ -1343,7 +1395,7 @@ $(document).ready(function() {
                 { "data": "project_type.name" },
                 { "data": "project_subtype.name" },
                 { "data": "status.name" },
-                { "data": "team_members[, ].name" },
+                // { "data": "team_members[, ].name" },
                 { "data": "starting_date" },
                 { "data": "deadline" }
             ],
@@ -1363,7 +1415,7 @@ $(document).ready(function() {
 
             },
             {
-                targets: 10,
+                targets: 9,
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
@@ -1386,27 +1438,7 @@ $(document).ready(function() {
             //  Edit Project form
         var editProjectData;
     function editProject(project_id){
-        $.ajax({
-                        type: "GET",
-                        url: "/api/v1/projects/" + project_id,
-                        success: function(data){
-                            editProjectData = data.data;
-                            $('#client_list').val(editProjectData.client_id + "");
-                            $('#project_name').val(editProjectData.name);
-                            $('#manager_id').val(editProjectData.manager_id + "");
-                            $('#projtypeboy').val(editProjectData.project_type_id + "");
-                            $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
-                            $('#starting-date').val(editProjectData.starting_date);
-                            $('#Deadline').val(editProjectData.deadline);
-                            $('#teammembers').val(editProjectData.team_members);
-                            console.log(editProjectData);
-                        },
 
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
 
                 $.ajax({
                     type: "GET",
@@ -1530,7 +1562,27 @@ $(document).ready(function() {
                                         }
 
                                     })
+                                    $.ajax({
+                                            type: "GET",
+                                            url: "/api/v1/projects/" + project_id,
+                                            success: function(data){
+                                                editProjectData = data.data;
+                                                let team_members = editProjectData.team_members.map(elem => elem.name)
+                                                $('#client_list').val(editProjectData.client_id + "");
+                                                $('#project_name').val(editProjectData.name);
+                                                $('#manager_id').val(editProjectData.manager_id + "");
+                                                $('#projtypeboy').val(editProjectData.project_type_id + "");
+                                                $('#project_subtype_id').val(editProjectData.project_subtype_id + "");
+                                                $('#starting-date').val(editProjectData.starting_date);
+                                                $('#Deadline').val(editProjectData.deadline);
+                                                $('#teammembers').val(team_members);
+                                            },
 
+                                            error: function (data) {
+                                                console.log('Error:', data);
+                                            }
+
+                                        })
                                     }
 
 
@@ -1645,6 +1697,35 @@ $(document).ready(function() {
                                                 Report
                                             </span>
                                         </h6>
+                                    </div>
+                                </div>
+
+                                <div class="accordion" id="accordionExample5">
+                                    <div class="card">
+                                        <div class="card-header" id="headingnine">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    Project Members
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    <div id="collapseNine" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample5">
+                                        <input type="textOne" id="myInputNine" onkeyup="searchProjectMembers()" placeholder="Search for project member.." title="Type in a member">
+                                        <table id="myTableNine">
+                                            <tr class="header">
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            <tr class="">
+                                            </tr>
+                                            `+ data.data.team_members.map(item =>
+                                            `<tr>
+                                                <td>${item.name}</td>
+                                                <td>${item.email}</td>
+                                            </tr>`
+                                            )+`
+                                        </table>
                                     </div>
                                 </div>
 
@@ -1927,9 +2008,28 @@ $(document).ready(function() {
 
         }
 
+        // Search Through Project Members FUnction
+    function searchProjectMembers(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputNine");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableNine");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
+
         function submitProjectReport(){
             let formData = $('#addProjectReportForm').serialize();
-            console.log(formData)
             $.ajax({
                 type: "POST",
                 url: "/api/v1/project-reports",
@@ -1960,7 +2060,6 @@ $(document).ready(function() {
 
         function submitProjectDoc(){
             let formData = $('#submitDoc').serialize();
-            console.log(formData);
             $.ajax({
                 type: "POST",
                 url: "/api/v1/documents",
@@ -1993,7 +2092,8 @@ $(document).ready(function() {
         function projectComments(project_id){
                 $.ajax({
                     type: "GET",
-                    url: "{{ url('/api/v1/projects') }}"+ '/'+project_id,
+                    //url: "{{ url('/api/v1/projects') }}"+ '/'+project_id,
+                    url: '/api/v1/projects/' +project_id,
                     success: function (data) {
                         let commentbody = document.getElementById('commentModal');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
@@ -2073,15 +2173,15 @@ $(document).ready(function() {
                                                                                 <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                                 ${elem.comments}
                                                                                     <br/>
-                                                                                    <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
+                                                                                    <div id="${elem.id}replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
                                                                                 <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
 
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
-                                                                                    <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <textarea class="form-control" name="replytext" id="${elem.id}replyTextId" rows="1" style="width: 100%" required></textarea>
+                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply(${elem.id})" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 
@@ -2257,6 +2357,12 @@ $(document).ready(function() {
                     var kt_table_project_type = $('#kt_table_project_type').DataTable();
                 }else {
                     var kt_table_project_type = $('#kt_table_project_type').DataTable({
+
+        language: {
+            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '},
+
+
+
                         ajax: "{{ url('/api/v1/project-types') }}",
                         columns: [
                             { defaultContent : ""  },
@@ -2347,7 +2453,6 @@ $(document).ready(function() {
                 type: "GET",
                 url: "/api/v1/project-types" + "/" + type_id,
                 success: function(data){
-                    console.log(data);
                     editProjectTypeData = data.data;
                     $('#editprojTypeInput').val(editProjectTypeData.name);
                 },
@@ -2563,8 +2668,6 @@ $(document).ready(function() {
                         alert("Project-type created");
                         displayAddProject();
                         $('#PModal').modal('hide');
-                        console.log(data);
-                        console.log(response);
                         return(data);
                     },
                     error: function (error) {
@@ -2625,7 +2728,7 @@ $(document).ready(function() {
 //     // Retrieving the values of form elements
 //     let clientlist = $('#client-list').val();
 //     let projectSublist = $('#projectSubtypeId1').val();
-//     let projTypelist = $('#projtypeboy1').val();
+//     let projTypelist = $('#projTypeBody1').val();
 //     let projectName = $('#create-project').val();
 //     let manager = $('#manager_id').val();
 //     let teamMembers = $('#teammembers').val();

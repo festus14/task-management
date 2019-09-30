@@ -455,7 +455,7 @@
                                                 class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                             <div class="m-dropdown__inner">
                                                 <div class="m-dropdown__header m--align-center"
-                                                     style="background: 
+                                                     style="background:
                                                      {{ url('assets/app/media/img/misc/quick_actions_bg.jpg') }}; background-size: cover;">
                                                     <span class="m-dropdown__header-title">
                                                         Quick Actions
@@ -555,7 +555,7 @@
                                         <span class="m-menu__arrow m-menu__arrow--adjust"></span>
                                         <ul class="m-menu__subnav">
                                             <li class="m-menu__item " aria-haspopup="true">
-                                                <a href="inner.html" class="m-menu__link ">
+                                                <a href="{{ url('admin/client_dashboard') }}" class="m-menu__link ">
                                                     <i class="m-menu__link-icon flaticon-users"></i>
                                                     <span class="m-menu__link-title">
                                                         <span class="m-menu__link-wrap">
