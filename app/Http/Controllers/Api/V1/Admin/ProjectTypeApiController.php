@@ -72,9 +72,10 @@ class ProjectTypeApiController extends Controller
         }
     }
 
-    public function show(ProjectType $projectType)
+    public function show($id)
     {
         try {
+            $projectType = ProjectType::with('project_sub_type')->findOrFail($id);
             return response()->json(['data' => $projectType], 200);
         }
         catch(\Exception $e){
