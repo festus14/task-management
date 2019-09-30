@@ -39,11 +39,33 @@
             background-color: #f1f1f1;
             }
 
+/* loader */
+#loading {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #ffff;
+   z-index: 99;
+   text-align: center;
+}
 
+#loading-image {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  z-index: 100;
+}
 </style>
 @endsection
 
 @section('content')
+<div id="loading">
+        <img id="loading-image" src={{ url('/loader/loader.gif')}} alt="Loading..." />
+          </div>
     <div class="row">
         <div class="col-xl-12">
             <!--begin::Portlet-->
@@ -82,7 +104,7 @@
                     </div>
                 </div>
                 <div class="m-portlet__body" style="overflow-x:auto;">
-                    <table id="kt_table_task" class="table table-striped table-hover">
+                    <table id="kt_table_task" class="table table-striped table-hover" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -382,9 +404,9 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
 <script>
 
-    $(window).on('load', function() {
-        $(".se-pre-con").fadeOut("slow");
-    });
+$(window).on('load', function() {
+    $('#loading').hide();
+   });
 
     $( document ).ready(function() {
         getTaskCategoryAjaxDT();
@@ -1295,7 +1317,7 @@
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="hidden" class="form-control" id="project-list" name="project_id" value="${data.data.project_id}">
+                                        <input type="hidden" class="form-control" id="project-list_doc" name="project_id" value="${data.data.project_id}">
                                     </div>
 
                                     <div class="form-group">
@@ -1839,10 +1861,10 @@
                                             }
 
                     function filterType(){
-                        let typeVal = document.getElementById("client-list").value;
+                        let clientVal = document.getElementById("client-list").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/clients')}}" + "/" + typeVal,
+                            url: "{{ url('/api/v1/clients')}}" + "/" + clientVal,
                             success: function (data) {
                                 document.getElementById('project-list').innerHTML = `
                                 <option value="" selected></option> ` +
@@ -1862,15 +1884,16 @@
 
 
                     function filterSubtype(){
-                        let subtypeVal = document.getElementById("project-list").value;
+                        let typeVal = document.getElementById("project-list").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/project-types')}}" + "/" + subtypeVal,
+                            url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
                             success: function (data) {
                                 document.getElementById('project-subtype-list').innerHTML = `
-                                <option value="" selected>Hello</option>
-                                <option value="${data.data.id}">${data.data.name}</option>
-
+                                <option value="" selected></option> `
+                                 +
+                                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                + `
                                 `
                             },
                             error: function (data) {
@@ -1893,12 +1916,12 @@
                             editData = data.data;
                             $('#create-task').val(editData.name);
                             $('#client-list').val(editData.client_id + "");
-                            $('#project-list').val(editData.project_id + "");
+                            $('#edit-project-list').val(editData.project_id + "");
                             $('#task-status').val(editData.status_id + "");
                             $('#manager').val(editData.manager_id + "");
                             $('#task-category').val(editData.category_id + "");
-                            $('#project-subtype-list').val(editData.project_subtype_id + "");
-                            $('#assinged_tos').val(editData.assinged_tos + "");
+                            $('#edit-project-subtype-list').val(editData.project_subtype_id + "");
+                            $('#edit_assinged_tos').val(editData.assinged_tos + "");
                             $('#starting-date').val(editData.starting_date);
                             $('#deadline').val(editData.ending_date);
                         },
@@ -1930,18 +1953,19 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Select Project</label>
-                                            <select id="project-list" onchange="editFilterSubType()" name="project_id" class="selectDesign form-control">
-                                                ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
+                                                <label>Select Project Subtype</label>
+                                            <select id="edit-project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
+                                                ${Object.keys(allData.projects_sub_type).map((key, index) => `<option value="${key}">${allData.projects_sub_type[key]}</option>`)}
                                             </select>
+
                                             <div class="error" id="editProjectErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label>Select Project Subtype</label>
-                                            <select id="project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
-                                                ${Object.keys(allData.projects_sub_type).map((key, index) => `<option value="${key}">${allData.projects_sub_type[key]}</option>`)}
+                                                <label>Select Project</label>
+                                            <select id="edit-project-list" onchange="editFilterSubType()" name="project_id" class="selectDesign form-control">
+                                                ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
                                             </select>
                                             <div class="error" id="editProjectSubTypeErr"></div>
                                         </div>
@@ -1984,7 +2008,7 @@
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
-                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" required class="form-control select2">
+                                            <select style="width: 100%" name="assinged_tos[]" id="edit_assinged_tos" multiple="multiple" required class="form-control select2">
                                                 ${Object.keys(allData.assinged_tos).map((key, index) => `<option value="${key}">${allData.assinged_tos[key]}</option>`)}
                                             </select>
                                             <div class="error" id="editAssignedTosErr"></div>
@@ -2074,14 +2098,14 @@
                             type: "GET",
                             url: "{{ url('/api/v1/clients')}}" + "/" + typeVal,
                             success: function (data) {
-                                document.getElementById('project-list').innerHTML = `
+                                document.getElementById('edit-project-list').innerHTML = `
                                 <option value="" selected></option> ` +
                                 data.data.projects.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                 + `
                                 `
                             },
                             error: function (data) {
-                                document.getElementById('project-list').innerHTML =
+                                document.getElementById('edit-project-list').innerHTML =
                                 `
                                 <option value="" selected></option>
                                 `
@@ -2091,19 +2115,19 @@
                     }
 
                     function editFilterSubType(){
-                        let subtypeVal = document.getElementById("project-list").value;
+                        let subtypeVal = document.getElementById("edit-project-list").value;
                         $.ajax({
                             type: "GET",
                             url: "{{ url('/api/v1/project-types')}}" + "/" + subtypeVal,
                             success: function (data) {
-                                document.getElementById('project-subtype-list').innerHTML = `
+                                document.getElementById('edit-project-subtype-list').innerHTML = `
                                 <option value="" selected></option> ` +
                                 data.data.sub_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                 + `
                                 `
                             },
                             error: function (data) {
-                                document.getElementById('project-subtype-list').innerHTML = `
+                                document.getElementById('edit-project-subtype-list').innerHTML = `
                                 <option value="" selected></option>
                                 `
                             }
