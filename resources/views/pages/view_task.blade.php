@@ -103,13 +103,12 @@
                     <table id="kt_table_task" class="table table-striped table-hover" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th style="text-align:center">#</th>
                                 <th>Client</th>
                                 <th>Project</th>
                                 <th>Name</th>
                                 <th>Manager</th>
                                 <th>Status</th>
-                                {{-- <th>Members</th> --}}
                                 <th>Start_Date</th>
                                 <th>Deadline</th>
                                 <th>Tools</th>
@@ -215,7 +214,7 @@
                                 <table id="kt_table_task_category" class="table table-striped table-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th style="text-align:center">#</th>
                                             <th>Category Name</th>
                                             <th>Project Type</th>
                                             <th>Sub Category</th>
@@ -325,7 +324,7 @@
                                 <table id="kt_table_task_status" class="table table-striped table-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th style="text-align:center">#</th>
                                             <th>Status Name</th>
                                             <th>Tools</th>
 
@@ -1131,7 +1130,7 @@
                                         <table id="kt_table_single_project_documents" class="table table-striped table-hover" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th style="text-align:center">#</th>
                                                     <th>Name</th>
                                                     <th>Document Type</th>
                                                     <th>File</th>
@@ -1202,7 +1201,7 @@
                                         <table id="kt_table_single_project_reports" class="table table-striped table-hover" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th style="text-align:center">#</th>
                                                     <th>Name</th>
                                                     <th>Report Type</th>
                                                     <th>Report</th>
@@ -2254,18 +2253,19 @@
                 let typeVal = document.getElementById("createProjectTypeList").value;
                 $.ajax({
                     type: "GET",
-                    url: "{{ url('/api/v1/project-types')}}" + '/' + typeVal,
+                    url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
                     success: function (data) {
                         document.getElementById('createSubCategory').innerHTML = `
-                        <option value="" selected></option>
-                        <option value="${data.data.id}">${data.data.name}</option>
+                        <option value="" selected></option> `
+                        +
+                        data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                        + `
                         `
                     },
                     error: function (data) {
                         document.getElementById('createSubCategory').innerHTML = `
-                            <option value="" selected></option>
+                        <option value="" selected></option>
                         `
-                        console.log('Error:', data);
                     }
                 });
             }
@@ -2274,6 +2274,24 @@
         //  Edit TaskCategory
          var editTaskCategoryData;
             function editTaskCategory(task_id){
+                $.ajax({
+                type: "GET",
+                url: "{{ url('/api/v1/tast-categories') }}" + "/" + task_id,
+                success: function(data){
+                    editTaskCategoryData = data.data;
+                    $('#editCategoryName').val(editTaskCategoryData.name);
+                    $('#editProjectTypeListt').val(editTaskCategoryData.project_type_id + "");
+                    $('#editSubCategory').val(editTaskCategoryData.sub_category_id + "");
+                    $('#editWeightId').val(editTaskCategoryData.weight);
+                    $('#editDescriptionID').val(editTaskCategoryData.description);
+                },
+
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+
+            })
+
             $.ajax({
                 type: "GET",
                 url: "{{ url('/api/v1/create_task_categories') }}",
@@ -2286,13 +2304,13 @@
                         <div class="col-md-12 row">
                             <div class="col-md-6 form-group mt-3">
                                 <label>Name</label>
-                                <input type="text" class="form-control" name="name" id="categoryName" placeholder="">
+                                <input type="text" class="form-control" name="name" id="editCategoryName" placeholder="">
                                 <div class="error" id="editCategoryNameErr"></div>
                             </div>
 
                             <div class="col-md-6 form-group mt-3">
                                 <label>Project Type</label>
-                                <select id="projectTypeListt" onchange="editFilterCategorySub()" name="project_type_id" class="selectDesign form-control">
+                                <select id="editProjectTypeListt" onchange="editFilterCategorySub()" name="project_type_id" class="selectDesign form-control">
                                     ${Object.keys(editTaskCatData.project_types).map((key, index) => `<option value="${key}">${editTaskCatData.project_types[key]}</option>`)}
                                 </select>
                                 <div class="error" id="editProjectTypeeErr"></div>
@@ -2333,11 +2351,11 @@
                 url: "{{ url('/api/v1/tast-categories') }}" + "/" + task_id,
                 success: function(data){
                     editTaskCategoryData = data.data;
-                    $('#categoryName').val(editTaskCategoryData.name);
-                    $('#projectTypeList').val(editTaskCategoryData.project_type_id + "");
+                    $('#editCategoryName').val(editTaskCategoryData.name);
+                    $('#editProjectTypeListt').val(editTaskCategoryData.project_type_id + "");
                     $('#editSubCategory').val(editTaskCategoryData.sub_category_id + "");
-                    $('#weightId').val(editTaskCategoryData.weight);
-                    $('#descriptionID').val(editTaskCategoryData.description);
+                    $('#editWeightId').val(editTaskCategoryData.weight);
+                    $('#editDescriptionID').val(editTaskCategoryData.description);
                 },
 
                 error: function (data) {
@@ -2350,21 +2368,22 @@
         }
 
         function editFilterCategorySub(){
-            let typeVal = document.getElementById("projectTypeList").value;
+            let typeVal = document.getElementById("editProjectTypeListt").value;
                 $.ajax({
                     type: "GET",
                     url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
                     success: function (data) {
                         document.getElementById('editSubCategory').innerHTML = `
-                        <option value="" selected></option>
-                        <option value="${data.data.id}">${data.data.name}</option>
+                        <option value="" selected></option> `
+                        +
+                        data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                        + `
                         `
                     },
                     error: function (data) {
                         document.getElementById('editSubCategory').innerHTML = `
-                            <option value="" selected></option>
+                        <option value="" selected></option>
                         `
-                        console.log('Error:', data);
                     }
                 });
         }
