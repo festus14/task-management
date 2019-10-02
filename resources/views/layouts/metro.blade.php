@@ -571,7 +571,7 @@
                                                 </a>
                                             </li>
                                             <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                <a href="inner.html" class="m-menu__link ">
+                                                <a href="inner.html" class="m-menu__link " id="createClient" data-toggle="modal" data-target="#createClientModal">
                                                     <i class="m-menu__link-icon flaticon-add"></i>
                                                     <span class="m-menu__link-text">
                                                         New Client
@@ -1566,6 +1566,84 @@
 <!-- end::Scroll Top -->
 <!-- begin::Quick Nav -->
 
+<div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Client</h5>
+                <button type="button" class="close" onclick="$('#createClientModal').modal('hide');" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="createClientModalBody" class="modal-body col-md-12">
+                <div class="col-md-12 ">
+                    <form class="form" id="clientForm" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row col-md-12">
+                            <div class="col-md-6 form-group mt-3">
+                                <label for="company-name">Company Name</label>
+                                <input type="text" name="name" class="form-control" id="company-name" required>
+                            </div>
+
+                            <div class="col-md-6 form-group mt-3">
+                                <label for="status">Status</label>
+                                <select id="status" name="status" class="form-control">
+                                    <option value="" disabled="" selected="">Please select</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="row col-md-12">
+
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="date-of-eng">Date Of Engagement</label>
+                                    <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                </div>
+
+
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="expiry-date">Expiry Date</label>
+                                    <input type="text" id="expiry-date" name="expiry_date" class="form-control date" required>
+                                </div>
+
+                                <div class="col-md-4 form-group mt-3">
+                                    <label for="phone-num">Phone Number</label>
+                                    <input type="" name="phone" class="form-control" id="phone-num" required>
+                                </div>
+
+                            </div>
+                            <div class="row col-md-12 ">
+
+                                <div class="col-md-6 form-group mt-3">
+                                    <label for="address">Address</label>
+                                    <input type="text" name="address" class="form-control" id="address" placeholder="" required>
+                                </div>
+
+                                <div class="col-md-6 form-group mt-3">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control" id="email" required>
+                                </div>
+
+
+                            </div>
+                            <div class="row col-md-12 ">
+                                <div class="col-md-3 form-group mt-3">
+                                <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="createCliento()" value="{{ trans('global.create') }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
     {{ csrf_field() }}
 </form>
@@ -1584,6 +1662,9 @@
 {{--<script src="{{ asset('js/main.js') }}"></script>--}}
 
 <!--begin::Page Snippets -->
+
+
+
 @yield('javascript')
 <script>
     $(document).ready(function () {
@@ -1626,6 +1707,40 @@
 
         $('.select2').select2();
     });
+
+//Posting-Create client
+function createCliento(){
+                let formData = $('#clientForm').serialize();
+                $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                    });
+                $.ajax({
+                    type: "POST",
+                    url: '{{ url("/api/v1/clients") }}',
+                    data: formData,
+
+                    success: function (data) {
+                        $('#createClientModal').modal('hide');
+                        swal({
+                            title: "Success!",
+                            text: "Client Added!",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "OK",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 3000)
+
+                    },
+                    error: function (data) {
+                    swal("Client creation failed", "Please check missing fields", "error");
+                }
+                });
+            }
+
 </script>
 <!--end::Page Snippets -->
 </body>

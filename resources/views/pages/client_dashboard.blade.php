@@ -1230,18 +1230,16 @@
 
             //Posting-Create client
             function createCliento(){
-                let formData = $('#clientForm').serialize();
                 $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                    });
+                });
                 $.ajax({
                     type: "POST",
-                    url: '{{ url("/api/v1/clients") }}',
-                    data: formData,
-
-                    success: function (data) {
+                    url: "/api/v1/clients",
+                    data: $('#clientForm').serialize(),
+                    success: function(data) {
                         $('#createClientModal').modal('hide');
                         swal({
                             title: "Success!",

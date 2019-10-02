@@ -41,11 +41,7 @@
                 background-color: #f1f1f1;
                 }
 
-        </style>
 
-    <style>
-
-<style>
 
 /* comment scrollbar */
 /* width */
@@ -78,39 +74,61 @@
 .btn.dropdown-toggle:focus {
     outline: none !important;
 }
+
+/* loader */
+#loading {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #ffff;
+   z-index: 99;
+   text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  z-index: 100;
+}
 </style>
 @endsection
-<div class="row">
-    <div class="col-xl-12">
-        <!--begin::Portlet-->
-        <div class="m-portlet " id="m_portlet" style="width:100%;">
-            <div class="m-portlet__head">
-                <div class="m-portlet__head-caption">
-                    <div class="m-portlet__head-title">
-                        <span class="m-portlet__head-icon">
-                                <i class="flaticon-list-2"> </i>
-                            </span>
-                        <h3 class="m-portlet__head-text">
-                            Project table
-                        </h3>
-                    </div>
-                </div>
-                <div class="m-portlet__head-tools">
-                    <ul class="m-portlet__nav">
-                        <li class="m-portlet__nav-item">
-                            <a style="color:white; background-color: #8a2a2b;" id="addProjId" class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" >
+@section('content')
+    <div id="loading">
+       <img id="loading-image" src={{ url('/loader/loader.gif')}} alt="Loading..." />
+    </div>
+<div class="m-portlet " id="m_portlet" style="width:90%; box-sizing:border-box; padding-right: 50px;">
+    <div class="m-portlet__head">
+        <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-title">
+                <span class="m-portlet__head-icon">
+                        <i class="flaticon-list-2"> </i>
+                    </span>
+                <h3 class="m-portlet__head-text">
+                    Project table
+                </h3>
+            </div>
+        </div>
+        <div class="m-portlet__head-tools">
+            <ul class="m-portlet__nav">
+                <li class="m-portlet__nav-item">
+                    <a style="color:white; background-color: #8a2a2b;" id="addProjId" class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" >
                                 <span>
-                                        <i class="la la-plus"></i>
-                                        <span>
-                                            Add Project
-                                        </span>
+                                    <i class="la la-plus"></i>
+                                    <span>
+                                        Add Project
+                                    </span>
                                 </span>
                             </a>
                             <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" id="projectTypeId" data-toggle="modal" data-target="#ProjTypeDatatable">
                                 <span onclick="getProjetTypeDT();">
-                                        <span>
-                                            Project Type
-                                        </span>
+                                    <span>
+                                        Project Type
+                                    </span>
                                 </span>
                             </a>
                         </li>
@@ -618,6 +636,9 @@
 
 <script>
 
+  $(window).on('load', function() {
+    $('#loading').hide();
+   });
      $( document ).ready(function() {
         getProjetTypeDT();
         getProjectSubTypeDT();
@@ -808,8 +829,8 @@
     //        document.getElementById("Textarea2").value = "";
     //    }
 
-       function addReply() {
-           parentComment = document.getElementById("replydiv");
+       function addReply(id) {
+           parentComment = document.getElementById(`${id}replydiv`);
            childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
            <div class="m-messenger__message m-messenger__message--out">
 
@@ -818,12 +839,12 @@
                    <div class="m-messenger__message-content">
                    <div class="m-messenger__message-username">
                    <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
-                   <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
+                   <span class="datee" style="float: right; color: #0c2a7a">2019-08-25 16:58:51+</span>
 
                        </div>
 
                        <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-                         ${document.getElementById("replyTextId").value}
+                        ${document.getElementById(`${id}replyTextId`).value}
                                  </p>
                        </div>
                        </br>
@@ -835,7 +856,7 @@
            </div>
        </div>`;
            parentComment.innerHTML = parentComment.innerHTML + childComment;
-           document.getElementById("replyTextId").value = "";
+           document.getElementById(`${id}replyTextId`).value = "";
        }
 
     let languages = {
@@ -1357,42 +1378,41 @@
                     }
 
     // post to the create proj table
-    createProject=()=>{
+    const createProject = () => {
         $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
-                    type: "POST",
-                    url: '{{ url("/api/v1/projects") }}',
-                    data: $('#addProjectForm').serialize(),
-                    success: function (data) {
-
-                        swal({
-                            title: "Success!",
-                            text: "Project Created!",
-                            icon: "success",
-                            confirmButtonColor: "#DD6B55",
-                            // confirmButtonText: "OK",
-                        });
-                        window.setTimeout(function(){
-                            location.reload();
-                        }, 3000)
-
-                    },
-                    error: function (error) {
-                        console.log(error)
-                        swal({
-                            title: "Project Creation Failed!",
-                            text: "Please check the missing fields!",
-                            icon: "error",
-                            confirmButtonColor: "#fc3",
-                            confirmButtonText: "OK",
-                        });
-                    }
+                type: "POST",
+                url: '{{ url("/api/v1/projects") }}',
+                data: $('#addProjectForm').serialize(),
+                success: function (data) {
+                    swal({
+                        title: "Success!",
+                        text: "Project Created!",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
                     });
-    }
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 3000)
+
+                },
+                error: function (error) {
+                    console.log(error)
+                    swal({
+                        title: "Project Creation Failed!",
+                        text: "Please check the missing fields!",
+                        icon: "error",
+                        confirmButtonColor: "#fc3",
+                        confirmButtonText: "OK",
+                    });
+                }
+            });
+        }
 
 
         $.ajaxSetup({
@@ -1853,9 +1873,6 @@
                             </div>
 
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#documentModal').modal('hide');">Close</button>
-                        </div>
                     </div>
                 </div>
                 </div>
@@ -1925,9 +1942,6 @@
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="$('#projectreportModal').modal('hide');">Close</button>
                         </div>
                     </div>
                 </div>
@@ -2135,7 +2149,8 @@
         function projectComments(project_id){
                 $.ajax({
                     type: "GET",
-                    url: "{{ url('/api/v1/projects') }}"+ '/'+project_id,
+                    //url: "{{ url('/api/v1/projects') }}"+ '/'+project_id,
+                    url: '/api/v1/projects/' +project_id,
                     success: function (data) {
                         let commentbody = document.getElementById('commentModal');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
@@ -2215,15 +2230,15 @@
                                                                                 <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                                 ${elem.comments}
                                                                                     <br/>
-                                                                                    <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
+                                                                                    <div id="${elem.id}replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                                     </div>
                                                                                     <br>
                                                                                 <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
 
                                                                                 <div class="collapse" id="${elem.id}collapseReply">
                                                                                     <br>
-                                                                                    <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
+                                                                                    <textarea class="form-control" name="replytext" id="${elem.id}replyTextId" rows="1" style="width: 100%" required></textarea>
+                                                                                    <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply(${elem.id})" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
                                                                                 </div>
                                                                             </div>
 

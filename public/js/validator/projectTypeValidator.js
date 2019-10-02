@@ -25,7 +25,7 @@ function validateProjectType() {
 
     if (projectType == "") {
 
-        printError("projectTypeErr", "Please input a project name");
+        printError("projectTypeErr", "Please input a name");
     } else if (projectType) {
         projectType = projectType.toUpperCase();
 
@@ -110,7 +110,7 @@ function validateProjectSubType() {
     // }
     projectTTTypeErr = false;    if (projectSubType == "") {
 
-        printError("projectSubTypeErr", "Please input a project name");
+        printError("projectSubTypeErr", "Please input a name");
     } else if (projectSubType) {
         projectSubType = projectSubType.toUpperCase();
 
