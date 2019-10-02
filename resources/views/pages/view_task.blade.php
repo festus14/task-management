@@ -39,26 +39,26 @@
             background-color: #f1f1f1;
             }
 
-/* loader */
-#loading {
-   width: 100%;
-   height: 100%;
-   top: 0;
-   left: 0;
-   position: fixed;
-   display: block;
-   opacity: 0.7;
-   background-color: #ffff;
-   z-index: 99;
-   text-align: center;
-}
+            /* loader */
+            #loading {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            opacity: 0.7;
+            background-color: #ffff;
+            z-index: 99;
+            text-align: center;
+            }
 
-#loading-image {
-  position: absolute;
-  top: 40%;
-  left: 45%;
-  z-index: 100;
-}
+            #loading-image {
+            position: absolute;
+            top: 40%;
+            left: 45%;
+            z-index: 100;
+            }
 </style>
 @endsection
 
@@ -408,7 +408,7 @@ $(window).on('load', function() {
     $('#loading').hide();
    });
 
-    $( document ).ready(function() {
+    $(document).ready(function() {
         getTaskCategoryAjaxDT();
         getTaskStatusAjaxDT();
     });

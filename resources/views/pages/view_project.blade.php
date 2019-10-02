@@ -980,6 +980,10 @@
         $.ajax({
             type: "GET",
             url: '{{ url("/api/v1/project_create") }}',
+            beforeSend: function(){
+    // Show image container
+    $("#loader").show();
+   },
             success: function (data) {
                 let createProjectBody = document.getElementById('createProjectBody');
                 let probSubtypeBody = document.getElementById('subtypeModalBody');
@@ -1133,6 +1137,10 @@
 
                         $('.select2').select2();
                                     },
+                                    complete:function(data){
+    // Hide image container
+    $("#loader").hide();
+   },
                                     error: function (data) {
                                         console.log('Error:', data);
                                     }
@@ -1309,7 +1317,7 @@
                 });
                 $.ajax({
                 type: "POST",
-                url: '{{ url("/api/v1/project-sub-types") }}',
+                url: '/api/v1/project-sub-types',
                 data: $('#addprojsubtypeform2').serialize(),
                 success: function (data) {
 
@@ -1386,7 +1394,7 @@
             });
             $.ajax({
                     type: "POST",
-                    url: '{{ url("/api/v1/projects") }}',
+                    url: '/api/v1/projects',
                     data: $('#addProjectForm').serialize(),
                     success: function (data) {
 
@@ -1663,6 +1671,10 @@
             $.ajax({
             type: "GET",
             url: "/api/v1/projects/" + proID,
+            beforeSend: function(){
+    // Show image container
+    $("#loader").show();
+   },
             success: function (data) {
                 let moreInfo = document.getElementById("moreInfo")
                 moreInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -1742,7 +1754,7 @@
                                         <div class="card-header" id="headingnine">
                                             <h6 style="cursor: pointer" class="mb-0">
                                                 <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    <i class="m-menu__link-icon flaticon-team-member-"></i>
                                                     Project Members
                                                 </span>
                                             </h6>
@@ -2034,6 +2046,10 @@
 
 
             },
+            complete:function(data){
+    // Hide image container
+    $("#loader").hide();
+   },
 
             error: function (data) {
                 console.log('Error:', data);
