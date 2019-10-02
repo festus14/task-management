@@ -108,8 +108,7 @@ function validateProjectSubType() {
     //     printError("projectTTTypeErr", "");
     //     projectTTTypeErr = false;
     // }
-
-    if (projectSubType == "") {
+    projectTTTypeErr = false;    if (projectSubType == "") {
 
         printError("projectSubTypeErr", "Please input a project name");
     } else if (projectSubType) {

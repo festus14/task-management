@@ -65,7 +65,7 @@
     <div class="row">
         <div class="col-xl-12">
             <!--begin::Portlet-->
-            <div class="m-portlet " id="m_portlet" style="width:97%;">
+            <div class="m-portlet " id="m_portlet" style="width:100%;">
                 <div class="m-portlet__head">
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
@@ -1900,29 +1900,6 @@
                 var editData;
             function editTaskMain(task_id) {
 
-                $.ajax({
-                        type: "GET",
-                        url: "{{ url('/api/v1/tasks/') }}" + "/" + task_id,
-                        success: function(data){
-                            editData = data.data;
-                            $('#create-task').val(editData.name);
-                            $('#client-list').val(editData.client_id + "");
-                            $('#edit-project-list').val(editData.project_id + "");
-                            $('#task-status').val(editData.status_id + "");
-                            $('#manager').val(editData.manager_id + "");
-                            $('#task-category').val(editData.category_id + "");
-                            $('#edit-project-subtype-list').val(editData.project_subtype_id + "");
-                            $('#edit_assinged_tos').val(editData.assinged_tos + "");
-                            $('#starting-date').val(editData.starting_date);
-                            $('#deadline').val(editData.ending_date);
-                        },
-
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-
-                    })
-
                     $.ajax({
                         type: "GET",
                         url: "{{ url('/api/v1/create_task') }}",
@@ -1936,15 +1913,15 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label for="client-list">Select Client</label>
-                                            <select id="client-list" onchange="editFilterType()" name="client_id" class="selectDesign form-control" selected="3">
+                                            <label for="edit-client-list">Select Client</label>
+                                            <select id="edit-client-list" onchange="editFilterType()" name="client_id" class="selectDesign form-control" selected="3">
                                                 ${Object.keys(allData.clients).map((key, index) => `<option value="${key}">${allData.clients[key]}</option>`)}
                                             </select>
                                             <div class="error" id="editClientErr"></div>
                                         </div>
 
                                         <div class="form-group">
-                                                <label>Select Project Subtype</label>
+                                                <label for="edit-project-subtype-list">Select Project Subtype</label>
                                             <select id="edit-project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.projects_sub_type).map((key, index) => `<option value="${key}">${allData.projects_sub_type[key]}</option>`)}
                                             </select>
@@ -1954,7 +1931,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                                <label>Select Project</label>
+                                                <label for="edit-project-list">Select Project</label>
                                             <select id="edit-project-list" onchange="editFilterSubType()" name="project_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
                                             </select>
@@ -1962,16 +1939,16 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="create-task">Task Name</label>
-                                            <input type="text" name="name" class="form-control" id="create-task" placeholder="Enter Task Name" required>
+                                            <label for="edit-create-task">Task Name</label>
+                                            <input type="text" name="name" class="form-control" id="edit-create-task" placeholder="Enter Task Name" required>
                                             <div class="error" id="editTaskNameErr"></div>
                                         </div>
 
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
-                                            <label>Task Category</label>
-                                            <select id="task-category" name="category_id" class="selectDesign form-control">
+                                            <label for="edit-task-category">Task Category</label>
+                                            <select id="edit-task-category" name="category_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.categories).map((key, index) => `<option value="${key}">${allData.categories[key]}</option>`)}
                                             </select>
                                             <div class="error" id="editTaskCatErr"></div>
@@ -1979,8 +1956,8 @@
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
-                                            <label>Task Status</label>
-                                            <select id="task-status" name="status_id" class="selectDesign form-control">
+                                            <label for="edit-task-status">Task Status</label>
+                                            <select id="edit-task-status" name="status_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.statuses).map((key, index) => `<option value="${key}" >${allData.statuses[key]}</option>`)}
                                             </select>
                                             <div class="error" id="editTaskStatusErr"></div>
@@ -1988,8 +1965,8 @@
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
-                                            <label>Select Manager</label>
-                                            <select id="manager" name="manager_id" class="selectDesign form-control">
+                                            <label for="edit-manager">Select Manager</label>
+                                            <select id="edit-manager" name="manager_id" class="selectDesign form-control">
                                                 ${Object.keys(allData.managers).map((key, index) => `<option value="${key}">${allData.managers[key]}</option>`)}
                                             </select>
                                             <div class="error" id="editManagerErr"></div>
@@ -1997,9 +1974,9 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label for="assign-task">Assign task to</label>
+                                            <label for="edit-edit_assinged_tos">Assign task to</label>
                                                 <br>
-                                            <select style="width: 100%" name="assinged_tos[]" id="edit_assinged_tos" multiple="multiple" required class="form-control select2">
+                                            <select style="width: 100%" name="assinged_tos[]" id="edit-edit_assinged_tos" multiple="multiple" required class="form-control select2">
                                                 ${Object.keys(allData.assinged_tos).map((key, index) => `<option value="${key}">${allData.assinged_tos[key]}</option>`)}
                                             </select>
                                             <div class="error" id="editAssignedTosErr"></div>
@@ -2008,16 +1985,16 @@
 
                                     <div class="col-md-3 col-sm-3">
                                         <div class="form-group">
-                                            <label for="starting-date">Starting Date</label>
-                                            <input type="text" name="starting_date" class="form-control datetime" id="starting-date" required>
+                                            <label for="edit-starting-date">Starting Date</label>
+                                            <input type="text" name="starting_date" class="form-control datetime" id="edit-starting-date" required>
                                             <div class="error" id="editStartErr"></div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3 col-sm-3">
                                         <div class="form-group">
-                                            <label for="deadline">Deadline</label>
-                                            <input type="text" name="ending_date" class="form-control datetime" id="deadline" required>
+                                            <label for="edit-deadline">Deadline</label>
+                                            <input type="text" name="ending_date" class="form-control datetime" id="edit-deadline" required>
                                             <div class="error" id="editEndErr"></div>
                                         </div>
                                     </div>
@@ -2033,6 +2010,29 @@
 
                         </div>
                         `
+
+                        $.ajax({
+                        type: "GET",
+                        url: "{{ url('/api/v1/tasks/') }}" + "/" + task_id,
+                        success: function(data){
+                            editData = data.data;
+                            $('#edit-create-task').val(editData.name);
+                            $('#edit-client-list').val(editData.client_id + "");
+                            $('#edit-project-list').val(editData.project_id + "");
+                            $('#edit-task-status').val(editData.status_id + "");
+                            $('#edit-manager').val(editData.manager_id + "");
+                            $('#edit-task-category').val(editData.category_id + "");
+                            $('#edit-project-subtype-list').val(editData.project_subtype_id + "");
+                            $('#edit_assinged_tos').val(editData.assinged_tos + "");
+                            $('#edit-starting-date').val(editData.starting_date);
+                            $('#edit-deadline').val(editData.ending_date);
+                        },
+
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
 
                         window._token = $('meta[name="csrf-token"]').attr('content');
 
@@ -2084,10 +2084,10 @@
 
 
                     function editFilterType(){
-                        let typeVal = document.getElementById("client-list").value;
+                        let clientVal = document.getElementById("edit-client-list").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/clients')}}" + "/" + typeVal,
+                            url: "{{ url('/api/v1/clients')}}" + "/" + clientVal,
                             success: function (data) {
                                 document.getElementById('edit-project-list').innerHTML = `
                                 <option value="" selected></option> ` +
@@ -2105,25 +2105,28 @@
                         });
                     }
 
+
                     function editFilterSubType(){
-                        let subtypeVal = document.getElementById("edit-project-list").value;
+                        let typeVal = document.getElementById("edit-project-list").value;
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('/api/v1/project-types')}}" + "/" + subtypeVal,
+                            url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
                             success: function (data) {
                                 document.getElementById('edit-project-subtype-list').innerHTML = `
-                                <option value="" selected></option> ` +
-                                data.data.sub_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                <option value="" selected></option> `
+                                 +
+                                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                 + `
                                 `
                             },
                             error: function (data) {
-                                document.getElementById('edit-project-subtype-list').innerHTML = `
+                                `
                                 <option value="" selected></option>
                                 `
                             }
                         });
                     }
+
 
                 function submitEditTaskForm(taskID){
                     let formData = $('#editTaskform').serialize();
