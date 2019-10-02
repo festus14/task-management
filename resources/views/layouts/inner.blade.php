@@ -813,7 +813,7 @@
                     <!-- END: Aside Menu -->
                 </div>
                 <!-- END: Left Aside -->
-                <div class="m-grid__item m-grid__item--fluid m-wrapper" style="box-sizing: border-box">
+                <div class="m-grid__item m-grid__item--fluid m-wrapper" style="width: 100%">
                     <!-- BEGIN: Subheader -->
                     <div class="m-subheader ">
                         <div class="d-flex align-items-center">
@@ -839,29 +839,9 @@
                     </div>
                     <!-- END: Subheader -->
 
-                        <div class="m-content container" style="width: 99%; box-sizing: border-box" data-select2-id="6">
+                        <div class="m-content container" style="width: 100%; box-sizing: border-box" data-select2-id="6">
                             <!-- Inner page content goes here -->
                             @yield('content')
-                            <!-- <div>
-
-                                <form id="postData">
-
-                                    <div class="form-group">
-                                        <label>Select Project</label>
-                                        <select id="project-list" class="form-control"></select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="create-project-subtype">Create Project Subtype</label>
-                                        <input type="text" class="form-control" id="create-project-subtype" placeholder="Enter Project Subtype">
-                                    </div>
-
-
-                                    <input type="submit" class="btn btn-primary" value="Submit">
-
-                                </form>
-
-                            </div> -->
                         </div>
                     </div>
             </div>

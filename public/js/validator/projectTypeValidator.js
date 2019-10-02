@@ -108,7 +108,66 @@ function validateProjectSubType() {
     //     printError("projectTTTypeErr", "");
     //     projectTTTypeErr = false;
     // }
+    projectTTTypeErr = false;
 
+    if (projectSubType == "") {
+        printError("projectSubTypeErr", "Please input a name");
+    } else if (projectSubType) {
+        projectSubType = projectSubType.toUpperCase();
+
+        for (let i = 0; i < allProjectSubTyess.data.length; i++) {
+            if (allProjectSubTyess.data[i].name.toUpperCase() === projectSubType) {
+                printError("projectSubTypeErr", "Project subtype already exists");
+                projectSubTypeErr = true;
+                break;
+            } else {
+                printError("projectSubTypeErr", "");
+                projectSubTypeErr = false;
+            }
+        }
+
+    }
+
+    // Prevent the form from being submitted if there are any errors
+
+    if ((projectSubTypeErr == true) || (projectTTTypeErr == true)) {
+        return false;
+    } else {
+
+        addProjectSubtypeX();
+    }
+};
+
+function validateProjectSubTypeOut() {
+    // Retrieving the values of form elements
+    var allProjectSubTyess;
+    $.ajax({
+        type: "GET",
+        url: "/api/v1/project-sub-types",
+        async: false,
+        success: function(data) {
+            allProjectSubTyess = data;
+
+        },
+        error: function(data) {
+
+        }
+
+    })
+    let projectType = $('#project-type').val();
+    let projectSubType = $('#sub-type').val();
+
+
+    // Defining error variable with a default value
+    var projectSubTypeErr = projectTTTypeErr = true;
+
+
+    // if (projectType == "") {
+    //     printError("projectTTTypeErr", "Please provide an input");
+    // } else {
+    //     printError("projectTTTypeErr", "");
+    //     projectTTTypeErr = false;
+    // }
     projectTTTypeErr = false;
     if (projectSubType == "") {
 
@@ -135,7 +194,7 @@ function validateProjectSubType() {
         return false;
     } else {
 
-        addProjectSubtypeX();
+        addProjectSubtypeXOut();
     }
 };
 

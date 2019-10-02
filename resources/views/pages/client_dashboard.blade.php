@@ -1273,10 +1273,10 @@
             //Posting-Create client
             function createCliento(){
                 $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                    });
+                });
                 $.ajax({
                     type: "POST",
                     url: '/api/v1/clients',
