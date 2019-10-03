@@ -101,7 +101,7 @@
     <div id="loading">
        <img id="loading-image" src={{ url('/loader/loader.gif')}} alt="Loading..." />
     </div>
-<div class="m-portlet " id="m_portlet" style="width:90%; box-sizing:border-box; padding-right: 50px;">
+<div class="m-portlet " id="m_portlet" style="width: 100%;">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
             <div class="m-portlet__head-title">
@@ -109,7 +109,7 @@
                         <i class="flaticon-list-2"> </i>
                     </span>
                 <h3 class="m-portlet__head-text">
-                    Project table
+                    Project Table
                 </h3>
             </div>
         </div>
@@ -2699,10 +2699,10 @@
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                    return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                            <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
+                    return '\<button class="btn btn-secondary dropdown-toggle" onclick="editProjectSubtype('+full.id+')" type="button" id="subTaskToolsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                            <div class="dropdown-menu" aria-labelledby="subTaskToolsBtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
                             <a class="link" href="#">\
-                                <i class="fa fa-pencil" data-toggle="modal" onclick="editProjectSubtype('+full.id+')" data-target="#editProjectSubTypeModal" style="color:black;"><span style="font-weight:100;"> Edit</span></i>\
+                                <i class="fa fa-pencil" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"><span style="font-weight:100;"> Edit</span></i>\
                             </a>\
                             <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
