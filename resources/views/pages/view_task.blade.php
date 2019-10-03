@@ -78,6 +78,9 @@
 @endsection
 
 @section('content')
+    <div id="loading">
+        <img id="loading-image" src={{ url('/loader/loader.gif')}} alt="Loading..." />
+    </div>
     <div class="row">
         <div class="col-xl-12">
             <!--begin::Portlet-->
