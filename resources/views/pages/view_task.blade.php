@@ -39,25 +39,41 @@
             background-color: #f1f1f1;
             }
 
-    </style>
+            /* loader */
+            #loading {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            opacity: 0.7;
+            background-color: #ffff;
+            z-index: 99;
+            text-align: center;
+            }
 
-<style>
+            #loading-image {
+            position: absolute;
+            top: 40%;
+            left: 45%;
+            z-index: 100;
+            }
+              /* comment scrollbar */
+            /* width */
+            #mCSB_3::-webkit-scrollbar {
+            width: 5px;
+            }
 
-    /* comment scrollbar */
-    /* width */
-    #mCSB_3::-webkit-scrollbar {
-      width: 5px;
-    }
+            /* Track */
+            #mCSB_3::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            }
 
-    /* Track */
-    #mCSB_3::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-
-    /* Handle */
-    #mCSB_3::-webkit-scrollbar-thumb {
-      background: #888;
-    }
+            /* Handle */
+            #mCSB_3::-webkit-scrollbar-thumb {
+            background: #888;
+            }
 </style>
 @endsection
 
@@ -398,7 +414,11 @@
 <script type="text/javascript" src="{{ asset('js/validator/taskValidator.js') }}"></script>
 <script>
 
-    $( document ).ready(function() {
+$(window).on('load', function() {
+    $('#loading').hide();
+   });
+
+    $(document).ready(function() {
         getTaskCategoryAjaxDT();
         getTaskStatusAjaxDT();
     });

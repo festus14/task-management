@@ -1,12 +1,8 @@
-function printError(elemId, hintMsg) {
-    document.getElementById(elemId).innerHTML = hintMsg;
-}
-
 function validateCreateProjectForm() {
     // Retrieving the values of form elements
     let clientlist = $('#client-list').val();
     let projectSublist = $('#projectSubtypeId1').val();
-    let projTypelist = $('#projtypeboy1').val();
+    let projTypelist = $('#projTypeBody1').val();
     let projectName = $('#create-project').val();
     let manager = $('#manager_id').val();
     let teamMembers = $('#teammembers').val();

@@ -39,9 +39,6 @@
                 background-color: #f1f1f1;
                 }
 
-        </style>
-
-        <style>
             #myInputOne {
                 background-image: url('/css/searchicon.png');
                 background-position: 10px 10px;
@@ -107,9 +104,7 @@
                 background-color: #f1f1f1;
                 }
 
-        </style>
 
-        <style>
             #myInputNine {
                 background-image: url('/css/searchicon.png');
                 background-position: 10px 10px;
@@ -140,12 +135,33 @@
                 #myTableNine tr.header, #myTableNine tr:hover {
                 background-color: #f1f1f1;
                 }
+            /* loader */
+            #loading {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                position: fixed;
+                display: block;
+                opacity: 0.7;
+                background-color: #ffff;
+                z-index: 99;
+                text-align: center;
+                }
 
+                #loading-image {
+                position: absolute;
+                top: 40%;
+                left: 45%;
+                z-index: 100;
+                }
         </style>
 @endsection
 
 @section('content')
-
+        <div id="loading">
+            <img id="loading-image" src={{ url('/loader/loader.gif')}} alt="Loading..." />
+        </div>
         {{-- Create Client Modal --}}
         <div style="margin-right: 15%; margin-bottom: 5%;">
             <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air btn-success pull-right" id="createClient" style="background-color:; color:white;" data-toggle="modal" onclick="changeFormat()" data-target="#createClientModal">
@@ -175,15 +191,17 @@
                                         <div class="col-md-6 form-group mt-3">
                                             <label for="company-name">Company Name</label>
                                             <input type="text" name="name" class="form-control" id="company-name" required>
+                                            <div class="error" id="companyErr"></div>
                                         </div>
 
                                         <div class="col-md-6 form-group mt-3">
                                             <label for="status">Status</label>
                                             <select id="status" name="status" class="form-control">
-                                                <option value="" disabled="" selected="">Please select</option>
+                                                <option value="" selected=""></option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
                                             </select>
+                                            <div class="error" id="statusErr"></div>
                                         </div>
 
 
@@ -193,17 +211,20 @@
                                             <div class="col-md-4 form-group mt-3">
                                                 <label for="date-of-eng">Date Of Engagement</label>
                                                 <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                                <div class="error" id="dateEngagedErr"></div>
                                             </div>
 
 
                                             <div class="col-md-4 form-group mt-3">
                                                 <label for="expiry-date">Expiry Date</label>
                                                 <input type="text" id="expiry-date" name="expiry_date" class="form-control date" required>
+                                                <div class="error" id="expiryErr"></div>
                                             </div>
 
                                             <div class="col-md-4 form-group mt-3">
                                                 <label for="phone-num">Phone Number</label>
                                                 <input type="" name="phone" class="form-control" id="phone-num" required>
+                                                <div class="error" id="phoneErr"></div>
                                             </div>
 
                                         </div>
@@ -212,18 +233,20 @@
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="address">Address</label>
                                                 <input type="text" name="address" class="form-control" id="address" placeholder="" required>
+                                                <div class="error" id="addressErr"></div>
                                             </div>
 
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="email">Email</label>
                                                 <input type="email" name="email" class="form-control" id="email" required>
+                                                <div class="error" id="emailErr"></div>
                                             </div>
 
 
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="createCliento()" value="{{ trans('global.create') }}">
+                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateCreateClient()" value="{{ trans('global.create') }}">
                                             </div>
                                         </div>
                                     </form>
@@ -297,9 +320,12 @@
 @endsection
 
 @section('javascript')
-
+<script type="text/javascript" src="{{ asset('js/validator/clientValidtor.js') }}"></script>
 {{--Body Scripts--}}
     <script>
+        $(window).on('load', function() {
+            $('#loading').hide();
+        });
 
         var csvButtonTrans = '{{ trans('global.datatables.csv') }}';
         var excelButtonTrans = '{{ trans('global.datatables.excel') }}';
@@ -318,7 +344,7 @@
         });
         $.ajax({
             type: "GET",
-            url: '{{ url("/api/v1/clients") }}',
+            url: '/api/v1/clients',
             success: function (data) {
 
                 let clientCard = document.getElementById('client-cards');
@@ -485,6 +511,7 @@
                     type: "GET",
                     url: "/api/v1/clients",
                     success: function(data){
+                        console.log(data)
                     let editClientBody = document.getElementById('editClientBody');
                     editClientBody.innerHTML = `
                             <div class="col-md-12 ">
@@ -493,42 +520,57 @@
                                     <div class="row col-md-12">
                                         <div class="col-md-6 form-group mt-3">
                                             <label for="company-name">Company Name</label>
-                                            <input value="${clientData.name}" type="text" name="name" class="form-control" id="company-name" required>
+                                            <input value="${clientData.name}" type="text" name="name" class="form-control" id="edit-company-name" required>
+                                            <div class="error" id="editCompanyErr"></div>
                                         </div>
 
                                         <div class="col-md-6 form-group mt-3">
                                             <label for="date-of-eng">Date Of Engagement</label>
-                                            <input value="${clientData.date_of_engagement}" type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                            <input value="${clientData.date_of_engagement}" type="text" id="edit-date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                            <div class="error" id="editDateEngagedErr"></div>
                                         </div>
                                     </div>
                                     <div class="row col-md-12">
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="address">Address</label>
-                                                <input type="text" value="${clientData.address}" name="address" class="form-control" id="address" placeholder="" required>
+                                                <input type="text" value="${clientData.address}" name="address" class="form-control" id="edit-address" placeholder="" required>
+                                                <div class="error" id="editAddressErr"></div>
                                             </div>
 
 
                                             <div class="col-md-6 form-group mt-3">
                                                 <label for="expiry-date">Expiry Date</label>
-                                                <input type="text" id="expiry-date" value="${clientData.expiry_date}" name="expiry_date" class="form-control date" required>
+                                                <input type="text" id="edit-expiry-date" value="${clientData.expiry_date}" name="expiry_date" class="form-control date" required>
+                                                <div class="error" id="editExpiryErr"></div>
                                             </div>
 
 
                                         </div>
                                         <div class="row col-md-12 ">
-                                            <div class="col-md-6 form-group mt-3">
+                                            <div class="col-md-4 form-group mt-3">
                                                 <label for="email">Email</label>
-                                                <input type="email" name="email" value="${clientData.email}" class="form-control" id="email" required>
+                                                <input type="email" name="email" value="${clientData.email}" class="form-control" id="edit-email" required>
+                                                <div class="error" id="editEmailErr"></div>
                                             </div>
 
-                                            <div class="col-md-6 form-group mt-3">
+                                            <div class="col-md-4 form-group mt-3">
                                                 <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" value="${clientData.phone}" id="phone-num" required>
+                                                <input type="" name="phone" class="form-control" value="${clientData.phone}" id="edit-phone-num" required>
+                                                <div class="error" id="editPhoneErr"></div>
                                             </div>
+                                            <div class="col-md-4 form-group mt-3">
+                                            <label for="status">Status</label>
+                                            <select id="edit-status" name="status" class="form-control">
+                                                <option  value="${clientData.status}">${clientData.status}</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                            <div class="error" id="editStatusErr"></div>
+                                        </div>
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditClient(${clientData.id})" value="Update">
+                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditClient(${clientData.id})" value="Update">
                                             </div>
                                         </div>
                                     </form>
@@ -1237,9 +1279,10 @@
                 });
                 $.ajax({
                     type: "POST",
-                    url: "/api/v1/clients",
+                    url: '/api/v1/clients',
                     data: $('#clientForm').serialize(),
-                    success: function(data) {
+
+                    success: function (data) {
                         $('#createClientModal').modal('hide');
                         swal({
                             title: "Success!",
@@ -1446,7 +1489,9 @@
         $('.datatable:not(.ajaxTable)').DataTable({
             buttons: dtProjectButtons
         })
-
+        function printError(elemId, hintMsg) {
+            document.getElementById(elemId).innerHTML = hintMsg;
+        }
 
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

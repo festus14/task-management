@@ -336,11 +336,12 @@
                             <div class="form-group">
                                 <label for="create-task">Project Type Name</label>
                                 <input type="text" class="form-control" id="projTypeId" name="name" placeholder="" value="{{ old('name', isset($projectType) ? $projectType->name : '') }}" required>
+                                <div class="error" id="projectTypeErr"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#AddProjecModalla').modal('hide');">Close</button>
-                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="addProject()" value="{{ trans('global.create') }}">
+                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateProjectType()" value="{{ trans('global.create') }}">
                         </div>
                     </form>
         </div>
@@ -993,6 +994,10 @@
         $.ajax({
             type: "GET",
             url: '{{ url("/api/v1/project_create") }}',
+            beforeSend: function(){
+    // Show image container
+    $("#loader").show();
+   },
             success: function (data) {
                 let createProjectBody = document.getElementById('createProjectBody');
                 let probSubtypeBody = document.getElementById('subtypeModalBody');
@@ -1145,11 +1150,15 @@
                         });
 
                         $('.select2').select2();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+                                    },
+                                    complete:function(data){
+    // Hide image container
+    $("#loader").hide();
+   },
+                                    error: function (data) {
+                                        console.log('Error:', data);
+                                    }
+                                });
 
     }
 
@@ -1322,7 +1331,7 @@
                 });
                 $.ajax({
                 type: "POST",
-                url: '{{ url("/api/v1/project-sub-types") }}',
+                url: '/api/v1/project-sub-types',
                 data: $('#addprojsubtypeform2').serialize(),
                 success: function (data) {
 
@@ -1475,20 +1484,21 @@
                 }
             });
             $.ajax({
-                type: "POST",
-                url: '{{ url("/api/v1/projects") }}',
-                data: $('#addProjectForm').serialize(),
-                success: function (data) {
-                    swal({
-                        title: "Success!",
-                        text: "Project Created!",
-                        icon: "success",
-                        confirmButtonColor: "#DD6B55",
-                        // confirmButtonText: "OK",
-                    });
-                    window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
+                    type: "POST",
+                    url: '/api/v1/projects',
+                    data: $('#addProjectForm').serialize(),
+                    success: function (data) {
+
+                        swal({
+                            title: "Success!",
+                            text: "Project Created!",
+                            icon: "success",
+                            confirmButtonColor: "#DD6B55",
+                            // confirmButtonText: "OK",
+                        });
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 3000)
 
                 },
                 error: function (error) {
@@ -1773,6 +1783,10 @@
             $.ajax({
             type: "GET",
             url: "/api/v1/projects/" + proID,
+            beforeSend: function(){
+    // Show image container
+    $("#loader").show();
+   },
             success: function (data) {
                 let moreInfo = document.getElementById("moreInfo")
                 moreInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -1852,7 +1866,7 @@
                                         <div class="card-header" id="headingnine">
                                             <h6 style="cursor: pointer" class="mb-0">
                                                 <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    <i class="m-menu__link-icon flaticon-team-member-"></i>
                                                     Project Members
                                                 </span>
                                             </h6>
@@ -2144,6 +2158,10 @@
 
 
             },
+            complete:function(data){
+    // Hide image container
+    $("#loader").hide();
+   },
 
             error: function (data) {
                 console.log('Error:', data);
@@ -2908,129 +2926,11 @@
                 });
             }
 
-            function printError(elemId, hintMsg) {
-          document.getElementById(elemId).innerHTML = hintMsg;
-        }
-
-//    function validateCreateProjectForm() {
-//     // Retrieving the values of form elements
-//     let clientlist = $('#client-list').val();
-//     let projectSublist = $('#projectSubtypeId1').val();
-//     let projTypelist = $('#projTypeBody1').val();
-//     let projectName = $('#create-project').val();
-//     let manager = $('#manager_id').val();
-//     let teamMembers = $('#teammembers').val();
-//     let startDate = $('#starting-date').val();
-//     let deadline = $('#Deadline').val();
 
 
-// 	// Defining error variables with a default value
-//     var clientErr = projTypeErr = projSubErr = nameErr = managerErr = membersErr = startErr = endErr = true;
-
-//      // Validate client
-//      if(clientlist == "") {
-//         printError("clientErr", "Please select a client");
-//     } else {
-//         printError("clientErr", "");
-//         clientErr = false;
-//     }
-//     // Validate project
-//     if(projTypelist == "") {
-//             printError("projTypeErr", "Please select a project type");
-//         } else {
-//             printError("projTypeErr", "");
-//             projTypeErr = false;
-//         }
-//     // Validate project sub
-//     if(projectSublist == "") {
-//            printError("projSubErr", "Please select a project subtype");
-//        } else {
-//            printError("projSubErr", "");
-//            projSubErr = false;
-//        }
-
-//     // Validate name
-
-//     if(projectName == "") {
-//         printError("nameErr", "Please input a project name");
-//     } else {
-//         var regex = /^[a-zA-Z\s]+$/;
-//         if(regex.test(projectName) === false) {
-//             printError("nameErr", "Please input a valid project name");
-//         }
-//         else {
-//             printError("nameErr", "");
-//             nameErr = false;
-//         }
-//     }
-
-//     if(projectName){
-//         projectName = projectName.toUpperCase();
-//             $.ajax({
-//                 type: "GET",
-//                 url: "/api/v1/projects",
-//                 success: function (data) {
-//                 for(let i=0; i<data.data.length; i++){
-//                     if(data.data[i].name.toUpperCase() ==projectName){
-//                         printError("nameErr", "Project name already exists");
-//                         nameErr = true;
-//                     }
-//                 }
-//                 },
-
-//                 error: function (data) {
-
-//                 }
-
-//             })
-//         }else {
-//             printError("nameErr", "");
-//             nameErr = false;
-//         }
-
-//     // Validate task manager
-//     if(manager == "") {
-//             printError("managerErr", "Select a manager");
-//         } else {
-//             printError("managerErr", "");
-//             managerErr = false;
-//         }
-
-//     // Validate members
-//     if(teamMembers == "") {
-//             printError("membersErr", "Please select a member");
-//         } else {
-//             printError("membersErr", "");
-//             membersErr = false;
-//         }
-
-//     // Validate start date
-//     if(startDate == "") {
-//             printError("startErr", "Pick a date");
-//         } else {
-//             printError("startErr", "");
-//             startErr = false;
-//         }
-
-
-//     // Validate deadline
-//     if(deadline == "") {
-//             printError("endErr", "Pick a date");
-//         } else {
-//             printError("endErr", "");
-//             endErr = false;
-//         }
-
-
-//     // Prevent the form from being submitted if there are any errors
-
-//     if((clientErr || projTypeErr || projSubErr || nameErr || managerErr || membersErr|| startErr || endErr) == true) {
-//        return false;
-//     } else {
-
-//         createProject();
-//     }
-// };
+        function printError(elemId, hintMsg) {
+            document.getElementById(elemId).innerHTML = hintMsg;
+                }
     </script>
 
        @endsection
