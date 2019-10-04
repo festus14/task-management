@@ -78,7 +78,7 @@
 @endsection
 
 @section('content')
- <div id="loading">
+    <div id="loading">
        <img id="loading-image" src={{ url('/loader/loader.gif')}} alt="Loading..." />
     </div>
     <div class="row">
@@ -2190,7 +2190,7 @@ $(window).on('load', function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-                $.ajax({
+            $.ajax({
                 type: "POST",
                 url: "{{ url('/api/v1/tasks') }}",
                 data: $('#addTaskform').serialize(),
@@ -2202,9 +2202,9 @@ $(window).on('load', function() {
                         icon: "success",
                         confirmButtonText: "Ok",
                         });
-                        window.setTimeout(function(){
-                            location.reload();
-                        } , 3000);
+                    window.setTimeout(function(){
+                        location.reload();
+                    } , 3000);
                 },
                 error: function (error) {
                     swal("Task creation failed", "Please check missing fields", "error");

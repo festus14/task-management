@@ -633,7 +633,6 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/validator/editProjectValidator.js') }}"></script>
 
 <script>
 
