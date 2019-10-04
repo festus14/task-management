@@ -583,65 +583,6 @@
                     let editClientBody = document.getElementById('editClientBody');
                     editClientBody.innerHTML = `
                             <div class="col-md-12 ">
-                                <!-- <form id="editClientForm" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row col-md-12">
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label for="company-name">Company Name</label>
-                                            <input value="${clientData.name}" type="text" name="name" class="form-control" id="edit-company-name" required>
-                                            <div class="error" id="editCompanyErr"></div>
-                                        </div>
-
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label for="date-of-eng">Date Of Engagement</label>
-                                            <input value="${clientData.date_of_engagement}" type="text" id="edit-date-of-eng" name="date_of_engagement" class="form-control date" required>
-                                            <div class="error" id="editDateEngagedErr"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row col-md-12">
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="address">Address</label>
-                                                <input type="text" value="${clientData.address}" name="address" class="form-control" id="edit-address" placeholder="" required>
-                                                <div class="error" id="editAddressErr"></div>
-                                            </div>
-
-
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="expiry-date">Expiry Date</label>
-                                                <input type="text" id="edit-expiry-date" value="${clientData.expiry_date}" name="expiry_date" class="form-control date" required>
-                                                <div class="error" id="editExpiryErr"></div>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="row col-md-12 ">
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="email">Email</label>
-                                                <input type="email" name="email" value="${clientData.email}" class="form-control" id="edit-email" required>
-                                                <div class="error" id="editEmailErr"></div>
-                                            </div>
-
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" value="${clientData.phone}" id="edit-phone-num" required>
-                                                <div class="error" id="editPhoneErr"></div>
-                                            </div>
-                                            <div class="col-md-4 form-group mt-3">
-                                            <label for="status">Status</label>
-                                            <select value="${clientData.status + ""}" id="edit-status" name="status" class="form-control">
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
-                                            </select>
-                                            <div class="error" id="editStatusErr"></div>
-                                        </div>
-                                        </div>
-                                        <div class="row col-md-12 ">
-                                            <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditClient(${clientData.id})" value="Update">
-                                            </div>
-                                        </div>
-                                    </form> -->
-
                                     <form onsubmit="submitEditClient()" class="form" id="clientForm" action="{{ url('/admin/clients/${clientData.id}') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
@@ -1137,12 +1078,7 @@
                     </div>
                     <!--end::Portlet-->
 
-
-
-
-
-
-                    <!-- End main Content of More-info -->
+                     <!-- End main Content of More-info -->
 
                         <div class="modal-footer">
                         </div>
@@ -1152,22 +1088,13 @@
                 </div>
                 </div>
 
-
-
-
                 `
-
-
-            },
+                },
 
             error: function (data) {
                 console.log('Error:', data);
-
-
-            }
-
-            })
-
+                }
+           })
         }
 
             // Search Through Project Documents FUnction
@@ -1396,20 +1323,20 @@
                                     </div>
                                 </div>
 
-                                <div class="card">
-                                    <div onclick="taskComments(${data.data.id})" class="card-header" id="headingFour">
-                                        <h6 style="cursor: pointer" class="mb-0">
-                                            <span class="" data-toggle="modal" data-target="#commentModal">
-                                                <i class="m-menu__link-icon flaticon-comment"></i>
-                                                Comments
-                                            </span>
-                                        </h6>
+                                                    <div class="card">
+                                                        <div onclick="taskComments(${data.data.id})" class="card-header" id="headingFour">
+                                                            <h6 style="cursor: pointer" class="mb-0">
+                                                                <span class="" data-toggle="modal" data-target="#commentModal">
+                                                                    <i class="m-menu__link-icon flaticon-comment"></i>
+                                                                    Comments
+                                                                </span>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                                         <div class="modal-footer">
                                         </div>
@@ -1420,26 +1347,20 @@
                     </div>
 
 
+                        <!-- Comment Modal -->
+            <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
-
-
-                <!-- Comment Modal -->
-    <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-
-    </div>
+            </div>
                         `
 
 
-                },
+        },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
 
-                        error: function (data) {
-                            console.log('Error:', data);
-
-
-                        }
-
-                        })
-            }
+            })
+        }
 
             function changeFormat(){
                 var allEditors = document.querySelectorAll('.ckeditor');
@@ -1494,36 +1415,15 @@
 
             //Posting-Create client
             function createCliento(){
-
-                // console.log($('#clientForm').serializeArray());
-                // $.ajaxSetup({
-                //     headers: {
-                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                //     }
-                // });
-                // $.ajax({
-                //     type: "POST",
-                //     url: "{{ url('/api/v1/clients/store') }}",
-                //     data: $('#clientForm').serialize(),
-
-                //     success: function (response) {
-                //         $('#createClientModal').modal('hide');
-                        swal({
-                            title: "Success!",
-                            text: "Client Added!",
-                            icon: "success",
-                            confirmButtonText: "OK",
-                        });
-                        window.setTimeout(function(){
-                            location.reload();
-                        }, 3000);
-
-                    // },
-                //     error: function (error) {
-                //     swal("Client Not Created", "Please check missing fields", "error");
-                //     console.log(error)
-                // }
-                // });
+                swal({
+                    title: "Success!",
+                    text: "Client Added!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+                window.setTimeout(function(){
+                    location.reload();
+                }, 3000);
             }
 
             // Search Through Task Documents FUnction
@@ -1599,7 +1499,7 @@
                                 });
                             }
 
-             else {
+                    else {
                         swal("Cancelled", "Delete cancelled", "error");
                     }
 
