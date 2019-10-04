@@ -365,9 +365,7 @@
                                         <div class="col-md-6 form-group mt-3 {{ $errors->has('name') ? 'has-error' : '' }}">
                                             <label for="name">{{ trans('cruds.client.fields.name') }}*</label>
                                             <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($client) ? $client->name : '') }}" required>
-                                            {{-- <label for="company-name">Company Name</label>
-                                            <input type="text" name="name" class="form-control" id="company-name" required> --}}
-                                            {{-- <div class="error" id="companyErr"></div> --}}
+
                                             @if($errors->has('name'))
                                                 <p class="help-block">
                                                     {{ $errors->first('name') }}
@@ -391,13 +389,6 @@
                                                         {{ $errors->first('status') }}
                                                     </p>
                                                 @endif
-                                            {{-- <label for="status">Status</label>
-                                            <select id="status" name="status" class="form-control">
-                                                <option value="" selected=""></option>
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
-                                            </select> --}}
-                                            {{-- <div class="error" id="statusErr"></div> --}}
                                         </div>
 
 
@@ -407,9 +398,6 @@
                                             <div class="col-md-4 form-group {{ $errors->has('date_of_engagement') ? 'has-error' : '' }} mt-3">
                                                 <label for="date_of_engagement">{{ trans('cruds.client.fields.date_of_engagement') }}</label>
                                                 <input required type="text" id="date_of_engagement" name="date_of_engagement" class="form-control date" value="{{ old('date_of_engagement', isset($client) ? $client->date_of_engagement : '') }}">
-                                                {{-- <label for="date-of-eng">Date Of Engagement</label>
-                                                <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required> --}}
-                                                {{-- <div class="error" id="dateEngagedErr"></div> --}}
                                                 @if($errors->has('date_of_engagement'))
                                                     <p class="help-block">
                                                         {{ $errors->first('date_of_engagement') }}
@@ -437,9 +425,7 @@
                                             <div class="col-md-4 form-group {{ $errors->has('phone') ? 'has-error' : '' }} mt-3">
                                                     <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
                                                     <input required type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', isset($client) ? $client->phone : '') }}">
-                                                {{-- <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" id="phone-num" required> --}}
-                                                {{-- <div class="error" id="phoneErr"></div> --}}
+
                                                 @if($errors->has('phone'))
                                                     <p class="help-block">
                                                         {{ $errors->first('phone') }}
@@ -456,9 +442,7 @@
                                             <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }} mt-3">
                                                     <label for="address">{{ trans('cruds.client.fields.address') }}</label>
                                                     <input required type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($client) ? $client->address : '') }}">
-                                                {{-- <label for="address">Address</label>
-                                                <input type="text" name="address" class="form-control" id="address" placeholder="" required> --}}
-                                                {{-- <div class="error" id="addressErr"></div> --}}
+
                                                 @if($errors->has('address'))
                                                     <p class="help-block">
                                                         {{ $errors->first('address') }}
@@ -472,9 +456,7 @@
                                             <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }} mt-3">
                                                     <label for="email">{{ trans('cruds.client.fields.email') }}</label>
                                                     <input required type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($client) ? $client->email : '') }}">
-                                                {{-- <label for="email">Email</label>
-                                                <input type="email" name="email" class="form-control" id="email" required> --}}
-                                                {{-- <div class="error" id="emailErr"></div> --}}
+
                                                 @if($errors->has('email'))
                                                     <p class="help-block">
                                                         {{ $errors->first('email') }}
@@ -829,36 +811,16 @@
 
 
             function submitEditClient(client_id){
-                // let formData = $('#editClientForm').serialize();
-                //     $.ajax({
-                //         type: "PUT",
-                //         url: '{{ url("/api/v1/clients") }}'+ '/'+ client_id,
-                //         data: formData,
-                        // success: function (data) {
-                            swal({
-                                title: "Success!",
-                                text: "Client Edited!",
-                                icon: "success",
-                                confirmButtonColor: "#DD6B55",
-                                // confirmButtonText: "OK",
-                            });
-                            window.setTimeout(function(){
-                                location.reload();
-                            }, 3000)
-
-                            // },
-                            // error: function (error) {
-                            // swal({
-                            //     title: "Client Editing Failed!",
-                            //     text: "Please check the missing fields!",
-                            //     icon: "error",
-                            //     confirmButtonColor: "#fc3",
-                            //     confirmButtonText: "OK",
-                            // });
-                            // }
-
-
-                    })
+                swal({
+                    title: "Success!",
+                    text: "Client Edited!",
+                    icon: "success",
+                    confirmButtonColor: "#DD6B55",
+                    // confirmButtonText: "OK",
+                });
+                window.setTimeout(function(){
+                    location.reload();
+                }, 3000)
             }
 
             function deleteClient(client_id){
