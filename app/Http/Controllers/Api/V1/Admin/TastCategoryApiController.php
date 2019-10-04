@@ -56,7 +56,7 @@ class TastCategoryApiController extends Controller
             $request->all(),
             [
                 'weight' => 'required|integer|max:100|min:1|',
-                'name' => 'required|unique:tast_categories',
+                'name' => 'required',
                 'project_type_id' => 'required|integer'
             ]
         );

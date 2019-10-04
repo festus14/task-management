@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-            <button type="button" class="close" onclick="$('#commentPage').modal('hide');" aria-label="Close">
+            <button type="button" class="close" onclick="$(" #commentPage ").modal('hide');" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="m-card-profile__pic">
                                     <div class="m-card-profile__pic-wrapper">
-                                        <img alt="" src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded" />
+                                        <img alt="" src="{{ asset('metro/assets/app/media/img/users/user_comment.png') }}" class="mCS_img_loaded" />
                                     </div>
                                 </div>
                                 <div class="m-card-profile__details">
@@ -69,18 +69,18 @@
                                                                         <span class="secondary"><strong>Tomiwa</strong></span>
                                                                         <span id="datee" style="float: right;">${elem.created_at}</span>
                                                                     </div>
-                                                                    <div class="m-messenger__message-text" id="comContent" style="  max-width: 440px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;">
+                                                                    <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:50px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                         ${elem.comments}
                                                                         <br/>
-                                                                        <div id="replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
+                                                                        <div id="${elem.id}replydiv" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
                                                                         </div>
                                                                         <br>
                                                                         <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
 
                                                                         <div class="collapse" id="${elem.id}collapseReply">
                                                                             <br>
-                                                                            <textarea class="form-control" name="replytext" id="replyTextId" rows="1" style="width: 100%" required></textarea>
-                                                                            <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply()" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
+                                                                            <textarea class="form-control" name="replytext" id="${elem.id}replyTextId" rows="1" style="width: 100%" required></textarea>
+                                                                            <button type="submit" class="m-btn--pill btn btn-primary" onclick="addReply(${elem.id})" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;">Reply</button>
                                                                         </div>
                                                                     </div>
 
