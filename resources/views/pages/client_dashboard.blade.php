@@ -1667,7 +1667,6 @@
                                     <div class="" style=" float: left">
                                         <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
                                             width="80px" height="80px" style="border-radius: 1000px">
-
                                     </div>
                                     <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
                                         ${datum.name}
