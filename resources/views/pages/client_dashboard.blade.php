@@ -359,7 +359,7 @@
                         </div>
                         <div id="createClientModalBody" class="modal-body col-md-12">
                             <div class="col-md-12 ">
-                                <form class="form" id="clientForm" action="{{ route("admin.clients.store") }}" method="POST" enctype="multipart/form-data">
+                                <form class="form" onsubmit="createCliento()" id="clientForm" action="{{ route("admin.clients.store") }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row col-md-12">
                                         <div class="col-md-6 form-group mt-3 {{ $errors->has('name') ? 'has-error' : '' }}">
@@ -597,19 +597,77 @@
                     type: "GET",
                     url: "/api/v1/clients",
                     success: function(data){
+                        console.log(data)
                     let editClientBody = document.getElementById('editClientBody');
                     editClientBody.innerHTML = `
                             <div class="col-md-12 ">
-                                    <form class="form" id="clientForm" action="{{ route("admin.clients.update", [$client->id]) }}" method="POST" enctype="multipart/form-data">
+                                <!-- <form id="editClientForm" enctype="multipart/form-data">
                                     @csrf
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label for="company-name">Company Name</label>
+                                            <input value="${clientData.name}" type="text" name="name" class="form-control" id="edit-company-name" required>
+                                            <div class="error" id="editCompanyErr"></div>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label for="date-of-eng">Date Of Engagement</label>
+                                            <input value="${clientData.date_of_engagement}" type="text" id="edit-date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                            <div class="error" id="editDateEngagedErr"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="address">Address</label>
+                                                <input type="text" value="${clientData.address}" name="address" class="form-control" id="edit-address" placeholder="" required>
+                                                <div class="error" id="editAddressErr"></div>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="expiry-date">Expiry Date</label>
+                                                <input type="text" id="edit-expiry-date" value="${clientData.expiry_date}" name="expiry_date" class="form-control date" required>
+                                                <div class="error" id="editExpiryErr"></div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-4 form-group mt-3">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" value="${clientData.email}" class="form-control" id="edit-email" required>
+                                                <div class="error" id="editEmailErr"></div>
+                                            </div>
+
+                                            <div class="col-md-4 form-group mt-3">
+                                                <label for="phone-num">Phone Number</label>
+                                                <input type="" name="phone" class="form-control" value="${clientData.phone}" id="edit-phone-num" required>
+                                                <div class="error" id="editPhoneErr"></div>
+                                            </div>
+                                            <div class="col-md-4 form-group mt-3">
+                                            <label for="status">Status</label>
+                                            <select value="${clientData.status + ""}" id="edit-status" name="status" class="form-control">
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                            <div class="error" id="editStatusErr"></div>
+                                        </div>
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-3 form-group mt-3">
+                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditClient(${clientData.id})" value="Update">
+                                            </div>
+                                        </div>
+                                    </form> -->
+
+                                    <form onsubmit="submitEditClient()" class="form" id="clientForm" action="{{ url('/admin/clients/${clientData.id}') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
                                     <div class="row col-md-12">
                                         <div class="col-md-6 form-group mt-3 {{ $errors->has('name') ? 'has-error' : '' }}">
                                             <label for="name">{{ trans('cruds.client.fields.name') }}*</label>
-                                            <input type="text" id="edit-name" name="name" class="form-control" value="${clientData.name}" required>
-                                            {{-- <label for="company-name">Company Name</label>
-                                            <input type="text" name="name" class="form-control" id="company-name" required> --}}
-                                            {{-- <div class="error" id="companyErr"></div> --}}
-                                            @if($errors->has('name'))
+                                            <input type="text" id="edit_name" name="name" class="form-control" value="${clientData.name}" required>
+                                             @if($errors->has('name'))
                                                 <p class="help-block">
                                                     {{ $errors->first('name') }}
                                                 </p>
@@ -621,7 +679,7 @@
 
                                         <div class="col-md-6 form-group {{ $errors->has('status') ? 'has-error' : '' }} mt-3">
                                                 <label for="status">{{ trans('cruds.client.fields.status') }}</label>
-                                                <select id="status" name="status" class="form-control" required>
+                                                <select value="" id="edit_status" name="status" class="form-control" required>
                                                     <option value="" disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
                                                     @foreach(App\Client::STATUS_SELECT as $key => $label)
                                                         <option value="{{ $key }}" {{ old('status', null) === (string)$key ? 'selected' : '' }}>{{ $label }}</option>
@@ -632,13 +690,7 @@
                                                         {{ $errors->first('status') }}
                                                     </p>
                                                 @endif
-                                            {{-- <label for="status">Status</label>
-                                            <select id="status" name="status" class="form-control">
-                                                <option value="" selected=""></option>
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
-                                            </select> --}}
-                                            {{-- <div class="error" id="statusErr"></div> --}}
+
                                         </div>
 
 
@@ -647,10 +699,8 @@
 
                                             <div class="col-md-4 form-group {{ $errors->has('date_of_engagement') ? 'has-error' : '' }} mt-3">
                                                 <label for="date_of_engagement">{{ trans('cruds.client.fields.date_of_engagement') }}</label>
-                                                <input required type="text" id="date_of_engagement" name="date_of_engagement" class="form-control date" value="{{ old('date_of_engagement', isset($client) ? $client->date_of_engagement : '') }}">
-                                                {{-- <label for="date-of-eng">Date Of Engagement</label>
-                                                <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required> --}}
-                                                {{-- <div class="error" id="dateEngagedErr"></div> --}}
+                                                <input required type="text" id="edit_date_of_engagement" name="date_of_engagement" class="form-control date" value="${clientData.date_of_engagement}">
+
                                                 @if($errors->has('date_of_engagement'))
                                                     <p class="help-block">
                                                         {{ $errors->first('date_of_engagement') }}
@@ -664,7 +714,7 @@
 
                                             <div class="col-md-4 form-group {{ $errors->has('expiry_date') ? 'has-error' : '' }} mt-3">
                                                 <label for="expiry_date">{{ trans('cruds.client.fields.expiry_date') }}</label>
-                                                <input required type="text" id="expiry_date" name="expiry_date" class="form-control date" value="{{ old('expiry_date', isset($client) ? $client->expiry_date : '') }}">
+                                                <input required type="text" id="edit_expiry_date" name="expiry_date" class="form-control date" value="${clientData.expiry_date}">
                                                 @if($errors->has('expiry_date'))
                                                     <p class="help-block">
                                                         {{ $errors->first('expiry_date') }}
@@ -677,10 +727,8 @@
 
                                             <div class="col-md-4 form-group {{ $errors->has('phone') ? 'has-error' : '' }} mt-3">
                                                     <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
-                                                    <input required type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', isset($client) ? $client->phone : '') }}">
-                                                {{-- <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" id="phone-num" required> --}}
-                                                {{-- <div class="error" id="phoneErr"></div> --}}
+                                                    <input required type="text" id="edit_phone" name="phone" class="form-control" value="${clientData.phone}">
+
                                                 @if($errors->has('phone'))
                                                     <p class="help-block">
                                                         {{ $errors->first('phone') }}
@@ -696,10 +744,8 @@
 
                                             <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }} mt-3">
                                                     <label for="address">{{ trans('cruds.client.fields.address') }}</label>
-                                                    <input required type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($client) ? $client->address : '') }}">
-                                                {{-- <label for="address">Address</label>
-                                                <input type="text" name="address" class="form-control" id="address" placeholder="" required> --}}
-                                                {{-- <div class="error" id="addressErr"></div> --}}
+                                                    <input required type="text" id="edit_address" name="address" class="form-control" value="${clientData.address}">
+
                                                 @if($errors->has('address'))
                                                     <p class="help-block">
                                                         {{ $errors->first('address') }}
@@ -712,10 +758,8 @@
 
                                             <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }} mt-3">
                                                     <label for="email">{{ trans('cruds.client.fields.email') }}</label>
-                                                    <input required type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($client) ? $client->email : '') }}">
-                                                {{-- <label for="email">Email</label>
-                                                <input type="email" name="email" class="form-control" id="email" required> --}}
-                                                {{-- <div class="error" id="emailErr"></div> --}}
+                                                    <input required type="email" id="edit_email" name="email" class="form-control" value="${clientData.email}">
+
                                                 @if($errors->has('email'))
                                                     <p class="help-block">
                                                         {{ $errors->first('email') }}
@@ -730,7 +774,7 @@
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="submit" style="background-color:#8a2a2b; color:white;"  value="{{ trans('global.create') }}">
+                                            <input class="btn btn-danger" type="submit" style="background-color:#8a2a2b; color:white;"  value="{{ trans('global.update') }}">
                                             </div>
                                         </div>
                                     </form>
@@ -784,15 +828,13 @@
             }
 
 
-
-
             function submitEditClient(client_id){
-                let formData = $('#editClientForm').serialize();
-                    $.ajax({
-                        type: "PUT",
-                        url: '{{ url("/api/v1/clients") }}'+ '/'+ client_id,
-                        data: formData,
-                        success: function (data) {
+                // let formData = $('#editClientForm').serialize();
+                //     $.ajax({
+                //         type: "PUT",
+                //         url: '{{ url("/api/v1/clients") }}'+ '/'+ client_id,
+                //         data: formData,
+                        // success: function (data) {
                             swal({
                                 title: "Success!",
                                 text: "Client Edited!",
@@ -804,16 +846,16 @@
                                 location.reload();
                             }, 3000)
 
-                            },
-                            error: function (error) {
-                            swal({
-                                title: "Client Editing Failed!",
-                                text: "Please check the missing fields!",
-                                icon: "error",
-                                confirmButtonColor: "#fc3",
-                                confirmButtonText: "OK",
-                            });
-                            }
+                            // },
+                            // error: function (error) {
+                            // swal({
+                            //     title: "Client Editing Failed!",
+                            //     text: "Please check the missing fields!",
+                            //     icon: "error",
+                            //     confirmButtonColor: "#fc3",
+                            //     confirmButtonText: "OK",
+                            // });
+                            // }
 
 
                     })
@@ -1491,19 +1533,19 @@
             //Posting-Create client
             function createCliento(){
 
-                console.log($('#clientForm').serializeArray());
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('/api/v1/clients/store') }}",
-                    data: $('#clientForm').serialize(),
+                // console.log($('#clientForm').serializeArray());
+                // $.ajaxSetup({
+                //     headers: {
+                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                //     }
+                // });
+                // $.ajax({
+                //     type: "POST",
+                //     url: "{{ url('/api/v1/clients/store') }}",
+                //     data: $('#clientForm').serialize(),
 
-                    success: function (response) {
-                        $('#createClientModal').modal('hide');
+                //     success: function (response) {
+                //         $('#createClientModal').modal('hide');
                         swal({
                             title: "Success!",
                             text: "Client Added!",
@@ -1514,12 +1556,12 @@
                             location.reload();
                         }, 3000);
 
-                    },
-                    error: function (error) {
-                    swal("Client Not Created", "Please check missing fields", "error");
-                    console.log(error)
-                }
-                });
+                    // },
+                //     error: function (error) {
+                //     swal("Client Not Created", "Please check missing fields", "error");
+                //     console.log(error)
+                // }
+                // });
             }
 
             // Search Through Task Documents FUnction
