@@ -8,6 +8,49 @@
 
 @section('css')
         <style>
+            .myButton {
+            -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+            -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+            box-shadow:inset 0px 1px 0px 0px #ffffff;
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+            background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+            background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+            background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+            background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+            background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+            background-color:#ededed;
+            -moz-border-radius:6px;
+            -webkit-border-radius:6px;
+            border-radius:6px;
+            border:1px solid #dcdcdc;
+            display:inline-block;
+            cursor:pointer;
+            color:#777777;
+            font-family:Arial;
+            font-size:15px;
+            font-weight:bold;
+            padding:6px 11px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #ffffff;
+            }
+            .myButton:hover {
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+                background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+                background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+                background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+                background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+                background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+                background-color:#dfdfdf;
+            }
+            .myButton:active {
+                position:relative;
+                top:1px;
+            }
+        </style>
+
+        <style>
             #myInput {
                 background-image: url('/css/searchicon.png');
                 background-position: 10px 10px;
@@ -156,6 +199,137 @@
                 z-index: 100;
                 }
         </style>
+
+        <style>
+            /* Style for project members table */
+            #myInputThree {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
+
+                #myTableThree {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
+
+                #myTableThree th, #myTableThree td {
+                text-align: left;
+                padding: 12px;
+                }
+
+                #myTableThree tr {
+                border-bottom: 1px solid #ddd;
+                }
+
+                #myTableThree tr.header, #myTableThree tr:hover {
+                background-color: #f1f1f1;
+                }
+
+            #myInputThree {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 14px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+                }
+
+                #myTableThree {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 14px;
+                }
+
+                #myTableThree th, #myTableThree td {
+                text-align: left;
+                padding: 12px;
+                }
+
+                #myTableThree tr {
+                border-bottom: 1px solid #ddd;
+                }
+
+                #myTableThree tr.header, #myTableThree tr:hover {
+                background-color: #f1f1f1;
+                }
+        </style>
+
+<style>
+    /* Style for project members table */
+    #myInputSix {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 14px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        }
+
+        #myTableSix {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        }
+
+        #myTableSix th, #myTableSix td {
+        text-align: left;
+        padding: 12px;
+        }
+
+        #myTableSix tr {
+        border-bottom: 1px solid #ddd;
+        }
+
+        #myTableSix tr.header, #myTableSix tr:hover {
+        background-color: #f1f1f1;
+        }
+
+    #myInputSix {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 14px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        }
+
+        #myTableSix {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        }
+
+        #myTableSix th, #myTableSix td {
+        text-align: left;
+        padding: 12px;
+        }
+
+        #myTableSix tr {
+        border-bottom: 1px solid #ddd;
+        }
+
+        #myTableSix tr.header, #myTableSix tr:hover {
+        background-color: #f1f1f1;
+        }
+</style>
+
 @endsection
 
 @section('content')
@@ -185,68 +359,125 @@
                         </div>
                         <div id="createClientModalBody" class="modal-body col-md-12">
                             <div class="col-md-12 ">
-                                <form class="form" id="clientForm" enctype="multipart/form-data">
+                                <form class="form" onsubmit="createCliento()" id="clientForm" action="{{ route("admin.clients.store") }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row col-md-12">
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label for="company-name">Company Name</label>
-                                            <input type="text" name="name" class="form-control" id="company-name" required>
-                                            <div class="error" id="companyErr"></div>
+                                        <div class="col-md-6 form-group mt-3 {{ $errors->has('name') ? 'has-error' : '' }}">
+                                            <label for="name">{{ trans('cruds.client.fields.name') }}*</label>
+                                            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($client) ? $client->name : '') }}" required>
+
+                                            @if($errors->has('name'))
+                                                <p class="help-block">
+                                                    {{ $errors->first('name') }}
+                                                </p>
+                                            @endif
+                                            <p class="helper-block">
+                                                {{ trans('cruds.client.fields.name_helper') }}
+                                            </p>
                                         </div>
 
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label for="status">Status</label>
-                                            <select id="status" name="status" class="form-control">
-                                                <option value="" selected=""></option>
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
-                                            </select>
-                                            <div class="error" id="statusErr"></div>
+                                        <div class="col-md-6 form-group {{ $errors->has('status') ? 'has-error' : '' }} mt-3">
+                                                <label for="status">{{ trans('cruds.client.fields.status') }}</label>
+                                                <select id="status" name="status" class="form-control" required>
+                                                    <option value="" disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                                    @foreach(App\Client::STATUS_SELECT as $key => $label)
+                                                        <option value="{{ $key }}" {{ old('status', null) === (string)$key ? 'selected' : '' }}>{{ $label }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('status'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('status') }}
+                                                    </p>
+                                                @endif
                                         </div>
 
 
                                     </div>
                                     <div class="row col-md-12">
 
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="date-of-eng">Date Of Engagement</label>
-                                                <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
-                                                <div class="error" id="dateEngagedErr"></div>
+                                            <div class="col-md-4 form-group {{ $errors->has('date_of_engagement') ? 'has-error' : '' }} mt-3">
+                                                <label for="date_of_engagement">{{ trans('cruds.client.fields.date_of_engagement') }}</label>
+                                                <input required type="text" id="date_of_engagement" name="date_of_engagement" class="form-control date" value="{{ old('date_of_engagement', isset($client) ? $client->date_of_engagement : '') }}">
+                                                @if($errors->has('date_of_engagement'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('date_of_engagement') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.date_of_engagement_helper') }}
+                                                </p>
                                             </div>
 
 
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="expiry-date">Expiry Date</label>
-                                                <input type="text" id="expiry-date" name="expiry_date" class="form-control date" required>
-                                                <div class="error" id="expiryErr"></div>
+                                            <div class="col-md-4 form-group {{ $errors->has('expiry_date') ? 'has-error' : '' }} mt-3">
+                                                <label for="expiry_date">{{ trans('cruds.client.fields.expiry_date') }}</label>
+                                                <input required type="text" id="expiry_date" name="expiry_date" class="form-control date" value="{{ old('expiry_date', isset($client) ? $client->expiry_date : '') }}">
+                                                @if($errors->has('expiry_date'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('expiry_date') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.expiry_date_helper') }}
+                                                </p>
                                             </div>
 
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" id="phone-num" required>
-                                                <div class="error" id="phoneErr"></div>
+                                            <div class="col-md-4 form-group {{ $errors->has('phone') ? 'has-error' : '' }} mt-3">
+                                                    <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
+                                                    <input required type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', isset($client) ? $client->phone : '') }}">
+                                                {{-- <label for="phone-num">Phone Number</label>
+                                                <input type="" name="phone" class="form-control" id="phone-num" required> --}}
+                                                {{-- <div class="error" id="phoneErr"></div> --}}
+                                                @if($errors->has('phone'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('phone') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.phone_helper') }}
+                                                </p>
                                             </div>
 
                                         </div>
                                         <div class="row col-md-12 ">
 
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="address">Address</label>
-                                                <input type="text" name="address" class="form-control" id="address" placeholder="" required>
-                                                <div class="error" id="addressErr"></div>
+                                            <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }} mt-3">
+                                                    <label for="address">{{ trans('cruds.client.fields.address') }}</label>
+                                                    <input required type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($client) ? $client->address : '') }}">
+                                                {{-- <label for="address">Address</label>
+                                                <input type="text" name="address" class="form-control" id="address" placeholder="" required> --}}
+                                                {{-- <div class="error" id="addressErr"></div> --}}
+                                                @if($errors->has('address'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('address') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.address_helper') }}
+                                                </p>
                                             </div>
 
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="email">Email</label>
-                                                <input type="email" name="email" class="form-control" id="email" required>
-                                                <div class="error" id="emailErr"></div>
+                                            <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }} mt-3">
+                                                    <label for="email">{{ trans('cruds.client.fields.email') }}</label>
+                                                    <input required type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($client) ? $client->email : '') }}">
+                                                {{-- <label for="email">Email</label>
+                                                <input type="email" name="email" class="form-control" id="email" required> --}}
+                                                {{-- <div class="error" id="emailErr"></div> --}}
+                                                @if($errors->has('email'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('email') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.email_helper') }}
+                                                </p>
                                             </div>
 
 
                                         </div>
                                         <div class="row col-md-12 ">
                                             <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateCreateClient()" value="{{ trans('global.create') }}">
+                                            <input class="btn btn-danger" type="submit" style="background-color:#8a2a2b; color:white;"  value="{{ trans('global.create') }}">
                                             </div>
                                         </div>
                                     </form>
@@ -272,8 +503,6 @@
             </div>
             <div id="editClientBody" class="modal-body col-md-12">
 
-
-
             </div>
 
         </div>
@@ -282,9 +511,9 @@
 
 
     <!-- Begin: List Client -->
-    <div class="m-content" style="max-width: 100%">
-        <div class="m-portlet__body  m-portlet__body--no-padding" style="max-width: 100%">
-            <div class="row m-row--no-padding m-row--col-separator-xl" style="width: 100%" id="client-cards">
+    <div class="m-content" >
+        <div class="m-portlet__body  m-portlet__body--no-padding" >
+            <div class="row m-row--no-padding m-row--col-separator-xl"  id="client-cards">
 
             </div>
         </div>
@@ -323,13 +552,9 @@
 <script type="text/javascript" src="{{ asset('js/validator/clientValidtor.js') }}"></script>
 {{--Body Scripts--}}
     <script>
-     $(document).ajaxStop(function () {
-        $('#loading').hide();
-    });
-
-    $(document).ajaxStart(function () {
-        $('#loading').show();
-    });
+        $(window).on('load', function() {
+            $('#loading').hide();
+        });
 
         var csvButtonTrans = '{{ trans('global.datatables.csv') }}';
         var excelButtonTrans = '{{ trans('global.datatables.excel') }}';
@@ -340,165 +565,264 @@
             'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
         };
 
-        // Ajax call for the clients view
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: '/api/v1/clients',
-            success: function (data) {
+        var clientData;
+        function editClient(client_id){
 
-                let clientCard = document.getElementById('client-cards');
-                let projectCard = document.getElementById('client-project-modal');
-                let taskCard = document.getElementById('client-task-modal');
+            $.ajax({
+                type: "GET",
+                url: "/api/v1/clients/" + client_id,
+                success: function(data){
+                    clientData = data.data;
+                },
 
-                    data.data.map((datum, i) => {
-                    clientCard.innerHTML = clientCard.innerHTML + `<div class="col-md-6 col-lg-6 col-xl-6" style="padding: 20px;">
-                    <div class="m-widget24">
-                        <div id="editDeleteBody" style="display: inline-block; margin-right: 10%;" class="pull-right btn-group" >
-                            <a onclick="editClient(${datum.id})" class="btn btn-sm" href="#" style="display: inline;">
-                                <i class="fa fa-pencil" style="color:black;" data-toggle="modal" data-target="#editClientModalBody"><span style="font-weight:100;"></span></i>
-                            </a>
-                            <a onclick="deleteClient(${datum.id})" class="btn btn-sm" href="#" style="border: none; background-color: white; display: inline;"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a>
-                        </div>
-                        <div class="m-widget24__item">
-                            <div class="body-header" style="">
-                                <div class="" style=" float: left">
-                                    <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
-                                        width="80px" height="80px" style="border-radius: 1000px">
-
-                                </div>
-                                <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
-                                    ${datum.name}
-                                </h1>
-                                <br>
-                            </div>
-
-                            <div class="m--space-10"></div>
-
-                            <div id="client-details" style="">
-                                <p>${datum.address}</p>
-                                <p>${datum.email}</p>
-                                <p>${datum.phone}</p>
-                            </div>
-
-                            <button onclick ="getClientProjects(${datum.id})"  class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_project${datum.id}">
-                                View Projects
-                            </button>
-                            <button onclick ="getClientTasks(${datum.id})" class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                    data-toggle="modal" data-target="#view_client_task${datum.id}">
-                                View Tasks
-                            </button>
-                        </div>
-                    </div>
-                </div>`
-
-        projectCard.innerHTML = projectCard.innerHTML + `<div class="modal fade" id="view_client_project${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-            <div class="modal-dialog" style="max-width: 100%; min-width: 400px; max-height: 100%;"
-                    role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Client Projects</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="m-portlet " id="m_portlet">
-                                    <div class="m-portlet__body">
-                                        <table id="kt_table_client_projects${datum.id}" class="table table-striped table-hover"
-                                                style="width: 100%">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Name</th>
-                                                <th>Manager</th>
-                                                <th>Type</th>
-                                                <th>Subtypes</th>
-                                                <th>Status</th>
-                                                <th>Members Email</th>
-                                                <th>Starting Date</th>
-                                                <th>Deadline</th>
-                                                <th>Tools</th>
-                                            </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-
-        taskCard.innerHTML = taskCard.innerHTML + `<div class="modal fade" id="view_client_task${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" style="max-width: 90%; min-width: 400px;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Client Task</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-xl-12">
-
-                <div class="m-portlet"; id="m_portlet">
-                    <div class="m-portlet__body">
-                    <table id="kt_table_tasks${datum.id}" class="table table-striped table-hover" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Manager</th>
-                                <th>Task Owner</th>
-                                <th>Status</th>
-                                <th>Category</th>
-                                <th>Starting Date</th>
-                                <th>Deadline</th>
-                                <th>Tools</th>
-                            </tr>
-                        </thead>
-
-                    </table>
-                </div>
-             </div>
-            </div>
-
-         </div>
-            </div>
-            </div>
-            </div>
-            </div>`
+                error: function (data) {
+                    console.log('Error:', data);
+                }
 
             })
 
-        },
+            $.ajax({
+                    type: "GET",
+                    url: "/api/v1/clients",
+                    success: function(data){
+                        console.log(data)
+                    let editClientBody = document.getElementById('editClientBody');
+                    editClientBody.innerHTML = `
+                            <div class="col-md-12 ">
+                                <!-- <form id="editClientForm" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label for="company-name">Company Name</label>
+                                            <input value="${clientData.name}" type="text" name="name" class="form-control" id="edit-company-name" required>
+                                            <div class="error" id="editCompanyErr"></div>
+                                        </div>
 
-        error: function (data) {
-            console.log('Error:', data);
-        }
-        });
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label for="date-of-eng">Date Of Engagement</label>
+                                            <input value="${clientData.date_of_engagement}" type="text" id="edit-date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                            <div class="error" id="editDateEngagedErr"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12">
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="address">Address</label>
+                                                <input type="text" value="${clientData.address}" name="address" class="form-control" id="edit-address" placeholder="" required>
+                                                <div class="error" id="editAddressErr"></div>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-group mt-3">
+                                                <label for="expiry-date">Expiry Date</label>
+                                                <input type="text" id="edit-expiry-date" value="${clientData.expiry_date}" name="expiry_date" class="form-control date" required>
+                                                <div class="error" id="editExpiryErr"></div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-4 form-group mt-3">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" value="${clientData.email}" class="form-control" id="edit-email" required>
+                                                <div class="error" id="editEmailErr"></div>
+                                            </div>
+
+                                            <div class="col-md-4 form-group mt-3">
+                                                <label for="phone-num">Phone Number</label>
+                                                <input type="" name="phone" class="form-control" value="${clientData.phone}" id="edit-phone-num" required>
+                                                <div class="error" id="editPhoneErr"></div>
+                                            </div>
+                                            <div class="col-md-4 form-group mt-3">
+                                            <label for="status">Status</label>
+                                            <select value="${clientData.status + ""}" id="edit-status" name="status" class="form-control">
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                            <div class="error" id="editStatusErr"></div>
+                                        </div>
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-3 form-group mt-3">
+                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditClient(${clientData.id})" value="Update">
+                                            </div>
+                                        </div>
+                                    </form> -->
+
+                                    <form onsubmit="submitEditClient()" class="form" id="clientForm" action="{{ url('/admin/clients/${clientData.id}') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6 form-group mt-3 {{ $errors->has('name') ? 'has-error' : '' }}">
+                                            <label for="name">{{ trans('cruds.client.fields.name') }}*</label>
+                                            <input type="text" id="edit_name" name="name" class="form-control" value="${clientData.name}" required>
+                                             @if($errors->has('name'))
+                                                <p class="help-block">
+                                                    {{ $errors->first('name') }}
+                                                </p>
+                                            @endif
+                                            <p class="helper-block">
+                                                {{ trans('cruds.client.fields.name_helper') }}
+                                            </p>
+                                        </div>
+
+                                        <div class="col-md-6 form-group {{ $errors->has('status') ? 'has-error' : '' }} mt-3">
+                                                <label for="status">{{ trans('cruds.client.fields.status') }}</label>
+                                                <select value="" id="edit_status" name="status" class="form-control" required>
+                                                    <option value="" disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                                    @foreach(App\Client::STATUS_SELECT as $key => $label)
+                                                        <option value="{{ $key }}" {{ old('status', null) === (string)$key ? 'selected' : '' }}>{{ $label }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('status'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('status') }}
+                                                    </p>
+                                                @endif
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row col-md-12">
+
+                                            <div class="col-md-4 form-group {{ $errors->has('date_of_engagement') ? 'has-error' : '' }} mt-3">
+                                                <label for="date_of_engagement">{{ trans('cruds.client.fields.date_of_engagement') }}</label>
+                                                <input required type="text" id="edit_date_of_engagement" name="date_of_engagement" class="form-control date" value="${clientData.date_of_engagement}">
+
+                                                @if($errors->has('date_of_engagement'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('date_of_engagement') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.date_of_engagement_helper') }}
+                                                </p>
+                                            </div>
+
+
+                                            <div class="col-md-4 form-group {{ $errors->has('expiry_date') ? 'has-error' : '' }} mt-3">
+                                                <label for="expiry_date">{{ trans('cruds.client.fields.expiry_date') }}</label>
+                                                <input required type="text" id="edit_expiry_date" name="expiry_date" class="form-control date" value="${clientData.expiry_date}">
+                                                @if($errors->has('expiry_date'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('expiry_date') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.expiry_date_helper') }}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-4 form-group {{ $errors->has('phone') ? 'has-error' : '' }} mt-3">
+                                                    <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
+                                                    <input required type="text" id="edit_phone" name="phone" class="form-control" value="${clientData.phone}">
+
+                                                @if($errors->has('phone'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('phone') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.phone_helper') }}
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+
+                                            <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }} mt-3">
+                                                    <label for="address">{{ trans('cruds.client.fields.address') }}</label>
+                                                    <input required type="text" id="edit_address" name="address" class="form-control" value="${clientData.address}">
+
+                                                @if($errors->has('address'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('address') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.address_helper') }}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }} mt-3">
+                                                    <label for="email">{{ trans('cruds.client.fields.email') }}</label>
+                                                    <input required type="email" id="edit_email" name="email" class="form-control" value="${clientData.email}">
+
+                                                @if($errors->has('email'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('email') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.email_helper') }}
+                                                </p>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-3 form-group mt-3">
+                                            <input class="btn btn-danger" type="submit" style="background-color:#8a2a2b; color:white;"  value="{{ trans('global.update') }}">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                    `
+                    var allEditors = document.querySelectorAll('.ckeditor');
+                        for (var i = 0; i < allEditors.length; ++i) {
+                            ClassicEditor.create(allEditors[i]);
+                        }
+
+                        moment.updateLocale('en', {
+                            week: {dow: 1} // Monday is the first day of the week
+                        });
+
+                        $('.date').datetimepicker({
+                            format: 'DD-MM-YYYY',
+                            locale: 'en'
+                        });
+
+                        $('.datetime').datetimepicker({
+                            format: 'DD-MM-YYYY HH:mm:ss',
+                            locale: 'en',
+                            sideBySide: true
+                        });
+
+                        $('.timepicker').datetimepicker({
+                            format: 'HH:mm:ss'
+                        });
+
+                        $('.select-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2')
+                            $select2.find('option').prop('selected', 'selected')
+                            $select2.trigger('change')
+                        });
+                        $('.deselect-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2');
+                            $select2.find('option').prop('selected', '');
+                            $select2.trigger('change')
+                        });
+
+                        $('.select2').select2();
+                    },
+
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+
+                })
+
+            }
+
 
             function submitEditClient(client_id){
-                let formData = $('#editClientForm').serialize();
-                    $.ajax({
-                        type: "PUT",
-                        url: '{{ url("/api/v1/clients") }}'+ '/'+ client_id,
-                        data: formData,
-                        success: function (data) {
+                // let formData = $('#editClientForm').serialize();
+                //     $.ajax({
+                //         type: "PUT",
+                //         url: '{{ url("/api/v1/clients") }}'+ '/'+ client_id,
+                //         data: formData,
+                        // success: function (data) {
                             swal({
                                 title: "Success!",
                                 text: "Client Edited!",
@@ -510,16 +834,16 @@
                                 location.reload();
                             }, 3000)
 
-                            },
-                            error: function (error) {
-                            swal({
-                                title: "Client Editing Failed!",
-                                text: "Please check the missing fields!",
-                                icon: "error",
-                                confirmButtonColor: "#fc3",
-                                confirmButtonText: "OK",
-                            });
-                            }
+                            // },
+                            // error: function (error) {
+                            // swal({
+                            //     title: "Client Editing Failed!",
+                            //     text: "Please check the missing fields!",
+                            //     icon: "error",
+                            //     confirmButtonColor: "#fc3",
+                            //     confirmButtonText: "OK",
+                            // });
+                            // }
 
 
                     })
@@ -587,7 +911,6 @@
                     {"data": "project_type.name"},
                     {"data": "project_subtype.name"},
                     {"data": "status.name"},
-                    {"data": "team_members[, ].name"},
                     {"data": "starting_date"},
                     {"data": "deadline"},
                 ],
@@ -601,14 +924,13 @@
                     targets: -1
                 },
                 {
-                targets: 9,
+                targets: 8,
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                    return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
+                    return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                <div class="dropdown-menu" aria-labelledby="projectToolsBtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
                                 <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal"  data-target="#moreInfoModal"> <span style="font-weight:100;"> View </span></i>\
-                                </a>\
                                 </a>\
                             <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
@@ -761,8 +1083,8 @@
                                                         )+`
                                                 </table>
 
+                                            </div>
                                         </div>
-                                    </div>
 
 
                                     <div class="accordion" id="accordionExample3">
@@ -775,26 +1097,56 @@
                                                     </span>
                                                 </h6>
                                             </div>
-                                        <div id="collapseThree" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample3">
-                                            <input type="textOne" id="myInputOne" onkeyup="searchProjectReport()" placeholder="Search for report.." title="Type in a report">
-                                            <table id="myTableOne">
-                                                <tr class="header">
-                                                    <th>Name</th>
-                                                    <th>Document Type</th>
-                                                    <th>File</th>
-                                                    <th>Date Uploaded</th>
-                                                </tr>
-                                                `+ data.data.reports.map(item =>
-                                                `<tr>
-                                                    <td>${item.name}</td>
-                                                    <td>${item.document_type}</td>
-                                                    <td></td>
-                                                    <td>${item.created_at}</td>
-                                                </tr>`
-                                                )+`
-                                            </table>
+                                            <div id="collapseThree" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                                                <input type="textOne" id="myInputOne" onkeyup="searchProjectReport()" placeholder="Search for report.." title="Type in a report">
+                                                <table id="myTableOne">
+                                                    <tr class="header">
+                                                        <th>Name</th>
+                                                        <th>Document Type</th>
+                                                        <th>File</th>
+                                                        <th>Date Uploaded</th>
+                                                    </tr>
+                                                    `+ data.data.reports.map(item =>
+                                                    `<tr>
+                                                        <td>${item.name}</td>
+                                                        <td>${item.document_type}</td>
+                                                        <td></td>
+                                                        <td>${item.created_at}</td>
+                                                    </tr>`
+                                                    )+`
+                                                </table>
+                                            </div>
                                         </div>
+
+                                        <div class="accordion" id="accordionExample4">
+                                    <div class="card">
+                                        <div class="card-header" id="headingFour">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    Project Members
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    <div id="collapseFour" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                                        <input type="textOne" id="myInputThree" onkeyup="searchProjectMembers()" placeholder="Search for project member.." title="Type in a member">
+                                        <table id="myTableThree">
+                                            <tr class="header">
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            <tr class="">
+                                            </tr>
+                                            `+ data.data.team_members.map(item =>
+                                            `<tr>
+                                                <td>${item.name}</td>
+                                                <td>${item.email}</td>
+                                            </tr>`
+                                            )+`
+                                        </table>
                                     </div>
+                                </div>
+
                                     <div class="card">
                                         <div onclick="projectComments(${data.data.id})" class="card-header" id="headingFour">
                                             <h6 style="cursor: pointer" class="mb-0">
@@ -901,7 +1253,6 @@
                         {"defaultContent": ""},
                         {"data": "name"},
                         {"data": "manager.name"},
-                        {"data": "assigned_tos[, ].email"},
                         {"data": "status.name"},
                         {"data": "category.name"},
                         {"data": "starting_date"},
@@ -917,15 +1268,15 @@
                         targets: -1
                     },
                     {
-                        targets: 8,
+                        targets: 7,
                         orderable: false,
                         searchable: false,
                         render: function (data, type, full, meta) {
-                            return '\<button onclick=displayTaskInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                                        <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:20px; min-width: 100px; max-width: 15px;">\
-                                        <a class="link" href="#"><i class="fas fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreTaskInfoModal"> </i>\
+                            return '\<button onclick=displayTaskInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                        <div class="dropdown-menu" aria-labelledby="taskToolsBtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
+                                        <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreTaskInfoModal"> <span style="font-weight:100;"> View </span></i>\
                                         </a>\
-                                    <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="far fa-trash-alt" style="color:black;"></i></a></button>\
+                                    <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                                 </div>\
                                 ';
                         }
@@ -1042,6 +1393,35 @@
                                         </table>
                                     </div>
                                 </div>
+
+                                <div class="accordion" id="accordionExample6">
+                                    <div class="card">
+                                        <div class="card-header" id="headingSix">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    Task Owners
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    <div id="collapseSix" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample6">
+                                        <table id="myTableSix">
+                                            <tr class="header">
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            <tr class="">
+                                            </tr>
+                                            `+ data.data.assinged_tos.map(item =>
+                                            `<tr>
+                                                <td>${item.name}</td>
+                                                <td>${item.email}</td>
+                                            </tr>`
+                                            )+`
+                                        </table>
+                                    </div>
+                                </div>
+
                                 <div class="card">
                                     <div onclick="taskComments(${data.data.id})" class="card-header" id="headingFour">
                                         <h6 style="cursor: pointer" class="mb-0">
@@ -1140,34 +1520,36 @@
 
             //Posting-Create client
             function createCliento(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: '/api/v1/clients',
-                    data: $('#clientForm').serialize(),
 
-                    success: function (data) {
-                        $('#createClientModal').modal('hide');
+                // console.log($('#clientForm').serializeArray());
+                // $.ajaxSetup({
+                //     headers: {
+                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                //     }
+                // });
+                // $.ajax({
+                //     type: "POST",
+                //     url: "{{ url('/api/v1/clients/store') }}",
+                //     data: $('#clientForm').serialize(),
+
+                //     success: function (response) {
+                //         $('#createClientModal').modal('hide');
                         swal({
                             title: "Success!",
                             text: "Client Added!",
                             icon: "success",
-                            confirmButtonColor: "#DD6B55",
                             confirmButtonText: "OK",
                         });
                         window.setTimeout(function(){
                             location.reload();
-                        }, 3000)
+                        }, 3000);
 
-                    },
-                    error: function (data) {
-                    swal("Client creation failed", "Please check missing fields", "error");
-                }
-                });
+                    // },
+                //     error: function (error) {
+                //     swal("Client Not Created", "Please check missing fields", "error");
+                //     console.log(error)
+                // }
+                // });
             }
 
             // Search Through Task Documents FUnction
@@ -1299,6 +1681,25 @@
 
         }
 
+        function searchProjectMembers(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputThree");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableThree");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
+
 
         // Function Populating the project Document Modal
 
@@ -1361,7 +1762,162 @@
             document.getElementById(elemId).innerHTML = hintMsg;
         }
 
+
+        // Ajax call for the clients view
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: '/api/v1/clients',
+            success: function (data) {
+
+                let clientCard = document.getElementById('client-cards');
+                let projectCard = document.getElementById('client-project-modal');
+                let taskCard = document.getElementById('client-task-modal');
+
+                    data.data.map((datum, i) => {
+                    clientCard.innerHTML = clientCard.innerHTML + `
+                    <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12" style="padding: 2%; border: 1px solid #dfdfdf; border-radius: 6%; margin-bottom: 2%; margin-right: 2%; max-width: 44%; box-sizing: border-box;">
+                        <div class="m-widget24">
+                            <div style="display: inline-block;" class="pull-right">
+                                <a onclick="editClient(${datum.id})" class="btn myButton" href="#" data-toggle="modal" data-target="#editClientModalBody">
+                                    <i class="fa fa-pencil" style="color:black;"><span style="font-weight:100;"></span></i>
+                                </a>
+                                <a onclick="deleteClient(${datum.id})" class=" myButton" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a>
+                            </div>
+                            <div class="m-widget24__item">
+                                <div class="body-header" style="">
+                                    <div class="" style=" float: left">
+                                        <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
+                                            width="80px" height="80px" style="border-radius: 1000px">
+
+                                    </div>
+                                    <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
+                                        ${datum.name}
+                                    </h1>
+                                    <br>
+                                </div>
+
+                                <div class="m--space-10"></div>
+
+                                <div id="client-details" style="">
+                                    <p>${datum.address}</p>
+                                    <p>${datum.email}</p>
+                                    <p>${datum.phone}</p>
+                                </div>
+
+                                <button onclick ="getClientProjects(${datum.id})"  class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                        data-toggle="modal" data-target="#view_client_project${datum.id}">
+                                    View Projects
+                                </button>
+                                <button onclick ="getClientTasks(${datum.id})" class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                        data-toggle="modal" data-target="#view_client_task${datum.id}">
+                                    View Tasks
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `
+
+        projectCard.innerHTML = projectCard.innerHTML + `<div class="modal fade" id="view_client_project${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 100%; min-width: 400px; max-height: 100%;"
+                    role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Client Projects</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="m-portlet " id="m_portlet">
+                                    <div class="m-portlet__body">
+                                        <table id="kt_table_client_projects${datum.id}" class="table table-striped table-hover"
+                                                style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Manager</th>
+                                                <th>Type</th>
+                                                <th>Subtypes</th>
+                                                <th>Status</th>
+                                                <th>Starting Date</th>
+                                                <th>Deadline</th>
+                                                <th>Tools</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        taskCard.innerHTML = taskCard.innerHTML + `<div class="modal fade" id="view_client_task${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 90%; min-width: 400px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Client Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+
+                <div class="m-portlet"; id="m_portlet">
+                    <div class="m-portlet__body">
+                    <table id="kt_table_tasks${datum.id}" class="table table-striped table-hover" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Manager</th>
+                                <th>Status</th>
+                                <th>Category</th>
+                                <th>Starting Date</th>
+                                <th>Deadline</th>
+                                <th>Tools</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+             </div>
+            </div>
+
+         </div>
+            </div>
+            </div>
+            </div>
+            </div>`
+
+
+            })
+
+        },
+
+        error: function (data) {
+            console.log('Error:', data);
+        }
+        });
+
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @endsection
+

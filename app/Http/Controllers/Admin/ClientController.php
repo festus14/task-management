@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyClientRequest;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ClientController extends Controller
 {
@@ -53,9 +54,14 @@ class ClientController extends Controller
     {
         abort_unless(\Gate::allows('client_edit'), 403);
 
-        $client->update($request->all());
+        try {
+            $client->update($request->all());
+            return  redirect()->back();
+        } catch (\Exception $e) {
+            return  redirect()->back()->withErrors($e->getMessage());
+        }
 
-        return  redirect()->back()->withErrors($validator)->withInput();
+
     }
 
     public function show(Client $client)
