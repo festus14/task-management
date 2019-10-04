@@ -123,9 +123,9 @@
                         <thead>
                             <tr>
                                 <th style="text-align:center">#</th>
+                                <th>Name</th>
                                 <th>Client</th>
                                 <th>Project</th>
-                                <th>Name</th>
                                 <th>Manager</th>
                                 <th>Status</th>
                                 <th>Start_Date</th>
@@ -417,13 +417,17 @@
 <script type="text/javascript" src="{{ asset('js/validator/taskValidator.js') }}"></script>
 <script>
 
-$(window).on('load', function() {
-    $('#loading').hide();
-   });
-
-    $(document).ready(function() {
+ $(document).ready(function() {
         getTaskCategoryAjaxDT();
         getTaskStatusAjaxDT();
+    });
+
+$(document).ajaxStop(function () {
+        $('#loading').hide();
+    });
+
+    $(document).ajaxStart(function () {
+        $('#loading').show();
     });
 
     function reinitializeDate(){
@@ -553,126 +557,6 @@ $(window).on('load', function() {
 
             })
 
-        </script>
-
-        {{-- projectcomment js --}}
-        {{-- <script>
-                var date = new Date();
-            var formattedDate = (date.toString().slice(0, 25));
-            document.getElementById("datee").innerHTML = formattedDate;
-
-            //  dummy data for test
-            var data = [{
-                    "id": 2,
-                    name: "Yeha",
-                    date: "12/2/2000",
-                    "comment": "laudantium enim ladugbo mi ncicna jnsjkd cfjaka"
-                },
-                {
-                    "id": 1,
-                    name: "Ya",
-                    date: "2/3/2019",
-                    "comment": "est natus enim nihil"
-                },
-            ]
-            mapComment();
-
-
-            function mapComment() {
-                data.map((elem, i) => {
-                    var html = elem.id === 1 ?
-                        `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-                <div class="m-messenger__message m-messenger__message--out">
-
-                    <div class="m-messenger__message-body">
-                        <div class="m-messenger__message-arrow"></div>
-                        <div class="m-messenger__message-content">
-                        <div class="m-messenger__message-username">
-                        <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-                        <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-
-                            </div>
-                            <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
-                                ${elem.comment}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-messenger__message-pic">
-                    <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-                </div>
-                </div>
-                </div>` :
-                        `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-                <div class="m-messenger__message m-messenger__message--out">
-
-                    <div class="m-messenger__message-body">
-                        <div class="m-messenger__message-arrow"></div>
-                        <div class="m-messenger__message-content">
-                        <div class="m-messenger__message-username">
-                        <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-                        <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-
-                            </div>
-                            <div class="m-messenger__message-text" style=" min-width: 250px; max-width: 440px; max-height: 4000px;">
-                                ${elem.comment}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-messenger__message-pic">
-                        <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-                </div>
-                </div>
-                </div>`
-                    document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + html
-
-                })
-            }
-
-            function addComment() {
-                var newObj = {
-                    name: "Chiamaka",
-                    comment: document.getElementById("Textarea2").value,
-                    id: 5,
-                    date: "12/3/1990"
-                }
-                data.push(newObj);
-                mapComment();
-                document.getElementById("Textarea2").value = "";
-            }
-
-            function addReply() {
-                parentComment = document.getElementById("replydiv");
-                childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
-                <div class="m-messenger__message m-messenger__message--out">
-
-                    <div class="m-messenger__message-body">
-                        <div class="m-messenger__message-arrow"></div>
-                        <div class="m-messenger__message-content">
-                        <div class="m-messenger__message-username">
-                        <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
-                        <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
-
-                            </div>
-
-                            <div class="m-messenger__message-text" style="min-width: 250px; max-width: 300px; max-height: 4000px;">
-                            <p> </br>
-                            <spans style="width: 250px"> ${document.getElementById("replyTextId").value} </span>
-                                </p>
-                            </div>
-                            </br>
-                        </div>
-                    </div>
-                    <div class="m-messenger__message-pic">
-                    <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-                </div>
-                </div>
-                </div>`;
-                parentComment.innerHTML = parentComment.innerHTML + childComment;
-                document.getElementById("replyTextId").value = "";
-            }
-        </script> --}}
-
-        <script>
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -682,9 +566,9 @@ $(window).on('load', function() {
                 ajax: "{{ url('/api/v1/tasks') }}",
                 columns: [
                     { defaultContent : "" },
+                    { "data": "name" },
                     { "data": "client.name" },
                     { "data": "project.name" },
-                    { "data": "name" },
                     { "data": "manager.name" },
                     { "data": "status.name" },
                     // { "data": "assinged_tos[, ].name" },
@@ -1063,7 +947,7 @@ $(window).on('load', function() {
                                         <div class="card-header" id="headingnine">
                                             <h6 style="cursor: pointer" class="mb-0">
                                                 <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    <i class="m-menu__link-icon flaticon-users"></i>
                                                     Task Members
                                                 </span>
                                             </h6>
@@ -1480,11 +1364,11 @@ $(window).on('load', function() {
                         let commentbody = document.getElementById('commentModal');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
                         commentbody.innerHTML = `
-        <div class="modal-dialog modal-dialog-centered" id="commentPage" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
+        <div id="taskCommentPage" class="modal-dialog modal-dialog-centered" style="overflow-y:hidden; height:95vh; min-height: 70vh; max-width: 90vw; min-width: 70vw; overflow:hidden;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                  <button type="button" class="close" onclick="$('#commentPage').modal('hide');" aria-label="Close">
+                  <button type="button" class="close" onclick="$('#taskCommentPage').modal('hide');" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
@@ -1500,7 +1384,7 @@ $(window).on('load', function() {
                                         </div>
                                         <div class="m-card-profile__pic">
                                             <div class="m-card-profile__pic-wrapper">
-                                                <img alt="" src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded" />
+                                                <img alt="" src="{{ asset('metro/assets/app/media/img/users/user_comment.png') }}" class="mCS_img_loaded" />
                                             </div>
                                         </div>
                                         <div class="m-card-profile__details">
@@ -2412,11 +2296,10 @@ $(window).on('load', function() {
         }
 
         function submitEditTaskCategory(taskID){
-            let formdata = $('#editTaskCategoryForm').serialize();
             $.ajax({
                 type: "PUT",
-                url: '{{ url("/api/v1/tast-categories") }}'+ "/" + taskID,
-                data: formdata,
+                url: '/api/v1/tast-categories'+ '/' + taskID,
+                data: $('#editTaskCategoryForm').serialize(),
                 success: function (data) {
                     swal({
                         title: "Success!",

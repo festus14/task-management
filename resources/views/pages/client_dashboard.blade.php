@@ -323,9 +323,13 @@
 <script type="text/javascript" src="{{ asset('js/validator/clientValidtor.js') }}"></script>
 {{--Body Scripts--}}
     <script>
-        $(window).on('load', function() {
-            $('#loading').hide();
-        });
+     $(document).ajaxStop(function () {
+        $('#loading').hide();
+    });
+
+    $(document).ajaxStart(function () {
+        $('#loading').show();
+    });
 
         var csvButtonTrans = '{{ trans('global.datatables.csv') }}';
         var excelButtonTrans = '{{ trans('global.datatables.excel') }}';
@@ -479,7 +483,6 @@
             </div>
             </div>`
 
-
             })
 
         },
@@ -488,141 +491,6 @@
             console.log('Error:', data);
         }
         });
-
-
-
-        var clientData;
-        function editClient(client_id){
-
-            $.ajax({
-                type: "GET",
-                url: "/api/v1/clients/" + client_id,
-                success: function(data){
-                    clientData = data.data;
-                },
-
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-
-            })
-
-            $.ajax({
-                    type: "GET",
-                    url: "/api/v1/clients",
-                    success: function(data){
-                        console.log(data)
-                    let editClientBody = document.getElementById('editClientBody');
-                    editClientBody.innerHTML = `
-                            <div class="col-md-12 ">
-                                <form id="editClientForm" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row col-md-12">
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label for="company-name">Company Name</label>
-                                            <input value="${clientData.name}" type="text" name="name" class="form-control" id="edit-company-name" required>
-                                            <div class="error" id="editCompanyErr"></div>
-                                        </div>
-
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label for="date-of-eng">Date Of Engagement</label>
-                                            <input value="${clientData.date_of_engagement}" type="text" id="edit-date-of-eng" name="date_of_engagement" class="form-control date" required>
-                                            <div class="error" id="editDateEngagedErr"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row col-md-12">
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="address">Address</label>
-                                                <input type="text" value="${clientData.address}" name="address" class="form-control" id="edit-address" placeholder="" required>
-                                                <div class="error" id="editAddressErr"></div>
-                                            </div>
-
-
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="expiry-date">Expiry Date</label>
-                                                <input type="text" id="edit-expiry-date" value="${clientData.expiry_date}" name="expiry_date" class="form-control date" required>
-                                                <div class="error" id="editExpiryErr"></div>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="row col-md-12 ">
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="email">Email</label>
-                                                <input type="email" name="email" value="${clientData.email}" class="form-control" id="edit-email" required>
-                                                <div class="error" id="editEmailErr"></div>
-                                            </div>
-
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" value="${clientData.phone}" id="edit-phone-num" required>
-                                                <div class="error" id="editPhoneErr"></div>
-                                            </div>
-                                            <div class="col-md-4 form-group mt-3">
-                                            <label for="status">Status</label>
-                                            <select id="edit-status" name="status" class="form-control">
-                                                <option  value="${clientData.status}">${clientData.status}</option>
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
-                                            </select>
-                                            <div class="error" id="editStatusErr"></div>
-                                        </div>
-                                        </div>
-                                        <div class="row col-md-12 ">
-                                            <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditClient(${clientData.id})" value="Update">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                    `
-                    var allEditors = document.querySelectorAll('.ckeditor');
-                        for (var i = 0; i < allEditors.length; ++i) {
-                            ClassicEditor.create(allEditors[i]);
-                        }
-
-                        moment.updateLocale('en', {
-                            week: {dow: 1} // Monday is the first day of the week
-                        });
-
-                        $('.date').datetimepicker({
-                            format: 'DD-MM-YYYY',
-                            locale: 'en'
-                        });
-
-                        $('.datetime').datetimepicker({
-                            format: 'DD-MM-YYYY HH:mm:ss',
-                            locale: 'en',
-                            sideBySide: true
-                        });
-
-                        $('.timepicker').datetimepicker({
-                            format: 'HH:mm:ss'
-                        });
-
-                        $('.select-all').click(function () {
-                            let $select2 = $(this).parent().siblings('.select2')
-                            $select2.find('option').prop('selected', 'selected')
-                            $select2.trigger('change')
-                        });
-                        $('.deselect-all').click(function () {
-                            let $select2 = $(this).parent().siblings('.select2');
-                            $select2.find('option').prop('selected', '');
-                            $select2.trigger('change')
-                        });
-
-                        $('.select2').select2();
-                    },
-
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-
-                })
-
-            }
-
 
             function submitEditClient(client_id){
                 let formData = $('#editClientForm').serialize();

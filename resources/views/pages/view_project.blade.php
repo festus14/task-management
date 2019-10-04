@@ -6,7 +6,6 @@
 @endsection
 @section('sub_header', 'Projects')
 
-@section('content')
 @section('css')
 <style>
         /* Style for project members table */
@@ -101,19 +100,19 @@
     <div id="loading">
        <img id="loading-image" src={{ url('/loader/loader.gif')}} alt="Loading..." />
     </div>
-<div class="m-portlet " id="m_portlet" style="width:90%; box-sizing:border-box; padding-right: 50px;">
-    <div class="m-portlet__head">
+<div class="m-portlet " id="m_portlet" style="width: 100%;">
+    <div class="col-lg-12 col-md-12 col-sm-12 m-portlet__head">
         <div class="m-portlet__head-caption">
             <div class="m-portlet__head-title">
                 <span class="m-portlet__head-icon">
                         <i class="flaticon-list-2"> </i>
                     </span>
                 <h3 class="m-portlet__head-text">
-                    Project table
+                    Project Table
                 </h3>
             </div>
         </div>
-        <div class="m-portlet__head-tools">
+        <div class=" m-portlet__head-tools">
             <ul class="m-portlet__nav">
                 <li class="m-portlet__nav-item">
                     <a style="color:white; background-color: #8a2a2b;" id="addProjId" class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" >
@@ -633,16 +632,19 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/validator/editProjectValidator.js') }}"></script>
 
 <script>
-
-  $(window).on('load', function() {
-    $('#loading').hide();
-   });
      $( document ).ready(function() {
         getProjetTypeDT();
         getProjectSubTypeDT();
+    });
+
+    $(document).ajaxStop(function () {
+        $('#loading').hide();
+    });
+
+    $(document).ajaxStart(function () {
+        $('#loading').show();
     });
 
     function ProjectTypeSubmit(){
@@ -1789,7 +1791,7 @@
    },
             success: function (data) {
                 let moreInfo = document.getElementById("moreInfo")
-                moreInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                moreInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="box-sizing: border-box;">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 80%; min-width: 500px;" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -1866,12 +1868,12 @@
                                         <div class="card-header" id="headingnine">
                                             <h6 style="cursor: pointer" class="mb-0">
                                                 <span class="collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                                    <i class="m-menu__link-icon flaticon-team-member-"></i>
+                                                    <i class="m-menu__link-icon flaticon-users"></i>
                                                     Project Members
                                                 </span>
                                             </h6>
                                         </div>
-                                    <div id="collapseNine" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample5">
+                                    <div id="collapseNine" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample5" style = "box-sizing: border-box;">
                                         <input type="textOne" id="myInputNine" onkeyup="searchProjectMembers()" placeholder="Search for project member.." title="Type in a member">
                                         <table id="myTableNine">
                                             <tr class="header">
@@ -2283,7 +2285,7 @@
                                         </div>
                                         <div class="m-card-profile__pic">
                                             <div class="m-card-profile__pic-wrapper">
-                                                <img alt="" src="{{ asset('metro/assets/app/media/img/users/user4.jpg') }}" class="mCS_img_loaded" />
+                                                <img alt="" src="{{ asset('metro/assets/app/media/img/users/user_comment.png') }}" class="mCS_img_loaded" />
                                             </div>
                                         </div>
                                         <div class="m-card-profile__details">
@@ -2717,10 +2719,10 @@
                 orderable: false,
                 searchable: false,
                 render: function (data, type, full, meta) {
-                    return '\<button class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                            <div class="dropdown-menu" aria-labelledby="taskToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
+                    return '\<button class="btn btn-secondary dropdown-toggle" onclick="editProjectSubtype('+full.id+')" type="button" id="subTaskToolsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                            <div class="dropdown-menu" aria-labelledby="subTaskToolsBtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
                             <a class="link" href="#">\
-                                <i class="fa fa-pencil" data-toggle="modal" onclick="editProjectSubtype('+full.id+')" data-target="#editProjectSubTypeModal" style="color:black;"><span style="font-weight:100;"> Edit</span></i>\
+                                <i class="fa fa-pencil" data-toggle="modal" data-target="#editProjectSubTypeModal" style="color:black;"><span style="font-weight:100;"> Edit</span></i>\
                             </a>\
                             <button onclick="deleteProjectSubType('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
                             </div>\
