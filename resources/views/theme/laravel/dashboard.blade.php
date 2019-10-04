@@ -572,7 +572,8 @@
             dtButtons.push(deleteButton);
             @endcan
 
-            $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+            $('.datatable:not(.ajaxTable)').DataTable({
+                 buttons: dtButtons })
         })
 
     </script>

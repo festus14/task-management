@@ -763,87 +763,6 @@
 
     }
 
-    //     var date = new Date();
-    //    var formattedDate = (date.toString().slice(0, 25));
-    //    document.getElementById("datee").innerHTML = formattedDate;
-
-
-    //    var data = [{
-    //            "id": 2,
-    //            name: "Yeha",
-    //            "comment": "laudantium enim ladugbo mi ncicna jnsjkd cfjaka"
-    //        },
-    //        {
-    //            "id": 1,
-    //            name: "Ya",
-    //            "comment": "est natus enim nihil"
-    //        },
-    //    ]
-    //    mapComment();
-
-
-    //    function mapComment() {
-    //        data.map((elem, i) => {
-    //            var html = elem.id === 1 ?
-    //                `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-    //        <div class="m-messenger__message m-messenger__message--out">
-
-    //            <div class="m-messenger__message-body">
-    //                <div class="m-messenger__message-arrow"></div>
-    //                <div class="m-messenger__message-content">
-    //                <div class="m-messenger__message-username">
-    //                <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-    //                <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-
-    //                    </div>
-    //                    <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 440px; max-height: 4000px;">
-    //                        ${elem.comment}
-    //                    </div>
-    //                </div>
-    //            </div>
-    //            <div class="m-messenger__message-pic">
-    //            <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-    //        </div>
-    //        </div>
-    //    </div>` :
-    //                `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-    //        <div class="m-messenger__message m-messenger__message--out">
-
-    //            <div class="m-messenger__message-body">
-    //                <div class="m-messenger__message-arrow"></div>
-    //                <div class="m-messenger__message-content">
-    //                <div class="m-messenger__message-username">
-    //                <span style="color: #0c2a7a"><strong>${elem.name}</strong></span>
-    //                <span class="datee" style="float: right; color: #d0d3db;">${formattedDate}</span>
-
-    //                    </div>
-    //                    <div class="m-messenger__message-text" style=" min-width: 250px; word-wrap: break-word; max-width: 440px; max-height: 4000px;">
-    //                        ${elem.comment}
-    //                    </div>
-    //                </div>
-    //            </div>
-    //            <div class="m-messenger__message-pic">
-    //                <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-    //        </div>
-    //        </div>
-    //    </div>`
-    //                document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + html
-    //             // document.getElementById("mCSB_3_container").appendChild(html);
-    //         // $( "<p>Test</p>" ).appendTo( ".inner" );
-
-    //        })
-    //    }
-
-    //    function addComment() {
-    //        var newObj = {
-    //            name: "Chiamaka",
-    //            comment: document.getElementById("Textarea2").value,
-    //            id: 5
-    //        }
-    //        data.push(newObj);
-    //        mapComment();
-    //        document.getElementById("Textarea2").value = "";
-    //    }
 
        function addReply(id) {
            parentComment = document.getElementById(`${id}replydiv`);
@@ -875,9 +794,67 @@
            document.getElementById(`${id}replyTextId`).value = "";
        }
 
-    let languages = {
+       $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        let languages = {
             'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
         };
+
+    var projectDataTable =  $('#kt_table_projects').DataTable({
+            ajax: "{{ url('/api/v1/projects') }}",
+            columns: [
+                { defaultContent : "" },
+                { "data": "client.name" },
+                { "data": "name" },
+                { "data": "manager.name" },
+                { "data": "project_type.name" },
+                { "data": "project_subtype.name" },
+                { "data": "starting_date" },
+                { "data": "deadline" }
+            ],
+            dom: 'lBfrtip<"actions">',
+            language: {
+                url: languages.{{ app()->getLocale() }}
+            },
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0,
+
+            }, {
+                orderable: false,
+                searchable: false,
+                targets: -1,
+
+            },
+            {
+                targets: 8,
+                orderable: false,
+                searchable: false,
+                render: function (data, type, full, meta) {
+                  return '\<button onclick="displayProjectInfo('+full.id+'), editProject('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                            <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
+                            <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"><span style="font-weight:100;"> View </span></i>\
+                            </a><br>\
+                            <a class="link" href="#">\
+                                <i class="fa fa-pencil" style="color:black;" data-toggle="modal" data-target="#editProjectModal"><span style="font-weight:100;"> Edit</span></i>\
+                            </a><br>\
+                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
+                            </div>\
+                                    ';
+                }
+    },
+        ],
+        });
+        new $.fn.dataTable.Buttons( projectDataTable, {
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ],
+        } );
+
     $(function() {
 
         let copyButtonTrans = 'copy';
@@ -981,12 +958,34 @@
 
     })
 
+    $.ajax({
+                type: "GET",
+                url: '{{ url("/api/v1/projects") }}',
+                success: function (data) {
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+
+            //delete user login
+            $('body').on('click', '.delete-user', function () {
+                var user_id = $(this).data("id");
+                confirm("Are You sure want to delete !");
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('ajax-crud')}}" + '/' + user_id,
+                    success: function (data) {
+                        $("#user_id_" + user_id).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            });
+
 
      let popAddProj = document.getElementById('addProjId');
      popAddProj.addEventListener("click", displayAddProject);
@@ -1298,7 +1297,6 @@
                         text: "Project sub-type updated",
                         icon: "success",
                         confirmButtonColor: "#DD6B55",
-                        // confirmButtonText: "OK",
                     });
                     window.setTimeout(function(){
                         $('#subtypemainModal').modal('hide');
@@ -1317,10 +1315,6 @@
                     }
 
                 });
-                // error: function (error) {
-                //     alert("Project sub-type creation failed");
-                // }
-
         }
 
 
@@ -1358,16 +1352,7 @@
                             text: "Project sub-type created",
                             icon: "success",
                             confirmButtonColor: "#DD6B55",
-                            // confirmButtonText: "OK",
                         });
-
-                    // window.setTimeout(function(){
-                    //     //getProjecSubTypeDT();
-                    //     //document.getElementById('sub-type').value = "";
-                    //     // displayAddProject()
-                    //     $('#subtypemainModal').modal('hide');
-                    //     location.reload();
-                    // }, 3000)
 
                     },
                     error: function (error) {
@@ -1395,23 +1380,6 @@
                 url: '{{ url("/api/v1/project-sub-types") }}',
                 data: $('#addprojsubtypeform2').serialize(),
                 success: function (data) {
-
-                    // $.ajax({
-                    //     type: "GET",
-                    //     url: '{{ url("/api/v1/project_create") }}',
-                    //     success: function (data){
-                    //         document.getElementById('projTypeBody1').innerHTML = `
-                    //         <option value="" selected></option>
-                    //         ` +
-                    //             data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                    //         + `
-                    //         `
-                    //     }
-                    // });
-
-                    // $('#subtypemainModal').modal('hide');
-                    // document.getElementById('sub-type').value = "";
-
                         swal({
                             title: "Success!",
                             text: "Project sub-type created",
@@ -1515,60 +1483,6 @@
                 }
             });
         }
-
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $('#kt_table_projects').DataTable({
-            ajax: "{{ url('/api/v1/projects') }}",
-            columns: [
-                { defaultContent : "" },
-                { "data": "client.name" },
-                { "data": "name" },
-                { "data": "manager.name" },
-                { "data": "project_type.name" },
-                { "data": "project_subtype.name" },
-                { "data": "starting_date" },
-                { "data": "deadline" }
-            ],
-            dom: 'lBfrtip<"actions">',
-            language: {
-                url: languages.{{ app()->getLocale() }}
-            },
-            columnDefs: [{
-                orderable: false,
-                className: 'select-checkbox',
-                targets: 0,
-
-            }, {
-                orderable: false,
-                searchable: false,
-                targets: -1,
-
-            },
-            {
-                targets: 8,
-                orderable: false,
-                searchable: false,
-                render: function (data, type, full, meta) {
-                  return '\<button onclick="displayProjectInfo('+full.id+'), editProject('+full.id+')" class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsbtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
-                            <div class="dropdown-menu" aria-labelledby="projectToolsbtn" style="padding-left:8px; min-width: 80px; max-width: 15px;">\
-                            <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal" data-target="#moreInfoModal"><span style="font-weight:100;"> View </span></i>\
-                            </a><br>\
-                            <a class="link" href="#">\
-                                <i class="fa fa-pencil" style="color:black;" data-toggle="modal" data-target="#editProjectModal"><span style="font-weight:100;"> Edit</span></i>\
-                            </a><br>\
-                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
-                            </div>\
-                                    ';
-                }
-    },
-        ],
-        });
 
 
             //  Edit Project form
