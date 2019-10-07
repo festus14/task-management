@@ -454,7 +454,10 @@
         </div>
     </div>
     {{-- End Project subType datatable modal --}}
-
+    $('#addDocumentModal').modal('hide');
+    window.setTimeout(function () {
+        $("#kt_table_project_type").DataTable().ajax.reload();
+    }, 3000)
     <!--AddSubtype main Modal-->
     <div class="modal fade" id="subtypemainModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -764,12 +767,10 @@
                                 confirmButtonColor: "#DD6B55",
                                 // confirmButtonText: "OK",
                             });
+                            $('#AddProjecModalla').modal('hide');
                             window.setTimeout(function () {
-                                //getProjecSubTypeDT();
-                                //document.getElementById('sub-type').value = "";
-                                $('#subtypemainModal').modal('hide');
-                                location.reload();
-                            }, 3000)
+                              $("#kt_table_project_type").DataTable().ajax.reload();
+                            }, 2300)
 
                         },
                         error: function (error) {
@@ -784,7 +785,7 @@
 
                     });
                 }
-
+        //found in create project modal
                 function ProjectTypeSubmitIn() {
                     $.ajaxSetup({
                         headers: {
@@ -1006,7 +1007,7 @@
                                 }
                                 swal({
                                     title: "Are you sure?",
-                                    text: "This project type will be deleted!",
+                                    text: "This project will be deleted!",
                                     icon: "warning",
                                     buttons: true,
                                     dangerMode: true,
@@ -1260,8 +1261,8 @@
                                 confirmButtonColor: "#DD6B55",
                             });
                             window.setTimeout(function () {
-                                location.reload();
-                            }, 3000)
+                                $("#kt_table_projects").DataTable().ajax.reload();
+                            }, 2400)
 
                         },
                         error: function (error) {
@@ -1297,23 +1298,23 @@
                                         <div class="form-group">
                                             <label for="project-type">Select Project Type</label>
                                             <select id="projecTttype" name="project_type_id" class="form-control" required>
-${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_type.name}</option>`)}
-                            </select>
-                            <div class="error" id="editProjectTTTypeErr"></div>
-                        </div>
+                                            ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_type.name}</option>`)}
+                                            </select>
+                                            <div class="error" id="editProjectTTTypeErr"></div>
+                                        </div>
 
-                        <div class="form-group">
-                            <label for="create-task">Subtype Name</label>
-                            <input type="text" class="form-control" name="name" id="subTtype">
-                            <div class="error" id="editProjectSubTypeErr"></div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="$('#editProjectSubTypeModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="ValidateEditProjectSubType(${sub_id});" value="Update">
-                </div>
-                </form>
-        `
+                                        <div class="form-group">
+                                            <label for="create-task">Subtype Name</label>
+                                            <input type="text" class="form-control" name="name" id="subTtype">
+                                            <div class="error" id="editProjectSubTypeErr"></div>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" onclick="$('#editProjectSubTypeModal').modal('hide');" data-target="#subtypemainModal">Close</button>
+                                    <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="ValidateEditProjectSubType(${sub_id});" value="Update">
+                                </div>
+                                </form>
+                        `
                         },
 
                         error: function (data) {
@@ -1357,10 +1358,10 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                 icon: "success",
                                 confirmButtonColor: "#DD6B55",
                             });
+                            $('#subtypemainModal').modal('hide');
                             window.setTimeout(function () {
-                                $('#subtypemainModal').modal('hide');
-                                location.reload();
-                            }, 3000)
+                             $("#kt_table_project_subtype").DataTable().ajax.reload();
+                            }, 2400)
 
                         },
                         error: function (error) {
@@ -1377,7 +1378,7 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                 }
 
 
-                // Add 2nd project Sub type Post
+                // Add 2nd project Sub type Post(in create project modal)
                 function addProjectSubtypeX() {
                     $.ajaxSetup({
                         headers: {
@@ -1445,14 +1446,10 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                 confirmButtonColor: "#DD6B55",
                                 // confirmButtonText: "OK",
                             });
-
+                            $('#subtypemainModal').modal('hide');
                             window.setTimeout(function () {
-                                //getProjecSubTypeDT();
-                                //document.getElementById('sub-type').value = "";
-                                // displayAddProject()
-                                $('#subtypemainModal').modal('hide');
-                                location.reload();
-                            }, 3000)
+                                $("#kt_table_project_subtype").DataTable().ajax.reload();
+                            }, 2400)
 
                         },
                         error: function (error) {
@@ -1523,9 +1520,10 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                 confirmButtonColor: "#DD6B55",
                                 // confirmButtonText: "OK",
                             });
+                            $('#createProjectModal').modal('hide');
                             window.setTimeout(function () {
-                                location.reload();
-                            }, 3000)
+                             $("#kt_table_projects").DataTable().ajax.reload();
+                            }, 2400)
 
                         },
                         error: function (error) {
@@ -1899,7 +1897,7 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                             </thead>
                                             <tbody>
                                                 ` + data.data.documents.map(item =>
-                                `<tr>
+                                                    `<tr>
                                                         <td></td>
                                                         <td>${item.name}</td>
                                                         <td>${item.version}</td>
@@ -2174,8 +2172,9 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                 confirmButtonColor: "#DD6B55",
                                 // confirmButtonText: "OK",
                             });
+                            $('#addDocumentModal').modal('hide');
                             window.setTimeout(function () {
-                                location.reload();
+                                $("#kt_table_single_project_documentsS").DataTable().ajax.reload();
                             }, 3000)
 
                         },
@@ -2403,8 +2402,30 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                             order: [],
                             pageLength: 10,
                             buttons: [
-                                'excel', 'pdf', 'print'
-                            ]
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }
+                    ]
                         });
                     }
 
@@ -2434,8 +2455,8 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                 success: function (data) {
                                     swal("Deleted!", "Project successfully deleted.", "success");
                                     window.setTimeout(function () {
-                                        location.reload();
-                                    }, 2500);
+                                        $("#kt_table_projects").DataTable().ajax.reload();
+                                    }, 2400);
                                 },
 
                                 error: function (data) {
@@ -2498,6 +2519,93 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                             ';
                                     }
                                 }],
+                                buttons: [
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
+
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "This project will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.project-types.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Project type successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
+                    ]
                         });
                     }
                 };
@@ -2527,10 +2635,9 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                 success: function (data) {
                                     swal("Deleted!", "Project type successfully deleted.", "success");
                                     window.setTimeout(function () {
-                                        location.reload();
+                                        $("#kt_table_project_type").DataTable().ajax.reload();
                                     }, 2500);
                                 },
-
                                 error: function (data) {
                                     swal("Delete failed", "Please try again", "error");
                                 }
@@ -2593,8 +2700,9 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                 icon: "success",
                                 confirmButtonColor: "#DD6B55",
                             });
+                            $('#EditProjectTypeModal').modal('hide');
                             window.setTimeout(function () {
-                                location.reload();
+                                $("#kt_table_project_type").DataTable().ajax.reload();
                             }, 3000)
 
                         },
@@ -2653,6 +2761,93 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                             ';
                                     }
                                 }],
+                                buttons: [
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
+
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "This project will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.project-sub-types.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Project successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
+                    ]
                         });
                     }
                 };
@@ -2681,7 +2876,7 @@ ${data.data.map(elem => `<option value="${elem.project_type.id}">${elem.project_
                                 success: function (data) {
                                     swal("Deleted!", "Project subtype successfully deleted.", "success");
                                     window.setTimeout(function () {
-                                        location.reload();
+                                        $("#kt_table_project_subtype").DataTable().ajax.reload();
                                     }, 2500);
                                 },
 
@@ -2883,14 +3078,14 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                         buttons: [
                             {
                             extend: 'excel',
-                            className: 'btn-success',
+                            className: 'btn-primary',
                             text: excelButtonTrans,
                             exportOptions: {
                                 columns: ':visible'
                             }
                         }, {
                             extend: 'pdf',
-                            className: 'btn-warning',
+                            className: 'btn-success',
                             text: pdfButtonTrans,
                             exportOptions: {
                                 columns: ':visible'
@@ -2898,7 +3093,7 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                         },
                             {
                             extend: 'csv',
-                            className: 'btn-primary',
+                            className: 'btn-warning',
                             text: csvButtonTrans,
                             exportOptions: {
                                 columns: ':visible'
