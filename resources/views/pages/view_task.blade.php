@@ -487,12 +487,102 @@
                                         ';
                     }
                 }],
+                buttons: [
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Reload',
+                            className: 'btn-info',
+                            action: function ( e, dt, node, config ) {
+                                dt.ajax.reload();
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
+
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "This project type will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.projects.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Project successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
+                    ]
             });
-            new $.fn.dataTable.Buttons( taskDataTable, {
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ],
-        } );
+
 
         $(function () {
 
@@ -524,66 +614,32 @@
             pageLength: 10,
             dom: 'lBfrtip<"actions">',
             buttons: [
-                {
-                    extend: 'excel',
-                    className: 'btn-primary',
-                    text: excelButtonTrans,
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    className: 'btn-success',
-                    text: pdfButtonTrans,
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'csv',
-                    className: 'btn-accent',
-                    text: csvButtonTrans,
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                }
-            ]
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-info',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                    ]
         });
 
-                $.fn.dataTable.ext.classes.sPageButton = '';
-                    let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
-                    let deleteButton = {
-                        text: deleteButtonTrans,
-                        url: "{{ route('admin.tasks.massDestroy') }}",
-                        className: 'btn-danger',
-                        action: function (e, dt, node, config) {
-                            var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-                                return $(entry).data('entry-id')
-                            });
-
-                            if (ids.length === 0) {
-                                alert('{{ trans('global.datatables.zero_selected') }}');
-                                return
-                            }
-
-                            if (confirm('{{ trans('global.areYouSure') }}')) {
-                                $.ajax({
-                                    headers: {'x-csrf-token': _token},
-                                    method: 'POST',
-                                    url: config.url,
-                                    data: { ids: ids, _method: 'DELETE' }})
-                                    .done(function () { location.reload() })
-                            }
-                        }
-                    }
-                    let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
-                    @can('task_delete')
-                    dtButtons.push(deleteButton);
-                    @endcan
-
-                    $('.datatable:not(.ajaxTable)').DataTable({
-                        buttons: dtButtons })
                 })
 
 
@@ -700,8 +756,95 @@
                                         </div>\
                                                 ';
                             }
-                    },
-                    ],
+                    }],
+                    buttons: [
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
+
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "The selected will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.tast-categories.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Task categories successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
+                    ]
+
                     });
                 }
             }
@@ -786,9 +929,95 @@
                                                 </div>\
                                                 ';
                             }
-                    },
+                    }],
+                    buttons: [
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
 
-                    ],
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "The selected will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.task-statuses.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Task status(es) successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
+                    ]
+
                     });
 
                 }
