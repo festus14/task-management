@@ -442,7 +442,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var taskDataTable =    $('#kt_table_task').DataTable({
+
+            var taskDataTable =  $('#kt_table_task').DataTable({
                 ajax: "{{ url('/api/v1/tasks') }}",
                 columns: [
                     { defaultContent : "" },
@@ -585,12 +586,7 @@
                         buttons: dtButtons })
                 })
 
-                $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+
             $.ajax({
                 type: "GET",
                 url: '{{ url("/api/v1/tasks") }}',
@@ -618,7 +614,7 @@
                     }
                 });
             });
-        });
+        // });
 
             // Delete Task Function
             deleteSingleTask=(taskID)=>{

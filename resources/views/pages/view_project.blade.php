@@ -955,14 +955,14 @@
                     buttons: [
                         {
                             extend: 'excel',
-                            className: 'btn-success',
+                            className: 'btn-primary',
                             text: 'Excel',
                             exportOptions: {
                                 columns: ':visible'
                             }
                         }, {
                             extend: 'pdf',
-                            className: 'btn-warning',
+                            className: 'btn-success',
                             text: 'PDF',
                             exportOptions: {
                                 columns: ':visible'
@@ -970,7 +970,7 @@
                         },
                         {
                             extend: 'csv',
-                            className: 'btn-primary',
+                            className: 'btn-warning',
                             text: 'CSV',
                             exportOptions: {
                                 columns: ':visible'
