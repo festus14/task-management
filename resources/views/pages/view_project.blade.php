@@ -998,7 +998,7 @@
                                 if (ids.length === 0) {
                                     swal({
                                         title: "No Item selected",
-                                        text: "Please select at leaset one row!",
+                                        text: "Please select at least one row!",
                                         icon: "error",
                                         confirmButtonColor: "#fc3",
                                         confirmButtonText: "OK",
@@ -2557,7 +2557,7 @@
                                 if (ids.length === 0) {
                                     swal({
                                         title: "No Item selected",
-                                        text: "Please select at leaset one row!",
+                                        text: "Please select at least one row!",
                                         icon: "error",
                                         confirmButtonColor: "#fc3",
                                         confirmButtonText: "OK",
@@ -2799,7 +2799,7 @@
                                 if (ids.length === 0) {
                                     swal({
                                         title: "No Item selected",
-                                        text: "Please select at leaset one row!",
+                                        text: "Please select at least one row!",
                                         icon: "error",
                                         confirmButtonColor: "#fc3",
                                         confirmButtonText: "OK",
