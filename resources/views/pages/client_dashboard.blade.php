@@ -425,9 +425,7 @@
                                             <div class="col-md-4 form-group {{ $errors->has('phone') ? 'has-error' : '' }} mt-3">
                                                     <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
                                                     <input required type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', isset($client) ? $client->phone : '') }}">
-                                                {{-- <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" id="phone-num" required> --}}
-                                                {{-- <div class="error" id="phoneErr"></div> --}}
+
                                                 @if($errors->has('phone'))
                                                     <p class="help-block">
                                                         {{ $errors->first('phone') }}
@@ -444,9 +442,7 @@
                                             <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }} mt-3">
                                                     <label for="address">{{ trans('cruds.client.fields.address') }}</label>
                                                     <input required type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($client) ? $client->address : '') }}">
-                                                {{-- <label for="address">Address</label>
-                                                <input type="text" name="address" class="form-control" id="address" placeholder="" required> --}}
-                                                {{-- <div class="error" id="addressErr"></div> --}}
+
                                                 @if($errors->has('address'))
                                                     <p class="help-block">
                                                         {{ $errors->first('address') }}
@@ -460,9 +456,7 @@
                                             <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }} mt-3">
                                                     <label for="email">{{ trans('cruds.client.fields.email') }}</label>
                                                     <input required type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($client) ? $client->email : '') }}">
-                                                {{-- <label for="email">Email</label>
-                                                <input type="email" name="email" class="form-control" id="email" required> --}}
-                                                {{-- <div class="error" id="emailErr"></div> --}}
+
                                                 @if($errors->has('email'))
                                                     <p class="help-block">
                                                         {{ $errors->first('email') }}
@@ -589,65 +583,6 @@
                     let editClientBody = document.getElementById('editClientBody');
                     editClientBody.innerHTML = `
                             <div class="col-md-12 ">
-                                <!-- <form id="editClientForm" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row col-md-12">
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label for="company-name">Company Name</label>
-                                            <input value="${clientData.name}" type="text" name="name" class="form-control" id="edit-company-name" required>
-                                            <div class="error" id="editCompanyErr"></div>
-                                        </div>
-
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label for="date-of-eng">Date Of Engagement</label>
-                                            <input value="${clientData.date_of_engagement}" type="text" id="edit-date-of-eng" name="date_of_engagement" class="form-control date" required>
-                                            <div class="error" id="editDateEngagedErr"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row col-md-12">
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="address">Address</label>
-                                                <input type="text" value="${clientData.address}" name="address" class="form-control" id="edit-address" placeholder="" required>
-                                                <div class="error" id="editAddressErr"></div>
-                                            </div>
-
-
-                                            <div class="col-md-6 form-group mt-3">
-                                                <label for="expiry-date">Expiry Date</label>
-                                                <input type="text" id="edit-expiry-date" value="${clientData.expiry_date}" name="expiry_date" class="form-control date" required>
-                                                <div class="error" id="editExpiryErr"></div>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="row col-md-12 ">
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="email">Email</label>
-                                                <input type="email" name="email" value="${clientData.email}" class="form-control" id="edit-email" required>
-                                                <div class="error" id="editEmailErr"></div>
-                                            </div>
-
-                                            <div class="col-md-4 form-group mt-3">
-                                                <label for="phone-num">Phone Number</label>
-                                                <input type="" name="phone" class="form-control" value="${clientData.phone}" id="edit-phone-num" required>
-                                                <div class="error" id="editPhoneErr"></div>
-                                            </div>
-                                            <div class="col-md-4 form-group mt-3">
-                                            <label for="status">Status</label>
-                                            <select value="${clientData.status + ""}" id="edit-status" name="status" class="form-control">
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
-                                            </select>
-                                            <div class="error" id="editStatusErr"></div>
-                                        </div>
-                                        </div>
-                                        <div class="row col-md-12 ">
-                                            <div class="col-md-3 form-group mt-3">
-                                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditClient(${clientData.id})" value="Update">
-                                            </div>
-                                        </div>
-                                    </form> -->
-
                                     <form onsubmit="submitEditClient()" class="form" id="clientForm" action="{{ url('/admin/clients/${clientData.id}') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
@@ -817,36 +752,16 @@
 
 
             function submitEditClient(client_id){
-                // let formData = $('#editClientForm').serialize();
-                //     $.ajax({
-                //         type: "PUT",
-                //         url: '{{ url("/api/v1/clients") }}'+ '/'+ client_id,
-                //         data: formData,
-                        // success: function (data) {
-                            swal({
-                                title: "Success!",
-                                text: "Client Edited!",
-                                icon: "success",
-                                confirmButtonColor: "#DD6B55",
-                                // confirmButtonText: "OK",
-                            });
-                            window.setTimeout(function(){
-                                location.reload();
-                            }, 3000)
-
-                            // },
-                            // error: function (error) {
-                            // swal({
-                            //     title: "Client Editing Failed!",
-                            //     text: "Please check the missing fields!",
-                            //     icon: "error",
-                            //     confirmButtonColor: "#fc3",
-                            //     confirmButtonText: "OK",
-                            // });
-                            // }
-
-
-                    })
+                swal({
+                    title: "Success!",
+                    text: "Client Edited!",
+                    icon: "success",
+                    confirmButtonColor: "#DD6B55",
+                    // confirmButtonText: "OK",
+                });
+                window.setTimeout(function(){
+                    location.reload();
+                }, 3000)
             }
 
             function deleteClient(client_id){
@@ -1163,12 +1078,7 @@
                     </div>
                     <!--end::Portlet-->
 
-
-
-
-
-
-                    <!-- End main Content of More-info -->
+                     <!-- End main Content of More-info -->
 
                         <div class="modal-footer">
                         </div>
@@ -1178,22 +1088,13 @@
                 </div>
                 </div>
 
-
-
-
                 `
-
-
-            },
+                },
 
             error: function (data) {
                 console.log('Error:', data);
-
-
-            }
-
-            })
-
+                }
+           })
         }
 
             // Search Through Project Documents FUnction
@@ -1422,20 +1323,20 @@
                                     </div>
                                 </div>
 
-                                <div class="card">
-                                    <div onclick="taskComments(${data.data.id})" class="card-header" id="headingFour">
-                                        <h6 style="cursor: pointer" class="mb-0">
-                                            <span class="" data-toggle="modal" data-target="#commentModal">
-                                                <i class="m-menu__link-icon flaticon-comment"></i>
-                                                Comments
-                                            </span>
-                                        </h6>
+                                                    <div class="card">
+                                                        <div onclick="taskComments(${data.data.id})" class="card-header" id="headingFour">
+                                                            <h6 style="cursor: pointer" class="mb-0">
+                                                                <span class="" data-toggle="modal" data-target="#commentModal">
+                                                                    <i class="m-menu__link-icon flaticon-comment"></i>
+                                                                    Comments
+                                                                </span>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                                         <div class="modal-footer">
                                         </div>
@@ -1446,26 +1347,20 @@
                     </div>
 
 
+                        <!-- Comment Modal -->
+            <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
-
-
-                <!-- Comment Modal -->
-    <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-
-    </div>
+            </div>
                         `
 
 
-                },
+        },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
 
-                        error: function (data) {
-                            console.log('Error:', data);
-
-
-                        }
-
-                        })
-            }
+            })
+        }
 
             function changeFormat(){
                 var allEditors = document.querySelectorAll('.ckeditor');
@@ -1520,36 +1415,15 @@
 
             //Posting-Create client
             function createCliento(){
-
-                // console.log($('#clientForm').serializeArray());
-                // $.ajaxSetup({
-                //     headers: {
-                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                //     }
-                // });
-                // $.ajax({
-                //     type: "POST",
-                //     url: "{{ url('/api/v1/clients/store') }}",
-                //     data: $('#clientForm').serialize(),
-
-                //     success: function (response) {
-                //         $('#createClientModal').modal('hide');
-                        swal({
-                            title: "Success!",
-                            text: "Client Added!",
-                            icon: "success",
-                            confirmButtonText: "OK",
-                        });
-                        window.setTimeout(function(){
-                            location.reload();
-                        }, 3000);
-
-                    // },
-                //     error: function (error) {
-                //     swal("Client Not Created", "Please check missing fields", "error");
-                //     console.log(error)
-                // }
-                // });
+                swal({
+                    title: "Success!",
+                    text: "Client Added!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+                window.setTimeout(function(){
+                    location.reload();
+                }, 3000);
             }
 
             // Search Through Task Documents FUnction
@@ -1625,7 +1499,7 @@
                                 });
                             }
 
-             else {
+                    else {
                         swal("Cancelled", "Delete cancelled", "error");
                     }
 
@@ -1791,9 +1665,8 @@
                             <div class="m-widget24__item">
                                 <div class="body-header" style="">
                                     <div class="" style=" float: left">
-                                        <img src="{{ asset('metro/assets/app/media/img/users/100_4.jpg') }}" alt
+                                        <img src="{{ asset('metro/assets/app/media/img/users/Logo2.png') }}" alt
                                             width="80px" height="80px" style="border-radius: 1000px">
-
                                     </div>
                                     <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
                                         ${datum.name}
