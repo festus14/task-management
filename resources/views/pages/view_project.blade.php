@@ -453,11 +453,6 @@
             </div>
         </div>
     </div>
-    {{-- End Project subType datatable modal --}}
-    $('#addDocumentModal').modal('hide');
-    window.setTimeout(function () {
-        $("#kt_table_project_type").DataTable().ajax.reload();
-    }, 3000)
     <!--AddSubtype main Modal-->
     <div class="modal fade" id="subtypemainModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -2045,44 +2040,44 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="documentModalLongTitle">Add Document</h5>
                         <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
-                        <form id = "submitDoc" enctype="multipart/form-data">
+                        <form id="submitDoc" enctype="multipart/form-data">
                             @csrf
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input id="client-list" name="client_id" value="${data.data.client_id}" type="hidden">
-                                    </div>
-
-                                    <div class="form-group mt-3">
-                                        <label for="document-name">Document Name</label>
-                                        <input type="text" class="form-control" id="document-name" name="name">
-                                    </div>
-
-                                    <div class="form-group mt-4">
-                                        <input style="background: #f1f1f1" type="file" name="document" multiple />
-                                    </div>
-
-                                </div>
+                            <div class="row">
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input id ="project-list" name="project_id" value="${data.data.id}" type="hidden">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="version">Version</label>
-                                        <input type="text" class="form-control" id="version" placeholder="Enter Version" name="version">
-                                    </div>
-
+                                        <input id="client-list" name="client_id" value="${data.data.client_id}" type="hidden">
                                 </div>
 
-                                <div class="col-md-3 form-group mt-2">
-                                    <input type="button" onclick="submitProjectDoc()" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit">
+                                <div class="form-group mt-3">
+                                    <label for="document-name">Document Name</label>
+                                    <input type="text" class="form-control" id="document-name" name="name">
                                 </div>
+
+                                <div class="form-group mt-4">
+                                    <input style="background: #f1f1f1" type="file" name="document" multiple />
+                                </div>
+
                             </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input id ="project-list" name="project_id" value="${data.data.id}" type="hidden">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="version">Version</label>
+                                    <input type="text" class="form-control" id="version" placeholder="Enter Version" name="version">
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3 form-group mt-2">
+                                <input type="button" onclick="submitProjectDoc()" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit">
+                            </div>
+                        </div>
                         </form>
 
                     </div>
