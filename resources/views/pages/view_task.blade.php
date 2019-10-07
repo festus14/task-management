@@ -300,7 +300,7 @@
         </div>
     </div>
     {{-- end Task Category Modal --}}
-    $('#addDocumentModal').modal('hide');
+    $('#editTaskStatusModal').modal('hide');
     window.setTimeout(function () {
         $("#kt_table_project_type").DataTable().ajax.reload();
     }, 3000)
@@ -857,7 +857,7 @@
                                     success: function (data) {
                                         swal("Deleted!", "Task category successfully deleted.", "success");
                                         window.setTimeout(function(){
-                                            location.reload();
+                                            $("#kt_table_task_category").DataTable().ajax.reload();
                                         } , 2500);
                                     },
                                         error: function (data) {
@@ -1055,9 +1055,10 @@
                             icon: "success",
                             confirmButtonColor: "#DD6B55",
                         });
+                        $('#editTaskStatusModal').modal('hide');
                         window.setTimeout(function(){
-                            location.reload();
-                        }, 3000)
+                            $("#kt_table_task_status").DataTable().ajax.reload();
+                        }, 2300)
 
                         },
                         error: function (error) {
@@ -1094,8 +1095,8 @@
                                     success: function (data) {
                                         swal("Deleted!", "Task category successfully deleted.", "success");
                                         window.setTimeout(function(){
-                                            location.reload();
-                                        } , 2500);
+                                            $("#kt_table_task_status").DataTable().ajax.reload();
+                                        } , 2300);
                                     },
                                         error: function (data) {
                                             swal("Delete failed", "Please try again", "error");
@@ -1512,8 +1513,8 @@
                         // confirmButtonText: "OK",
                     });
                     window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
+                        $("#kt_table_single_project_reports").DataTable().ajax.reload();
+                    }, 2300)
 
                 },
                 error: function (error) {
@@ -1547,8 +1548,8 @@
                         // confirmButtonText: "OK",
                     });
                     window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
+                      $("#kt_table_single_project_documents").DataTable().ajax.reload();
+                    }, 2400)
 
                 },
                 error: function (error) {
@@ -2270,9 +2271,10 @@
                                 confirmButtonColor: "#DD6B55",
                                 // confirmButtonText: "OK",
                             });
+                            $('#editTaskModalMain').modal('hide');
                             window.setTimeout(function(){
-                                location.reload();
-                            }, 3000)
+                              $("#kt_table_task").DataTable().ajax.reload();
+                            }, 2300)
 
                             },
                             error: function (error) {
@@ -2308,8 +2310,9 @@
                         icon: "success",
                         confirmButtonText: "Ok",
                         });
+                      $('#createTaskModal').modal('hide');
                     window.setTimeout(function(){
-                        location.reload();
+                        $("#kt_table_task").DataTable().ajax.reload();
                     } , 3000);
                 },
                 error: function (error) {
@@ -2530,9 +2533,10 @@
                         confirmButtonColor: "#DD6B55",
                         // confirmButtonText: "OK",
                     });
+                    $('#editTaskCategoryModal').modal('hide');
                     window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
+                        $("#kt_table_task_category").DataTable().ajax.reload();
+                    }, 2300)
 
                     },
                     error: function (error) {
@@ -2566,9 +2570,10 @@
                         icon: "success",
                         confirmButtonText: "Ok",
                         });
+                        $('#addTaskCategory').modal('hide');
                         window.setTimeout(function(){
-                            location.reload();
-                        } , 2500);
+                            $("#kt_table_task_category").DataTable().ajax.reload();
+                        } , 2300);
                     // getTaskCategoryAjaxDT();
                     // document.getElementById('category-name').value = "";
                     // document.getElementById('weightId').value = "";
@@ -2599,9 +2604,10 @@
                         icon: "success",
                         confirmButtonText: "Ok",
                         });
+                        $('#AddStatus').modal('hide');
                         window.setTimeout(function(){
-                            location.reload();
-                        } , 3000);
+                            $("#kt_table_task_status").DataTable().ajax.reload();
+                        } , 2300);
                 },
                 error: function (error) {
                     swal("Task creation failed", "Please check missing fields", "error");
