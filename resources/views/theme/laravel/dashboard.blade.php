@@ -478,11 +478,11 @@
             }],
         });
 
-        new $.fn.dataTable.Buttons( taskDataTable, {
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ],
-        } );
+        // new $.fn.dataTable.Buttons( taskDataTable, {
+        //     buttons: [
+        //         'copy', 'excel', 'pdf'
+        //     ],
+        // } );
 
         $(function () {
 
@@ -542,7 +542,7 @@
             });
 
             $.fn.dataTable.ext.classes.sPageButton = '';
-            let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
+            let deleteButtonTrans = '{{ trans('Sue') }}';
             let deleteButton = {
                 text: deleteButtonTrans,
                 url: "{{ route('admin.tasks.massDestroy') }}",
@@ -569,10 +569,11 @@
             }
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
             @can('task_delete')
-            dtButtons.push(deleteButton);
+                dtButtons.push(deleteButton);
             @endcan
 
-            $('.datatable:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+            $('.datatable:not(.ajaxTable)').DataTable({
+                 buttons: dtButtons })
         })
 
     </script>
