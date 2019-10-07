@@ -454,10 +454,7 @@
         </div>
     </div>
     {{-- End Project subType datatable modal --}}
-    $('#addDocumentModal').modal('hide');
-    window.setTimeout(function () {
-        $("#kt_table_project_type").DataTable().ajax.reload();
-    }, 3000)
+
     <!--AddSubtype main Modal-->
     <div class="modal fade" id="subtypemainModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
