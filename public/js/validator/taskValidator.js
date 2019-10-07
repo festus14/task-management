@@ -2,7 +2,6 @@ function validateCreateTaskForm() {
     // Retrieving the values of form elements
     let clientlist = $('#client-list').val();
     let projectlist = $('#project-list').val();
-    let projSubList = $('#project-subtype-list').val();
     let taskName = $('#create-task').val();
     let taskCat = $('#task-category').val();
     let taskStat = $('#task-status').val();
@@ -13,7 +12,7 @@ function validateCreateTaskForm() {
 
 
     // Defining error variables with a default value
-    var clientErr = projListErr = projSubErr = nameErr = categoryErr = statusErr = managerErr = assignErr = startErr = endErr = true;
+    var clientErr = projListErr = nameErr = categoryErr = statusErr = managerErr = assignErr = startErr = endErr = true;
 
     // Validate client
     if (clientlist == "") {
@@ -28,13 +27,6 @@ function validateCreateTaskForm() {
     } else {
         printError("projListErr", "");
         projListErr = false;
-    }
-    // Validate project sub
-    if (projSubList == "") {
-        printError("projSubErr", "Please select a project subtype");
-    } else {
-        printError("projSubErr", "");
-        projSubErr = false;
     }
 
     var allTasks;
@@ -123,7 +115,7 @@ function validateCreateTaskForm() {
 
     // Prevent the form from being submitted if there are any errors
 
-    if ((clientErr || projListErr || projSubErr || nameErr || categoryErr || statusErr || managerErr || assignErr || startErr || endErr) == true) {
+    if ((clientErr || projListErr || nameErr || categoryErr || statusErr || managerErr || assignErr || startErr || endErr) == true) {
         return false;
     } else {
 
@@ -135,7 +127,6 @@ function validateEditCreateTaskForm(task_id) {
     // Retrieving the values of form elements
     let EditClientlist = $('#client-list').val();
     let EditProjectlist = $('#project-list').val();
-    let EditProjSubList = $('#project-subtype-list').val();
     let EditTaskName = $('#create-task').val();
     let EditTaskCat = $('#task-category').val();
     let EditTaskStat = $('#task-status').val();
@@ -146,7 +137,7 @@ function validateEditCreateTaskForm(task_id) {
 
 
     // Defining error variables with a default value
-    var editClientErr = editProjectErr = editProjectSubTypeErr = editTaskNameErr = editTaskCatErr = editTaskStatusErr = editManagerErr = editAssignedTosErr = editStartErr = editEndErr = true;
+    var editClientErr = editProjectErr = editTaskNameErr = editTaskCatErr = editTaskStatusErr = editManagerErr = editAssignedTosErr = editStartErr = editEndErr = true;
 
     // Validate client
     if (EditClientlist == "") {
@@ -161,13 +152,6 @@ function validateEditCreateTaskForm(task_id) {
     } else {
         printError("editProjectErr", "");
         editProjectErr = false;
-    }
-    // Validate project sub
-    if (EditProjSubList == "") {
-        printError("editProjectSubTypeErr", "Please select a project subtype");
-    } else {
-        printError("editProjectSubTypeErr", "");
-        editProjectSubTypeErr = false;
     }
 
     if (EditTaskName == "") {
@@ -229,7 +213,7 @@ function validateEditCreateTaskForm(task_id) {
 
     // Prevent the form from being submitted if there are any errors
 
-    if ((editClientErr || editProjectErr || editProjectSubTypeErr || editTaskNameErr || editTaskCatErr || editTaskStatusErr || editManagerErr || editAssignedTosErr || editStartErr || editEndErr) == true) {
+    if ((editClientErr || editProjectErr || editTaskNameErr || editTaskCatErr || editTaskStatusErr || editManagerErr || editAssignedTosErr || editStartErr || editEndErr) == true) {
         return false;
     } else {
 
