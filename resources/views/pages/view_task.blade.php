@@ -1858,31 +1858,20 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Select Project Subtype</label>
-                                            <select id="project-subtype-list" name="project_subtype_id" class="form-control">
-
-                                            </select>
-
-                                            <div class="error" id="projListErr"></div>
+                                            <label for="create-task">Task Name</label>
+                                            <input type="text" name="name" class="form-control" id="create-task" placeholder="" required>
+                                            <div class="error" id="nameErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Select Project</label>
-                                            <select id="project-list" onchange="filterSubtype()" name="project_id" class="selectDesign form-control">
+                                            <select id="project-list" name="project_id" class="selectDesign form-control">
 
                                             </select>
-                                            <div class="error" id="projSubErr"></div>
+                                            <div class="error" id="projListErr"></div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="create-task">Task Name</label>
-                                            <input type="text" name="name" class="form-control" id="create-task" placeholder="Enter Task Name" required>
-                                            <div class="error" id="nameErr"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Task Category</label>
                                             <select id="task-category" name="category_id" class="selectDesign form-control">
@@ -1892,7 +1881,8 @@
                                             <div class="error" id="categoryErr"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-12">
+
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Task Status</label>
                                             <select id="task-status" name="status_id" class="selectDesign form-control">
@@ -1902,7 +1892,7 @@
                                                 <div class="error" id="statusErr"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
@@ -1995,6 +1985,7 @@
 
                     function filterType(){
                         let clientVal = document.getElementById("client-list").value;
+                        console.log(clientVal);
                         $.ajax({
                             type: "GET",
                             url: "{{ url('/api/v1/clients')}}" + "/" + clientVal,
@@ -2016,26 +2007,28 @@
                     }
 
 
-                    function filterSubtype(){
-                        let typeVal = document.getElementById("project-list").value;
-                        $.ajax({
-                            type: "GET",
-                            url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
-                            success: function (data) {
-                                document.getElementById('project-subtype-list').innerHTML = `
-                                <option value="" selected></option> `
-                                 +
-                                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                + `
-                                `
-                            },
-                            error: function (data) {
-                                `
-                                <option value="" selected></option>
-                                `
-                            }
-                        });
-                    }
+                    // function filterSubtype(){
+                    //     console.log(typeVal, "Im here");
+                    //     let typeVal = document.getElementById("project-list").value;
+
+                    //     $.ajax({
+                    //         type: "GET",
+                    //         url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
+                    //         success: function (data) {
+                    //             document.getElementById('project-subtype-list').innerHTML = `
+                    //             <option value="" selected></option> `
+                    //              +
+                    //             data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                    //             + `
+                    //             `
+                    //         },
+                    //         error: function (data) {
+                    //             document.getElementById('project-subtype-list').innerHTML = `
+                    //             <option value="" selected></option>
+                    //             `
+                    //         }
+                    //     });
+                    // }
 
 
                 //Edit Task
@@ -2063,31 +2056,20 @@
                                         </div>
 
                                         <div class="form-group">
-                                                <label for="edit-project-subtype-list">Select Project Subtype</label>
-                                            <select id="edit-project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
-                                                ${Object.keys(allData.projects_sub_type).map((key, index) => `<option value="${key}">${allData.projects_sub_type[key]}</option>`)}
-                                            </select>
-
-                                            <div class="error" id="editProjectErr"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                                <label for="edit-project-list">Select Project</label>
-                                            <select id="edit-project-list" onchange="editFilterSubType()" name="project_id" class="selectDesign form-control">
-                                                ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
-                                            </select>
-                                            <div class="error" id="editProjectSubTypeErr"></div>
-                                        </div>
-
-                                        <div class="form-group">
                                             <label for="edit-create-task">Task Name</label>
                                             <input type="text" name="name" class="form-control" id="edit-create-task" placeholder="Enter Task Name" required>
                                             <div class="error" id="editTaskNameErr"></div>
                                         </div>
-
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="edit-project-list">Select Project</label>
+                                            <select id="edit-project-list" name="project_id" class="selectDesign form-control">
+                                                ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
+                                            </select>
+                                            <div class="error" id="editProjectErr"></div>
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="edit-task-category">Task Category</label>
                                             <select id="edit-task-category" name="category_id" class="selectDesign form-control">
@@ -2096,7 +2078,8 @@
                                             <div class="error" id="editTaskCatErr"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="edit-task-status">Task Status</label>
                                             <select id="edit-task-status" name="status_id" class="selectDesign form-control">
@@ -2105,7 +2088,8 @@
                                             <div class="error" id="editTaskStatusErr"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
+
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="edit-manager">Select Manager</label>
                                             <select id="edit-manager" name="manager_id" class="selectDesign form-control">
@@ -2114,7 +2098,8 @@
                                             <div class="error" id="editManagerErr"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-6">
+
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="edit-edit_assinged_tos">Assign task to</label>
                                                 <br>
@@ -2164,7 +2149,6 @@
                             $('#edit-task-status').val(editData.status_id + "");
                             $('#edit-manager').val(editData.manager_id + "");
                             $('#edit-task-category').val(editData.category_id + "");
-                            $('#edit-project-subtype-list').val(editData.project_subtype_id + "");
                             $('#edit_assinged_tos').val(editData.assinged_tos + "");
                             $('#edit-starting-date').val(editData.starting_date);
                             $('#edit-deadline').val(editData.ending_date);
@@ -2248,26 +2232,26 @@
                     }
 
 
-                    function editFilterSubType(){
-                        let typeVal = document.getElementById("edit-project-list").value;
-                        $.ajax({
-                            type: "GET",
-                            url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
-                            success: function (data) {
-                                document.getElementById('edit-project-subtype-list').innerHTML = `
-                                <option value="" selected></option> `
-                                 +
-                                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                + `
-                                `
-                            },
-                            error: function (data) {
-                                `
-                                <option value="" selected></option>
-                                `
-                            }
-                        });
-                    }
+                    // function editFilterSubType(){
+                    //     let typeVal = document.getElementById("edit-project-list").value;
+                    //     $.ajax({
+                    //         type: "GET",
+                    //         url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
+                    //         success: function (data) {
+                    //             document.getElementById('edit-project-subtype-list').innerHTML = `
+                    //             <option value="" selected></option> `
+                    //              +
+                    //             data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                    //             + `
+                    //             `
+                    //         },
+                    //         error: function (data) {
+                    //             `
+                    //             <option value="" selected></option>
+                    //             `
+                    //         }
+                    //     });
+                    // }
 
 
                 function submitEditTaskForm(taskID){
