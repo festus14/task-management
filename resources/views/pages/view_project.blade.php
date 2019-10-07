@@ -1486,21 +1486,21 @@
                 }
             });
             $.ajax({
-                    type: "POST",
-                    url: '/api/v1/projects',
-                    data: $('#addProjectForm').serialize(),
-                    success: function (data) {
-
-                        swal({
-                            title: "Success!",
-                            text: "Project Created!",
-                            icon: "success",
-                            confirmButtonColor: "#DD6B55",
-                            // confirmButtonText: "OK",
-                        });
-                        window.setTimeout(function(){
-                            location.reload();
-                        }, 3000)
+                type: "POST",
+                url: '/api/v1/projects',
+                data: $('#addProjectForm').serialize(),
+                success: function (data) {
+                    alert("dodo")
+                    swal({
+                        title: "Success!",
+                        text: "Project Created!",
+                        icon: "success",
+                        confirmButtonColor: "#DD6B55",
+                        // confirmButtonText: "OK",
+                    });
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 3000)
 
                 },
                 error: function (error) {
@@ -1604,7 +1604,7 @@
                                 <div class="row col-md-12">
                                     <div class="col-md-4 form-group mt-3">
                                         <label for="edit-manager_id">Manager</label><br>
-                                        <select id ="edit-manager_id" name="manager_id" class="form-control select2" style="width:100%;" required>
+                                        <select id ="edit-manager_id" name="manager_id" class="form-control" style="width:100%;" required>
                                             ` +
                                             projData.managers.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                         + `
@@ -1612,7 +1612,7 @@
                                     </div>
                                     <div class="col-md-4 form-group mt-3">
                                         <label for="edit-projtypeboy">Project Type</label>
-                                        <select class="form-control" id="edit-projtypeboy" onchange="editFilterSubtype()" name="project_type_id" required>
+                                        <select class="form-control" id="edit-projtypeboy" onchange="editFilterSubtype()" onclick="editFilterSubtype()" name="project_type_id" required>
                                             ` +
                                             projData.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
                                         + `
