@@ -546,18 +546,23 @@
 <script type="text/javascript" src="{{ asset('js/validator/clientValidtor.js') }}"></script>
 {{--Body Scripts--}}
     <script>
-        $(window).on('load', function() {
+         $(document).ajaxStop(function () {
             $('#loading').hide();
         });
 
-        var csvButtonTrans = '{{ trans('global.datatables.csv') }}';
-        var excelButtonTrans = '{{ trans('global.datatables.excel') }}';
-        var pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
-        var printButtonTrans = '{{ trans('global.datatables.print') }}';
-        var colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
-        var languages = {
-            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
-        };
+        $(document).ajaxStart(function () {
+            $('#loading').show();
+        });
+
+        let languages = {
+                    'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+                };
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
         var clientData;
         function editClient(client_id){
@@ -851,17 +856,102 @@
                             </div>\
                                     ';
                 }
-            },],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
+            }],
+
                 buttons: [
-                    'excel', 'pdf', 'print'
-                ]
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Reload',
+                            className: 'btn-info',
+                            action: function ( e, dt, node, config ) {
+                                dt.ajax.reload();
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
+
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "This project type will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.projects.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Project successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
+                    ]
             });
 
             }
@@ -956,7 +1046,6 @@
                                                 <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
                                                             <th>Name</th>
                                                             <th>Starting Date</th>
                                                             <th>Deadline</th>
@@ -1181,17 +1270,100 @@
                                 </div>\
                                 ';
                         }
-                    },
-                    ],
-                    select: {
-                        style: 'multi+shift',
-                        selector: 'td:first-child'
-                    },
-                    scrollX: true,
-                    order: [],
-                    pageLength: 10,
+                    }],
                     buttons: [
-                        'excel', 'pdf', 'print'
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Reload',
+                            className: 'btn-info',
+                            action: function ( e, dt, node, config ) {
+                                dt.ajax.reload();
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
+
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "This project type will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.projects.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Project successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
                     ]
                 });
             }
@@ -1523,32 +1695,23 @@
                 ajax: path_url,
 
                 columns: [
-                    {"defaultContent": ""},
                     {"data": "name"},
                     {"data": "starting_date"},
                     {"data": "ending_date"},
                     {"data": "category.name"},
                     {"data": "status.name"},
                 ],
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }, {
+                columnDefs: [
+                //     {
+                //     orderable: false,
+                //     className: 'select-checkbox',
+                //     targets: 0
+                // },
+                 {
                     orderable: false,
                     searchable: false,
                     targets: -1
                 },
-                ],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
-                buttons: [
-                    'excel', 'pdf', 'print'
                 ]
             });
             }
@@ -1789,6 +1952,62 @@
         }
         });
 
+        $(function () {
+            let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
+            let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
+            let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
+            let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
+            let printButtonTrans = '{{ trans('global.datatables.print') }}';
+            let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
+            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
+            $.extend(true, $.fn.dataTable.defaults, {
+                language: {
+                    url: languages.{{ app()->getLocale() }}
+                },
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                }],
+                select: {
+                    style:    'multi+shift',
+                    selector: 'td:first-child'
+                },
+                order: [],
+                pageLength: 10,
+                dom: 'lBfrtip<"actions">',
+                buttons: [
+                            {
+                                extend: 'excel',
+                                className: 'btn-primary',
+                                text: 'Excel',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            }, {
+                                extend: 'pdf',
+                                className: 'btn-success',
+                                text: 'PDF',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'csv',
+                                className: 'btn-info',
+                                text: 'CSV',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                        ]
+            });
+
+        })
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

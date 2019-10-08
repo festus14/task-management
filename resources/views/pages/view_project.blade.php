@@ -1257,6 +1257,7 @@
                                 icon: "success",
                                 confirmButtonColor: "#DD6B55",
                             });
+                            $('#editProjectModal').modal('hide');
                             window.setTimeout(function () {
                                 $("#kt_table_projects").DataTable().ajax.reload();
                             }, 2400)
@@ -1355,7 +1356,7 @@
                                 icon: "success",
                                 confirmButtonColor: "#DD6B55",
                             });
-                            $('#subtypemainModal').modal('hide');
+                            $('#editProjectSubTypeModal').modal('hide');
                             window.setTimeout(function () {
                              $("#kt_table_project_subtype").DataTable().ajax.reload();
                             }, 2400)
@@ -2196,7 +2197,7 @@
                             let commentbody = document.getElementById('commentModal');
                             // let probSubtypeBody = document.getElementById('subtypeModalBody');
                             commentbody.innerHTML = `
-        <div class="modal-dialog modal-dialog-centered" id="commentPage" style="overflow-y:hidden; height:99vh; min-height: 70vh; max-width: 98vw; min-width: 70vw; overflow:hidden;" role="document">
+        <div class="modal-dialog modal-dialog-centered" id="commentPage" style="overflow-y:hidden; height:95vh; min-height: 70vh; max-width: 94vw; min-width: 70vw; overflow:hidden;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Project Comments</h5>
@@ -2675,11 +2676,12 @@
                             <div class="form-group">
                                 <label for="create-task">Project type name</label>
                                 <input type="text" class="form-control" id="editprojTypeInput" name="name" placeholder="" value="" required>
+                                <div class="error" id="editProjectTypeErr"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="$('#EditProjectTypeModal').modal('hide');">Close</button>
-                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="submitEditProjectType(${type_id})" value="Update">
+                            <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditProjectType(${type_id})" value="Update">
                     </div>
                 </form>
                 `
@@ -2951,7 +2953,7 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                                         <label for="project-type">Select Project Type</label>
                                         <select id="project-type" name="project_type_id" class="selectDesign form-control">
                                             <option value="" selected></option>
-${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
+                                                ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                                     </select>
                                     <div class="error" id="projectTTTypeErr"></div>
                                 </div>
