@@ -300,10 +300,7 @@
         </div>
     </div>
     {{-- end Task Category Modal --}}
-    $('#editTaskStatusModal').modal('hide');
-    window.setTimeout(function () {
-        $("#kt_table_project_type").DataTable().ajax.reload();
-    }, 3000)
+
     {{-- Task status datatable modal --}}
     <div class="modal fade" id="taskstatusDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:60%; min-width:300px;">
@@ -1579,7 +1576,6 @@
 
 
             function taskComments(task_id){
-                // Task Comments Scripts Goes Here
                 $.ajax({
                     type: "GET",
                     url: "{{ url('/api/v1/tasks') }}" + "/" + task_id,
@@ -1591,7 +1587,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                  <button type="button" class="close" onclick="$('#taskCommentPage').modal('hide');" aria-label="Close">
+                    <button type="button" class="close" onclick="$('#commentModal').modal('hide');" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
