@@ -1500,6 +1500,7 @@
 
                 // post to the create proj table
                 const createProject = () => {
+                    console.log($('#addProjectForm').serialize())
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1507,7 +1508,7 @@
                     });
                     $.ajax({
                         type: "POST",
-                        url: "{{ url('/api/v1/projects') }}",
+                        url: '{{ url("/api/v1/projects"}}' ,
                         data: $('#addProjectForm').serialize(),
                         success: function (data) {
 
