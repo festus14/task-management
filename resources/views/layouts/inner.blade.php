@@ -36,6 +36,7 @@
     <link href="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <!--end::Base Styles metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.css-->
     <link rel="shortcut icon" href="{{ url('metro/assets/demo/demo2/media/img/logo/logo.ico') }}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <!--end::Base Styles -->
 
     @yield('css')

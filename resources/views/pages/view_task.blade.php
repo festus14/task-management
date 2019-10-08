@@ -1289,7 +1289,13 @@
                                                         <td>${item.document_type}</td>
                                                         <td>${item.comment}</td>
                                                         <td>${item.created_at}</td>
-                                                        <td><button class="btn btn-danger" onclick="deleteTaskDocument(${item.id})"><i class="fa fa-trash"> </i></button></td>
+                                                        <td>
+                                                            <form action="{{ url('/admin/task-documents/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                            </form>
+                                                        </td>
                                                     </tr>`
                                                 ) +`
                                             </tbody>
@@ -1432,7 +1438,7 @@
                 </button>
                     </div>
                     <div class="modal-body">
-                        <form id="taskDocumentForm" enctype="multipart/form-data">
+                        <form action="{{ url("/admin/task-documents/store") }}" onsubmit="" id="taskDocumentForm" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">
@@ -1443,21 +1449,59 @@
                                     <div class="form-group mt-3">
                                         <label for="document-name">Document Name</label>
                                         <input name="name" type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
+                                        @if($errors->has('name'))
+                                            <p class="help-block">
+                                                {{ $errors->first('name') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.taskDocument.fields.name_helper') }}
+                                        </p>
                                     </div>
 
-                                    <div class="form-group mt-4">
+                                    <!-- <div class="form-group mt-4">
                                         <input style="background: #f1f1f1" type="file" name="document" multiple />
+                                    </div> -->
+
+                                    <div class="form-group {{ $errors->has('document') ? 'has-error' : '' }}">
+                                        <label for="document">{{ trans('cruds.taskDocument.fields.document') }}*</label>
+                                        <div class="needsclick dropzone" id="document-dropzone">
+
+                                        </div>
+                                        @if($errors->has('document'))
+                                            <p class="help-block">
+                                                {{ $errors->first('document') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.taskDocument.fields.document_helper') }}
+                                        </p>
                                     </div>
 
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
+                                        <input type="hidden" class="form-control" id="doc-task-id" name="task_id" value="${data.data.id}">
+                                    </div>
+
+                                    <div class="form-group">
                                         <input type="hidden" class="form-control" id="project-list_doc" name="project_id" value="${data.data.project_id}">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="task-list">Document Type</label>
-                                        <input type="text" class="form-control" id="version" name="document_type" placeholder="Enter Type">
+                                        <label for="document_type">Document Type</label>
+                                        <select id="document_type" name="document_type" class="form-control" required="">
+                                            <option value="" disabled="" selected="">Please select</option>
+                                            <option value="1">Word</option>
+                                            <option value="2">PDF</option>
+                                            <option value="3">Excel</option>
+                                            <option value="4">Text</option>
+                                        </select>
+                                        @if($errors->has('document_type'))
+                                            <p class="help-block">
+                                                {{ $errors->first('document_type') }}
+                                            </p>
+                                        @endif
                                     </div>
 
                                 </div>
@@ -1506,7 +1550,7 @@
                         });
                             $.ajax({
                                 type: "DELETE",
-                                url: "{{ url('api/v1/documents')}}" + '/' + docID,
+                                url: "{{ url('/admin/documents/destroy')}}" + '/' + docID,
                                 success: function (data) {
                                     swal("Deleted!", "Document has been successfully deleted.", "success");
                                     window.setTimeout(function(){
@@ -2693,6 +2737,56 @@
         }
 
 
+    </script>
+
+    <script>
+        Dropzone.options.documentDropzone = {
+        url: '{{ route('admin.task-documents.storeMedia') }}',
+        maxFilesize: 20, // MB
+        maxFiles: 1,
+        addRemoveLinks: true,
+        headers: {
+        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+        params: {
+        size: 20
+        },
+        success: function (file, response) {
+        $('form').find('input[name="document"]').remove()
+        $('form').append('<input type="hidden" name="document" value="' + response.name + '">')
+        },
+        removedfile: function (file) {
+        file.previewElement.remove()
+        $('form').find('input[name="document"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+        },
+        init: function () {
+            @if(isset($taskDocument) && $taskDocument->document)
+            var file = {!! json_encode($taskDocument->document) !!}
+                this.options.addedfile.call(this, file)
+            file.previewElement.classList.add('dz-complete')
+            $('form').append('<input type="hidden" name="document" value="' + file.file_name + '">')
+            this.options.maxFiles = this.options.maxFiles - 1
+
+                @endif
+            },
+            error: function (file, response) {
+            if ($.type(response) === 'string') {
+                var message = response //dropzone sends it's own error messages in string
+            } else {
+                var message = response.errors.file
+            }
+            file.previewElement.classList.add('dz-error')
+            _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+            _results = []
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i]
+                _results.push(node.textContent = message)
+            }
+
+            return _results
+        }
+        }
     </script>
 
 

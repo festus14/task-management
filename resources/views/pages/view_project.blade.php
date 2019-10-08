@@ -1508,7 +1508,7 @@
                     });
                     $.ajax({
                         type: "POST",
-                        url: '{{ url("/api/v1/projects")}}' ,
+                        url: '{{ url("/api/v1/projects") }}' ,
                         data: $('#addProjectForm').serialize(),
                         success: function (data) {
 
