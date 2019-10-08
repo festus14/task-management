@@ -1278,6 +1278,7 @@
                                                     <th>Document Type</th>
                                                     <th>File</th>
                                                     <th>Date Created</th>
+                                                    <th>Tools</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1288,6 +1289,7 @@
                                                         <td>${item.document_type}</td>
                                                         <td>${item.comment}</td>
                                                         <td>${item.created_at}</td>
+                                                        <td><button onclick="deleteTaskDocument(${item.id})"Delete</button></td>
                                                     </tr>`
                                                 ) +`
                                             </tbody>
@@ -1484,6 +1486,45 @@
 
         })
 
+    }
+
+    // Delete single task document
+    function deleteTaskDocument(docID){
+        swal({
+                    title: "Are you sure?",
+                    text: "Everything relating to this document will be lost!",
+                    icon: "warning",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                     if (willDelete) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                            $.ajax({
+                                type: "DELETE",
+                                url: "{{ url('api/v1/documents')}}" + '/' + docID,
+                                success: function (data) {
+                                    swal("Deleted!", "Task has been successfully deleted.", "success");
+                                    window.setTimeout(function(){
+                                        location.reload();
+                                    } , 2500);
+                                },
+                                    error: function (data) {
+                                        swal("Delete failed", "Please try again", "error");
+                                    }
+
+                                });
+                            }
+
+             else {
+                        swal("Cancelled", "Delete cancelled", "error");
+                    }
+
+                });
     }
 
     // Search Through Task Members FUnction
