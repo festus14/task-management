@@ -1508,7 +1508,7 @@
                     });
                     $.ajax({
                         type: "POST",
-                        url: '{{ url("/api/v1/projects"}}' ,
+                        url: '{{ url("/api/v1/projects")}}' ,
                         data: $('#addProjectForm').serialize(),
                         success: function (data) {
 
@@ -1547,7 +1547,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "/api/v1/project_create",
+                        url: '{{ url("/api/v1/project_create") }}',
                         success: function (data) {
                             var projData = data;
                             let editProjectBody = document.getElementById('editProjectBody');
@@ -1669,7 +1669,7 @@
                     })
                     $.ajax({
                         type: "GET",
-                        url: "/api/v1/projects/" + project_id,
+                        url: '{{ url("/api/v1/projects/") }}' + "/" + project_id,
                         success: function (data) {
                             editProjectData = data.data;
                             let team_members = editProjectData.team_members.map(elem => elem.name)
@@ -1716,7 +1716,7 @@
                 function displayProjectInfo(proID) {
                     $.ajax({
                         type: "GET",
-                        url: "/api/v1/projects/" + proID,
+                        url: '{{ url("/api/v1/projects/") }}' + "/" + proID,
                         beforeSend: function () {
                             // Show image container
                             $("#loader").show();
@@ -2131,7 +2131,7 @@
                     let formData = $('#addProjectReportForm').serialize();
                     $.ajax({
                         type: "POST",
-                        url: "/api/v1/project-reports",
+                        url: '{{ url("/api/v1/project-reports") }}',
                         data: formData,
                         success: function (data) {
                             swal({

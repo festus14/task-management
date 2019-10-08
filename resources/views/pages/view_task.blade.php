@@ -1531,7 +1531,7 @@
     function deleteTaskReport(repID){
         swal({
                     title: "Are you sure?",
-                    text: "Everything relating to this document will be lost!",
+                    text: "Everything relating to this report will be lost!",
                     icon: "warning",
                     icon: "warning",
                     buttons: true,
