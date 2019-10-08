@@ -300,7 +300,10 @@
         </div>
     </div>
     {{-- end Task Category Modal --}}
-
+    $('#editTaskStatusModal').modal('hide');
+    window.setTimeout(function () {
+        $("#kt_table_project_type").DataTable().ajax.reload();
+    }, 3000)
     {{-- Task status datatable modal --}}
     <div class="modal fade" id="taskstatusDatatable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:60%; min-width:300px;">
@@ -532,7 +535,7 @@
                                 if (ids.length === 0) {
                                     swal({
                                         title: "No Item selected",
-                                        text: "Please select at leaset one row!",
+                                        text: "Please select at least one row!",
                                         icon: "error",
                                         confirmButtonColor: "#fc3",
                                         confirmButtonText: "OK",
@@ -541,7 +544,7 @@
                                 }
                                 swal({
                                     title: "Are you sure?",
-                                    text: "This project type will be deleted!",
+                                    text: "The selected  will be deleted!",
                                     icon: "warning",
                                     buttons: true,
                                     dangerMode: true,
@@ -560,9 +563,9 @@
                                                 ids: ids,
                                                 _method: 'DELETE'
                                             },
-                                            url: "{{ route('admin.projects.massDestroy') }}",
+                                            url: "{{ route('admin.tasks.massDestroy') }}",
                                             success: function (data) {
-                                                swal("Deleted!", "Project successfully deleted.", "success");
+                                                swal("Deleted!", "Task(s) successfully deleted.", "success");
                                                 window.setTimeout(function () {
                                                     dt.ajax.reload();
                                                 }, 2500);
@@ -654,23 +657,6 @@
                 }
             });
 
-            //delete user login
-            $('body').on('click', '.delete-user', function () {
-                var user_id = $(this).data("id");
-                confirm("Are You sure want to delete !");
-
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ url('ajax-crud')}}" + '/' + user_id,
-                    success: function (data) {
-                        $("#user_id_" + user_id).remove();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-            });
-        // });
 
             // Delete Task Function
             deleteSingleTask=(taskID)=>{
@@ -695,8 +681,8 @@
                                 success: function (data) {
                                     swal("Deleted!", "Task has been successfully deleted.", "success");
                                     window.setTimeout(function(){
-                                        location.reload();
-                                    } , 2500);
+                                        $("#kt_table_task").DataTable().ajax.reload();
+                                    } , 2200);
                                 },
                                     error: function (data) {
                                         swal("Delete failed", "Please try again", "error");
@@ -795,7 +781,7 @@
                                 if (ids.length === 0) {
                                     swal({
                                         title: "No Item selected",
-                                        text: "Please select at leaset one row!",
+                                        text: "Please select at least one row!",
                                         icon: "error",
                                         confirmButtonColor: "#fc3",
                                         confirmButtonText: "OK",
@@ -871,7 +857,7 @@
                                     success: function (data) {
                                         swal("Deleted!", "Task category successfully deleted.", "success");
                                         window.setTimeout(function(){
-                                            location.reload();
+                                            $("#kt_table_task_category").DataTable().ajax.reload();
                                         } , 2500);
                                     },
                                         error: function (data) {
@@ -968,7 +954,7 @@
                                 if (ids.length === 0) {
                                     swal({
                                         title: "No Item selected",
-                                        text: "Please select at leaset one row!",
+                                        text: "Please select at least one row!",
                                         icon: "error",
                                         confirmButtonColor: "#fc3",
                                         confirmButtonText: "OK",
@@ -1069,9 +1055,10 @@
                             icon: "success",
                             confirmButtonColor: "#DD6B55",
                         });
+                        $('#editTaskStatusModal').modal('hide');
                         window.setTimeout(function(){
-                            location.reload();
-                        }, 3000)
+                            $("#kt_table_task_status").DataTable().ajax.reload();
+                        }, 2300)
 
                         },
                         error: function (error) {
@@ -1108,8 +1095,8 @@
                                     success: function (data) {
                                         swal("Deleted!", "Task category successfully deleted.", "success");
                                         window.setTimeout(function(){
-                                            location.reload();
-                                        } , 2500);
+                                            $("#kt_table_task_status").DataTable().ajax.reload();
+                                        } , 2300);
                                     },
                                         error: function (data) {
                                             swal("Delete failed", "Please try again", "error");
@@ -1567,8 +1554,8 @@
                         // confirmButtonText: "OK",
                     });
                     window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
+                        $("#kt_table_single_project_reports").DataTable().ajax.reload();
+                    }, 2300)
 
                 },
                 error: function (error) {
@@ -1602,8 +1589,8 @@
                         // confirmButtonText: "OK",
                     });
                     window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
+                      $("#kt_table_single_project_documents").DataTable().ajax.reload();
+                    }, 2400)
 
                 },
                 error: function (error) {
@@ -1899,20 +1886,31 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="create-task">Task Name</label>
-                                            <input type="text" name="name" class="form-control" id="create-task" placeholder="" required>
-                                            <div class="error" id="nameErr"></div>
+                                            <label>Select Project Subtype</label>
+                                            <select id="project-subtype-list" name="project_subtype_id" class="form-control">
+
+                                            </select>
+
+                                            <div class="error" id="projListErr"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Select Project</label>
-                                            <select id="project-list" name="project_id" class="selectDesign form-control">
+                                            <select id="project-list" onchange="filterSubtype()" name="project_id" class="selectDesign form-control">
 
                                             </select>
-                                            <div class="error" id="projListErr"></div>
+                                            <div class="error" id="projSubErr"></div>
                                         </div>
 
+                                        <div class="form-group">
+                                            <label for="create-task">Task Name</label>
+                                            <input type="text" name="name" class="form-control" id="create-task" placeholder="Enter Task Name" required>
+                                            <div class="error" id="nameErr"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Task Category</label>
                                             <select id="task-category" name="category_id" class="selectDesign form-control">
@@ -1922,8 +1920,7 @@
                                             <div class="error" id="categoryErr"></div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Task Status</label>
                                             <select id="task-status" name="status_id" class="selectDesign form-control">
@@ -1933,7 +1930,7 @@
                                                 <div class="error" id="statusErr"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Select Manager</label>
                                             <select id="manager" name="manager_id" class="selectDesign form-control">
@@ -2026,7 +2023,6 @@
 
                     function filterType(){
                         let clientVal = document.getElementById("client-list").value;
-                        console.log(clientVal);
                         $.ajax({
                             type: "GET",
                             url: "{{ url('/api/v1/clients')}}" + "/" + clientVal,
@@ -2048,28 +2044,26 @@
                     }
 
 
-                    // function filterSubtype(){
-                    //     console.log(typeVal, "Im here");
-                    //     let typeVal = document.getElementById("project-list").value;
-
-                    //     $.ajax({
-                    //         type: "GET",
-                    //         url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
-                    //         success: function (data) {
-                    //             document.getElementById('project-subtype-list').innerHTML = `
-                    //             <option value="" selected></option> `
-                    //              +
-                    //             data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                    //             + `
-                    //             `
-                    //         },
-                    //         error: function (data) {
-                    //             document.getElementById('project-subtype-list').innerHTML = `
-                    //             <option value="" selected></option>
-                    //             `
-                    //         }
-                    //     });
-                    // }
+                    function filterSubtype(){
+                        let typeVal = document.getElementById("project-list").value;
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
+                            success: function (data) {
+                                document.getElementById('project-subtype-list').innerHTML = `
+                                <option value="" selected></option> `
+                                 +
+                                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                + `
+                                `
+                            },
+                            error: function (data) {
+                                `
+                                <option value="" selected></option>
+                                `
+                            }
+                        });
+                    }
 
 
                 //Edit Task
@@ -2097,20 +2091,31 @@
                                         </div>
 
                                         <div class="form-group">
+                                                <label for="edit-project-subtype-list">Select Project Subtype</label>
+                                            <select id="edit-project-subtype-list" name="project_subtype_id" class="selectDesign form-control">
+                                                ${Object.keys(allData.projects_sub_type).map((key, index) => `<option value="${key}">${allData.projects_sub_type[key]}</option>`)}
+                                            </select>
+
+                                            <div class="error" id="editProjectErr"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                                <label for="edit-project-list">Select Project</label>
+                                            <select id="edit-project-list" onchange="editFilterSubType()" name="project_id" class="selectDesign form-control">
+                                                ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
+                                            </select>
+                                            <div class="error" id="editProjectSubTypeErr"></div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label for="edit-create-task">Task Name</label>
                                             <input type="text" name="name" class="form-control" id="edit-create-task" placeholder="Enter Task Name" required>
                                             <div class="error" id="editTaskNameErr"></div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="edit-project-list">Select Project</label>
-                                            <select id="edit-project-list" name="project_id" class="selectDesign form-control">
-                                                ${Object.keys(allData.projects).map((key, index) => `<option value="${key}">${allData.projects[key]}</option>`)}
-                                            </select>
-                                            <div class="error" id="editProjectErr"></div>
-                                        </div>
 
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="edit-task-category">Task Category</label>
                                             <select id="edit-task-category" name="category_id" class="selectDesign form-control">
@@ -2119,8 +2124,7 @@
                                             <div class="error" id="editTaskCatErr"></div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="edit-task-status">Task Status</label>
                                             <select id="edit-task-status" name="status_id" class="selectDesign form-control">
@@ -2129,8 +2133,7 @@
                                             <div class="error" id="editTaskStatusErr"></div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label for="edit-manager">Select Manager</label>
                                             <select id="edit-manager" name="manager_id" class="selectDesign form-control">
@@ -2139,8 +2142,7 @@
                                             <div class="error" id="editManagerErr"></div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label for="edit-edit_assinged_tos">Assign task to</label>
                                                 <br>
@@ -2190,6 +2192,7 @@
                             $('#edit-task-status').val(editData.status_id + "");
                             $('#edit-manager').val(editData.manager_id + "");
                             $('#edit-task-category').val(editData.category_id + "");
+                            $('#edit-project-subtype-list').val(editData.project_subtype_id + "");
                             $('#edit_assinged_tos').val(editData.assinged_tos + "");
                             $('#edit-starting-date').val(editData.starting_date);
                             $('#edit-deadline').val(editData.ending_date);
@@ -2273,26 +2276,26 @@
                     }
 
 
-                    // function editFilterSubType(){
-                    //     let typeVal = document.getElementById("edit-project-list").value;
-                    //     $.ajax({
-                    //         type: "GET",
-                    //         url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
-                    //         success: function (data) {
-                    //             document.getElementById('edit-project-subtype-list').innerHTML = `
-                    //             <option value="" selected></option> `
-                    //              +
-                    //             data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                    //             + `
-                    //             `
-                    //         },
-                    //         error: function (data) {
-                    //             `
-                    //             <option value="" selected></option>
-                    //             `
-                    //         }
-                    //     });
-                    // }
+                    function editFilterSubType(){
+                        let typeVal = document.getElementById("edit-project-list").value;
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
+                            success: function (data) {
+                                document.getElementById('edit-project-subtype-list').innerHTML = `
+                                <option value="" selected></option> `
+                                 +
+                                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
+                                + `
+                                `
+                            },
+                            error: function (data) {
+                                `
+                                <option value="" selected></option>
+                                `
+                            }
+                        });
+                    }
 
 
                 function submitEditTaskForm(taskID){
@@ -2309,9 +2312,10 @@
                                 confirmButtonColor: "#DD6B55",
                                 // confirmButtonText: "OK",
                             });
+                            $('#editTaskModalMain').modal('hide');
                             window.setTimeout(function(){
-                                location.reload();
-                            }, 3000)
+                              $("#kt_table_task").DataTable().ajax.reload();
+                            }, 2300)
 
                             },
                             error: function (error) {
@@ -2347,8 +2351,9 @@
                         icon: "success",
                         confirmButtonText: "Ok",
                         });
+                      $('#createTaskModal').modal('hide');
                     window.setTimeout(function(){
-                        location.reload();
+                        $("#kt_table_task").DataTable().ajax.reload();
                     } , 3000);
                 },
                 error: function (error) {
@@ -2569,9 +2574,10 @@
                         confirmButtonColor: "#DD6B55",
                         // confirmButtonText: "OK",
                     });
+                    $('#editTaskCategoryModal').modal('hide');
                     window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
+                        $("#kt_table_task_category").DataTable().ajax.reload();
+                    }, 2300)
 
                     },
                     error: function (error) {
@@ -2605,9 +2611,10 @@
                         icon: "success",
                         confirmButtonText: "Ok",
                         });
+                        $('#addTaskCategory').modal('hide');
                         window.setTimeout(function(){
-                            location.reload();
-                        } , 2500);
+                            $("#kt_table_task_category").DataTable().ajax.reload();
+                        } , 2300);
                     // getTaskCategoryAjaxDT();
                     // document.getElementById('category-name').value = "";
                     // document.getElementById('weightId').value = "";
@@ -2638,9 +2645,10 @@
                         icon: "success",
                         confirmButtonText: "Ok",
                         });
+                        $('#AddStatus').modal('hide');
                         window.setTimeout(function(){
-                            location.reload();
-                        } , 3000);
+                            $("#kt_table_task_status").DataTable().ajax.reload();
+                        } , 2300);
                 },
                 error: function (error) {
                     swal("Task creation failed", "Please check missing fields", "error");

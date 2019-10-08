@@ -554,14 +554,15 @@
             $('#loading').show();
         });
 
-        var csvButtonTrans = '{{ trans('global.datatables.csv') }}';
-        var excelButtonTrans = '{{ trans('global.datatables.excel') }}';
-        var pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
-        var printButtonTrans = '{{ trans('global.datatables.print') }}';
-        var colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
-        var languages = {
-            'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
-        };
+        let languages = {
+                    'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+                };
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
         var clientData;
         function editClient(client_id){
@@ -855,14 +856,8 @@
                             </div>\
                                     ';
                 }
-            },],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
+            }],
+
                 buttons: [
                         {
                             extend: 'excel',
@@ -1275,15 +1270,7 @@
                                 </div>\
                                 ';
                         }
-                    },
-                    ],
-                    select: {
-                        style: 'multi+shift',
-                        selector: 'td:first-child'
-                    },
-                    scrollX: true,
-                    order: [],
-                    pageLength: 10,
+                    }],
                     buttons: [
                         {
                             extend: 'excel',
@@ -1725,16 +1712,6 @@
                     searchable: false,
                     targets: -1
                 },
-                ],
-                select: {
-                    style: 'multi+shift',
-                    selector: 'td:first-child'
-                },
-                scrollX: true,
-                order: [],
-                pageLength: 10,
-                buttons: [
-                    'excel', 'pdf', 'print'
                 ]
             });
             }
@@ -1975,6 +1952,62 @@
         }
         });
 
+        $(function () {
+            let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
+            let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
+            let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
+            let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
+            let printButtonTrans = '{{ trans('global.datatables.print') }}';
+            let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
+            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
+            $.extend(true, $.fn.dataTable.defaults, {
+                language: {
+                    url: languages.{{ app()->getLocale() }}
+                },
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                }],
+                select: {
+                    style:    'multi+shift',
+                    selector: 'td:first-child'
+                },
+                order: [],
+                pageLength: 10,
+                dom: 'lBfrtip<"actions">',
+                buttons: [
+                            {
+                                extend: 'excel',
+                                className: 'btn-primary',
+                                text: 'Excel',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            }, {
+                                extend: 'pdf',
+                                className: 'btn-success',
+                                text: 'PDF',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'csv',
+                                className: 'btn-info',
+                                text: 'CSV',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                        ]
+            });
+
+        })
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
