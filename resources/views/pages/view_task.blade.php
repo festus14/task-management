@@ -1717,7 +1717,6 @@
 
 
             function taskComments(task_id){
-                // Task Comments Scripts Goes Here
                 $.ajax({
                     type: "GET",
                     url: "{{ url('/api/v1/tasks') }}" + "/" + task_id,
@@ -1729,7 +1728,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                  <button type="button" class="close" onclick="$('#taskCommentPage').modal('hide');" aria-label="Close">
+                    <button type="button" class="close" onclick="$('#commentModal').modal('hide');" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
