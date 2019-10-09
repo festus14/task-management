@@ -1365,6 +1365,7 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                                                     <th>Version</th>
                                                     <th>Date Created</th>
                                                     <th>File</th>
+                                                    <th>Tools</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1375,6 +1376,13 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                                                         <td>${item.version}</td>
                                                         <td>${item.created_at}</td>
                                                         <td></td>
+                                                        <td>
+                                                            <form action="{{ url('/admin/documents/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                            </form>
+                                                        </td>
                                                     </tr>`
                             ) + `
                                             </tbody>
