@@ -1189,7 +1189,7 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                    function displayProjectInfo(proID) {
                     $.ajax({
                         type: "GET",
-                        url: "/api/v1/projects/" + proID,
+                        url: '{{ url("/api/v1/projects/") }}' + "/" + proID,
                         beforeSend: function () {
                             // Show image container
                             $("#loader").show();

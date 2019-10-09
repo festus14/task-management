@@ -1508,7 +1508,7 @@
                                 type: "DELETE",
                                 url: "{{ url('api/v1/documents')}}" + '/' + docID,
                                 success: function (data) {
-                                    swal("Deleted!", "Task has been successfully deleted.", "success");
+                                    swal("Deleted!", "Document has been successfully deleted.", "success");
                                     window.setTimeout(function(){
                                         location.reload();
                                     } , 2500);
@@ -1526,6 +1526,46 @@
 
                 });
     }
+
+    // Delete Task Report
+    function deleteTaskReport(repID){
+        swal({
+                    title: "Are you sure?",
+                    text: "Everything relating to this report will be lost!",
+                    icon: "warning",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                     if (willDelete) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                            $.ajax({
+                                type: "DELETE",
+                                url: "{{ url('api/v1/documents')}}" + '/' + docID,
+                                success: function (data) {
+                                    swal("Deleted!", "Document has been successfully deleted.", "success");
+                                    window.setTimeout(function(){
+                                        location.reload();
+                                    } , 2500);
+                                },
+                                    error: function (data) {
+                                        swal("Delete failed", "Please try again", "error");
+                                    }
+
+                                });
+                            }
+
+             else {
+                        swal("Cancelled", "Delete cancelled", "error");
+                    }
+
+                });
+    }
+
 
     // Search Through Task Members FUnction
     function searchTaskMembers(){
