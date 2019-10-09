@@ -750,7 +750,7 @@
 
 
                 let addProjSubTypeId = document.getElementById('addProjSubTypeId');
-addProjSubTypeId.addEventListener("click", displayAddPsubtypeOut);
+                    addProjSubTypeId.addEventListener("click", displayAddPsubtypeOut);
 
 function displayAddPsubtype() {
     $("#subtypemainModal").modal('show');
@@ -768,7 +768,7 @@ function displayAddPsubtype() {
                         <label for="project-type">Select Project Type</label>
                         <select id="project-type" name="project_type_id" class="selectDesign form-control">
                             <option value="" selected></option>
-${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
+                                ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                     </select>
                     <div class="error" id="projectTTTypeErr"></div>
                 </div>
@@ -794,7 +794,47 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
     });
 }
 
+function displayAddPsubtypeOut() {
+    $("#subtypemainModal").modal('show');
+    $.ajax({
+        type: "GET",
+        url: '{{ url("/api/v1/project-types") }}',
+        success: function (data) {
+            let subtypemainModalBody = document.getElementById('subtypemainModalBody');
+            subtypemainModalBody.innerHTML = `
+        <form id="addprojsubtypeform2" enctype="multipart/form-data">
+            @csrf
+                <div  class="modal-body">
 
+                    <div class="form-group">
+                        <label for="project-type">Select Project Type</label>
+                        <select id="project-type" name="project_type_id" class="selectDesign form-control">
+                            <option value="" selected></option>
+                                ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
+                    </select>
+                    <div class="error" id="projectTTTypeErr"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="create-task">Subtype Name</label>
+                    <input type="text" class="form-control" name="name" id="sub-type" placeholder="">
+                    <div class="error" id="projectSubTypeErr"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="$('#subtypemainModal').modal('hide');" data-target="#subtypemainModal">Close</button>
+                <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateProjectSubTypeOut();" value="{{ trans('global.create') }}">
+            </div>
+        </form>
+
+                        `
+        },
+
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+}
                 function addComment() {
                     var commentMade;
                     commentMade = document.getElementById("Textarea2").value;
@@ -2102,7 +2142,7 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
 
 
                 // Add project type Post
-                function addProject() {
+                function addProjectType() {
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2121,12 +2161,11 @@ ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
                                 confirmButtonColor: "#DD6B55",
                                 // confirmButtonText: "OK",
                             });
-                            window.setTimeout(function () {
-                                $('#AddProjecModalla').modal('hide');
-                                document.getElementById('projTypeId').value = "";
-                                getProjetTypeDT();
-                                location.reload();
-                            }, 2000)
+                            $('#AddProjecModalla').modal('hide');
+                            document.getElementById('projTypeId').value = "";
+                                window.setTimeout(function() {
+                                    $("#kt_table_project_type").DataTable().ajax.reload();
+                                }, 2300)
 
                         },
                         error: function (error) {

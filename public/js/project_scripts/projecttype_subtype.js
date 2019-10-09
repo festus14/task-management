@@ -268,47 +268,7 @@ function addProjectSubtypeX() {
 }
 
 
-function displayAddPsubtypeOut() {
-    $("#subtypemainModal").modal('show');
-    $.ajax({
-        type: "GET",
-        url: '{{ url("/api/v1/project-types") }}',
-        success: function (data) {
-            let subtypemainModalBody = document.getElementById('subtypemainModalBody');
-            subtypemainModalBody.innerHTML = `
-        <form id="addprojsubtypeform2" enctype="multipart/form-data">
-            @csrf
-                <div  class="modal-body">
 
-                    <div class="form-group">
-                        <label for="project-type">Select Project Type</label>
-                        <select id="project-type" name="project_type_id" class="selectDesign form-control">
-                            <option value="" selected></option>
-                                ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
-                    </select>
-                    <div class="error" id="projectTTTypeErr"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="create-task">Subtype Name</label>
-                    <input type="text" class="form-control" name="name" id="sub-type" placeholder="">
-                    <div class="error" id="projectSubTypeErr"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="$('#subtypemainModal').modal('hide');" data-target="#subtypemainModal">Close</button>
-                <input type="button" class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateProjectSubTypeOut();" value="{{ trans('global.create') }}">
-            </div>
-        </form>
-
-                        `
-        },
-
-        error: function (data) {
-            console.log('Error:', data);
-        }
-    });
-}
 function addProjectSubtypeXOut() {
     $.ajaxSetup({
         headers: {
@@ -317,7 +277,7 @@ function addProjectSubtypeXOut() {
     });
     $.ajax({
         type: "POST",
-        url: '{{ url("/api/v1/project-sub-types") }}',
+        url: '/api/v1/project-sub-types',
         data: $('#addprojsubtypeform2').serialize(),
         success: function (data) {
             swal({
