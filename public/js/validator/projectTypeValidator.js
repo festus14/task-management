@@ -48,7 +48,7 @@ function validateProjectType() {
         return false;
     } else {
 
-        addProject();
+        addProjectType();
     }
 };
 
