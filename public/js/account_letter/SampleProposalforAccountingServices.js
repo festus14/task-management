@@ -1,37 +1,25 @@
-document.getElementById("business_add_one").innerHTML = " Address one";
-document.getElementById("business_add_two").innerHTML = " Address two";
-document.getElementById("business_add_three").innerHTML = " Address three";
-document.getElementById("prospective_client").innerHTML = " Tunde Awopegba";
-document.getElementById("designated_position").innerHTML = " Partner";
-document.getElementById("staff_name").innerHTML = " Chieto Chiedu";
-
-
-let dateClasses = document.getElementsByClassName("date");
-for (let index = 0; index < dateClasses.length; index++) {
-    const element = dateClasses[index];
-    element.innerHTML = " 02/10/2019";
+function setElementValue(type, identifier, value) {
+    switch (type) {
+        case "id":
+            document.getElementById(identifier).innerHTML = " " + value;
+            break;
+        case "class":
+            let className = document.getElementsByClassName(identifier);
+            for (let index = 0; index < className.length; index++) {
+                const element = className[index];
+                element.innerHTML = " " + value;
+            }
+    }
 }
 
-let jobTitleClasses = document.getElementsByClassName("job_title");
-for (let index = 0; index < jobTitleClasses.length; index++) {
-    const element = jobTitleClasses[index];
-    element.innerHTML = " Auditing";
-}
-
-let comapnyNameClasses = document.getElementsByClassName("company_name");
-for (let index = 0; index < comapnyNameClasses.length; index++) {
-    const element = comapnyNameClasses[index];
-    element.innerHTML = " Stransact Company";
-}
-
-let contactPersonClasses = document.getElementsByClassName("contact_person");
-for (let index = 0; index < contactPersonClasses.length; index++) {
-    const element = contactPersonClasses[index];
-    element.innerHTML = " Festus Omole";
-}
-
-let summaryClasses = document.getElementsByClassName("summary");
-for (let index = 0; index < summaryClasses.length; index++) {
-    const element = summaryClasses[index];
-    element.innerHTML = " Lorem ipsum blah blah bljhuwehcuojcpewlkcjfuvufoejvoejvhierhvgotghieothgeripjgoerjgvpeist";
-}
+setElementValue("id", "business_add_one", "Address one");
+setElementValue("id", "business_add_two", "Address two");
+setElementValue("id", "business_add_three", "Address three");
+setElementValue("id", "prospective_client", "Tunde Awopegba");
+setElementValue("id", "designated_position", "Partner");
+setElementValue("id", "staff_name", "Chieto Chiedu");
+setElementValue("class", "date", "02/10/2019");
+setElementValue("class", "job_title", "Auditing");
+setElementValue("class", "company_name", "Stransact Comany");
+setElementValue("class", "contact_person", "Festus Omole");
+setElementValue("class", "summary", "SUMMARYSUMMARYSUMMARY");
