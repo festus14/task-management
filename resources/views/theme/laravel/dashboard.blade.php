@@ -372,12 +372,12 @@
                             <tr data-entry-id="{{ $task->id }}">
                                 <td> </td>
                                 <td>{{ $task->name }}</td>
-                                <td>{{ $task->client->name }}</td>
-                                <td>{{ $task->status_id }}</td>
+                                <td>{{ $task->client->name or '' }}</td>
+                                <td>{{ $task->status_id or '' }}</td>
                                 <td>{{ $task->manager->email }}</td>
-                                <td>{{ $task->project->name }}</td>
-                                <td>{{ $task->project_sub_type->name }}</td>
-                                <td>{{ $task->category->name }}</td>
+                                <td>{{ $task->project->name or '' }}</td>
+                                <td>{{ $task->project_sub_type->name or '' }}</td>
+                                <td>{{ $task->category->name or '' }}</td>
                                 <td>{{ $task->starting_date }}</td>
                                 <td>{{ $task->ending_date }}</td>
                             </tr>

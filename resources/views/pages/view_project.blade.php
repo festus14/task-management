@@ -2006,5 +2006,6 @@ function displayAddPsubtypeOut() {
                     document.getElementById(elemId).innerHTML = hintMsg;
                 }
             </script>
+    </div>
 
 @endsection
