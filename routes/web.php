@@ -149,6 +149,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('/project_subtype', 'ProjectPagesController@projectSubtype')->name('project_subtype');
 
+    // Lettertypes
+    Route::delete('letter-types/destroy', 'LetterTypeController@massDestroy')->name('letter-types.massDestroy');
+    Route::resource('letter-types', 'LetterTypeController');
+
+    // Payrollletters
+    Route::delete('payroll-letters/destroy', 'PayrollLetterController@massDestroy')->name('payroll-letters.massDestroy');
+    Route::resource('payroll-letters', 'PayrollLetterController');
+
+
 
     Route::get('create_project', 'ProjectPagesController@createProject')->name('create_project');
     Route::get('project_report', 'ProjectPagesController@projectReport')->name('project_report');

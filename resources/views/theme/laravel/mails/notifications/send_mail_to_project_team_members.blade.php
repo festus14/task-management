@@ -68,9 +68,8 @@
 <body>
 <div class="flex-center position-ref full-height">
     <div class="content">
-        <div class="title">Hello!</div>
-
-        <p>You have been added to work on a project.   </p>
+        <div class="title">New Project</div>
+        <p>You have been added to work on a project.</p>
         <p>See below for the project details:</p>
         <br>
         <div class="row title">
