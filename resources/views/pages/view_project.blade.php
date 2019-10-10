@@ -616,7 +616,7 @@ function displayAddPsubtypeOut() {
 }
                 function addComment() {
                     var commentMade;
-                    commentMade = document.getElementsByClassName("goat").value;
+                    commentMade = document.getElementsByClassName("Textarea2").value;
                     let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
                                 <div class="m-messenger__message m-messenger__message--out">
 
@@ -997,80 +997,6 @@ function displayAddPsubtypeOut() {
 }
 
 
-        function makeCommo(task_id) {
-            $.ajax({
-                type: "GET",
-                url: '{{ url("/api/v1/tasks") }}'+ "/" + task_id,
-                success: function(data) {
-                    let makecommentModal = document.getElementById('makecommentModal');
-                    makecommentModal.innerHTML = `
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
-                                                                        <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <form id="makeCommentForm" enctype="multipart/form-data">
-                                                                        @csrf
-                                                                    <div class="modal-body">
-                                                                        <textarea class="form-control goat" name="comments" id="comments" rows="4 " required></textarea>
-                                                                        <input type="hidden" id="user" name="user_id" value="${data.data.manager_id}">
-                                                                        <input type="hidden" id="task" name="task_id" value="${data.data.id}">
-                                                                        <input type="hidden" id="client" name="client_id" value="${data.data.client_id}">
-                                                                        <input type="hidden" id="project" name="project_id" value="${data.data.project_id}">
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
-                                                                        <input type="button" class="m-btn--pill btn btn-primary" onclick="postComment(),  $('#makecommentModal').modal('hide')">Comment</button>
-                                                                    </div>
-                                                                    </form>
-                                                                </div>
-
-                                                            </div>
-
-               ` },
-                error: function(data) {
-                    console.log('Error:', data);
-                }
-            });
-
-}
-
-
-    function postComment(){
-        console.log("got here")
-        $.ajax({
-        type: "POST",
-        url: "/api/v1/tasks",
-        data: $('#makeCommentForm').serialize(),
-        success: function(data) {
-            swal({
-                title: "Success!",
-                text: "Comment made!",
-                icon: "success",
-                confirmButtonColor: "#DD6B55",
-                // confirmButtonText: "OK",
-            });
-            // $('#AddProjecModalla').modal('hide');
-            // window.setTimeout(function() {
-            //     $("#kt_table_project_type").DataTable().ajax.reload();
-            // }, 2300)
-
-        },
-        error: function(error) {
-            swal({
-                title: "Comment failed",
-                text: "Please check the missing fields!",
-                icon: "error",
-                confirmButtonColor: "#fc3",
-                confirmButtonText: "OK",
-            });
-        }
-
-    });
-    }
 
 
 
