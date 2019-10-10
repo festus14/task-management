@@ -511,7 +511,7 @@
             <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/projectType_subtype.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/view_project.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/project_scripts/tools.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/project_scripts/project_tools.js') }}"></script>
 
             <script>
                 $(document).ready(function () {
