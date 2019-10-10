@@ -1830,33 +1830,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="m-messenger__seperator "></div>
-                                                <div class="m-messenger__form " style="width: 100%; ">
+                                                <div class="m-messenger__form " style="width: 100%;">
                                                     <div class="m-messenger__form-controls ">
-                                                        <button type="button" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
+                                                        <button type="button" onclick="makeCommo(${task_id})" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#makecommentModal" style="margin-left: 72%; margin-bottom: 25px;">
                                                                         Make Comment
                                                                       </button>
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
-                                                                        <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <textarea class="form-control " id="Textarea2" rows="4 " required></textarea>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#makecommentModal').modal('hide');">Close</button>
-                                                                        <button type="button" class="m-btn--pill btn btn-primary" class="" onclick="addComment(), $('#makecommentModal').modal('hide')">Comment</button>
-                                                                    </div>
-                                                                </div>
+                                                                      <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-                                                            </div>
+                                                                      </div>
 
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1877,12 +1859,88 @@
                 });
             }
 
+            function makeCommo(task_id) {
+            $.ajax({
+                type: "GET",
+                url: '{{ url("/api/v1/tasks") }}'+ "/" + task_id,
+                success: function(data) {
+                    let makecommentModal = document.getElementById('makecommentModal');
+                    makecommentModal.innerHTML = `
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Make Comment</h5>
+                                                                        <button type="button" class="close" onclick="$('#makecommentModal').modal('hide');" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <form id="makeCommentForm" enctype="multipart/form-data">
+                                                                        @csrf
+                                                                    <div class="modal-body">
+                                                                        <textarea class="form-control goat" name="comments" id="commentText" rows="4 " required></textarea>
+                                                                        <input type="hidden" id="user" name="user_id" value="${data.data.manager_id}">
+                                                                        <input type="hidden" id="task" name="task_id" value="${data.data.id}">
+                                                                        <input type="hidden" id="client" name="client_id" value="${data.data.client_id}">
+                                                                        <input type="hidden" id="project" name="project_id" value="${data.data.project_id}">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <input type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#makecommentModal').modal('hide');" value="Close">
+                                                                        <input type="button" class="m-btn--pill btn btn-primary" onclick="$('#makecommentModal').modal('hide'), postComment()" value="Comment">
+                                                                    </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+
+               ` },
+                error: function(data) {
+                    console.log('Error:', data);
+                }
+            });
+
+}
+
+
+    function postComment(){
+        console.log("got here")
+        $.ajax({
+        type: "POST",
+        url: "/api/v1/task-comments",
+        data: $('#makeCommentForm').serialize(),
+        success: function(data) {
+            swal({
+                title: "Success!",
+                text: "Comment made!",
+                icon: "success",
+                confirmButtonColor: "#DD6B55",
+                // confirmButtonText: "OK",
+            });
+            addComment()
+            $('#makecommentModal').modal('hide')
+            // $('#AddProjecModalla').modal('hide');
+            // window.setTimeout(function() {
+            //     $("#kt_table_project_type").DataTable().ajax.reload();
+            // }, 2300)
+
+        },
+        error: function(error) {
+            swal({
+                title: "Comment failed",
+                text: "Please check the missing fields!",
+                icon: "error",
+                confirmButtonColor: "#fc3",
+                confirmButtonText: "OK",
+            });
+        }
+
+    });
+    }
 
 
             function addComment() {
     // data.map((elem, i) => {
         var commentMade;
-        commentMade = document.getElementById("Textarea2").value;
+        commentMade = document.getElementById("commentText").value;
         let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
                                 <div class="m-messenger__message m-messenger__message--out">
 
