@@ -996,10 +996,6 @@ function displayAddPsubtypeOut() {
 
 }
 
-
-
-
-
                    // Function for rendering the more info modal
                    function displayProjectInfo(proID) {
                     $.ajax({
@@ -2010,5 +2006,6 @@ function displayAddPsubtypeOut() {
                     document.getElementById(elemId).innerHTML = hintMsg;
                 }
             </script>
+    </div>
 
 @endsection
