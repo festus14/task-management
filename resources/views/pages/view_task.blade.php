@@ -417,6 +417,10 @@
 <script type="text/javascript" src="{{ asset('js/validator/taskValidator.js') }}"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('js/task_scripts/view_task.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/task_scripts/task_category.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/task_scripts/task_status.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/task_scripts/task_tools.js') }}"></script>
 <script>
 
     $(document).ready(function() {
@@ -672,45 +676,7 @@
             });
         // });
 
-            // Delete Task Function
-            deleteSingleTask=(taskID)=>{
 
-                swal({
-                    title: "Are you sure?",
-                    text: "Everything relating to this task will be lost!",
-                    icon: "warning",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((willDelete) => {
-                     if (willDelete) {
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                            $.ajax({
-                                type: "DELETE",
-                                url: "{{ url('api/v1/tasks')}}" + '/' + taskID,
-                                success: function (data) {
-                                    swal("Deleted!", "Task has been successfully deleted.", "success");
-                                    window.setTimeout(function(){
-                                        location.reload();
-                                    } , 2500);
-                                },
-                                    error: function (data) {
-                                        swal("Delete failed", "Please try again", "error");
-                                    }
-
-                                });
-                            }
-
-             else {
-                        swal("Cancelled", "Delete cancelled", "error");
-                    }
-
-                });
-            }
 
 
             function getTaskCategoryAjaxDT(){
@@ -848,46 +814,6 @@
                     });
                 }
             }
-
-            // Delete Task Category
-            deleteSingleTaskCategory=(taskCategoryID)=>{
-                    swal({
-                        title: "Are you sure?",
-                        text: "This category will be deleted!",
-                        icon: "warning",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    }).then((willDelete) => {
-                        if (willDelete) {
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                                $.ajax({
-                                    type: "DELETE",
-                                    url: "{{ url('api/v1/tast-categories')}}" + '/' + taskCategoryID,
-                                    success: function (data) {
-                                        swal("Deleted!", "Task category successfully deleted.", "success");
-                                        window.setTimeout(function(){
-                                            location.reload();
-                                        } , 2500);
-                                    },
-                                        error: function (data) {
-                                            swal("Delete failed", "Please try again", "error");
-                                        }
-
-                                    });
-                                }
-
-                    else {
-                            swal("Cancelled", "Delete cancelled", "error");
-                        }
-
-                    });
-                    }
-
 
             //Task status
             function getTaskStatusAjaxDT(){
@@ -1056,74 +982,6 @@
                 `
             }
 
-
-            function submitEditTaskStatus(taskStatusId){
-            $.ajax({
-                    type: "PUT",
-                    data:  $('#editTaskStatusform').serialize(),
-                    url: "{{ url('/api/v1/task-statuses') }}" + "/" + taskStatusId,
-                    success: function (data) {
-                        swal({
-                            title: "Success!",
-                            text: "Task status edited!",
-                            icon: "success",
-                            confirmButtonColor: "#DD6B55",
-                        });
-                        window.setTimeout(function(){
-                            location.reload();
-                        }, 3000)
-
-                        },
-                        error: function (error) {
-                        swal({
-                            title: "Task status edit failed!",
-                            icon: "error",
-                            confirmButtonColor: "#fc3",
-                            confirmButtonText: "OK",
-                        });
-                        }
-                });
-        }
-
-
-            // Delete Task Status
-            deleteSingleTaskStatus=(taskStatusID)=>{
-                    swal({
-                        title: "Are you sure?",
-                        text: "This status will be deleted!",
-                        icon: "warning",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    }).then((willDelete) => {
-                        if (willDelete) {
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                                $.ajax({
-                                    type: "DELETE",
-                                    url: "{{ url('api/v1/task-statuses')}}" + '/' + taskStatusID,
-                                    success: function (data) {
-                                        swal("Deleted!", "Task category successfully deleted.", "success");
-                                        window.setTimeout(function(){
-                                            location.reload();
-                                        } , 2500);
-                                    },
-                                        error: function (data) {
-                                            swal("Delete failed", "Please try again", "error");
-                                        }
-
-                                    });
-                                }
-
-                    else {
-                            swal("Cancelled", "Delete cancelled", "error");
-                        }
-
-                    });
-                    }
 
 
             function displayTaskInfo(task_id) {
@@ -1388,6 +1246,9 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+</div>
             `
 
 
@@ -1402,175 +1263,6 @@
         })
 
     }
-
-    // Delete single task document
-    function deleteTaskDocument(docID){
-        swal({
-                    title: "Are you sure?",
-                    text: "Everything relating to this document will be lost!",
-                    icon: "warning",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((willDelete) => {
-                     if (willDelete) {
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                            $.ajax({
-                                type: "DELETE",
-                                url: "{{ url('/admin/documents/destroy')}}" + '/' + docID,
-                                success: function (data) {
-                                    swal("Deleted!", "Document has been successfully deleted.", "success");
-                                    window.setTimeout(function(){
-                                        location.reload();
-                                    } , 2500);
-                                },
-                                    error: function (data) {
-                                        swal("Delete failed", "Please try again", "error");
-                                    }
-
-                                });
-                            }
-
-             else {
-                        swal("Cancelled", "Delete cancelled", "error");
-                    }
-
-                });
-    }
-
-    // Delete Task Report
-    function deleteTaskReport(repID){
-        swal({
-                    title: "Are you sure?",
-                    text: "Everything relating to this report will be lost!",
-                    icon: "warning",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((willDelete) => {
-                     if (willDelete) {
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                            $.ajax({
-                                type: "DELETE",
-                                url: "{{ url('api/v1/documents')}}" + '/' + docID,
-                                success: function (data) {
-                                    swal("Deleted!", "Document has been successfully deleted.", "success");
-                                    window.setTimeout(function(){
-                                        location.reload();
-                                    } , 2500);
-                                },
-                                    error: function (data) {
-                                        swal("Delete failed", "Please try again", "error");
-                                    }
-
-                                });
-                            }
-
-             else {
-                        swal("Cancelled", "Delete cancelled", "error");
-                    }
-
-                });
-    }
-
-
-    // Search Through Task Members FUnction
-    function searchTaskMembers(){
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInputNine");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTableNine");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-                }
-            }
-        }
-
-            // Function for submitting task report
-            function submitTaskReport(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('/api/v1/project-reports') }}",
-                    data: $('#taskReportForm').serialize(),
-                    success: function (data) {
-                    swal({
-                        title: "Success!",
-                        text: "Task Report Submitted!",
-                        icon: "success",
-                        confirmButtonColor: "#DD6B55",
-                        // confirmButtonText: "OK",
-                    });
-                    window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
-
-                },
-                error: function (error) {
-                    swal({
-                        title: "Task report wasn't created!",
-                        icon: "error",
-                        confirmButtonColor: "#fc3",
-                        confirmButtonText: "OK",
-                    });
-                }
-                });
-            }
-
-            function submitTaskDocument(){
-                let formData = $('#taskDocumentForm').serialize();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('/api/v1/task-documents') }}",
-                    data: formData,
-                    success: function (data) {
-                    swal({
-                        title: "Success!",
-                        text: "Task document submitted!",
-                        icon: "success",
-                        confirmButtonColor: "#DD6B55",
-                        // confirmButtonText: "OK",
-                    });
-                    window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
-
-                },
-                error: function (error) {
-                    swal({
-                        title: "Task document wasn't created!",
-                        icon: "error",
-                        confirmButtonColor: "#fc3",
-                        confirmButtonText: "OK",
-                    });
-                }
-                });
-            }
 
         function documentDTCall(project_id){
             $(document).ready(function() {
@@ -1599,9 +1291,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                    <button type="button" class="close" onclick="$('#commentModal').modal('hide');" aria-label="Close">
+                <button type="button" class="close" onclick="$('#commentModal').modal('hide');" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+
+
                 </div>
                 <div class="modal-body">
                     <div class="m-content">
@@ -2060,30 +1754,6 @@
                     }
 
 
-                    // function filterSubtype(){
-                    //     console.log(typeVal, "Im here");
-                    //     let typeVal = document.getElementById("project-list").value;
-
-                    //     $.ajax({
-                    //         type: "GET",
-                    //         url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
-                    //         success: function (data) {
-                    //             document.getElementById('project-subtype-list').innerHTML = `
-                    //             <option value="" selected></option> `
-                    //              +
-                    //             data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                    //             + `
-                    //             `
-                    //         },
-                    //         error: function (data) {
-                    //             document.getElementById('project-subtype-list').innerHTML = `
-                    //             <option value="" selected></option>
-                    //             `
-                    //         }
-                    //     });
-                    // }
-
-
                 //Edit Task
                 var editData;
             function editTaskMain(task_id) {
@@ -2261,115 +1931,6 @@
 
                     }
 
-
-                    function editFilterType(){
-                        let clientVal = document.getElementById("edit-client-list").value;
-                        $.ajax({
-                            type: "GET",
-                            url: "{{ url('/api/v1/clients')}}" + "/" + clientVal,
-                            success: function (data) {
-                                document.getElementById('edit-project-list').innerHTML = `
-                                <option value="" selected></option> ` +
-                                data.data.projects.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                                + `
-                                `
-                            },
-                            error: function (data) {
-                                document.getElementById('edit-project-list').innerHTML =
-                                `
-                                <option value="" selected></option>
-                                `
-                                console.log('Error:', data);
-                            }
-                        });
-                    }
-
-
-                    // function editFilterSubType(){
-                    //     let typeVal = document.getElementById("edit-project-list").value;
-                    //     $.ajax({
-                    //         type: "GET",
-                    //         url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
-                    //         success: function (data) {
-                    //             document.getElementById('edit-project-subtype-list').innerHTML = `
-                    //             <option value="" selected></option> `
-                    //              +
-                    //             data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                    //             + `
-                    //             `
-                    //         },
-                    //         error: function (data) {
-                    //             `
-                    //             <option value="" selected></option>
-                    //             `
-                    //         }
-                    //     });
-                    // }
-
-
-                function submitEditTaskForm(taskID){
-                    let formData = $('#editTaskform').serialize();
-                    $.ajax({
-                        type: "PUT",
-                        url: "{{ url('/api/v1/tasks') }}" + "/" + taskID,
-                        data: formData,
-                        success: function (data) {
-                            swal({
-                                title: "Success!",
-                                text: "Task successfully edited!",
-                                icon: "success",
-                                confirmButtonColor: "#DD6B55",
-                                // confirmButtonText: "OK",
-                            });
-                            window.setTimeout(function(){
-                                location.reload();
-                            }, 3000)
-
-                            },
-                            error: function (error) {
-                            swal({
-                                title: "Task editing failed!",
-                                text: "Please check the missing fields!",
-                                icon: "error",
-                                confirmButtonColor: "#fc3",
-                                confirmButtonText: "OK",
-                            });
-                            }
-
-                    })
-                }
-
-
-        // post to the create Task table
-        function postCreateTask(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "{{ url('/api/v1/tasks') }}",
-                data: $('#addTaskform').serialize(),
-                success: function (response) {
-                    $('#createTaskModal').modal('hide');
-                    swal({
-                        title: "Success!",
-                        text: "Task successfully created!",
-                        icon: "success",
-                        confirmButtonText: "Ok",
-                        });
-                    window.setTimeout(function(){
-                        location.reload();
-                    } , 3000);
-                },
-                error: function (error) {
-                    swal("Task creation failed", "Please check missing fields", "error");
-                }
-                });
-                }
-
-
             //Ajax populate create task category
             function createTaskCategoryAjaxGet(){
                 $.ajax({
@@ -2423,28 +1984,6 @@
                             <input type=button class="btn btn-danger" style="background-color:#8a2a2b; color:white;" onclick="validateTaskCategory();" value="{{ trans('global.create') }}">
                         </div>
                     </form>
-                        `
-                    }
-                });
-            }
-
-
-            function filterCategorySub(){
-                let typeVal = document.getElementById("createProjectTypeList").value;
-                $.ajax({
-                    type: "GET",
-                    url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
-                    success: function (data) {
-                        document.getElementById('createSubCategory').innerHTML = `
-                        <option value="" selected></option> `
-                        +
-                        data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                        + `
-                        `
-                    },
-                    error: function (data) {
-                        document.getElementById('createSubCategory').innerHTML = `
-                        <option value="" selected></option>
                         `
                     }
                 });
@@ -2547,118 +2086,46 @@
 
         }
 
-        function editFilterCategorySub(){
-            let typeVal = document.getElementById("editProjectTypeListt").value;
-                $.ajax({
-                    type: "GET",
-                    url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
-                    success: function (data) {
-                        document.getElementById('editSubCategory').innerHTML = `
-                        <option value="" selected></option> `
-                        +
-                        data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`)
-                        + `
-                        `
-                    },
-                    error: function (data) {
-                        document.getElementById('editSubCategory').innerHTML = `
-                        <option value="" selected></option>
-                        `
-                    }
-                });
+
+function filterCategorySub() {
+    let typeVal = document.getElementById("createProjectTypeList").value;
+    $.ajax({
+        type: "GET",
+        url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
+        success: function(data) {
+            document.getElementById('createSubCategory').innerHTML = `
+            <option value="" selected></option> ` +
+                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
+                `
+            `
+        },
+        error: function(data) {
+            document.getElementById('createSubCategory').innerHTML = `
+            <option value="" selected></option>
+            `
         }
+    });
+}
 
-        function submitEditTaskCategory(taskID){
-            $.ajax({
-                type: "PUT",
-                url: '/api/v1/tast-categories'+ '/' + taskID,
-                data: $('#editTaskCategoryForm').serialize(),
-                success: function (data) {
-                    swal({
-                        title: "Success!",
-                        text: "Task category successfully edited!",
-                        icon: "success",
-                        confirmButtonColor: "#DD6B55",
-                        // confirmButtonText: "OK",
-                    });
-                    window.setTimeout(function(){
-                        location.reload();
-                    }, 3000)
-
-                    },
-                    error: function (error) {
-                    swal({
-                        title: "Task category editing failed!",
-                        text: "Please check the missing fields!",
-                        icon: "error",
-                        confirmButtonColor: "#fc3",
-                        confirmButtonText: "OK",
-                    });
-                    }
-
-            })
+function editFilterCategorySub() {
+    let typeVal = document.getElementById("editProjectTypeListt").value;
+    $.ajax({
+        type: "GET",
+        url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
+        success: function(data) {
+            document.getElementById('editSubCategory').innerHTML = `
+                <option value="" selected></option> ` +
+                data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
+                `
+                `
+        },
+        error: function(data) {
+            document.getElementById('editSubCategory').innerHTML = `
+                <option value="" selected></option>
+                `
         }
-
-        function postCreateTaskCategory(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-                $.ajax({
-                type: "POST",
-                url: '{{ url("/api/v1/tast-categories") }}',
-                data: $('#addTaskCategoryForm').serialize(),
-                success: function (data) {
-                    $('#addTaskCategory').modal('hide');
-                    swal({
-                        title: "Success!",
-                        text: "Task category created!",
-                        icon: "success",
-                        confirmButtonText: "Ok",
-                        });
-                        window.setTimeout(function(){
-                            location.reload();
-                        } , 2500);
-                    // getTaskCategoryAjaxDT();
-                    // document.getElementById('category-name').value = "";
-                    // document.getElementById('weightId').value = "";
-                },
-                error: function (data) {
-                    swal("Task category creation failed!", "Please check missing fields", "error");
-                }
-                });
-            }
-
-                // post to the Task status table
-        function postTaskStatus(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-                $.ajax({
-                type: "POST",
-                url: '{{ url("/api/v1/task-statuses") }}',
-                data: $('#addStatusform').serialize(),
-                success: function (data) {
-                    //$('#AddStatus').modal('hide');
-                    //document.getElementById('statusInput').value = "";
-                    swal({
-                        title: "Success!",
-                        text: "Task status created!",
-                        icon: "success",
-                        confirmButtonText: "Ok",
-                        });
-                        window.setTimeout(function(){
-                            location.reload();
-                        } , 3000);
-                },
-                error: function (error) {
-                    swal("Task creation failed", "Please check missing fields", "error");
-                }
-                });
-                }
+    });
+}
 
             function printError(elemId, hintMsg) {
                 document.getElementById(elemId).innerHTML = hintMsg;
@@ -2716,6 +2183,5 @@
         }
         }
     </script>
-
 
 @endsection

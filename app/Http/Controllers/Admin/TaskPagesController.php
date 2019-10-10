@@ -82,6 +82,10 @@ class TaskPagesController extends Controller
         return view('pages.view_task');
     }
 
+    public function letter_template(){
+        return view('letter.letter_template');
+    }
+
     //sendMail
     public function sendMail(){
         $user = App\User::find(1);

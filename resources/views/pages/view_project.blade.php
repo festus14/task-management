@@ -996,10 +996,6 @@ function displayAddPsubtypeOut() {
 
 }
 
-
-
-
-
                    // Function for rendering the more info modal
                    function displayProjectInfo(proID) {
                     $.ajax({
