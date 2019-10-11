@@ -200,15 +200,10 @@ function deleteSingleProject(proID) {
         dangerMode: true,
     }).then((willDelete) => {
         if (willDelete) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
             $.ajax({
                 type: "DELETE",
-                url: "{{ url('api/v1/projects')}}" + '/' + proID,
+                url: '/api/v1/projects' + '/' + proID,
                 success: function(data) {
                     swal("Deleted!", "Project successfully deleted.", "success");
                     window.setTimeout(function() {

@@ -1,12 +1,8 @@
 function ProjectTypeSubmit() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $.ajax({
         type: "POST",
         url: "/api/v1/project-types",
+        // url: '{{ url("/api/v1/project-types") }}',
         data: $('#addprojtypeform1').serialize(),
         success: function(data) {
 
@@ -37,11 +33,6 @@ function ProjectTypeSubmit() {
 }
 //found in create project modal
 function ProjectTypeSubmitIn() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $.ajax({
         type: "POST",
         url: "/api/v1/project-types",
@@ -50,7 +41,7 @@ function ProjectTypeSubmitIn() {
 
             $.ajax({
                 type: "GET",
-                url: '{{ url("/api/v1/project_create") }}',
+                url: '/api/v1/project_create',
                 success: function(data) {
                     document.getElementById('projTypeBody1').innerHTML = `
         <option value="" selected></option>
@@ -89,7 +80,7 @@ function submitEditProjectForm(proID) {
     let formdata = $('#editProjectform').serialize();
     $.ajax({
         type: "PUT",
-        url: '{{ url("/api/v1/projects") }}' + '/' + proID,
+        url: '/api/v1/projects' + '/' + proID,
         data: formdata,
         success: function(data) {
             swal({
@@ -101,7 +92,7 @@ function submitEditProjectForm(proID) {
             $('#editProjectModal').modal('hide');
             window.setTimeout(function() {
                 $("#kt_table_projects").DataTable().ajax.reload();
-            }, 2400)
+            }, 2300)
 
         },
         error: function(error) {
@@ -180,14 +171,9 @@ function editProjectSubtype(sub_id) {
 }
 
 function submitEditProjectSubtypeForm(sub_id) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $.ajax({
         type: "PUT",
-        url: '{{ url("/api/v1/project-sub-types") }}' + '/' + sub_id,
+        url: '/api/v1/project-sub-types' + '/' + sub_id,
         data: $('#editProjectSubtypeForm').serialize(),
         success: function (data) {
 
@@ -200,7 +186,7 @@ function submitEditProjectSubtypeForm(sub_id) {
             $('#editProjectSubTypeModal').modal('hide');
             window.setTimeout(function () {
              $("#kt_table_project_subtype").DataTable().ajax.reload();
-            }, 2400)
+            }, 2300)
 
         },
         error: function (error) {
@@ -219,11 +205,6 @@ function submitEditProjectSubtypeForm(sub_id) {
 
 // Add 2nd project Sub type Post(in create project modal)
 function addProjectSubtypeX() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $.ajax({
         type: "POST",
         url: '/api/v1/project-sub-types',
@@ -232,7 +213,7 @@ function addProjectSubtypeX() {
 
             $.ajax({
                 type: "GET",
-                url: '{{ url("/api/v1/project_create") }}',
+                url: '/api/v1/project_create',
                 success: function (data) {
                     document.getElementById('projTypeBody1').innerHTML = `
             <option value="" selected></option>
@@ -270,11 +251,6 @@ function addProjectSubtypeX() {
 
 
 function addProjectSubtypeXOut() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $.ajax({
         type: "POST",
         url: '/api/v1/project-sub-types',
@@ -290,7 +266,7 @@ function addProjectSubtypeXOut() {
             $('#subtypemainModal').modal('hide');
             window.setTimeout(function () {
                 $("#kt_table_project_subtype").DataTable().ajax.reload();
-            }, 2400)
+            }, 2300)
 
         },
         error: function (error) {
@@ -306,17 +282,11 @@ function addProjectSubtypeXOut() {
     });
 }
 
-
 // Add project Sub type Post
 function addProjectSubtype() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $.ajax({
         type: "POST",
-        url: '{{ url("/api/v1/project-sub-types") }}',
+        url: '/api/v1/project-sub-types',
         data: $('#addprojSubtypeform1').serialize(),
         success: function () {
             swal({
@@ -345,7 +315,7 @@ function filterSubtype() {
     let typeVal = document.getElementById("projTypeBody1").value;
     $.ajax({
         type: "GET",
-        url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
+        url: '/api/v1/project-types' + "/" + typeVal,
         success: function (data) {
             document.getElementById('projectSubtypeId1').innerHTML = `
 <option value="" selected></option> `
@@ -366,7 +336,7 @@ function editFilterSubtype() {
     let typeVal = document.getElementById("edit-projtypeboy").value;
     $.ajax({
         type: "GET",
-        url: "{{ url('/api/v1/project-types')}}" + "/" + typeVal,
+        url: '/api/v1/project-types' + "/" + typeVal,
         success: function (data) {
             document.getElementById('edit-project_subtype_id').innerHTML = `
 <option value="" selected></option> `
@@ -394,20 +364,14 @@ function deleteProjectType(proID) {
     }).then((willDelete) =>
     {
         if (willDelete) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
             $.ajax({
                 type: "DELETE",
-                url: "{{ url('api/v1/project-types')}}" + '/' + proID,
+                url: '/api/v1/project-types' + '/' + proID,
                 success: function (data) {
                     swal("Deleted!", "Project type successfully deleted.", "success");
                     window.setTimeout(function () {
                         $("#kt_table_project_type").DataTable().ajax.reload();
-                    }, 2500);
+                    }, 2300);
                 },
                 error: function (data) {
                     swal("Delete failed", "Please try again", "error");
@@ -475,7 +439,7 @@ function submitEditProjectType(typeId) {
             $('#EditProjectTypeModal').modal('hide');
             window.setTimeout(function () {
                 $("#kt_table_project_type").DataTable().ajax.reload();
-            }, 3000)
+            }, 2300)
 
         },
         error: function (error) {
@@ -499,20 +463,14 @@ function deleteProjectSubType(proID) {
         dangerMode: true,
     }).then((willDelete) => {
         if (willDelete) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
             $.ajax({
                 type: "DELETE",
-                url: "{{ url('api/v1/project-sub-types') }}" + '/' + proID,
+                url: '/api/v1/project-sub-types' + '/' + proID,
                 success: function (data) {
                     swal("Deleted!", "Project subtype successfully deleted.", "success");
                     window.setTimeout(function () {
                         $("#kt_table_project_subtype").DataTable().ajax.reload();
-                    }, 2500);
+                    }, 2200);
                 },
 
                 error: function (data) {
@@ -537,7 +495,7 @@ function deleteProjectSubType(proID) {
                         e.preventDefault();
                         $.ajax({
                             type: "POST",
-                            url: '{{ url("/api/v1/project-types") }}',
+                            url: '/api/v1/project-types',
                             data: $('#addprojtypeform1').serialize(),
                             success: function (response, data) {
                                 alert("Project-type created");
