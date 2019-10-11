@@ -17,12 +17,13 @@ class PayrollLetterApiController extends Controller
     {
         abort_if(Gate::denies('payroll_letter_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new PayrollLetterResource(PayrollLetter::with(['client', 'project'])->get());
+        return new PayrollLetterResource(PayrollLetter::with(['type', 'client', 'project', 'services'])->get());
     }
 
     public function store(StorePayrollLetterRequest $request)
     {
         $payrollLetter = PayrollLetter::create($request->all());
+        $payrollLetter->services()->sync($request->input('services', []));
 
         return (new PayrollLetterResource($payrollLetter))
             ->response()
@@ -33,12 +34,13 @@ class PayrollLetterApiController extends Controller
     {
         abort_if(Gate::denies('payroll_letter_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new PayrollLetterResource($payrollLetter->load(['client', 'project']));
+        return new PayrollLetterResource($payrollLetter->load(['type', 'client', 'project', 'services']));
     }
 
     public function update(UpdatePayrollLetterRequest $request, PayrollLetter $payrollLetter)
     {
         $payrollLetter->update($request->all());
+        $payrollLetter->services()->sync($request->input('services', []));
 
         return (new PayrollLetterResource($payrollLetter))
             ->response()

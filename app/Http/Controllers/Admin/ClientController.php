@@ -8,7 +8,9 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyClientRequest;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
-use PhpParser\Node\Stmt\TryCatch;
+use Gate;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClientController extends Controller
 {
@@ -16,64 +18,51 @@ class ClientController extends Controller
 
     public function index()
     {
-        abort_unless(\Gate::allows('client_access'), 403);
+        abort_if(Gate::denies('client_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::with('tasks')
-            ->with('projects')
-            ->with('project_comments')
-            ->with('documents')
-            ->with('reports')
-            ->with('task_comments')->get();
+        $clients = Client::all();
+
         return view('admin.clients.index', compact('clients'));
     }
 
     public function create()
     {
-        abort_unless(\Gate::allows('client_create'), 403);
+        abort_if(Gate::denies('client_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.clients.create');
     }
 
     public function store(StoreClientRequest $request)
     {
-        abort_unless(\Gate::allows('client_create'), 403);
-
         $client = Client::create($request->all());
 
-        return redirect()->back();
+        return redirect()->route('admin.clients.index');
     }
 
     public function edit(Client $client)
     {
-        abort_unless(\Gate::allows('client_edit'), 403);
+        abort_if(Gate::denies('client_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.clients.edit', compact('client'));
     }
 
     public function update(UpdateClientRequest $request, Client $client)
     {
-        abort_unless(\Gate::allows('client_edit'), 403);
+        $client->update($request->all());
 
-        try {
-            $client->update($request->all());
-            return  redirect()->back();
-        } catch (\Exception $e) {
-            return  redirect()->back()->withErrors($e->getMessage());
-        }
-
-
+        return redirect()->route('admin.clients.index');
     }
 
     public function show(Client $client)
     {
-        abort_unless(\Gate::allows('client_show'), 403);
+        abort_if(Gate::denies('client_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.clients.show', compact('client'));
     }
 
     public function destroy(Client $client)
     {
-        abort_unless(\Gate::allows('client_delete'), 403);
+        abort_if(Gate::denies('client_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $client->delete();
 
@@ -84,6 +73,6 @@ class ClientController extends Controller
     {
         Client::whereIn('id', request('ids'))->delete();
 
-        return response(null, 204);
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -6,16 +6,21 @@
     <meta charset="utf-8" />
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="stylesheet" href="{{ asset('LetterPayroll/base.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('LetterPayroll/fancy.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('LetterPayroll/main.css') }}" />
-    <script src="{{ asset('LetterPayroll/compatibility.min.js') }}"></script>
-    <script src="{{ asset('LetterPayroll/theViewer.min.js') }}"></script>
+    {{-- <link rel="stylesheet" href="base.min.css" />
+    <link rel="stylesheet" href="fancy.min.css" />
+    <link rel="stylesheet" href="main.css" /> --}}
+    {{-- <script src="compatibility.min.js"></script>
+    <script src="theViewer.min.js"></script> --}}
     <script>
         try {
             theViewer.defaultViewer = new theViewer.Viewer({});
         } catch (e) {}
     </script>
+    {{-- <link rel="stylesheet" href="css/base.min.css"> --}}
+    <link rel="stylesheet" href="{{ asset('css/base.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fancy.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    {{-- <script type="text/javascript" src="{{ asset('js/letter/compatibility.min.js') }}"></script> --}}
     <title></title>
 </head>
 
@@ -26,13 +31,14 @@
     </div>
     <div id="page-container">
         <div id="pf1" class="pf w0 h0" data-page-no="1">
-            <div class="pc pc1 w0 h0"><img class="bi x0 y0 w1 h1" alt="" src="{{ asset('LetterPayroll/bg5.png') }}" />
-                <div class="t m0 x1 h2 y1 ff1 fs0 fc0 sc0 ls0 ws0" id="date">{Day, Month, Year}</div>
+            <div class="pc pc1 w0 h0">
+                <img class="bi x0 y0 w1 h1" alt="" src="{{ asset('letterImages/bg1.png') }}" />
+                <div class="t m0 x1 h2 y1 ff1 fs0 fc0 sc0 ls0 ws0" id="date">{29-01-2019}</div>
                 <div class="t m0 x2 h3 y2 ff2 fs0 fc1 sc0 ls0 ws0">Payroll Management Services</div>
                 <div class="t m0 x2 h2 y3 ff1 fs0 fc0 sc0 ls0 ws0">The Managing Director</div>
                 <div class="t m0 x2 h2 y4 ff1 fs0 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                <div class="t m0 x2 h2 y5 ff1 fs0 fc0 sc0 ls0 ws0 business_address" style="width: 20px;">{Business Address Line 1}</div>
-                <div class="t m0 x2 h3 y8 ff3 fs0 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
+                <div class="t m0 x2 h2 y5 ff1 fs0 fc0 sc0 ls0 ws0 business_address">{Business Address Line 1}</div>
+                <div class="t m0 x2 h3 y8 ff3 fs0 fc0 sc0 ls0 ws0"><br />Attention: <span class="contact_person">{Contact Person}</span></div>
                 <div class="t m0 x2 h2 y9 ff1 fs0 fc0 sc0 ls0 ws0">Dear Sir,</div>
                 <div class="t m0 x2 h3 ya ff2 fs0 fc0 sc0 ls0 ws0">Engagement Letter for the provision of Payroll Management Services</div>
                 <div class="t m0 x2 h2 yb ff1 fs0 fc0 sc0 ls0 ws0">We are pleased to submit herein, our engagement letter to <span class="company_name">{Company Name}</span> <span class="company_short_name">{Company Short Name}</span> </div>
@@ -68,7 +74,7 @@
             <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
         </div>
         <div id="pf2" class="pf w0 h0" data-page-no="2">
-            <div class="pc pc2 w0 h0"><img class="bi x5 y28 w2 h5" alt="" src="{{ asset('LetterPayroll/bg2.png') }}" />
+            <div class="pc pc2 w0 h0"><img class="bi x5 y28 w2 h5" alt="" src="{{ asset('letterImages/bg2.png') }}" />
                 <div class="c x0 y29 w0 h6">
                     <div class="t m0 x5 h7 y2a ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                     <div class="t m0 x5 h8 y2b ff1 fs1 fc0 sc0 ls0 ws0">The Managing Director</div>
@@ -118,7 +124,7 @@
             <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
         </div>
         <div id="pf3" class="pf w0 h0" data-page-no="3">
-            <div class="pc pc3 w0 h0"><img class="bi x2 y55 w3 h9" alt="" src="{{ asset('LetterPayroll/bg3.png') }}" />
+            <div class="pc pc3 w0 h0"><img class="bi x2 y55 w3 h9" alt="" src="{{ asset('letterImages/bg3.png') }}" />
                 <div class="c x0 y29 w0 h6">
                     <div class="t m0 x5 h7 y2a ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                     <div class="t m0 x5 h8 y2b ff1 fs1 fc0 sc0 ls0 ws0">The Managing Director</div>
@@ -220,7 +226,7 @@
             <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
         </div>
         <div id="pf4" class="pf w0 h0" data-page-no="4">
-            <div class="pc pc4 w0 h0"><img class="bi x5 y28 w2 h5" alt="" src="{{ asset('LetterPayroll/bg4.png') }}" />
+            <div class="pc pc4 w0 h0"><img class="bi x5 y28 w2 h5" alt="" src="{{ asset('letterImages/bg4.png') }}"> />
                 <div class="c x0 y29 w0 h6">
                     <div class="t m0 x5 h7 y2a ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                     <div class="t m0 x5 h8 y2b ff1 fs1 fc0 sc0 ls0 ws0">The Managing Director</div>
@@ -260,6 +266,9 @@
     <div class="loading-indicator">
 
     </div>
+    <script type="text/javascript" src="{{ asset('js/letter/compatibility.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/letter/letter.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/letter/theViewer.min.js') }}"></script>
     <script>
         function changeClasses(className, html) {
             var elements = document.getElementsByClassName(className);
@@ -273,10 +282,10 @@
             document.getElementById(id).innerHTML = html
         }
 
-        changeClasses("company_name", "{{ $payrollLetter->client->name }}")
-        changeClasses("contact_person", "{{ $payrollLetter->contact_person }}")
-        changeClasses("business_address", "{{ $payrollLetter->client->address }}")
-        changeClasses("company_short_name", "{{ $payrollLetter->company_short_name }}")
+        changeClasses("company_name", "{{ $payrollLetter->client->name }}");
+        changeClasses("contact_person", "{{$payrollLetter->contact_person  }}");
+        changeClasses("business_address", "{{ $payrollLetter->client->address }} ".split(", ").join(", <br />"));
+        changeClasses("company_short_name", "{{ $payrollLetter->company_short_name }}");
         changeId("date", "{{ $payrollLetter->date }}")
     </script>
 </body>

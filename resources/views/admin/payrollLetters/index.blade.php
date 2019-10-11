@@ -26,6 +26,9 @@
                             {{ trans('cruds.payrollLetter.fields.id') }}
                         </th>
                         <th>
+                            {{ trans('cruds.payrollLetter.fields.type') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.payrollLetter.fields.client') }}
                         </th>
                         <th>
@@ -44,6 +47,12 @@
                             {{ trans('cruds.payrollLetter.fields.staff_name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.payrollLetter.fields.other_services_charges') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.payrollLetter.fields.services') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -56,6 +65,9 @@
                             </td>
                             <td>
                                 {{ $payrollLetter->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $payrollLetter->type->name ?? '' }}
                             </td>
                             <td>
                                 {{ $payrollLetter->client->name ?? '' }}
@@ -74,6 +86,14 @@
                             </td>
                             <td>
                                 {{ $payrollLetter->staff_name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $payrollLetter->other_services_charges ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($payrollLetter->services as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('payroll_letter_show')
@@ -142,7 +162,7 @@
 @endcan
 
   $.extend(true, $.fn.dataTable.defaults, {
-    order: [[ 2, 'desc' ]],
+    order: [[ 3, 'desc' ]],
     pageLength: 25,
   });
   $('.datatable-PayrollLetter:not(.ajaxTable)').DataTable({ buttons: dtButtons })

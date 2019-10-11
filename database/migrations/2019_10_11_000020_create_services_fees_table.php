@@ -19,6 +19,8 @@ class CreateServicesFeesTable extends Migration
 
             $table->float('currency_rate', 20, 2)->nullable();
 
+            $table->longText('details')->nullable();
+
             $table->timestamps();
 
             $table->softDeletes();
