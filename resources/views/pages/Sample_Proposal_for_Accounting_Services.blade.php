@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="{{ asset('js/account_letter/base.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('js/account_letter/fancy.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('js/account_letter/main.css') }}" />
-    <script type="text/javascript" src="{{ asset('js/account_letter/compatibility.min.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ asset('js/account_letter/theViewer.min.js') }}"></script>
+    <script src="compatibility.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/account_letter/theViewer.min.js') }}"></script>
     <script>
         try {
             theViewer.defaultViewer = new theViewer.Viewer({});
         } catch (e) {}
-    </script> --}}
+    </script>
     <title></title>
 </head>
 
@@ -27,7 +27,7 @@
     <div>
         <div id="page-container">
             <div id="pf1" class="pf w0 h0" data-page-no="1">
-                <div class="pc pc1 w0 h0"><img class="bi x0 y0 w1 h1" alt="" src="{{ asset('js/account_letter/bg1.png') }}" />
+                <div class="pc pc1 w0 h0"><img class="bi x0 y0 w1 h1" alt="" src="bg1.png" />
                     <div class="t m0 x1 h2 y1 ff1 fs0 fc0 sc0 ls0 ws0">
                         <div class="date">{Day, Month, Year}</div>
                     </div>
@@ -67,7 +67,7 @@
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
             <div id="pf2" class="pf w0 h0" data-page-no="2">
-                <div class="pc pc2 w0 h0"><img class="bi x4 y22 w2 h5" alt="" src="{{ asset('js/account_letter/bg2.png') }}" />
+                <div class="pc pc2 w0 h0"><img class="bi x4 y22 w2 h5" alt="" src="bg2.png" />
                     <div class="c x0 y23 w0 h6">
                         <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                         <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
@@ -182,7 +182,7 @@
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
             <div id="pf4" class="pf w0 h0" data-page-no="4">
-                <div class="pc pc4 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg4.png') }}" />
+                <div class="pc pc4 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="bg4.png" />
                     <div class="c x0 y23 w0 h6">
                         <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                         <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
@@ -232,7 +232,7 @@
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
             <div id="pf5" class="pf w0 h0" data-page-no="5">
-                <div class="pc pc5 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg5.png') }}" />
+                <div class="pc pc5 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="bg5.png" />
                     <div class="c x0 y23 w0 h6">
                         <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                         <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
@@ -287,7 +287,7 @@
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
             <div id="pf6" class="pf w0 h0" data-page-no="6">
-                <div class="pc pc6 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg6.png') }}" />
+                <div class="pc pc6 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="bg6.png" />
                     <div class="c x0 y23 w0 h6">
                         <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                         <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
@@ -320,7 +320,7 @@
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
             <div id="pf7" class="pf w0 h0" data-page-no="7">
-                <div class="pc pc6 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg6.png') }}" />
+                <div>
                     <div class="c x0 y23 w0 h6">
                         <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                         <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
@@ -335,7 +335,7 @@
                     <div class="t m0 x3 h2 y2d ff1 fs0 fc0 sc0 ls0 ws0">Our fees are based on the time and level of expertise required for the assignment. Our fees are </div>
                     <div class="t m0 x3 h2 y2e ff1 fs0 fc0 sc0 ls0 ws0">exclusive of VAT and out-of-pocket expenses, such as transportation, stationery, etc. Please find </div>
                     <div class="t m0 x3 h2 ya6 ff1 fs0 fc0 sc0 ls0 ws0">below, the breakdown of our fees:</div>
-                    <div id="image">
+                    <div id="image"><img src="bg3.png" alt="Image"> </div>
                     <div class="t m0 x3 h2 yb1 ff1 fs0 fc0 sc0 ls0 ws0">We shall bill this amount in four (4) equal instalments at the beginning of each quarter. The fee </div>
                     <div class="t m0 x3 h2 yb2 ff1 fs0 fc0 sc0 ls0 ws0">quote above does not include VAT and out of pocket expenses that are agreed or that are duly </div>
                     <div class="t m0 x3 h2 yb3 ff1 fs0 fc0 sc0 ls0 ws0">invoiced and receipted by third parties. Such VAT and out of pocket expenses shall be added to the </div>
@@ -354,7 +354,7 @@
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
             <div id="pf8" class="pf w0 h0" data-page-no="8">
-                <div class="pc pc8 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg8.png') }}" />
+                <div class="pc pc8 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="bg8.png" />
                     <div class="c x0 y23 w0 h6">
                         <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                         <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
@@ -403,7 +403,7 @@
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
             <div id="pf9" class="pf w0 h0" data-page-no="9">
-                <div class="pc pc9 w0 h0"><img class="bi x18 ye4 wa h12" alt="" src="{{ asset('js/account_letter/bg9.png') }} />
+                <div class="pc pc9 w0 h0"><img class="bi x18 ye4 wa h12" alt="" src="bg9.png" />
                     <div class="c x0 y23 w0 h6">
                         <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                         <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
@@ -436,6 +436,13 @@
                 </div>
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
+            <script>
+                BalloonEditor
+                    .create(document.querySelector('#editor'))
+                    .catch(error => {
+                        console.error(error);
+                    });
+            </script>
         </div>
     </div>
     <div class="loading-indicator">

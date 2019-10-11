@@ -1,7 +1,7 @@
 @extends('layouts.inner')
 
 @section('title', 'Project')
-    
+
 @section('header', 'Project Management')
 
 @section('sub_header', 'Documents')
@@ -31,16 +31,16 @@
                     <label for="project-list">Project Name</label>
                     <select id="project-list" class="selectDesign form-control"></select>
                 </div>
-    
+
                 <div class="form-group">
                     <label for="task-list">Version</label>
                     <input type="text" class="form-control" id="version" placeholder="Enter Version">
                     </div>
-    
+
             </div>
 
             <div class="col-md-2 form-group mt-2">
-                    <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>   
+                    <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
                 </div>
     </div>
 </form>
@@ -78,6 +78,6 @@
 
 @section('css')
     <style type="text/css">
-        
+
     </style>
 @endsection
