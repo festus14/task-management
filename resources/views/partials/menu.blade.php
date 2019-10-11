@@ -23,7 +23,7 @@
                 </li>
                 @can('user_management_access')
                     <li class="nav-item has-treeview {{ request()->is('admin/permissions*') ? 'menu-open' : '' }} {{ request()->is('admin/roles*') ? 'menu-open' : '' }} {{ request()->is('admin/users*') ? 'menu-open' : '' }} {{ request()->is('admin/audit-logs*') ? 'menu-open' : '' }}">
-                        <a class="nav-link nav-dropdown-toggle">
+                        <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw fas fa-users">
 
                             </i>
@@ -86,7 +86,7 @@
                 @endcan
                 @can('client_management_access')
                     <li class="nav-item has-treeview {{ request()->is('admin/clients*') ? 'menu-open' : '' }} {{ request()->is('admin/client-portals*') ? 'menu-open' : '' }}">
-                        <a class="nav-link nav-dropdown-toggle">
+                        <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw fas fa-box-open">
 
                             </i>
@@ -125,7 +125,7 @@
                 @endcan
                 @can('project_management_access')
                     <li class="nav-item has-treeview {{ request()->is('admin/project-types*') ? 'menu-open' : '' }} {{ request()->is('admin/project-sub-types*') ? 'menu-open' : '' }} {{ request()->is('admin/documents*') ? 'menu-open' : '' }} {{ request()->is('admin/projects*') ? 'menu-open' : '' }} {{ request()->is('admin/project-comments*') ? 'menu-open' : '' }} {{ request()->is('admin/project-reports*') ? 'menu-open' : '' }}">
-                        <a class="nav-link nav-dropdown-toggle">
+                        <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw fas fa-archway">
 
                             </i>
@@ -212,7 +212,7 @@
                 @endcan
                 @can('task_management_access')
                     <li class="nav-item has-treeview {{ request()->is('admin/task-portals*') ? 'menu-open' : '' }} {{ request()->is('admin/tast-categories*') ? 'menu-open' : '' }} {{ request()->is('admin/tasks*') ? 'menu-open' : '' }} {{ request()->is('admin/task-statuses*') ? 'menu-open' : '' }} {{ request()->is('admin/task-comments*') ? 'menu-open' : '' }} {{ request()->is('admin/task-comment-replies*') ? 'menu-open' : '' }} {{ request()->is('admin/task-documents*') ? 'menu-open' : '' }}">
-                        <a class="nav-link nav-dropdown-toggle">
+                        <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw fas fa-thumbtack">
 
                             </i>
@@ -302,6 +302,57 @@
                                         </i>
                                         <p>
                                             <span>{{ trans('cruds.taskDocument.title') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
+                @can('letter_mgt_access')
+                    <li class="nav-item has-treeview {{ request()->is('admin/letter-types*') ? 'menu-open' : '' }} {{ request()->is('admin/payroll-letters*') ? 'menu-open' : '' }} {{ request()->is('admin/services-fees*') ? 'menu-open' : '' }}">
+                        <a class="nav-link nav-dropdown-toggle" href="#">
+                            <i class="fa-fw fas fa-database">
+
+                            </i>
+                            <p>
+                                <span>{{ trans('cruds.letterMgt.title') }}</span>
+                                <i class="right fa fa-fw fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('letter_type_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.letter-types.index") }}" class="nav-link {{ request()->is('admin/letter-types') || request()->is('admin/letter-types/*') ? 'active' : '' }}">
+                                        <i class="fa-fw far fa-address-book">
+
+                                        </i>
+                                        <p>
+                                            <span>{{ trans('cruds.letterType.title') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('payroll_letter_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.payroll-letters.index") }}" class="nav-link {{ request()->is('admin/payroll-letters') || request()->is('admin/payroll-letters/*') ? 'active' : '' }}">
+                                        <i class="fa-fw far fa-address-card">
+
+                                        </i>
+                                        <p>
+                                            <span>{{ trans('cruds.payrollLetter.title') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('services_fee_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.services-fees.index") }}" class="nav-link {{ request()->is('admin/services-fees') || request()->is('admin/services-fees/*') ? 'active' : '' }}">
+                                        <i class="fa-fw fas fa-cogs">
+
+                                        </i>
+                                        <p>
+                                            <span>{{ trans('cruds.servicesFee.title') }}</span>
                                         </p>
                                     </a>
                                 </li>

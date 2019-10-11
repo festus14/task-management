@@ -16,6 +16,10 @@ class AddRelationshipFieldsToPayrollLettersTable extends Migration
             $table->unsignedInteger('project_id');
 
             $table->foreign('project_id', 'project_fk_452038')->references('id')->on('projects');
+
+            $table->unsignedInteger('type_id');
+
+            $table->foreign('type_id', 'type_fk_456160')->references('id')->on('letter_types');
         });
     }
 }
