@@ -17,7 +17,7 @@ class CreatePayrollLettersTable extends Migration
 
             $table->string('company_short_name');
 
-            $table->string('staff_name');
+            $table->string('staff_name')->nullable();
 
             $table->longText('client_summary')->nullable();
 
