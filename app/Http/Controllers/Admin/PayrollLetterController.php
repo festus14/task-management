@@ -68,7 +68,7 @@ class PayrollLetterController extends Controller
 
         $payrollLetter->load('client', 'project');
 
-        return view('admin.payrollLetters.account', compact('payrollLetter'));
+        return view('admin.payrollLetters.show', compact('payrollLetter'));
     }
 
     public function destroy(PayrollLetter $payrollLetter)

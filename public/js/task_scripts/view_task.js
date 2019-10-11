@@ -10,19 +10,14 @@ deleteSingleTask = (taskID) => {
         dangerMode: true,
     }).then((willDelete) => {
         if (willDelete) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
             $.ajax({
                 type: "DELETE",
-                url: "{{ url('api/v1/tasks')}}" + '/' + taskID,
+                url: '/api/v1/tasks' + '/' + taskID,
                 success: function(data) {
                     swal("Deleted!", "Task has been successfully deleted.", "success");
                     window.setTimeout(function() {
-                        location.reload();
-                    }, 2500);
+                        $("#kt_table_task").DataTable().ajax.reload();
+                    }, 2300)
                 },
                 error: function(data) {
                     swal("Delete failed", "Please try again", "error");
@@ -42,7 +37,7 @@ function submitEditTaskForm(taskID) {
     let formData = $('#editTaskform').serialize();
     $.ajax({
         type: "PUT",
-        url: "{{ url('/api/v1/tasks') }}" + "/" + taskID,
+        url: '/api/v1/tasks' + "/" + taskID,
         data: formData,
         success: function(data) {
             swal({
@@ -52,9 +47,10 @@ function submitEditTaskForm(taskID) {
                 confirmButtonColor: "#DD6B55",
                 // confirmButtonText: "OK",
             });
+            $('#editTaskModalMain').modal('hide');
             window.setTimeout(function() {
-                location.reload();
-            }, 3000)
+                $("#kt_table_task").DataTable().ajax.reload();
+            }, 2300)
 
         },
         error: function(error) {
@@ -73,14 +69,9 @@ function submitEditTaskForm(taskID) {
 
 // post to the create Task table
 function postCreateTask() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $.ajax({
         type: "POST",
-        url: "{{ url('/api/v1/tasks') }}",
+        url: '/api/v1/tasks',
         data: $('#addTaskform').serialize(),
         success: function(response) {
             $('#createTaskModal').modal('hide');
@@ -90,9 +81,10 @@ function postCreateTask() {
                 icon: "success",
                 confirmButtonText: "Ok",
             });
+            $('#createTaskModal').modal('hide');
             window.setTimeout(function() {
-                location.reload();
-            }, 3000);
+                $("#kt_table_task").DataTable().ajax.reload();
+            }, 2300)
         },
         error: function(error) {
             swal("Task creation failed", "Please check missing fields", "error");
