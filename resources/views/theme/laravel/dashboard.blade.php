@@ -1,5 +1,5 @@
 @extends('layouts.metro')
-@section('name')
+@section('title')
     <title>Task Management | Dashboard</title>
 @endsection
 @section('active_arrow_one')
