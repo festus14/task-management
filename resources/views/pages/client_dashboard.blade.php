@@ -1,449 +1,1960 @@
-<!DOCTYPE html>
-<!-- Created by pdf2htmlEX (https://github.com/coolwanglu/pdf2htmlex) -->
-<html xmlns="http://www.w3.org/1999/xhtml">
+@extends('layouts.inner')
 
-<head>
-    <meta charset="utf-8" />
+@section('title', 'Clients')
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="stylesheet" href="{{ asset('js/account_letter/base.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('js/account_letter/fancy.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('js/account_letter/main.css') }}" />
-    <script type="text/javascript" src="{{ asset('js/account_letter/compatibility.min.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ asset('js/account_letter/theViewer.min.js') }}"></script>
+@section('header', 'Clients Portal')
+
+@section('sub_header', 'Clients Dashboard')
+
+@section('css')
+    <style>
+        .myButton {
+        -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+        -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+        box-shadow:inset 0px 1px 0px 0px #ffffff;
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+        background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+        background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+        background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+        background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+        background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+        background-color:#ededed;
+        -moz-border-radius:6px;
+        -webkit-border-radius:6px;
+        border-radius:6px;
+        border:1px solid #dcdcdc;
+        display:inline-block;
+        cursor:pointer;
+        color:#777777;
+        font-family:Arial;
+        font-size:15px;
+        font-weight:bold;
+        padding:6px 11px;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #ffffff;
+        }
+        .myButton:hover {
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+            background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+            background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+            background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+            background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+            background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+            background-color:#dfdfdf;
+        }
+        .myButton:active {
+            position:relative;
+            top:1px;
+        }
+    </style>
+
+    <style>
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTable tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTable tr.header, #myTable tr:hover {
+            background-color: #f1f1f1;
+            }
+
+        #myInputOne {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableOne {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableOne th, #myTableOne td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableOne tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTableOne tr.header, #myTableOne tr:hover {
+            background-color: #f1f1f1;
+            }
+
+    </style>
+
+    <style>
+        #myInputTen {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableTen {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableTen th, #myTableTen td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableTen tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTableTen tr.header, #myTableTen tr:hover {
+            background-color: #f1f1f1;
+            }
+
+
+        #myInputNine {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableNine {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableNine th, #myTableNine td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableNine tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTableNine tr.header, #myTableNine tr:hover {
+            background-color: #f1f1f1;
+            }
+        /* loader */
+        #loading {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            opacity: 0.7;
+            background-color: #ffff;
+            z-index: 99;
+            text-align: center;
+            }
+
+            #loading-image {
+            position: absolute;
+            top: 40%;
+            left: 45%;
+            z-index: 100;
+            }
+    </style>
+
+    <style>
+        /* Style for project members table */
+        #myInputThree {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableThree {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableThree th, #myTableThree td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableThree tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTableThree tr.header, #myTableThree tr:hover {
+            background-color: #f1f1f1;
+            }
+
+        #myInputThree {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableThree {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableThree th, #myTableThree td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableThree tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTableThree tr.header, #myTableThree tr:hover {
+            background-color: #f1f1f1;
+            }
+    </style>
+
+    <style>
+        /* Style for project members table */
+        #myInputSix {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableSix {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableSix th, #myTableSix td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableSix tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTableSix tr.header, #myTableSix tr:hover {
+            background-color: #f1f1f1;
+            }
+
+        #myInputSix {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            }
+
+            #myTableSix {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            }
+
+            #myTableSix th, #myTableSix td {
+            text-align: left;
+            padding: 12px;
+            }
+
+            #myTableSix tr {
+            border-bottom: 1px solid #ddd;
+            }
+
+            #myTableSix tr.header, #myTableSix tr:hover {
+            background-color: #f1f1f1;
+            }
+    </style>
+
+@endsection
+
+@section('content')
+        <div id="loading">
+            <img id="loading-image" src={{ url('/loader/loader.gif')}} alt="Loading..." />
+        </div>
+        {{-- Create Client Modal --}}
+        <div style="margin-right: 15%; margin-bottom: 5%;">
+            <a class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air btn-success pull-right" id="createClient" style="background-color:; color:white;" data-toggle="modal" onclick="changeFormat()" data-target="#createClientModal">
+                    <span>
+                        <i class="la la-plus"></i>
+                        <span>
+                            Add Client
+                        </span>
+                    </span>
+                </a>
+        </div>
+
+        <div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create Client</h5>
+                            <button type="button" class="close" onclick="$('#createClientModal').modal('hide');" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div id="createClientModalBody" class="modal-body col-md-12">
+                            <div class="col-md-12 ">
+                                <form class="form" onsubmit="createCliento()" id="clientForm" action="{{ route("admin.clients.store") }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6 form-group mt-3 {{ $errors->has('name') ? 'has-error' : '' }}">
+                                            <label for="name">{{ trans('cruds.client.fields.name') }}*</label>
+                                            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($client) ? $client->name : '') }}" required>
+
+                                            @if($errors->has('name'))
+                                                <p class="help-block">
+                                                    {{ $errors->first('name') }}
+                                                </p>
+                                            @endif
+                                            <p class="helper-block">
+                                                {{ trans('cruds.client.fields.name_helper') }}
+                                            </p>
+                                        </div>
+
+                                        <div class="col-md-6 form-group {{ $errors->has('status') ? 'has-error' : '' }} mt-3">
+                                                <label for="status">{{ trans('cruds.client.fields.status') }}</label>
+                                                <select id="status" name="status" class="form-control" required>
+                                                    <option value="" disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                                    @foreach(App\Client::STATUS_SELECT as $key => $label)
+                                                        <option value="{{ $key }}" {{ old('status', null) === (string)$key ? 'selected' : '' }}>{{ $label }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('status'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('status') }}
+                                                    </p>
+                                                @endif
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row col-md-12">
+
+                                            <div class="col-md-4 form-group {{ $errors->has('date_of_engagement') ? 'has-error' : '' }} mt-3">
+                                                <label for="date_of_engagement">{{ trans('cruds.client.fields.date_of_engagement') }}</label>
+                                                <input required type="text" id="date_of_engagement" name="date_of_engagement" class="form-control date" value="{{ old('date_of_engagement', isset($client) ? $client->date_of_engagement : '') }}">
+                                                @if($errors->has('date_of_engagement'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('date_of_engagement') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.date_of_engagement_helper') }}
+                                                </p>
+                                            </div>
+
+
+                                            <div class="col-md-4 form-group {{ $errors->has('expiry_date') ? 'has-error' : '' }} mt-3">
+                                                <label for="expiry_date">{{ trans('cruds.client.fields.expiry_date') }}</label>
+                                                <input required type="text" id="expiry_date" name="expiry_date" class="form-control date" value="{{ old('expiry_date', isset($client) ? $client->expiry_date : '') }}">
+                                                @if($errors->has('expiry_date'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('expiry_date') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.expiry_date_helper') }}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-4 form-group {{ $errors->has('phone') ? 'has-error' : '' }} mt-3">
+                                                    <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
+                                                    <input required type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', isset($client) ? $client->phone : '') }}">
+
+                                                @if($errors->has('phone'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('phone') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.phone_helper') }}
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+
+                                            <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }} mt-3">
+                                                    <label for="address">{{ trans('cruds.client.fields.address') }}</label>
+                                                    <input required type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($client) ? $client->address : '') }}">
+
+                                                @if($errors->has('address'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('address') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.address_helper') }}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }} mt-3">
+                                                    <label for="email">{{ trans('cruds.client.fields.email') }}</label>
+                                                    <input required type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($client) ? $client->email : '') }}">
+
+                                                @if($errors->has('email'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('email') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.email_helper') }}
+                                                </p>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-3 form-group mt-3">
+                                            <input class="btn btn-danger" type="submit" style="background-color:#8a2a2b; color:white;"  value="{{ trans('global.create') }}">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+          {{-- End Create Client Modal --}}
+
+
+          <!-- Edit Client Modal -->
+<div class="modal fade" id="editClientModalBody" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Client</h5>
+                <button type="button" class="close" onclick="$('#editClientModalBody').modal('hide');" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="editClientBody" class="modal-body col-md-12">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    <!-- Begin: List Client -->
+    <div class="m-content" >
+        <div class="m-portlet__body  m-portlet__body--no-padding" >
+            <div class="row m-row--no-padding m-row--col-separator-xl"  id="client-cards">
+
+            </div>
+        </div>
+    </div>
+    <!-- end: List Client -->
+
+    <!-- View Project Modal Begin-->
+    <div id="client-project-modal">
+
+    </div>
+    <!-- End: View Project Modal-->
+
+    <!-- View Task Modal Begin-->
+    <div id="client-task-modal">
+
+    </div>
+
+    <!-- End: View Task Modal-->
+
+    <!-- More Info Modal -->
+    <div id="moreProjectInfo">
+
+    </div>
+
+    <div id="moreTaskInfo">
+
+    </div>
+
+    <!-- End More Info Modal -->
+
+
+
+@endsection
+
+@section('javascript')
+
+<script type="text/javascript" src="{{ asset('js/validator/clientValidtor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/client_scripts/createClient.js') }}"></script>
+{{-- <script type="text/javascript" src="{{ asset('js/client_scripts/editClient.js') }}"></script> --}}
+{{-- <script type="text/javascript" src="{{ asset('js/client_scripts/displayClientCard.js') }}"></script> --}}
+{{-- <script type="text/javascript" src="{{ asset('js/client_scripts/deleteClient.js') }}"></script> --}}
+{{--Body Scripts--}}
     <script>
-        try {
-            theViewer.defaultViewer = new theViewer.Viewer({});
-        } catch (e) {}
-    </script> --}}
-    <title></title>
-</head>
 
-<body>
-    <div id="sidebar">
-        <div id="outline">
-        </div>
-    </div>
-    <div>
-        <div id="page-container">
-            <div id="pf1" class="pf w0 h0" data-page-no="1">
-                <div class="pc pc1 w0 h0"><img class="bi x0 y0 w1 h1" alt="" src="{{ asset('js/account_letter/bg1.png') }}" />
-                    <div class="t m0 x1 h2 y1 ff1 fs0 fc0 sc0 ls0 ws0">
-                        <div class="date">{Day, Month, Year}</div>
-                    </div>
-                    <div class="t m0 x2 h3 y2 ff2 fs0 fc1 sc0 ls0 ws0">Accounting and Business Support Services</div>
-                    <div class="t m0 x2 h2 y3 ff1 fs0 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                    <div class="t m0 x2 h2 y4 ff1 fs0 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                    <div class="t m0 x2 h2 y5 ff1 fs0 fc0 sc0 ls0 ws0" id="business_add_one">{Business Address Line 1}</div>
-                    <div class="t m0 x2 h2 y6 ff1 fs0 fc0 sc0 ls0 ws0" id="business_add_two">{Business Address Line 2}</div>
-                    <div class="t m0 x2 h2 y7 ff1 fs0 fc0 sc0 ls0 ws0" id="business_add_three">{Business Address Line 3}</div>
-                    <div class="t m0 x2 h4 y8 ff3 fs0 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                    <div class="t m0 x2 h2 y9 ff1 fs0 fc0 sc0 ls0 ws0">Dear Sir,</div>
-                    <div class="t m0 x2 h3 ya ff2 fs0 fc0 sc0 ls0 ws0">Proposal to provide Professional Accounting and Business Support Services</div>
-                    <div class="t m0 x2 h2 yb ff1 fs0 fc0 sc0 ls0 ws0">We refer to your email correspondence of <span class="date">{Day, Month, year}</span> with <span id="staff_name">{Staff Name}</span> on the above </div>
-                    <div class="t m0 x2 h2 yc ff1 fs0 fc0 sc0 ls0 ws0">subject. We are pleased to submit herein, a proposal to <span class="company_name">{Company Name}</span> detailing how we can be of </div>
-                    <div class="t m0 x2 h2 yd ff1 fs0 fc0 sc0 ls0 ws0">assistance to the company with respect to providing accounting services.</div>
-                    <div class="t m0 x2 h3 ye ff2 fs0 fc0 sc0 ls0 ws0">1.<span class="_ _0"> </span>Our understanding of your requirements</div>
-                    <div class="t m0 x3 h3 yf ff2 fs0 fc0 sc0 ls0 ws0">a.<span class="_ _1"> </span>About <span id="prospective_client">{Prospective Client}</span></div>
-                    <div class="t m0 x3 h2 y10 ff1 fs0 fc0 sc0 ls0 ws0 summary">{Summary of prospective client’s business and professional services needs}</div>
-                    <div class="t m0 x3 h3 y11 ff2 fs0 fc0 sc0 ls0 ws0">b.<span class="_ _2"> </span>Nigerian Business Exploit</div>
-                    <div class="t m0 x3 h2 y12 ff1 fs0 fc0 sc0 ls0 ws0">With a population of about 200 million and annual growth rates of 2.6%, Nigeria cannot be ignored </div>
-                    <div class="t m0 x3 h2 y13 ff1 fs0 fc0 sc0 ls0 ws0">as an investment destination in Africa. Nigeria is the most populous black nation and offers </div>
-                    <div class="t m0 x3 h2 y14 ff1 fs0 fc0 sc0 ls0 ws0">incredible returns for investors willing to take the risk.</div>
-                    <div class="t m0 x3 h2 y15 ff1 fs0 fc0 sc0 ls0 ws0">When looked at differently, the economic challenges in Nigeria are actually opportunities. The </div>
-                    <div class="t m0 x3 h2 y16 ff1 fs0 fc0 sc0 ls0 ws0">decay in its infrastructure is a limiting factor but it is also an opportunity for investors. It was </div>
-                    <div class="t m0 x3 h2 y17 ff1 fs0 fc0 sc0 ls0 ws0">forecasted that Nigeria&apos;s GDP will hit $3.3tn (£2.65trillion) by 2050, and that the economic output </div>
-                    <div class="t m0 x3 h2 y18 ff1 fs0 fc0 sc0 ls0 ws0">of Lagos, the vibrant commercial hub of Southwest region of Nigeria, alone will overtake that of </div>
-                    <div class="t m0 x3 h2 y19 ff1 fs0 fc0 sc0 ls0 ws0">Ghana. These are opportunities waiting to be seized by well-informed investors. As part of its </div>
-                    <div class="t m0 x3 h2 y1a ff1 fs0 fc0 sc0 ls0 ws0">economic reform, the Nigerian government has introduced both general and specific incentives to </div>
-                    <div class="t m0 x3 h2 y1b ff1 fs0 fc0 sc0 ls0 ws0">investors in Nigeria.</div>
-                    <div class="t m0 x3 h2 y1c ff1 fs0 fc0 sc0 ls0 ws0">However, as a result of the relative complexity of doing business in Africa and particularly in </div>
-                    <div class="t m0 x3 h2 y1d ff1 fs0 fc0 sc0 ls0 ws0">Nigeria, truly focused foreign investors concentrate on what they do best, while outsourcing non-</div>
-                    <div class="t m0 x3 h2 y1e ff1 fs0 fc0 sc0 ls0 ws0">core functions. Outsourcing non-strategic and relatively complex business functions can be a </div>
-                    <div class="t m0 x3 h2 y1f ff1 fs0 fc0 sc0 ls0 ws0">sustainable decision in the best interest of any investor in Africa.</div>
-                    <div class="t m0 x3 h2 y20 ff1 fs0 fc0 sc0 ls0 ws0">The Company is keen to apply the highest standard of accounting policies and put appropriate </div>
-                    <div class="t m0 x3 h2 y21 ff1 fs0 fc0 sc0 ls0 ws0">accounting processes in place.<span class="company_name">{Company Name}</span> is also committed to complying with all the </div>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-            <div id="pf2" class="pf w0 h0" data-page-no="2">
-                <div class="pc pc2 w0 h0"><img class="bi x4 y22 w2 h5" alt="" src="{{ asset('js/account_letter/bg2.png') }}" />
-                    <div class="c x0 y23 w0 h6">
-                        <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                        <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                        <div class="t m0 x5 h8 y26 ff1 fs1 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                        <div class="t m0 x5 h7 y27 ff3 fs1 fc0 sc0 ls0 ws0">Page 2 of 9</div>
-                    </div>
-                    <div class="t m0 x3 h2 y28 ff1 fs0 fc0 sc0 ls0 ws0">provisions of the Companies and Allied Matters Act (CAMA) and the Financial Reporting Council of </div>
-                    <div class="t m0 x3 h2 y29 ff1 fs0 fc0 sc0 ls0 ws0">Nigeria (FRC) Act. The company has therefore, requested Stransact to assist in realizing these </div>
-                    <div class="t m0 x3 h2 y2a ff1 fs0 fc0 sc0 ls0 ws0">objectives– professional accounting and business support services.</div>
-                    <div class="t m0 x2 h3 y2b ff2 fs0 fc0 sc0 ls0 ws0">2.<span class="_ _0"> </span>Our Credentials</div>
-                    <div class="t m0 x6 h3 y2c ff2 fs0 fc0 sc0 ls0 ws0">a.<span class="_ _3"> </span>About Us</div>
-                    <div class="t m0 x6 h3 y2d ff2 fs0 fc0 sc0 ls0 ws0">Stransact Audit<span class="ff1"> renders assurance services, Financial Reporting and IFRS services, Accounting and </span></div>
-                    <div class="t m0 x6 h2 y2e ff1 fs0 fc0 sc0 ls0 ws0">Book-keeping services and other attest-type services to numerous clients.</div>
-                    <div class="t m0 x6 h3 y2f ff1 fs0 fc0 sc0 ls0 ws0">Our sister firm, <span class="ff2">Stransact Partners</span> is the advisor of choice for discerning growing businesses. </div>
-                    <div class="t m0 x6 h2 y30 ff1 fs0 fc0 sc0 ls0 ws0">Stransact’s strength is in advisory services and it is renowned for its dedication to seeing </div>
-                    <div class="t m0 x6 h2 y31 ff1 fs0 fc0 sc0 ls0 ws0">companies in emerging markets assess premium transactions and advisory services at a fraction of </div>
-                    <div class="t m0 x6 h2 y32 ff1 fs0 fc0 sc0 ls0 ws0">the true value. We delight in the knowledge that we are trusted advisors to the next generation of </div>
-                    <div class="t m0 x6 h2 y33 ff1 fs0 fc0 sc0 ls0 ws0">super companies. We have excellent experience in working on strategic advisory, tax advisory, and </div>
-                    <div class="t m0 x6 h2 y34 ff1 fs0 fc0 sc0 ls0 ws0">transactions advisory projects. Value is the watch word that guides every assignment we </div>
-                    <div class="t m0 x6 h2 y35 ff1 fs0 fc0 sc0 ls0 ws0">undertake. </div>
-                    <div class="t m0 x6 h2 y36 ff1 fs0 fc0 sc0 ls0 ws0">Please visit <span class="fc2">www.stransact.com</span> to learn more about our services.</div>
-                    <div class="t m0 x6 h3 y37 ff2 fs0 fc3 sc0 ls0 ws0">b.<span class="_ _4"> </span>Stransact Advantage </div>
-                    <div class="t m0 x6 h3 y38 ff2 fs0 fc3 sc0 ls0 ws0">Our approach to work ensures that the product of our engagements will withstand the highest </div>
-                    <div class="t m0 x6 h3 y39 ff2 fs0 fc3 sc0 ls0 ws0">level of professional scrutiny; more importantly we understand advantage. Your corporate </div>
-                    <div class="t m0 x6 h3 y3a ff2 fs0 fc3 sc0 ls0 ws0">strategy is all about securing advantage for your company in the market and that is why Stransact </div>
-                    <div class="t m0 x6 h3 y3b ff2 fs0 fc3 sc0 ls0 ws0">ensures that you obtain that advantage in all your transactions. Our overall objective is to help </div>
-                    <div class="t m0 x6 h3 y3c ff2 fs0 fc3 sc0 ls0 ws0">you win - All the time<span class="ff1">.</span></div>
-                    <a class="l" href="http://www.stransact.com/">
-                        <div class="d m1" style="border-style:none;position:absolute;left:146.203003px;bottom:417.321014px;width:89.160004px;height:13.428009px;background-color:rgba(255,255,255,0.000001);"></div>
-                    </a>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-            <div id="pf3" class="pf w0 h0" data-page-no="3">
-                <div class="pc pc3 w0 h0">
-                    <div class="c x0 y23 w0 h6">
-                        <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                        <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                        <div class="t m0 x5 h8 y26 ff1 fs1 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                        <div class="t m0 x5 h7 y27 ff3 fs1 fc0 sc0 ls0 ws0">Page 3 of 9</div>
-                    </div>
-                    <div class="t m0 x6 h3 y29 ff2 fs0 fc0 sc0 ls0 ws0">c.<span class="_ _5"> </span>Our Clients</div>
-                    <div class="t m0 x6 h2 y3e ff1 fs0 fc0 sc0 ls0 ws0">Since we began servicing our clients in January 2009, we have performed Financial Reporting </div>
-                    <div class="t m0 x6 h2 y2b ff1 fs0 fc0 sc0 ls0 ws0">services, IFRS services, Accounting and Book-keeping services and other attest-type services for </div>
-                    <div class="t m0 x6 h2 y3f ff1 fs0 fc0 sc0 ls0 ws0">some of the leading brands in Nigeria. Companies that have benefited from our services include </div>
-                    <div class="t m0 x6 h2 y2c ff1 fs0 fc0 sc0 ls0 ws0">but are not limited to the following: </div>
-                    <div class="c x7 y40 w4 ha">
-                        <div class="t m0 x8 h2 y41 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">JMH Group (46 Parallels Nigeria Limited)</span></div>
-                        <div class="t m0 x8 h2 y42 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Platform Petroleum Limited</span></div>
-                        <div class="t m0 x8 h2 y43 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">First Hydrocarbon Nigeria Company Ltd</span></div>
-                        <div class="t m0 x8 h2 y44 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Afren Energy Services Limited</span></div>
-                        <div class="t m0 x8 h2 y45 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Oriental Energy Resources Limited</span></div>
-                        <div class="t m0 x8 h2 y46 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Lekoil Limited </span></div>
-                        <div class="t m0 x8 h2 y47 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">OPI International Nigeria Limited</span></div>
-                        <div class="t m0 x8 h2 y48 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">SEPLAT Petroleum Development Company </span></div>
-                        <div class="t m0 x9 h2 y49 ff1 fs0 fc0 sc0 ls0 ws0">Plc</div>
-                        <div class="t m0 x8 h2 y4a ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Cement Company of Northern Nigeria Plc </span></div>
-                        <div class="t m0 x9 h2 y4b ff1 fs0 fc0 sc0 ls0 ws0">(CCNN)</div>
-                        <div class="t m0 x8 h2 y4c ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Mansfield Energy Nigeria Limited</span></div>
-                        <div class="t m0 x8 h2 y4d ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Geosurvey Nigeria Limited</span></div>
-                        <div class="t m0 x8 h2 y4e ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Kuehne &amp; Nagel Nigeria Limited</span></div>
-                        <div class="t m0 x8 h2 y4f ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Hull Blyth Nigeria Limited</span></div>
-                        <div class="t m0 x8 h2 y50 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Groupe Aldelia Limited</span></div>
-                        <div class="t m0 x8 h2 y51 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Best Service Raya Distribution Nigeria Ltd</span></div>
-                        <div class="t m0 x8 h2 y52 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Financial Institutions Training Centre (FITC)</span></div>
-                        <div class="t m0 x8 h2 y53 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">British American Tobacco (Nigeria) Ltd </span></div>
-                        <div class="t m0 x9 h2 y54 ff1 fs0 fc0 sc0 ls0 ws0">(BAT)</div>
-                        <div class="t m0 x8 h2 y55 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">EL-ALAN Construction Company (Nigeria) </span></div>
-                        <div class="t m0 x8 h2 y56 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">African Circle Pollution Management </span></div>
-                        <div class="t m0 x9 h2 y57 ff1 fs0 fc0 sc0 ls0 ws0">Limited</div>
-                        <div class="t m0 x8 h2 y58 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Oando Plc</span></div>
-                        <div class="t m0 x8 h2 y59 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Chevron</span></div>
-                        <div class="t m0 x8 h2 y5a ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">MTN</span></div>
-                        <div class="t m0 x8 h2 y5b ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Sifa Gardens Hotel Limited</span></div>
-                        <div class="t m0 x8 h2 y5c ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Xynergy Global Limited</span></div>
-                        <div class="t m0 x8 h2 y5d ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Mansfield Properties Nigeria Limited</span></div>
-                        <div class="t m0 x8 h2 y5e ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Federal Inland Revenue Service (FIRS)</span></div>
-                    </div>
-                    <div class="c xa y40 w5 ha">
-                        <div class="t m0 x8 h2 y41 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Consolidated Discount House Limited (CDL)</span></div>
-                        <div class="t m0 x8 h2 y42 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">South Atlantic Petroleum (SAPETRO)</span></div>
-                        <div class="t m0 x8 h2 y43 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">First Capital Trust Plc</span></div>
-                        <div class="t m0 x8 h2 y44 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Sterling Bank Plc</span></div>
-                        <div class="t m0 x8 h2 y45 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Nestle Plc</span></div>
-                        <div class="t m0 x8 h2 y46 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Technip Offshore Nig. Ltd</span></div>
-                        <div class="t m0 x8 h2 y47 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">ENI Saipem Nigeria</span></div>
-                        <div class="t m0 x8 h2 y48 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Mainone Cables</span></div>
-                        <div class="t m0 x8 h2 y5f ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Standard Alliance Insurance</span></div>
-                        <div class="t m0 x8 h2 y60 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Associated Discount House Limited</span></div>
-                        <div class="t m0 x8 h2 y61 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Sahara Group</span></div>
-                        <div class="t m0 x8 h2 y62 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">GlaxoSmithKline Nigeria</span></div>
-                        <div class="t m0 x8 h2 y63 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">BGL Plc</span></div>
-                        <div class="t m0 x8 h2 y64 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Vodacom</span></div>
-                        <div class="t m0 x8 h2 y65 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Africa Practice Limited</span></div>
-                        <div class="t m0 x8 h2 y66 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Nigerian National Petroleum Corp. (NNPC)</span></div>
-                        <div class="t m0 x8 h2 y67 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Stellar Group</span></div>
-                        <div class="t m0 x8 h2 y68 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Team Nigeria</span></div>
-                        <div class="t m0 x8 h2 y69 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Tandridge District Council (UK)</span></div>
-                        <div class="t m0 x8 h2 y6a ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Mainstreet Bank (former Afribank Nigeria </span></div>
-                        <div class="t m0 x9 h2 y6b ff1 fs0 fc0 sc0 ls0 ws0">Plc)</div>
-                        <div class="t m0 x8 h2 y6c ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Access Bank Plc</span></div>
-                        <div class="t m0 x8 h2 y6d ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Brass LNG Ltd</span></div>
-                        <div class="t m0 x8 h2 y6e ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Bluebird Communications</span></div>
-                        <div class="t m0 x8 h2 y6f ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Statoil</span></div>
-                        <div class="t m0 x8 h2 y70 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Nordica Fertility Centre</span></div>
-                        <div class="t m0 x8 h2 y71 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">VF Global Services Nigeria Limited (VFS)</span></div>
-                        <div class="t m0 x8 h2 y72 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">Konga Online Shopping Limited</span></div>
-                        <div class="t m0 x8 h2 y73 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">African Alliance Insurance Plc</span></div>
-                        <div class="t m0 x8 h2 y74 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _6"> </span><span class="ff1">HydroDive Nigeria Limited</span></div>
-                    </div>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-            <div id="pf4" class="pf w0 h0" data-page-no="4">
-                <div class="pc pc4 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg4.png') }}" />
-                    <div class="c x0 y23 w0 h6">
-                        <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                        <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                        <div class="t m0 x5 h8 y26 ff1 fs1 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                        <div class="t m0 x5 h7 y27 ff3 fs1 fc0 sc0 ls0 ws0">Page 4 of 9</div>
-                    </div>
-                    <div class="t m0 x2 h3 y28 ff2 fs0 fc0 sc0 ls0 ws0">3.<span class="_ _0"> </span>Scope of Services</div>
-                    <div class="t m0 x6 h2 y2a ff1 fs0 fc0 sc0 ls0 ws0">Every investor who wishes to do business in Nigeria is mandated to comply with some statutory </div>
-                    <div class="t m0 x6 h2 y3e ff1 fs0 fc0 sc0 ls0 ws0">requirements; our specialty has been proven to be supporting businesses through this stage and </div>
-                    <div class="t m0 x6 h2 y2b ff1 fs0 fc0 sc0 ls0 ws0">beyond.</div>
-                    <div class="t m0 x6 h2 y2c ff1 fs0 fc0 sc0 ls0 ws0">We shall provide you with services to cover the entire spectrum of your accounting responsibilities </div>
-                    <div class="t m0 x6 h2 y76 ff1 fs0 fc0 sc0 ls0 ws0">in Nigeria. These services include, but not limited, to the following:</div>
-                    <div class="t m0 x3 h3 y77 ff2 fs0 fc0 sc0 ls0 ws0">A.<span class="_ _7"> </span>Accounting Services</div>
-                    <div class="t m0 xb h2 y2f ff1 fs0 fc0 sc0 ls0 ws0">i)<span class="_ _8"> </span>Setting up of Book keeping and Accounting System</div>
-                    <div class="t m0 xc hc y78 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Design Chart of Accounts in accordance with the requirements of International </span></div>
-                    <div class="t m0 xd h2 y79 ff1 fs0 fc0 sc0 ls0 ws0">Accounting Standards (IAS) and the International Financial Reporting Standards </div>
-                    <div class="t m0 xd h2 y7a ff1 fs0 fc0 sc0 ls0 ws0">(IFRS). The company’s existing Chart of Accounts would be considered in the process </div>
-                    <div class="t m0 xd h2 y7b ff1 fs0 fc0 sc0 ls0 ws0">of the new design</div>
-                    <div class="t m0 xc hc y35 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Design relevant Accounting Policies</span></div>
-                    <div class="t m0 xc hc y7c ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Design of standard Invoicing and Vouching system</span></div>
-                    <div class="t m0 xc hc y36 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Design of official Receipts, Vouchers, Ledgers and other source documents </span></div>
-                    <div class="t m0 xc hc y7d ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Design of suitable Imprest System</span></div>
-                    <div class="t m0 xb h2 y7e ff1 fs0 fc0 sc0 ls0 ws0">ii)<span class="_ _9"> </span>Preparation of Final Accounts</div>
-                    <div class="t m0 xc hc y7f ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Request for copies of your Bank Statement and Petty Cash Book on a monthly basis </span></div>
-                    <div class="t m0 xd h2 y80 ff1 fs0 fc0 sc0 ls0 ws0">for preparation of Bank Reconciliation Statement and posting to ledgers using the </div>
-                    <div class="t m0 xd h2 y81 ff1 fs0 fc0 sc0 ls0 ws0">QuickBooks Accounting Software</div>
-                    <div class="t m0 xc hc y3c ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Request for copies of Invoices raised on customers/Sales Receipts, Payment </span></div>
-                    <div class="t m0 xd h2 y82 ff1 fs0 fc0 sc0 ls0 ws0">Vouchers, Bank Statement and source documents to their respective ledgers using </div>
-                    <div class="t m0 xd h2 y83 ff1 fs0 fc0 sc0 ls0 ws0">the QuickBooks Accounting Software</div>
-                    <div class="t m0 xc hc y84 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Summarizing the ledgers to General Ledger </span></div>
-                    <div class="t m0 xc hc y85 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Extraction of Trial Balance </span></div>
-                    <div class="t m0 xc hc y86 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Preparation of Management Reports</span></div>
-                    <div class="t m0 xc hc y87 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Sending of Monthly Management Reports and Bank Reconciliation Statement</span></div>
-                    <div class="t m0 x3 h3 y88 ff2 fs0 fc0 sc0 ls0 ws0">B.<span class="_ _a"> </span>Payroll Management Services</div>
-                    <div class="t m0 xb h2 y89 ff1 fs0 fc0 sc0 ls0 ws0">i)<span class="_ _b"> </span>Ascertain employee’s annual emoluments</div>
-                    <div class="t m0 xb h2 y8a ff1 fs0 fc0 sc0 ls0 ws0">ii)<span class="_ _0"> </span>Obtain monthly variation instructions from you for your various employees</div>
-                    <div class="t m0 xb h2 y8b ff1 fs0 fc0 sc0 ls0 ws0">iii)<span class="_ _5"> </span>Processing the monthly payroll of the employees (Nigerian staff and Expatriate) of the </div>
-                    <div class="t m0 xe h2 y8c ff1 fs0 fc0 sc0 ls0 ws0">Company</div>
-                    <div class="t m0 xb h2 y8d ff1 fs0 fc0 sc0 ls0 ws0">iv)<span class="_ _5"> </span>Compute other employee-related obligations such as Pension, ITF, NHF and NSITF </div>
-                    <div class="t m0 xe h2 y8e ff1 fs0 fc0 sc0 ls0 ws0">contributions and advice on the amount payable</div>
-                    <div class="t m0 xb h2 y8f ff1 fs0 fc0 sc0 ls0 ws0">v)<span class="_ _0"> </span>Generate reports with respect to net salaries payable; PAYE tax payable; Pension </div>
-                    <div class="t m0 xe h2 y90 ff1 fs0 fc0 sc0 ls0 ws0">Contribution, ITF, NHF and NSITF contributions</div>
-                    <div class="t m0 xb h2 y91 ff1 fs0 fc0 sc0 ls0 ws0">vi)<span class="_ _5"> </span>Generate payslips based on approved payroll report</div>
-                    <div class="t m0 xb h2 y92 ff1 fs0 fc0 sc0 ls0 ws0">vii)<span class="_ _c"> </span>Send payslips to individual employees electronically</div>
-                    <div class="t m0 xb h2 y93 ff1 fs0 fc0 sc0 ls0 ws0">viii)<span class="_ _7"> </span>Generate payroll journal report for finance department use</div>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-            <div id="pf5" class="pf w0 h0" data-page-no="5">
-                <div class="pc pc5 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg5.png') }}" />
-                    <div class="c x0 y23 w0 h6">
-                        <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                        <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                        <div class="t m0 x5 h8 y26 ff1 fs1 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                        <div class="t m0 x5 h7 y27 ff3 fs1 fc0 sc0 ls0 ws0">Page 5 of 9</div>
-                    </div>
-                    <div class="t m0 x2 h3 y29 ff2 fs0 fc0 sc0 ls0 ws0">4.<span class="_ _0"> </span>Our Assignment Team </div>
-                    <div class="t m0 x6 h3 y3e ff2 fs0 fc4 sc0 ls0 ws0">Eben F Joels,<span class="fc0"> <span class="ff1">Partner, manages our United States practice, Stransact LLP (Certified public </span></span>
-                    </div>
-                    <div class="t m0 x6 h2 y2b ff1 fs0 fc0 sc0 ls0 ws0">Accountants and Advisors). Eben will oversee quality assurance on this project.</div>
-                    <div class="t m0 x6 h3 y2c ff2 fs0 fc0 sc0 ls0 ws0">Key Accomplishments</div>
-                    <div class="t m0 x6 hc y2d ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">Worked for almost a decade with the big brands Arthur Andersen, KPMG, and </span></div>
-                    <div class="t m0 xb h2 y2e ff1 fs0 fc0 sc0 ls0 ws0">PricewaterhouseCoopers (PwC). </div>
-                    <div class="t m0 x6 hc y94 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">Eben’s multiple Accounting expert certifications i<span class="_ _d"></span>nclude: </span>
-                    </div>
-                    <div class="t m0 xb hc y2f ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Fellow, Institute of Chartered Accountants of Nigeria (ICAN); </span></div>
-                    <div class="t m0 xb hc y30 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Fellow, Chartered Institute of Taxation of Nigeria (CITN), </span></div>
-                    <div class="t m0 xb hc y78 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Certified Management Accountant (CMA), Institute of Management Accountants of the US </span></div>
-                    <div class="t m0 xf h2 y79 ff1 fs0 fc0 sc0 ls0 ws0">(IMA), </div>
-                    <div class="t m0 xb hc y7a ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Certified Public Accountant (CPA), American Institute of Certified Public Accountants </span></div>
-                    <div class="t m0 xf h2 y95 ff1 fs0 fc0 sc0 ls0 ws0">(AICPA); and </div>
-                    <div class="t m0 xb hc y35 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Associate, Association of Chartered Certified Accountants (ACCA, UK). </span></div>
-                    <div class="t m0 x6 hc y7c ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">Eben obtained his Juris D<span class="_ _d"></span>octor (Business Law) from the Massachusetts School of Law, Andover </span>
-                    </div>
-                    <div class="t m0 xb h2 y96 ff1 fs0 fc0 sc0 ls0 ws0">(USA) </div>
-                    <div class="t m0 x6 hc y7d ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">He has attended the Executive Development Program (EDP) of the Wharton Business School<span class="_ _d"></span> </span>
-                    </div>
-                    <div class="t m0 xb h2 y97 ff1 fs0 fc0 sc0 ls0 ws0">(University of Pennsylvania, USA).</div>
-                    <div class="t m0 x6 hc y7e ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">The Advanced Management Program (AMP) of the Columbia Business School<span class="_ _d"></span> (Columbia </span>
-                    </div>
-                    <div class="t m0 xb h2 y98 ff1 fs0 fc0 sc0 ls0 ws0">University, New York).</div>
-                    <div class="t m0 x6 h3 y99 ff2 fs0 fc4 sc0 ls0 ws0">‘Yomi Salawu, <span class="ff1 fc0">Partner and leader of our Nigerian practice Stransact Audit (Chartered Accountants<span class="ff2">) </span></span>
-                    </div>
-                    <div class="t m0 x6 h2 y9a ff1 fs0 fc0 sc0 ls0 ws0">will lead the team that will serve you. </div>
-                    <div class="t m0 x6 h3 y9b ff2 fs0 fc0 sc0 ls0 ws0">Key Accomplishments</div>
-                    <div class="t m0 x6 hc y84 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">Worked with one of the leading Financi<span class="_ _d"></span>al Institutions in Nigeria. </span>
-                    </div>
-                    <div class="t m0 x6 hc y85 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">Practical knowledge of insurance and risk management of prime assets</span></div>
-                    <div class="t m0 x6 hc y86 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">About a decade as a leading advisor on oi<span class="_ _d"></span>l and gas transactions</span>
-                    </div>
-                    <div class="t m0 x6 hc y87 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">Yomi is a Fellow of the Ins<span class="_ _d"></span>titute of Chartered Accountants of Nigeria (ICAN) </span>
-                    </div>
-                    <div class="t m0 x6 hc y9c ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">Associate of the Chartered Institute of Taxation of Nigeria (CIT<span class="_ _d"></span>N)</span>
-                    </div>
-                    <div class="t m0 xb h2 y88 ff6 fs0 fc0 sc0 ls0 ws0">o<span class="_ _e"> </span><span class="ff1">He graduated with a distinction (first class) from the University of Lagos </span></div>
-                    <div class="t m0 xb h2 y9d ff6 fs0 fc0 sc0 ls0 ws0">o<span class="_ _e"> </span><span class="ff1">He holds a Masters of Science (Msc) in Finance </span></div>
-                    <div class="t m0 x6 hc y89 ff5 fs0 fc5 sc0 ls0 ws0"><span class="_ _4"> </span><span class="ff1">Has several accounting and support experience in busi<span class="_ _d"></span>ness start-ups, mergers, spin-offs, and </span>
-                    </div>
-                    <div class="t m0 xb h2 y9e ff1 fs0 fc5 sc0 ls0 ws0">leverage transactions over the last decade. </div>
-                    <div class="t m0 x3 h2 y9f ff1 fs0 fc0 sc0 ls0 ws0">Other experienced staff would be assigned on a need basis.</div>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-            <div id="pf6" class="pf w0 h0" data-page-no="6">
-                <div class="pc pc6 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg6.png') }}" />
-                    <div class="c x0 y23 w0 h6">
-                        <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                        <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                        <div class="t m0 x5 h8 y26 ff1 fs1 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                        <div class="t m0 x5 h7 y27 ff3 fs1 fc0 sc0 ls0 ws0">Page 6 of 9</div>
-                    </div>
-                    <div class="t m0 x2 h3 y29 ff2 fs0 fc0 sc0 ls0 ws0">5.<span class="_ _0"> </span>Contract Period</div>
-                    <div class="t m0 x6 h2 y3e ff1 fs0 fc0 sc0 ls0 ws0">Upon the acceptance of this proposal, it shall become a binding contract and shall be in force for </div>
-                    <div class="t m0 x6 h2 y2b ff1 fs0 fc0 sc0 ls0 ws0">one year beginning from the date of assent by <span class="company_name">{Company Name}</span>. The contract shall thereafter </div>
-                    <div class="t m0 x6 h2 y3f ff1 fs0 fc0 sc0 ls0 ws0">subsist subject to any review which must be agreed to by the parties.</div>
-                    <div class="t m0 x2 h3 y76 ff2 fs0 fc0 sc0 ls0 ws0">6.<span class="_ _0"> </span>Duty of Care</div>
-                    <div class="t m0 x6 h2 y77 ff1 fs0 fc0 sc0 ls0 ws0">We undertake that we will exercise due care in the performance of our work in accordance with </div>
-                    <div class="t m0 x6 h2 y94 ff1 fs0 fc0 sc0 ls0 ws0">applicable professional standards. In the event that our work or any part thereof does not comply </div>
-                    <div class="t m0 x6 h2 ya0 ff1 fs0 fc0 sc0 ls0 ws0">with this undertaking, we will as much as possible remedy the deficiency by redoing the relevant </div>
-                    <div class="t m0 x6 h2 ya1 ff1 fs0 fc0 sc0 ls0 ws0">tasks. Should you be unsatisfied with our work following our remedial measures, we would submit </div>
-                    <div class="t m0 x6 h2 y31 ff1 fs0 fc0 sc0 ls0 ws0">to any arbitration process you may initiate. It is reasonable that we agree the maximum amount of </div>
-                    <div class="t m0 x6 h2 y79 ff1 fs0 fc0 sc0 ls0 ws0">our potential liability in the event of any breach of contract by us. This maximum amount shall be </div>
-                    <div class="t m0 x6 h2 y7a ff1 fs0 fc0 sc0 ls0 ws0">limited to any fees we have received on this assignment.</div>
-                    <div class="t m0 x2 h3 y35 ff2 fs0 fc0 sc0 ls0 ws0">7.<span class="_ _0"> </span>Communication</div>
-                    <div class="t m0 x6 h3 y36 ff2 fs0 fc0 sc0 ls0 ws0">The product(s) of our work <span class="ff1">will be documentations between </span>Stransact<span class="ff1"> and </span><span class="ff1 company_name">{Company Name}</span></div>
-                    <div class="t m0 x6 h2 ya2 ff1 fs0 fc0 sc0 ls0 ws0">which when put together will evidence our work. Such documentations will be received and </div>
-                    <div class="t m0 x6 h3 y37 ff1 fs0 fc0 sc0 ls0 ws0">accepted by <span class="ff2 ">the <span id="designated_position">{Designated Position}</span> </span>of the Company or any other officer designated by you as </div>
-                    <div class="t m0 x6 h3 ya3 ff1 fs0 fc0 sc0 ls0 ws0">the <span class="ff2">lead user of our product(s).</span></div>
-                    <div class="t m0 x6 h3 y7f ff2 fs0 fc0 sc0 ls0 ws0">Our communications with you are confidential<span class="ff1"> and would not be disclosed to third parties </span></div>
-                    <div class="t m0 x6 h2 y80 ff1 fs0 fc0 sc0 ls0 ws0">without your approval. However, our working papers may be reviewed internally by certain </div>
-                    <div class="t m0 x6 h2 y81 ff1 fs0 fc0 sc0 ls0 ws0">international firms to which we subscribe for peer review. In such instances, we shall take all </div>
-                    <div class="t m0 x6 h2 ya4 ff1 fs0 fc0 sc0 ls0 ws0">reasonable care to ensure that the content of such working papers are restricted to the purpose - </div>
-                    <div class="t m0 x6 h2 y9b ff1 fs0 fc0 sc0 ls0 ws0">to ensure quality in our work. </div>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-            <div id="pf7" class="pf w0 h0" data-page-no="7">
-                <div class="pc pc6 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg6.png') }}" />
-                    <div class="c x0 y23 w0 h6">
-                        <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                        <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                        <div class="t m0 x5 h8 y26 ff1 fs1 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                        <div class="t m0 x5 h7 y27 ff3 fs1 fc0 sc0 ls0 ws0">Page 7 of 9</div>
-                    </div>
-                    <div class="t m0 x2 h3 y29 ff2 fs0 fc0 sc0 ls0 ws0">8.<span class="_ _0"> </span>Our Fees</div>
-                    <div class="t m0 x6 h2 y3e ff1 fs0 fc0 sc0 ls0 ws0">We believe that “value for money” is an important consideration for you. We also believe that as a </div>
-                    <div class="t m0 x6 h2 y2b ff1 fs0 fc0 sc0 ls0 ws0">growing business, it is in our best interest to forge a sustainable healthy relationship with you. </div>
-                    <div class="t m0 x6 h2 y3f ff1 fs0 fc0 sc0 ls0 ws0">Accordingly, our fee quote below seeks to deliver measurable value in excess of the cost of our </div>
-                    <div class="t m0 x6 h2 y2c ff1 fs0 fc0 sc0 ls0 ws0">engagement.</div>
-                    <div class="t m0 x3 h2 y2d ff1 fs0 fc0 sc0 ls0 ws0">Our fees are based on the time and level of expertise required for the assignment. Our fees are </div>
-                    <div class="t m0 x3 h2 y2e ff1 fs0 fc0 sc0 ls0 ws0">exclusive of VAT and out-of-pocket expenses, such as transportation, stationery, etc. Please find </div>
-                    <div class="t m0 x3 h2 ya6 ff1 fs0 fc0 sc0 ls0 ws0">below, the breakdown of our fees:</div>
-                    <div id="image">
-                    <div class="t m0 x3 h2 yb1 ff1 fs0 fc0 sc0 ls0 ws0">We shall bill this amount in four (4) equal instalments at the beginning of each quarter. The fee </div>
-                    <div class="t m0 x3 h2 yb2 ff1 fs0 fc0 sc0 ls0 ws0">quote above does not include VAT and out of pocket expenses that are agreed or that are duly </div>
-                    <div class="t m0 x3 h2 yb3 ff1 fs0 fc0 sc0 ls0 ws0">invoiced and receipted by third parties. Such VAT and out of pocket expenses shall be added to the </div>
-                    <div class="t m0 x3 h2 yb4 ff1 fs0 fc0 sc0 ls0 ws0">fees when invoices are raised. Also, you can also pay the dollar amount in Naira equivalent; </div>
-                    <div class="t m0 x3 h2 yb5 ff1 fs0 fc0 sc0 ls0 ws0">however, the naira equivalent of the fee is based on the open market rate as at the date of the </div>
-                    <div class="t m0 x3 h2 yb6 ff1 fs0 fc0 sc0 ls0 ws0">invoice (open market rate is the average rate at which USD can be purchased from official Bureau D </div>
-                    <div class="t m0 x3 h2 yb7 ff1 fs0 fc0 sc0 ls0 ws0">Change (BDC) in Nigeria). Do kindly comply with this requirement to facilitate our ability to serve </div>
-                    <div class="t m0 x3 h2 yb8 ff1 fs0 fc0 sc0 ls0 ws0">you efficiently.</div>
-                    <div class="t m0 x2 h3 yb9 ff2 fs0 fc0 sc0 ls0 ws0">9.<span class="_ _0"> </span>Any other services required<span class="ff1"> outside the above shall be billed at our charge out rate listed below:</span></div>
-                    <div class="t m0 x6 h2 yba ff1 fs0 fc0 sc0 ls0 ws0">Partner: <span class="_ _16"> </span>$180/hour</div>
-                    <div class="t m0 x6 h2 ybb ff1 fs0 fc0 sc0 ls0 ws0">Manager: <span class="_ _17"> </span>$120/hour</div>
-                    <div class="t m0 x6 h2 ybc ff1 fs0 fc0 sc0 ls0 ws0">Senior Associate: <span class="_ _1"> </span>$70/hour</div>
-                    <div class="t m0 x6 h2 ybd ff1 fs0 fc0 sc0 ls0 ws0">Associate:<span class="_ _18"> </span>$40/hour</div>
-                    <div class="t m0 x6 h2 ybe ff1 fs0 fc0 sc0 ls0 ws0">Any fees based on the rates listed above shall be discussed and agreed with you before billing.</div>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-            <div id="pf8" class="pf w0 h0" data-page-no="8">
-                <div class="pc pc8 w0 h0"><img class="bi x5 y75 w6 hb" alt="" src="{{ asset('js/account_letter/bg8.png') }}" />
-                    <div class="c x0 y23 w0 h6">
-                        <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                        <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                        <div class="t m0 x5 h8 y26 ff1 fs1 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                        <div class="t m0 x5 h7 y27 ff3 fs1 fc0 sc0 ls0 ws0">Page 8 of 9</div>
-                    </div>
-                    <div class="t m0 x2 h3 y29 ff2 fs0 fc0 sc0 ls0 ws0">10.<span class="_ _19"> </span>Other Services Stransact can offer to you</div>
-                    <div class="t m0 x3 h3 ybf ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _1a"> </span><span class="ff2">Fixed Assets Management </span></div>
-                    <div class="t m0 x16 hc yc0 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Reconciliation of Assets Register with physical assets in all locations</span></div>
-                    <div class="t m0 x16 hc yc1 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Ensuring that unique reference exists between each asset in the register and the </span></div>
-                    <div class="t m0 x17 h2 yc2 ff1 fs0 fc0 sc0 ls0 ws0">department where it is located</div>
-                    <div class="t m0 x16 hc yc3 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Identification and tagging of the respective assets in all locations</span></div>
-                    <div class="t m0 x16 hc yc4 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Ensuring that physical transfer of assets and disposals are easily processed in the asset </span></div>
-                    <div class="t m0 x17 h2 yc5 ff1 fs0 fc0 sc0 ls0 ws0">register</div>
-                    <div class="t m0 x16 hc yc6 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Ensure that every asset in the register exists physically in the recorded location</span></div>
-                    <div class="t m0 x16 hc yc7 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Providing pre-printed tags and training to enable your staff tag newly acquired assets </span></div>
-                    <div class="t m0 x17 h2 yc8 ff1 fs0 fc0 sc0 ls0 ws0">without recourse to us. This will guarantee an up-to-date asset register at all times</div>
-                    <div class="t m0 x3 h3 yc9 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _1a"> </span><span class="ff2">Withholding Tax (WHT) Compliance Services</span></div>
-                    <div class="t m0 x16 hc yca ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Review of the Company’s WHT schedules of payments to suppliers/contractors and </span></div>
-                    <div class="t m0 x17 h2 ycb ff1 fs0 fc0 sc0 ls0 ws0">vendors invoices to ensure that deductions are made at the appropriate rates </div>
-                    <div class="t m0 x16 hc ycc ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Advise on the WHT amount to be remitted to the relevant tax authority</span></div>
-                    <div class="t m0 x16 hc ycd ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Follow up on remittance of the WHT so deducted to the appropriate tax authority</span></div>
-                    <div class="t m0 x16 hc yce ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Obtaining WHT receipts and credit notes in respect of the remittances made</span></div>
-                    <div class="t m0 x16 hc ycf ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Liaising and corresponding with the Revenue on any compliance monitoring queries in </span></div>
-                    <div class="t m0 x17 h2 yd0 ff1 fs0 fc0 sc0 ls0 ws0">respect of the monthly WHT filing</div>
-                    <div class="t m0 x16 hc yd1 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Updating the Company on any changes in the WHT legislation</span></div>
-                    <div class="t m0 x3 h3 yd2 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _1a"> </span><span class="ff2">Value Added Tax (VAT) Compliance Services</span></div>
-                    <div class="t m0 x16 hc yd3 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Review of the Company’s Sales Invoices to ascertain the appropriate VAT payable to the </span></div>
-                    <div class="t m0 x17 h2 yd4 ff1 fs0 fc0 sc0 ls0 ws0">Revenue</div>
-                    <div class="t m0 x16 hc yd5 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Advise on the VAT amount to be remitted to the Federal Inland Revenue Service</span></div>
-                    <div class="t m0 x16 hc yd6 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Follow up on remittance of the VAT payable and obtain the VAT receipts</span></div>
-                    <div class="t m0 x16 hc yd7 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Preparation and filing of monthly VAT returns</span></div>
-                    <div class="t m0 x16 hc yd8 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Liaising and corresponding with the Revenue on any compliance monitoring queries in </span></div>
-                    <div class="t m0 x17 h2 yd9 ff1 fs0 fc0 sc0 ls0 ws0">respect of the monthly VAT filing</div>
-                    <div class="t m0 x16 hc yda ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Updating the Company on any changes in the VAT legislation</span></div>
-                    <div class="t m0 x3 h3 ydb ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _1a"> </span><span class="ff2">Companies Income Tax (CIT) Compliance Services</span></div>
-                    <div class="t m0 x16 hc ydc ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Preparation and filing of annual income tax returns with the Revenue</span></div>
-                    <div class="t m0 x16 hc ydd ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Assisting in applying for WHT credit utilization to offset income tax liability</span></div>
-                    <div class="t m0 x16 hc yde ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Processing and obtaining annual corporate Tax Clearance Certificate (TCC)</span></div>
-                    <div class="t m0 x16 hc ydf ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Responding to routine queries by the FIRS on tax returns and computations, reporting to </span></div>
-                    <div class="t m0 x17 h2 ye0 ff1 fs0 fc0 sc0 ls0 ws0">you and advising as necessary on any contentious matters</div>
-                    <div class="t m0 x16 hc ye1 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Liaising with the FIRS to resolve issues relating to corporate tax monitoring exercise</span></div>
-                    <div class="t m0 x3 h3 ye2 ff4 fs0 fc0 sc0 ls0 ws0"><span class="_ _1a"> </span><span class="ff2">Provision of General Advisory services</span></div>
-                    <div class="t m0 x16 hc ye3 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _0"> </span><span class="ff1">Rendering specific opinions /advice based on request</span></div>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-            <div id="pf9" class="pf w0 h0" data-page-no="9">
-                <div class="pc pc9 w0 h0"><img class="bi x18 ye4 wa h12" alt="" src="{{ asset('js/account_letter/bg9.png') }} />
-                    <div class="c x0 y23 w0 h6">
-                        <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
-                        <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>
-                        <div class="t m0 x5 h8 y26 ff1 fs1 fc0 sc0 ls0 ws0 company_name">{Company Name}</div>
-                        <div class="t m0 x5 h7 y27 ff3 fs1 fc0 sc0 ls0 ws0">Page 9 of 9</div>
-                    </div>
-                    <div class="t m0 x2 h3 y29 ff2 fs0 fc0 sc0 ls0 ws0">11.<span class="_ _19"> </span>Conclusion</div>
-                    <div class="t m0 x6 h2 y3e ff1 fs0 fc0 sc0 ls0 ws0">We thank you for the opportunity given to us to provide Accounting Services to the Company and </div>
-                    <div class="t m0 x6 h2 y2b ff1 fs0 fc0 sc0 ls0 ws0">look forward to working with you on this assignment.</div>
-                    <div class="t m0 x6 h2 y2c ff1 fs0 fc0 sc0 ls0 ws0">If you are in agreement with our proposal, please indicate acceptance by signing a copy of this </div>
-                    <div class="t m0 x6 h2 y76 ff1 fs0 fc0 sc0 ls0 ws0">proposal and returning same to us and it shall be deemed to be our engagement letter thereafter.</div>
-                    <div class="t m0 x6 h3 y77 ff1 fs0 fc0 sc0 ls0 ws0">Please contact the undersigned on <span class="ff2">+1-9785017900, </span>email <span class="fc2">eben.joels@stransact.com</span> or ‘Yomi </div>
-                    <div class="t m0 x6 h3 y94 ff1 fs0 fc0 sc0 ls0 ws0">Salawu on <span class="ff2">+234-7031290007</span>, email <span class="fc2">yomi.salawu@stransact.com</span> for any clarification you may </div>
-                    <div class="t m0 x6 h2 ya0 ff1 fs0 fc0 sc0 ls0 ws0">require on the above.</div>
-                    <div class="t m0 x2 h2 y78 ff1 fs0 fc0 sc0 ls0 ws0">Thank you.</div>
-                    <div class="t m0 x2 h2 y7a ff1 fs0 fc0 sc0 ls0 ws0">Yours faithfully,</div>
-                    <div class="t m0 x2 h3 y34 ff1 fs0 fc0 sc0 ls0 ws0">f:<span class="ff2"> Stransact Audit</span></div>
-                    <div class="t m0 x2 h2 y37 ff1 fs0 fc0 sc0 ls0 ws0">Eben F. Joels</div>
-                    <div class="t m0 x2 h3 y7e ff2 fs0 fc0 sc0 ls0 ws0">Country Partner</div>
-                    <div class="t m0 x2 h3 y99 ff2 fs0 fc0 sc0 ls0 ws0">Copy to be returned to Stransact</div>
-                    <div class="t m0 x2 h3 y9b ff1 fs0 fc0 sc0 ls0 ws0">This proposal is accepted on behalf of <span class="ff2 company_name">{Company Name}</span> by:</div>
-                    <div class="t m0 x2 h2 y87 ff1 fs0 fc0 sc0 ls0 ws0">………………………………….......................<span class="_ _1b"> </span>………………………………….......................</div>
-                    <div class="t m0 x2 h2 y9c ff1 fs0 fc0 sc0 ls0 ws0">Name of Authorised Person <span class="_ _1c"> </span>Signature of Authorised Person/Date</div>
-                    <a class="l" href="mailto:eben.joels@stransact.com">
-                        <div class="d m1" style="border-style:none;position:absolute;left:353.941986px;bottom:551.601074px;width:118.641998px;height:13.427979px;background-color:rgba(255,255,255,0.000001);"></div>
-                    </a>
-                    <a class="l" href="mailto:yomi.salawu@stransact.com">
-                        <div class="d m1" style="border-style:none;position:absolute;left:256.434021px;bottom:538.173035px;width:128.502991px;height:13.428040px;background-color:rgba(255,255,255,0.000001);"></div>
-                    </a>
-                </div>
-                <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-            </div>
-        </div>
-    </div>
-    <div class="loading-indicator">
+        var clientData;
+        function editClient(client_id){
 
-    </div>
+            $.ajax({
+                type: "GET",
+                url: "{{ url('/api/v1/clients') }}" + "/" + client_id,
+                success: function(data){
+                    clientData = data.data;
+                },
 
-    <script src="{{ asset('js/account_letter/SampleProposalforAccountingServices.js') }}"></script>
-</body>
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+
+            })
+
+            $.ajax({
+                    type: "GET",
+                    url: "{{ url('/api/v1/clients') }}",
+                    success: function(data){
+                        console.log(data)
+                    let editClientBody = document.getElementById('editClientBody');
+                    editClientBody.innerHTML = `
+                            <div class="col-md-12 ">
+                                    <form onsubmit="submitEditClient()" class="form" id="clientForm" action="{{ url('/admin/clients/${clientData.id}') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6 form-group mt-3 {{ $errors->has('name') ? 'has-error' : '' }}">
+                                            <label for="name">{{ trans('cruds.client.fields.name') }}*</label>
+                                            <input type="text" id="edit_name" name="name" class="form-control" value="${clientData.name}" required>
+                                             @if($errors->has('name'))
+                                                <p class="help-block">
+                                                    {{ $errors->first('name') }}
+                                                </p>
+                                            @endif
+                                            <p class="helper-block">
+                                                {{ trans('cruds.client.fields.name_helper') }}
+                                            </p>
+                                        </div>
+
+                                        <div class="col-md-6 form-group {{ $errors->has('status') ? 'has-error' : '' }} mt-3">
+                                                <label for="status">{{ trans('cruds.client.fields.status') }}</label>
+                                                <select value="" id="edit_status" name="status" class="form-control" required>
+                                                    <option value="" disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                                    @foreach(App\Client::STATUS_SELECT as $key => $label)
+                                                        <option value="{{ $key }}" {{ old('status', null) === (string)$key ? 'selected' : '' }}>{{ $label }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('status'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('status') }}
+                                                    </p>
+                                                @endif
+
+                                        </div>
 
 
-</html>
+                                    </div>
+                                    <div class="row col-md-12">
+
+                                            <div class="col-md-4 form-group {{ $errors->has('date_of_engagement') ? 'has-error' : '' }} mt-3">
+                                                <label for="date_of_engagement">{{ trans('cruds.client.fields.date_of_engagement') }}</label>
+                                                <input required type="text" id="edit_date_of_engagement" name="date_of_engagement" class="form-control date" value="${clientData.date_of_engagement}">
+
+                                                @if($errors->has('date_of_engagement'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('date_of_engagement') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.date_of_engagement_helper') }}
+                                                </p>
+                                            </div>
+
+
+                                            <div class="col-md-4 form-group {{ $errors->has('expiry_date') ? 'has-error' : '' }} mt-3">
+                                                <label for="expiry_date">{{ trans('cruds.client.fields.expiry_date') }}</label>
+                                                <input required type="text" id="edit_expiry_date" name="expiry_date" class="form-control date" value="${clientData.expiry_date}">
+                                                @if($errors->has('expiry_date'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('expiry_date') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.expiry_date_helper') }}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-4 form-group {{ $errors->has('phone') ? 'has-error' : '' }} mt-3">
+                                                    <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
+                                                    <input required type="text" id="edit_phone" name="phone" class="form-control" value="${clientData.phone}">
+
+                                                @if($errors->has('phone'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('phone') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.phone_helper') }}
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+
+                                            <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }} mt-3">
+                                                    <label for="address">{{ trans('cruds.client.fields.address') }}</label>
+                                                    <input required type="text" id="edit_address" name="address" class="form-control" value="${clientData.address}">
+
+                                                @if($errors->has('address'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('address') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.address_helper') }}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }} mt-3">
+                                                    <label for="email">{{ trans('cruds.client.fields.email') }}</label>
+                                                    <input required type="email" id="edit_email" name="email" class="form-control" value="${clientData.email}">
+
+                                                @if($errors->has('email'))
+                                                    <p class="help-block">
+                                                        {{ $errors->first('email') }}
+                                                    </p>
+                                                @endif
+                                                <p class="helper-block">
+                                                    {{ trans('cruds.client.fields.email_helper') }}
+                                                </p>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row col-md-12 ">
+                                            <div class="col-md-3 form-group mt-3">
+                                            <input class="btn btn-danger" type="submit" style="background-color:#8a2a2b; color:white;"  value="{{ trans('global.update') }}">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                    `
+                    var allEditors = document.querySelectorAll('.ckeditor');
+                        for (var i = 0; i < allEditors.length; ++i) {
+                            ClassicEditor.create(allEditors[i]);
+                        }
+
+                        moment.updateLocale('en', {
+                            week: {dow: 1} // Monday is the first day of the week
+                        });
+
+                        $('.date').datetimepicker({
+                            format: 'DD-MM-YYYY',
+                            locale: 'en'
+                        });
+
+                        $('.datetime').datetimepicker({
+                            format: 'DD-MM-YYYY HH:mm:ss',
+                            locale: 'en',
+                            sideBySide: true
+                        });
+
+                        $('.timepicker').datetimepicker({
+                            format: 'HH:mm:ss'
+                        });
+
+                        $('.select-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2')
+                            $select2.find('option').prop('selected', 'selected')
+                            $select2.trigger('change')
+                        });
+                        $('.deselect-all').click(function () {
+                            let $select2 = $(this).parent().siblings('.select2');
+                            $select2.find('option').prop('selected', '');
+                            $select2.trigger('change')
+                        });
+
+                        $('.select2').select2();
+                    },
+
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+
+                })
+
+            }
+
+
+            function submitEditClient(client_id){
+                swal({
+                    title: "Success!",
+                    text: "Client Edited!",
+                    icon: "success",
+                    confirmButtonColor: "#DD6B55",
+                    // confirmButtonText: "OK",
+                });
+                window.setTimeout(function(){
+                    location.reload();
+                }, 3000)
+            }
+
+            function deleteClient(client_id){
+            swal({
+                title: "Are you sure?",
+                text: "This Client will be deleted!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('api/v1/clients')}}" + '/' + client_id,
+                        success: function (data) {
+                            swal("Deleted!", "Client successfully deleted.", "success");
+                            window.setTimeout(function(){
+                                location.reload();
+                            } , 2500);
+                        },
+
+                        error: function (data) {
+                            swal("Delete failed", "Please try again", "error");
+                        }
+
+                        });
+                        }
+
+                else {
+                        swal("Cancelled", "Delete cancelled", "error");
+                    }
+
+                });
+            }
+
+
+
+        //   Function for calling Client Projects on the DT
+        function getClientProjects(client_id) {
+            path_url = "/api/v1/clients_projects/" + client_id;
+            if ( $.fn.dataTable.isDataTable( '#kt_table_client_projects' + client_id ) ) {
+                var kt_table_client_projects = $('#kt_table_client_projects' + client_id).DataTable();
+            }else {
+                var kt_table_client_projects = $('#kt_table_client_projects' + client_id).DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+
+                ajax: path_url,
+
+                columns: [
+                    {"defaultContent": ""},
+                    {"data": "name"},
+                    {"data": "manager.name"},
+                    {"data": "project_type.name"},
+                    {"data": "project_subtype.name"},
+                    {"data": "status.name"},
+                    {"data": "starting_date"},
+                    {"data": "deadline"},
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                },
+                {
+                targets: 8,
+                orderable: false,
+                searchable: false,
+                render: function (data, type, full, meta) {
+                    return '\<button onclick=displayProjectInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="projectToolsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                <div class="dropdown-menu" aria-labelledby="projectToolsBtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
+                                <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal"  data-target="#moreInfoModal"> <span style="font-weight:100;"> View </span></i>\
+                                </a>\
+                            <button onclick="deleteSingleProject('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
+                            </div>\
+                                    ';
+                }
+            }],
+
+                buttons: [
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Reload',
+                            className: 'btn-info',
+                            action: function ( e, dt, node, config ) {
+                                dt.ajax.reload();
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
+
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "This project type will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.projects.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Project successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
+                    ]
+            });
+
+            }
+
+        }
+
+
+//          Function for deleting single project
+        function deleteSingleProject(proID){
+
+            swal({
+                title: "Are you sure?",
+                text: "This Project will be deleted!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('api/v1/projects')}}" + '/' + proID,
+                        success: function (data) {
+                            swal("Deleted!", "Project successfully deleted.", "success");
+                            window.setTimeout(function(){
+                                location.reload();
+                            } , 2500);
+                        },
+
+                        error: function (data) {
+                            swal("Delete failed", "Please try again", "error");
+                        }
+
+                        });
+                        }
+
+                else {
+                        swal("Cancelled", "Delete cancelled", "error");
+                    }
+
+                });
+        }
+
+        // Function for calling Projects tasks
+        function displayProjectInfo(proID) {
+            $.ajax({
+            type: "GET",
+            url: "/api/v1/projects/" + proID,
+            success: function (data) {
+                let moreProjectInfo = document.getElementById("moreProjectInfo")
+                moreProjectInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 80%; min-width: 500px;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" onclick="$('#moreInfoModal').modal('hide');" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <div class="modal-body">
+                <!-- More-info content -->
+                        <div class="col-md-12 m-portlet " id="m_portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon">
+                                            <i class="flaticon-info"> </i>
+                                        </span>
+                                        <h3 class="m-portlet__head-text">
+                                            More info
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__body">
+                                <div class="accordion" id="accordionExample">
+                                    <div onclick="taskDTCall(${data.data.id})" class="card">
+                                        <div class="card-header" id="headingone">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                    <i class="m-menu__link-icon flaticon-list"></i>
+                                                    Project tasks
+                                                </span>
+                                            </h6>
+                                        </div>
+                                        <div id="collapseOne" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <div class="m-portlet">
+                                                <table class="table table-striped table-hover" style="width: 100%;" id="kt_table_single_project_task">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Starting Date</th>
+                                                            <th>Deadline</th>
+                                                            <th>Category</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion" id="accordionExample2">
+                                    <div class="card">
+                                        <div class="card-header" id="headingone">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                    Documents
+                                                </span>
+                                            </h6>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample2">
+                                            <input type="text" id="myInput" onkeyup="searchProjectDocument()" placeholder="Search for documents.." title="Type in a documents">
+                                                <table id="myTable">
+                                                        <tr class="header">
+                                                            <th>Name</th>
+                                                            <th>Version</th>
+                                                            <th>Date Created</th>
+                                                            <th>File</th>
+                                                        </tr>
+                                                        `+ data.data.documents.map(item =>
+                                                            `<tr>
+                                                                <td>${item.name}</td>
+                                                                <td>${item.version}</td>
+                                                                <td>${item.created_at}</td>
+                                                                <td></td>
+                                                            </tr>`
+                                                        )+`
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+
+                                    <div class="accordion" id="accordionExample3">
+                                        <div class="card">
+                                            <div class="card-header" id="headingthree">
+                                                <h6 style="cursor: pointer" class="mb-0">
+                                                    <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                        <i class="m-menu__link-icon flaticon-file"></i>
+                                                        Reports
+                                                    </span>
+                                                </h6>
+                                            </div>
+                                            <div id="collapseThree" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                                                <input type="textOne" id="myInputOne" onkeyup="searchProjectReport()" placeholder="Search for report.." title="Type in a report">
+                                                <table id="myTableOne">
+                                                    <tr class="header">
+                                                        <th>Name</th>
+                                                        <th>Document Type</th>
+                                                        <th>File</th>
+                                                        <th>Date Uploaded</th>
+                                                    </tr>
+                                                    `+ data.data.reports.map(item =>
+                                                    `<tr>
+                                                        <td>${item.name}</td>
+                                                        <td>${item.document_type}</td>
+                                                        <td></td>
+                                                        <td>${item.created_at}</td>
+                                                    </tr>`
+                                                    )+`
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion" id="accordionExample4">
+                                    <div class="card">
+                                        <div class="card-header" id="headingFour">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    Project Members
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    <div id="collapseFour" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample3">
+                                        <input type="textOne" id="myInputThree" onkeyup="searchProjectMembers()" placeholder="Search for project member.." title="Type in a member">
+                                        <table id="myTableThree">
+                                            <tr class="header">
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            <tr class="">
+                                            </tr>
+                                            `+ data.data.team_members.map(item =>
+                                            `<tr>
+                                                <td>${item.name}</td>
+                                                <td>${item.email}</td>
+                                            </tr>`
+                                            )+`
+                                        </table>
+                                    </div>
+                                </div>
+
+                                    <!-- <div class="card">
+                                        <div onclick="projectComments(${data.data.id})" class="card-header" id="headingFour">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="" data-toggle="modal" data-target="#commentModal">
+                                                    <i class="m-menu__link-icon flaticon-comment"></i>
+                                                    Comments
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+
+                     <!-- End main Content of More-info -->
+
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                </div>
+
+                `
+                },
+
+            error: function (data) {
+                console.log('Error:', data);
+                }
+           })
+        }
+
+            // Search Through Project Documents FUnction
+        function searchProjectDocument() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
+
+            // Search Through Project Reports FUnction
+        function searchProjectReport(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputOne");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableOne");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
+
+
+        //   Function for calling Client Tasks on the DT
+        function getClientTasks(client_id) {
+            path_url = "/api/v1/clients_tasks/" + client_id;
+            if ( $.fn.dataTable.isDataTable( '#kt_table_tasks' + client_id ) ) {
+                var kt_table_tasks = $('#kt_table_tasks' + client_id).DataTable();
+            }else {
+                var kt_table_tasks = $('#kt_table_tasks' + client_id).DataTable({
+                    dom: 'lBfrtip<"actions">',
+                    language: {
+                        url: languages. {{ app()->getLocale() }}
+                    },
+                    ajax: path_url,
+                    columns: [
+                        {"defaultContent": ""},
+                        {"data": "name"},
+                        {"data": "manager.name"},
+                        {"data": "status.name"},
+                        {"data": "category.name"},
+                        {"data": "starting_date"},
+                        {"data": "ending_date"},
+                    ],
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0
+                    }, {
+                        orderable: false,
+                        searchable: false,
+                        targets: -1
+                    },
+                    {
+                        targets: 7,
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, full, meta) {
+                            return '\<button onclick=displayTaskInfo('+full.id+') class="btn btn-secondary dropdown-toggle" type="button" id="taskToolsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>\
+                                        <div class="dropdown-menu" aria-labelledby="taskToolsBtn" style="padding-left:8px; min-width: 75px; max-width: 15px;">\
+                                        <a class="link" href="#"><i class="fa fa-eye" style="color:black;" data-toggle="modal" id="innerDropdown" data-target="#moreTaskInfoModal"> <span style="font-weight:100;"> View </span></i>\
+                                        </a>\
+                                    <button onclick="deleteSingleTask('+full.id+')" class="link" style="border: none; background-color: white;"><a class="link" href="#"><i class="fa fa-trash" style="color:black; margin-left: -5px;"> Delete</i></a></button>\
+                                </div>\
+                                ';
+                        }
+                    }],
+                    buttons: [
+                        {
+                            extend: 'excel',
+                            className: 'btn-primary',
+                            text: 'Excel',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'btn-success',
+                            text: 'PDF',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'btn-warning',
+                            text: 'CSV',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            text: 'Reload',
+                            className: 'btn-info',
+                            action: function ( e, dt, node, config ) {
+                                dt.ajax.reload();
+                            }
+                        },
+                        {
+                            text: 'Delete Selected',
+                            className: 'btn-danger',
+                            action: function (e, dt, node, config) {
+                                //getting the full row data
+                                let rData = [];
+                                var ids = $.map(dt.rows('.selected').data(), function (item) {
+                                    rData.push(item);
+                                    return item.id
+                                });
+
+                                if (ids.length === 0) {
+                                    swal({
+                                        title: "No Item selected",
+                                        text: "Please select at leaset one row!",
+                                        icon: "error",
+                                        confirmButtonColor: "#fc3",
+                                        confirmButtonText: "OK",
+                                    });
+                                    return
+                                }
+                                swal({
+                                    title: "Are you sure?",
+                                    text: "This project type will be deleted!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                }).then((willDelete) =>
+                                {
+                                    if (willDelete) {
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            method: 'POST',
+                                            data: {
+                                                ids: ids,
+                                                _method: 'DELETE'
+                                            },
+                                            url: "{{ route('admin.projects.massDestroy') }}",
+                                            success: function (data) {
+                                                swal("Deleted!", "Project successfully deleted.", "success");
+                                                window.setTimeout(function () {
+                                                    dt.ajax.reload();
+                                                }, 2500);
+                                            },
+
+                                            error: function (data) {
+                                                swal("Delete failed", "Please try again", "error");
+                                            }
+
+                                        });
+                                    } else {
+                                        swal("Cancelled", "Delete cancelled", "error");
+                                    }
+
+                                });
+                            }
+                        }
+                    ]
+                });
+            }
+
+
+        }
+
+        function displayTaskInfo(task_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/v1/tasks/" + task_id,
+                    success: function (data) {
+                        let moreTaskInfo = document.getElementById("moreTaskInfo")
+                        moreTaskInfo.innerHTML = `<div class="modal fade" id="moreTaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" onclick="$('#moreTaskInfoModal').modal('hide');" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                        <div class="col-md-12 m-portlet " id="m_portlet">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon">
+                                            <i class="flaticon-info"> </i>
+                                        </span>
+                                        <h3 class="m-portlet__head-text">
+                                            More info
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__body">
+
+                                <div class="accordion" id="accordionExample4">
+                                <div class="card">
+                                    <div class="card-header" id="headingone">
+                                        <h6 style="cursor: pointer" class="mb-0">
+                                            <span class="collapsed" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                                <i class="m-menu__link-icon flaticon-clipboard"></i>
+                                                Documents
+                                            </span>
+                                        </h6>
+                                    </div>
+                                    <div id="collapseTen" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample4">
+                                        <input type="text" id="myInputTen" onkeyup="searchDocument()" placeholder="Search for documents.." title="Type in a documents">
+                                            <table id="myTableTen">
+                                                    <tr class="header">
+                                                        <th>Name</th>
+                                                        <th>Document Type</th>
+                                                        <th>File</th>
+                                                        <th>Date Uploaded</th>
+                                                    </tr>
+                                                    `+ data.data.documents.map(item =>
+                                                        `<tr>
+                                                            <td>${item.name}</td>
+                                                            <td>${item.document_type}</td>
+                                                            <td></td>
+                                                            <td>${item.created_at}</td>
+                                                        </tr>`
+                                                    )+`
+                                            </table>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="accordion" id="accordionExample6">
+                                    <div class="card">
+                                        <div class="card-header" id="headingSix">
+                                            <h6 style="cursor: pointer" class="mb-0">
+                                                <span class="collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                                    Task Owners
+                                                </span>
+                                            </h6>
+                                        </div>
+                                    <div id="collapseSix" class="collapse m-portlet__body" aria-labelledby="headingOne" data-parent="#accordionExample6">
+                                        <table id="myTableSix">
+                                            <tr class="header">
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            <tr class="">
+                                            </tr>
+                                            `+ data.data.assinged_tos.map(item =>
+                                            `<tr>
+                                                <td>${item.name}</td>
+                                                <td>${item.email}</td>
+                                            </tr>`
+                                            )+`
+                                        </table>
+                                    </div>
+                                </div>
+
+                                                    <!-- <div class="card">
+                                                        <div onclick="taskComments(${data.data.id})" class="card-header" id="headingFour">
+                                                            <h6 style="cursor: pointer" class="mb-0">
+                                                                <span class="" data-toggle="modal" data-target="#commentModal">
+                                                                    <i class="m-menu__link-icon flaticon-comment"></i>
+                                                                    Comments
+                                                                </span>
+                                                            </h6>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <!-- Comment Modal -->
+            <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+            </div>
+                        `
+
+
+        },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+
+            })
+        }
+
+            function changeFormat(){
+                var allEditors = document.querySelectorAll('.ckeditor');
+                    for (var i = 0; i < allEditors.length; ++i) {
+                        ClassicEditor.create(allEditors[i]);
+                    }
+
+                    moment.updateLocale('en', {
+                        week: {dow: 1} // Monday is the first day of the week
+                    })
+
+                    $('.date').datetimepicker({
+                        format: 'DD-MM-YYYY',
+                        locale: 'en'
+                    })
+
+                    $('.datetime').datetimepicker({
+                        format: 'DD-MM-YYYY HH:mm:ss',
+                        locale: 'en',
+                        sideBySide: true
+                    })
+
+                    $('.timepicker').datetimepicker({
+                        format: 'HH:mm:ss'
+                    })
+
+                    $('.select-all').click(function () {
+                        let $select2 = $(this).parent().siblings('.select2')
+                        $select2.find('option').prop('selected', 'selected')
+                        $select2.trigger('change')
+                    })
+                    $('.deselect-all').click(function () {
+                        let $select2 = $(this).parent().siblings('.select2')
+                        $select2.find('option').prop('selected', '')
+                        $select2.trigger('change')
+                    })
+
+                    $('.select2').select2()
+
+                    $('.treeview').each(function () {
+                        var shouldExpand = false
+                        $(this).find('li').each(function () {
+                        if ($(this).hasClass('active')) {
+                            shouldExpand = true
+                        }
+                        })
+                        if (shouldExpand) {
+                        $(this).addClass('active')
+                        }
+                    })
+            }
+
+            //Posting-Create client
+            function createCliento(){
+                swal({
+                    title: "Success!",
+                    text: "Client Added!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+                window.setTimeout(function(){
+                    location.reload();
+                }, 2500);
+            }
+
+            // Search Through Task Documents FUnction
+        function searchTaskDocument() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputTen");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableTen");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
+
+            // Search Through Task Reports FUnction
+        function searchTaskReport(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputNine");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableNine");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
+
+            // Function for deleting single task
+        function deleteSingleTask(taskID){
+
+            swal({
+                    title: "Are you sure?",
+                    text: "Everything relating to this task will be lost!",
+                    icon: "warning",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                     if (willDelete) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                            $.ajax({
+                                type: "DELETE",
+                                url: "{{ url('api/v1/tasks')}}" + '/' + taskID,
+                                success: function (data) {
+                                    swal("Deleted!", "Task has been successfully deleted.", "success");
+                                    window.setTimeout(function(){
+                                        location.reload();
+                                    } , 2500);
+                                },
+                                    error: function (data) {
+                                        swal("Delete failed", "Please try again", "error");
+                                    }
+
+                                });
+                            }
+
+                    else {
+                        swal("Cancelled", "Delete cancelled", "error");
+                    }
+
+                });
+        }
+
+        // Function Populating the project Document Modal
+        function taskDTCall(project_id){
+            path_url = "/api/v1/projects_tasks/" + project_id;
+
+              // Simple Project Tasks DT
+            if ( $.fn.dataTable.isDataTable( '#kt_table_single_project_task') ) {
+                let kt_table_single_project_task = $('#kt_table_single_project_task').DataTable();
+            }else {
+                let kt_table_single_project_task = $('#kt_table_single_project_task').DataTable({
+                dom: 'lBfrtip<"actions">',
+                language: {
+                    url: languages. {{ app()->getLocale() }}
+                },
+
+                ajax: path_url,
+
+                columns: [
+                    {"data": "name"},
+                    {"data": "starting_date"},
+                    {"data": "ending_date"},
+                    {"data": "category.name"},
+                    {"data": "status.name"},
+                ],
+                columnDefs: [
+                //     {
+                //     orderable: false,
+                //     className: 'select-checkbox',
+                //     targets: 0
+                // },
+                 {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                },
+                ]
+            });
+            }
+
+        }
+
+        function searchProjectMembers(){
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInputThree");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTableThree");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
+        }
+
+
+        // Function Populating the project Document Modal
+
+
+        $.fn.dataTable.ext.classes.sPageButton = '';
+        var deleteButtonTrans = 'Delete Selected';
+        var deleteProjectButton = {
+            text: deleteButtonTrans,
+            url: "{{ route('admin.project-sub-types.massDestroy') }}",
+            className: 'btn-danger',
+            action: function (e, dt, node, config) {
+                var ids = $.map(dt.rows({
+                    selected: true
+                }).nodes(), function (entry) {
+                    return $(entry).data('entry-id')
+                });
+
+                if (ids.length === 0) {
+                    alert('{{ trans('global.datatables.zero_selected ') }}');
+                    return
+                }
+
+                if (confirm('{{ trans('global.areYouSure ') }}')) {
+                    $.ajax({
+                        headers: {
+                            'x-csrf-token': _token
+                        },
+                        method: 'POST',
+                        url: config.url,
+                        data: {
+                            ids: ids,
+                            _method: 'DELETE'
+                        }
+                    })
+                        .done(function () {
+                            location.reload()
+                        })
+                }
+            }
+        };
+        var dtProjectButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+        @can('project_delete')
+        dtProjectButtons.push(deleteProjectButton);
+        @endcan
+
+        $('.datatable:not(.ajaxTable)').DataTable({
+            buttons: dtProjectButtons
+        })
+        function printError(elemId, hintMsg) {
+            document.getElementById(elemId).innerHTML = hintMsg;
+        }
+
+
+        // Ajax call for the clients view
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "{{ ('/api/v1/clients') }}",
+            success: function (data) {
+
+                let clientCard = document.getElementById('client-cards');
+                let projectCard = document.getElementById('client-project-modal');
+                let taskCard = document.getElementById('client-task-modal');
+
+                    data.data.map((datum, i) => {
+                    clientCard.innerHTML = clientCard.innerHTML + `
+                    <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12" style="padding: 2%; border: 1px solid #dfdfdf; border-radius: 6%; margin-bottom: 2%; margin-right: 2%; max-width: 44%; box-sizing: border-box;">
+                        <div class="m-widget24">
+                            <div style="display: inline-block;" class="pull-right">
+                                <a onclick="editClient(${datum.id})" class="btn myButton" href="#" data-toggle="modal" data-target="#editClientModalBody">
+                                    <i class="fa fa-pencil" style="color:black;"><span style="font-weight:100;"></span></i>
+                                </a>
+                                <a onclick="deleteClient(${datum.id})" class=" myButton" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a>
+                            </div>
+                            <div class="m-widget24__item">
+                                <div class="body-header" style="">
+                                    <div class="" style=" float: left">
+                                        <img src="{{ asset('metro/assets/app/media/img/users/Logo2.png') }}" alt
+                                            width="80px" height="80px" style="border-radius: 1000px">
+                                    </div>
+                                    <h1 class="m-widget24__title" style=" font-size: 20px; position: relative; top: -10px;">
+                                        ${datum.name}
+                                    </h1>
+                                    <br>
+                                </div>
+
+                                <div class="m--space-10"></div>
+
+                                <div id="client-details" style="">
+                                    <p>${datum.address}</p>
+                                    <p>${datum.email}</p>
+                                    <p>${datum.phone}</p>
+                                </div>
+
+                                <button onclick ="getClientProjects(${datum.id})"  class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                        data-toggle="modal" data-target="#view_client_project${datum.id}">
+                                    View Projects
+                                </button>
+                                <button onclick ="getClientTasks(${datum.id})" class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                        data-toggle="modal" data-target="#view_client_task${datum.id}">
+                                    View Tasks
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `
+
+        projectCard.innerHTML = projectCard.innerHTML + `<div class="modal fade" id="view_client_project${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 100%; min-width: 400px; max-height: 100%;"
+                    role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Client Projects</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="m-portlet " id="m_portlet">
+                                    <div class="m-portlet__body">
+                                        <table id="kt_table_client_projects${datum.id}" class="table table-striped table-hover"
+                                                style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Manager</th>
+                                                <th>Type</th>
+                                                <th>Subtypes</th>
+                                                <th>Status</th>
+                                                <th>Starting Date</th>
+                                                <th>Deadline</th>
+                                                <th>Tools</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        taskCard.innerHTML = taskCard.innerHTML + `<div class="modal fade" id="view_client_task${datum.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 90%; min-width: 400px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Client Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+
+                <div class="m-portlet"; id="m_portlet">
+                    <div class="m-portlet__body">
+                    <table id="kt_table_tasks${datum.id}" class="table table-striped table-hover" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Manager</th>
+                                <th>Status</th>
+                                <th>Category</th>
+                                <th>Starting Date</th>
+                                <th>Deadline</th>
+                                <th>Tools</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+             </div>
+            </div>
+
+         </div>
+            </div>
+            </div>
+            </div>
+            </div>`
+
+
+            })
+
+        },
+
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+
+        $(function () {
+            let copyButtonTrans = '{{ trans('global.datatables.copy') }}';
+            let csvButtonTrans = '{{ trans('global.datatables.csv') }}';
+            let excelButtonTrans = '{{ trans('global.datatables.excel') }}';
+            let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}';
+            let printButtonTrans = '{{ trans('global.datatables.print') }}';
+            let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}';
+            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' });
+            $.extend(true, $.fn.dataTable.defaults, {
+                language: {
+                    url: languages.{{ app()->getLocale() }}
+                },
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                }],
+                select: {
+                    style:    'multi+shift',
+                    selector: 'td:first-child'
+                },
+                order: [],
+                pageLength: 10,
+                dom: 'lBfrtip<"actions">',
+                buttons: [
+                            {
+                                extend: 'excel',
+                                className: 'btn-primary',
+                                text: 'Excel',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            }, {
+                                extend: 'pdf',
+                                className: 'btn-success',
+                                text: 'PDF',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                            {
+                                extend: 'csv',
+                                className: 'btn-info',
+                                text: 'CSV',
+                                exportOptions: {
+                                    columns: ':visible'
+                                }
+                            },
+                        ]
+            });
+
+        })
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@endsection
+

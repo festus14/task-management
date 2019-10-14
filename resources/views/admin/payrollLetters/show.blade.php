@@ -26,7 +26,7 @@
     </div>
     <div id="page-container">
         <div id="pf1" class="pf w0 h0" data-page-no="1">
-            <div class="pc pc1 w0 h0"><img class="bi x0 y0 w1 h1" alt="" src="{{ asset('LetterPayroll/bg1.png') }}" />
+            <div class="pc pc1 w0 h0"><img class="bi x0 y0 w1 h1" alt="" src="{{ asset('LetterPayroll/bg5.png') }}" />
                 <div class="t m0 x1 h2 y1 ff1 fs0 fc0 sc0 ls0 ws0" id="date">{Day, Month, Year}</div>
                 <div class="t m0 x2 h3 y2 ff2 fs0 fc1 sc0 ls0 ws0">Payroll Management Services</div>
                 <div class="t m0 x2 h2 y3 ff1 fs0 fc0 sc0 ls0 ws0">The Managing Director</div>
@@ -273,11 +273,11 @@
             document.getElementById(id).innerHTML = html
         }
 
-        changeClasses("company_name", "Stransact Services")
-        changeClasses("contact_person", "Tunde Awopegba")
-        changeClasses("business_address", "126, Primate Adejobi Cr. Anthony Village, Lagos, Nigeria ")
-        changeClasses("company_short_name", "SP")
-        changeId("date", "09/05/2019")
+        changeClasses("company_name", "{{ $payrollLetter->client->name }}")
+        changeClasses("contact_person", "{{ $payrollLetter->contact_person }}")
+        changeClasses("business_address", "{{ $payrollLetter->client->address }}")
+        changeClasses("company_short_name", "{{ $payrollLetter->company_short_name }}")
+        changeId("date", "{{ $payrollLetter->date }}")
     </script>
 </body>
 

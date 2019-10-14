@@ -1258,6 +1258,7 @@ data-scroll-speed="300">
 <script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <!--begin::Page Snippets -->
 @yield('javascript')
 <script>
