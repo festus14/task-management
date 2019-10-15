@@ -63,41 +63,41 @@ class Task extends Model
 
     public function assinged_tos()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTrashed();
     }
 
     public function manager()
     {
-        return $this->belongsTo(User::class, 'manager_id');
+        return $this->belongsTo(User::class, 'manager_id')->withTrashed();
     }
 
     public function status()
     {
-        return $this->belongsTo(TaskStatus::class, 'status_id');
+        return $this->belongsTo(TaskStatus::class, 'status_id')->withTrashed();
     }
 
     public function project()
     {
-        return $this->belongsTo(Project::class, 'project_id');
+        return $this->belongsTo(Project::class, 'project_id')->withTrashed();
     }
 
     public function project_sub_type()
     {
-        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id');
+        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id')->withTrashed();
     }
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id')->withTrashed();
     }
 
     public function documents(){
-        return $this->hasMany(TaskDocument::class, 'task_id' , 'id');
+        return $this->hasMany(TaskDocument::class, 'task_id' , 'id')->withTrashed();
     }
     public function comments(){
-        return $this->hasMany(TaskComment::class, 'task_id' , 'id');
+        return $this->hasMany(TaskComment::class, 'task_id' , 'id')->withTrashed();
     }
     public function reports(){
-        return $this->hasMany(TaskDocument::class, 'task_id' , 'id');
+        return $this->hasMany(TaskDocument::class, 'task_id' , 'id')->withTrashed();
     }
 }
