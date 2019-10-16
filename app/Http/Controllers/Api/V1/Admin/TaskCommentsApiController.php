@@ -14,14 +14,17 @@ class TaskCommentsApiController extends Controller
     public function index()
     {
         try {
-            $taskComments = TaskComment::with('commentreply')->with('client')->get();
+            $taskComments = TaskComment::with('commentreply')
+                ->with('client')
+                ->with('user')
+                ->with('project')
+                ->with('task')
+                ->get();
             return response()->json(['data' => $taskComments], 200);
         }
         catch(\Exception $e){
             return response()->json(['data'=>[], 'message' => $e->getMessage()], 401);
         }
-
-
     }
 
     public function store(Request $request)
@@ -72,7 +75,12 @@ class TaskCommentsApiController extends Controller
     public function show($taskComment)
     {
         try {
-            $comments = TaskComment::with('commentreply')->with('client')->findOrFail($taskComment);
+            $comments = TaskComment::with('commentreply')
+                ->with('client')
+                ->with('user')
+                ->with('project')
+                ->with('task')
+                ->findOrFail($taskComment);
             return response()->json(['data'=>$comments], 200);
         }
         catch(\Exception $e){
