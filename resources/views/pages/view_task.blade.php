@@ -422,7 +422,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('/admin/task-documents/store') }}" onsubmit="" id="taskDocumentForm" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('/admin/task-documents') }}" onsubmit="" id="taskDocumentForm" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
 
@@ -477,19 +477,19 @@
 
                         <div class="row">
 
-                            <div class="col-md-3 form-group mt-2">
-                                <input id="submit-document" onclick="submitTaskDocument()" type="button" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit">
+                            <div class="col-md-3 form-group">
+                                <input class="btn btn-block center-block" type="submit" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <input type="hidden" class="form-control" id="client-list" name="client_id" value="">
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <input type="hidden" class="form-control" id="doc-task-id" name="task_id" value="">
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <input type="hidden" class="form-control" id="project-list_doc" name="project_id" value="">
                             </div>
 
@@ -547,7 +547,6 @@
                     { "data": "project.name" },
                     { "data": "manager.name" },
                     { "data": "status.name" },
-                    // { "data": "assinged_tos[, ].name" },
                     { "data": "starting_date" },
                     { "data": "ending_date" }
                 ],
@@ -765,7 +764,6 @@
                     }
                 });
             });
-        // });
 
 
 

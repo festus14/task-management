@@ -20,7 +20,7 @@ class Task extends Model
         'ending_date',
         'starting_date',
     ];
-    
+
     protected $fillable = [
         'name',
         'status_id',
@@ -92,7 +92,8 @@ class Task extends Model
     }
 
     public function documents(){
-        return $this->hasMany(TaskDocument::class, 'task_id' , 'id')->withTrashed();
+        return $this->hasMany(TaskDocument::class, 'task_id' , 'id');
+        // I deleted the withTrashed method here - Festus
     }
     public function comments(){
         return $this->hasMany(TaskComment::class, 'task_id' , 'id')->withTrashed();

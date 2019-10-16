@@ -48,7 +48,7 @@ class TaskDocumentController extends Controller
             $taskDocument->addMedia(storage_path('tmp/uploads/' . $request->input('document')))->toMediaCollection('document');
         }
 
-        return redirect()->route('admin.task-documents.index');
+        return redirect()->back();
     }
 
     public function edit(TaskDocument $taskDocument)
@@ -80,7 +80,7 @@ class TaskDocumentController extends Controller
             $taskDocument->document->delete();
         }
 
-        return redirect()->route('admin.task-documents.index');
+        return redirect()->back();
     }
 
     public function show(TaskDocument $taskDocument)

@@ -573,7 +573,7 @@
                                 </button>
                         </div>
                         <div class="modal-body">
-                                <form action="{{ url('admin/documents/store') }}" id="createDocForm" method="POST" enctype="multipart/form-data">
+                                <form action="{{ url('admin/documents') }}" id="createDocForm" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
 
@@ -1509,7 +1509,7 @@ function displayAddPsubtypeOut() {
                                                         <td>${item.project_report}</td>
                                                         <td>${item.created_at}</td>
                                                         <td>
-                                                            <form action="{{ url('/admin/project-reports/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                            <form action="{{ url('admin/project-reports/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                 <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">

@@ -93,7 +93,7 @@ class ProjectReportController extends Controller
 
         $projectReport->delete();
 
-        return back();
+        return redirect()->back();
     }
 
     public function massDestroy(MassDestroyProjectReportRequest $request)
