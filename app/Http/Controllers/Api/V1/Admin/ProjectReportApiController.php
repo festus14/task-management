@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectReportRequest;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\UpdateProjectReportRequest;
 use App\ProjectReport;
 use Illuminate\Http\Request;
 
 class ProjectReportApiController extends Controller
 {
+    use MediaUploadingTrait;
     public function index()
     {
         try {

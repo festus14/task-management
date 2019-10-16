@@ -502,16 +502,265 @@
 
     </div>
 
+    {{-- Modal for adding project report --}}
+    <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
+                        <button type="button" class="close" onclick="closeReportModal()" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                            <form id="addProjectReportForm" action="{{ url('admin/project-reports') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="form-group {{ $errors->has('project_report') ? 'has-error' : '' }} col-md-12">
+                                        <label for="project_report">{{ trans('cruds.projectReport.fields.project_report') }}</label>
+                                        <textarea id="project_report" name="project_report" class="form-control">{{ old('project_report', isset($projectReport) ? $projectReport->project_report : '') }}</textarea>
+                                        @if($errors->has('project_report'))
+                                            <p class="help-block">
+                                                {{ $errors->first('project_report') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.projectReport.fields.project_report_helper') }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group {{ $errors->has('uploads') ? 'has-error' : '' }} col-md-12">
+                                        <label for="uploads">{{ trans('cruds.projectReport.fields.uploads') }}</label>
+                                        <div class="needsclick dropzone" id="uploads-dropzone">
+
+                                        </div>
+                                        @if($errors->has('uploads'))
+                                            <p class="help-block">
+                                                {{ $errors->first('uploads') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.projectReport.fields.uploads_helper') }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <input type="hidden" value="" name="client_id" id="client" class="form-control">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <input type="hidden" value="" name="project_id" id="project" class="form-control">
+                                    </div>
+                                </div>
+                                <div>
+                                    <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Modal for adding project document --}}
+        <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="documentModalLongTitle">Add Document</h5>
+                            <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">
+                                <form action="{{ url('admin/documents/store') }}" id="createDocForm" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
+
+                                        <div class="form-group col-sm-6 col-md-6">
+                                            <label for="document-name">Document Name</label>
+                                            <input type="text" class="form-control" id="document-name" name="name">
+                                            @if($errors->has('name'))
+                                                <p class="help-block">
+                                                    {{ $errors->first('name') }}
+                                                </p>
+                                            @endif
+                                            <p class="helper-block">
+                                                {{ trans('cruds.document.fields.name_helper') }}
+                                            </p>
+                                        </div>
+
+                                        <div class="form-group col-sm-6 col-md-6">
+                                            <label for="version">Version</label>
+                                            <input type="text" class="form-control" id="version" placeholder="Enter Version" name="version">
+                                            @if($errors->has('version'))
+                                                <p class="help-block">
+                                                    {{ $errors->first('version') }}
+                                                </p>
+                                            @endif
+                                            <p class="helper-block">
+                                                {{ trans('cruds.document.fields.version_helper') }}
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }} col-sm-12 col-md-12">
+                                            <label for="file">{{ trans('cruds.document.fields.file') }}</label>
+                                            <div class="needsclick dropzone" id="file-dropzone">
+
+                                            </div>
+                                            @if($errors->has('file'))
+                                                <p class="help-block">
+                                                    {{ $errors->first('file') }}
+                                                </p>
+                                            @endif
+                                            <p class="helper-block">
+                                                {{ trans('cruds.document.fields.file_helper') }}
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-3 form-group">
+                                            <input class="btn btn-block center-block" type="submit" id="pro_doc_submit" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <input id="project-list" name="project_id" value="" type="hidden">
+                                        </div>
+                                        <div class="form-group col-sm-3 col-md-3">
+                                            <input id="client-list" name="client_id" value="" type="hidden">
+                                        </div>
+                                    </div>
+                                </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         @endsection
 
         {{-- projectcomment js --}}
         @section('javascript')
-            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
             <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/projectType_subtype.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/view_project.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/project_tools.js') }}"></script>
+            <script>
+                // Function for implementing dropezone for project report
+                    Dropzone.options.uploadsDropzone = {
+                    url: '{{ route('admin.project-reports.storeMedia') }}',
+                    maxFilesize: 20, // MB
+                    maxFiles: 1,
+                    addRemoveLinks: true,
+                    headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    params: {
+                    size: 20
+                    },
+                    success: function (file, response) {
+                    $('#addProjectReportForm').find('input[name="uploads"]').remove()
+                    $('#addProjectReportForm').append('<input type="hidden" name="uploads" value="' + response.name + '">')
+                    },
+                    removedfile: function (file) {
+                    file.previewElement.remove()
+                    $('#addProjectReportForm').find('input[name="uploads"]').remove()
+                    this.options.maxFiles = this.options.maxFiles + 1
+                    },
+                    init: function () {
+                @if(isset($projectReport) && $projectReport->uploads)
+                    var file = {!! json_encode($projectReport->uploads) !!}
+                        this.options.addedfile.call(this, file)
+                    file.previewElement.classList.add('dz-complete')
+                    $('#addProjectReportForm').append('<input type="hidden" name="uploads" value="' + file.file_name + '">')
+                    this.options.maxFiles = this.options.maxFiles - 1
+                @endif
+                    },
+                    error: function (file, response) {
+                        if ($.type(response) === 'string') {
+                            var message = response //dropzone sends it's own error messages in string
+                        } else {
+                            var message = response.errors.file
+                        }
+                        file.previewElement.classList.add('dz-error')
+                        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                        _results = []
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            node = _ref[_i]
+                            _results.push(node.textContent = message)
+                        }
+
+                        return _results
+                    }
+                }
+
+                // Function for implementing dropezone for create document
+                var uploadedFileMap = {}
+                Dropzone.options.fileDropzone = {
+                    url: '{{ route('admin.documents.storeMedia') }}',
+                    maxFilesize: 10, // MB
+                    addRemoveLinks: true,
+                    headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    params: {
+                    size: 10
+                    },
+                    success: function (file, response) {
+                    $('#createDocForm').append('<input type="hidden" name="file[]" value="' + response.name + '">')
+                    uploadedFileMap[file.name] = response.name
+                    },
+                    removedfile: function (file) {
+                    file.previewElement.remove()
+                    var name = ''
+                    if (typeof file.file_name !== 'undefined') {
+                        name = file.file_name
+                    } else {
+                        name = uploadedFileMap[file.name]
+                    }
+                    $('#createDocForm').find('input[name="file[]"][value="' + name + '"]').remove()
+                    },
+                    init: function () {
+                @if(isset($document) && $document->file)
+                        var files =
+                            {!! json_encode($document->file) !!}
+                            for (var i in files) {
+                            var file = files[i]
+                            this.options.addedfile.call(this, file)
+                            file.previewElement.classList.add('dz-complete')
+                            $('#createDocForm').append('<input type="hidden" name="file[]" value="' + file.file_name + '">')
+                            }
+                @endif
+                    },
+                    error: function (file, response) {
+                        if ($.type(response) === 'string') {
+                            var message = response //dropzone sends it's own error messages in string
+                        } else {
+                            var message = response.errors.file
+                        }
+                        file.previewElement.classList.add('dz-error')
+                        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                        _results = []
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            node = _ref[_i]
+                            _results.push(node.textContent = message)
+                        }
+
+                        return _results
+                    }
+                }
+
+                function closeReportModal(){
+                    document.getElementById('project_report').value = "";
+                    $('#addReportModal').modal('hide');
+                }
+            </script>
 
             <script>
                 $(document).ready(function () {
@@ -997,7 +1246,7 @@ function displayAddPsubtypeOut() {
         }
 
         // Function for rendering the more info modal
-        function displayProjectInfo(proID) {
+    function displayProjectInfo(proID) {
         $.ajax({
             type: "GET",
             url: '{{ url("/api/v1/projects/") }}' + "/" + proID,
@@ -1250,6 +1499,7 @@ function displayAddPsubtypeOut() {
                                                         <th style="text-align: center;">#</th>
                                                         <th>Report</th>
                                                         <th>Date Created</th>
+                                                        <th>Tools</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1258,6 +1508,13 @@ function displayAddPsubtypeOut() {
                                                         <td></td>
                                                         <td>${item.project_report}</td>
                                                         <td>${item.created_at}</td>
+                                                        <td>
+                                                            <form action="{{ url('/admin/project-reports/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                            </form>
+                                                        </td>
                                                     </tr>` ) + `
                                                 </tbody>
                                             </table>
@@ -1265,56 +1522,6 @@ function displayAddPsubtypeOut() {
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="modal fade" id="addReportModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="documentModalLongTitle">Add Report</h5>
-                                <button type="button" class="close" onclick="$('#addReportModal').modal('hide');" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="addProjectReportForm" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class=" row col-md-12">
-                                        <div class="col-md-12 form-group mt-3">
-                                            <label for="exampleFormControlTextarea1">Project Report</label>
-                                            <textarea class="form-control" id="project_report" name="project_report" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 row">
-                                        <div class="col-md-6 form-group mt-3">
-                                            <input type="hidden" value="${data.data.client_id}" name="client_id" id="client" class="form-control">
-                                        </div>
-                                        <div class="col-md-6 form-group mt-3">
-                                            <input type="hidden" value="${data.data.id}" name="project_id" id="project" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class=" row col-md-12">
-                                        <fieldset class="col-md-12 form-group mt-3">
-
-                                            <div>
-                                                <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
-                                            </div>
-                                            <div id="messages">
-
-                                            </div>
-                                        </fieldset>
-                                        <div class="row col-md-12">
-                                            <div class="col-md-3 form-group mt-3">
-                                                <input type="button" onclick="submitProjectReport()" class="btn btn-block" value="Submit" style="background-color:#8a2a2b; color:white;">
-
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </form>
                             </div>
@@ -1323,152 +1530,21 @@ function displayAddPsubtypeOut() {
                 </div>
 
 
-                <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="documentModalLongTitle">Add Document</h5>
-                                <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ url('admin/documents/store') }}" id="createDocForm" onsubmit="" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row">
-
-                                        <div class="form-group col-sm-6 col-md-6">
-                                            <label for="document-name">Document Name</label>
-                                            <input type="text" class="form-control" id="document-name" name="name">
-                                            @if($errors->has('name'))
-                                                <p class="help-block">
-                                                    {{ $errors->first('name') }}
-                                                </p>
-                                            @endif
-                                            <p class="helper-block">
-                                                {{ trans('cruds.document.fields.name_helper') }}
-                                            </p>
-                                        </div>
-
-                                        <div class="form-group col-sm-6 col-md-6">
-                                            <label for="version">Version</label>
-                                            <input type="text" class="form-control" id="version" placeholder="Enter Version" name="version">
-                                            @if($errors->has('version'))
-                                                <p class="help-block">
-                                                    {{ $errors->first('version') }}
-                                                </p>
-                                            @endif
-                                            <p class="helper-block">
-                                                {{ trans('cruds.document.fields.version_helper') }}
-                                            </p>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-
-                                        <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }} col-sm-12 col-md-12">
-                                            <label for="file-dropzone">{{ trans('cruds.document.fields.file') }}</label>
-                                            <div class="needsclick dropzone" id="file-dropzone">
-
-                                            </div>
-                                            @if($errors->has('file'))
-                                                <p class="help-block">
-                                                    {{ $errors->first('file') }}
-                                                </p>
-                                            @endif
-                                            <p class="helper-block">
-                                                {{ trans('cruds.document.fields.file_helper') }}
-                                            </p>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-3 form-group">
-                                            <input class="btn btn-block center-block" type="submit" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <input id="project-list" name="project_id" value="${data.data.id}" type="hidden">
-                                        </div>
-                                        <div class="form-group col-sm-3 col-md-3">
-                                            <input id="client-list" name="client_id" value="${data.data.client_id}" type="hidden">
-                                        </div>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
                     `
+                    document.getElementById('project-list').value = data.data.id;
+                    document.getElementById('client-list').value = data.data.client_id;
+                    document.getElementById('project').value = data.data.id;
+                    document.getElementById('client').value = data.data.client_id;
             },
 
-                error: function (data) {
-                    console.log('Error:', data);
-
-
-                }
-
-            })
-
-        }
-
-        // Function for implementing dropezone for create document
-        var uploadedFileMap = {}
-        Dropzone.options.fileDropzone = {
-            url: '{{ route('admin.documents.storeMedia') }}',
-            maxFilesize: 10, // MB
-            addRemoveLinks: true,
-            headers: {
-            'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            params: {
-            size: 10
-            },
-            success: function (file, response) {
-            $('#createDocForm').append('<input type="hidden" name="file[]" value="' + response.name + '">')
-            uploadedFileMap[file.name] = response.name
-            },
-            removedfile: function (file) {
-            file.previewElement.remove()
-            var name = ''
-            if (typeof file.file_name !== 'undefined') {
-                name = file.file_name
-            } else {
-                name = uploadedFileMap[file.name]
+            error: function (data) {
+                console.log('Error:', data);
             }
-            $('#createDocForm').find('input[name="file[]"][value="' + name + '"]').remove()
-            },
-            init: function () {
-        @if(isset($document) && $document->file)
-                var files =
-                    {!! json_encode($document->file) !!}
-                    for (var i in files) {
-                    var file = files[i]
-                    this.options.addedfile.call(this, file)
-                    file.previewElement.classList.add('dz-complete')
-                    $('#createDocForm').append('<input type="hidden" name="file[]" value="' + file.file_name + '">')
-                    }
-        @endif
-            },
-            error: function (file, response) {
-                if ($.type(response) === 'string') {
-                    var message = response //dropzone sends it's own error messages in string
-                } else {
-                    var message = response.errors.file
-                }
-                file.previewElement.classList.add('dz-error')
-                _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
-                _results = []
-                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                    node = _ref[_i]
-                    _results.push(node.textContent = message)
-                }
 
-                return _results
-            }
-        }
+        })
+
+
+    }
 
                 function projectComments(project_id) {
                     $.ajax({

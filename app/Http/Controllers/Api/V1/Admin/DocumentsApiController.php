@@ -16,7 +16,7 @@ class DocumentsApiController extends Controller
     public function index()
     {
         try {
-            $documents = Document::all();
+            $documents = Document::with('project')->with('client')->with('media_report')->get();
             return response()->json(['data' => $documents], 200);
         }
         catch(\Exception $e){
@@ -86,7 +86,7 @@ class DocumentsApiController extends Controller
     {
 
         try {
-            $document = Document::with('project')->with('task')->with('client')->with('media_report')->findOrFail($id);
+            $document = Document::with('project')->with('client')->with('media_report')->findOrFail($id);
             return response()->json(['data' => $document], 200);
         }
         catch(\Exception $e){

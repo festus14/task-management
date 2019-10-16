@@ -46,7 +46,7 @@ class DocumentsController extends Controller
             $document->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('file');
         }
 
-        return redirect()->route('admin.documents.index');
+        return redirect()->back();
     }
 
     public function edit(Document $document)
@@ -84,7 +84,7 @@ class DocumentsController extends Controller
             }
         }
 
-        return redirect()->route('admin.documents.index');
+        return redirect()->back();
     }
 
     public function show(Document $document)

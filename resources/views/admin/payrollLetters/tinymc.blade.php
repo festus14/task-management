@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Laravel Filemanager</title>
+    <title>TaskManagement Filemanager</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/folder.png') }}">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -46,12 +46,6 @@
                 <input id="thumbnail2" class="form-control" type="text" name="filepath">
             </div>
             <img id="holder2" style="margin-top:15px;max-height:100px;">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Embed file manager</h2>
-            <iframe src="{{ url('vendor/laravel-filemanager') }}" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
         </div>
     </div>
 </div>

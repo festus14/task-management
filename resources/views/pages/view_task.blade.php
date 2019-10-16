@@ -444,6 +444,97 @@
             </div>
           </div>
 
+        {{-- Modal for adding task document --}}
+    <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle"><i class="la la-plus"></i> Add Document</h5>
+                    <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('/admin/task-documents/store') }}" onsubmit="" id="taskDocumentForm" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+
+                            <div class="form-group col-sm-6 col-md-6">
+                                <label for="document-name">Document Name</label>
+                                <input name="name" type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
+                                @if($errors->has('name'))
+                                    <p class="help-block">
+                                        {{ $errors->first('name') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('cruds.taskDocument.fields.name_helper') }}
+                                </p>
+                            </div>
+
+                            <div class="form-group col-sm-6 col-md-6">
+                                <label for="document_type">Document Type</label>
+                                <select id="document_type" name="document_type" class="form-control" required="">
+                                    <option value="" disabled="" selected="">Please select</option>
+                                    <option value="1">Word</option>
+                                    <option value="2">PDF</option>
+                                    <option value="3">Excel</option>
+                                    <option value="4">Text</option>
+                                </select>
+                                @if($errors->has('document_type'))
+                                    <p class="help-block">
+                                        {{ $errors->first('document_type') }}
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group {{ $errors->has('document') ? 'has-error' : '' }} col-sm-12 col-md-12">
+                                <label for="document">{{ trans('cruds.taskDocument.fields.document') }}*</label>
+                                <div class="needsclick dropzone" id="document-dropzone">
+
+                                </div>
+                                @if($errors->has('document'))
+                                    <p class="help-block">
+                                        {{ $errors->first('document') }}
+                                    </p>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('cruds.taskDocument.fields.document_helper') }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-3 form-group mt-2">
+                                <input id="submit-document" onclick="submitTaskDocument()" type="button" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <input type="hidden" class="form-control" id="client-list" name="client_id" value="">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <input type="hidden" class="form-control" id="doc-task-id" name="task_id" value="">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <input type="hidden" class="form-control" id="project-list_doc" name="project_id" value="">
+                            </div>
+
+                        </div>
+                    </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 @endsection
 @section('javascript')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -1192,98 +1283,6 @@
                 </div>
 
 
-        <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 60%; min-width: 500px;" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle"><i class="la la-plus"></i> Add Document</h5>
-                        <button type="button" class="close" onclick="$('#addDocumentModal').modal('hide');" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ url('/admin/task-documents/store') }}" onsubmit="" id="taskDocumentForm" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-
-                                <div class="form-group col-sm-6 col-md-6">
-                                    <label for="document-name">Document Name</label>
-                                    <input name="name" type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
-                                    @if($errors->has('name'))
-                                        <p class="help-block">
-                                            {{ $errors->first('name') }}
-                                        </p>
-                                    @endif
-                                    <p class="helper-block">
-                                        {{ trans('cruds.taskDocument.fields.name_helper') }}
-                                    </p>
-                                </div>
-
-                                <div class="form-group col-sm-6 col-md-6">
-                                    <label for="document_type">Document Type</label>
-                                    <select id="document_type" name="document_type" class="form-control" required="">
-                                        <option value="" disabled="" selected="">Please select</option>
-                                        <option value="1">Word</option>
-                                        <option value="2">PDF</option>
-                                        <option value="3">Excel</option>
-                                        <option value="4">Text</option>
-                                    </select>
-                                    @if($errors->has('document_type'))
-                                        <p class="help-block">
-                                            {{ $errors->first('document_type') }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="form-group {{ $errors->has('document') ? 'has-error' : '' }} col-sm-12 col-md-12">
-                                    <label for="document">{{ trans('cruds.taskDocument.fields.document') }}*</label>
-                                    <div class="needsclick dropzone" id="document-dropzone">
-
-                                    </div>
-                                    @if($errors->has('document'))
-                                        <p class="help-block">
-                                            {{ $errors->first('document') }}
-                                        </p>
-                                    @endif
-                                    <p class="helper-block">
-                                        {{ trans('cruds.taskDocument.fields.document_helper') }}
-                                    </p>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-md-3 form-group mt-2">
-                                    <input id="submit-document" onclick="submitTaskDocument()" type="button" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;" value="Submit">
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <input type="hidden" class="form-control" id="client-list" name="client_id" value="${data.data.client_id}">
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <input type="hidden" class="form-control" id="doc-task-id" name="task_id" value="${data.data.id}">
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <input type="hidden" class="form-control" id="project-list_doc" name="project_id" value="${data.data.project_id}">
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <input type="hidden" class="form-control" id="client-list" name="client_id" value="${data.data.client_id}">
-                                </div>
-
-                            </div>
-                        </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
@@ -1291,7 +1290,9 @@
 
 
             `
-
+            document.getElementById('client-list').value = data.data.client_id;
+            document.getElementById('doc-task-id').value = data.data.id;
+            document.getElementById('project-list_doc').value = data.data.project_id;
 
                 },
 
@@ -1299,9 +1300,9 @@
                 console.log('Error:', data);
 
 
-        }
+            }
 
-        })
+            })
 
     }
 
