@@ -410,6 +410,13 @@
 </div>
 <!--End Edit projType Modal -->
 
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            ...
+          </div>
+        </div>
+      </div>
 
 @endsection
 @section('javascript')
@@ -1295,10 +1302,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Task Comments</h5>
-                <button type="button" class="close" onclick="$('#commentModal').modal('hide');" aria-label="Close">
+                    <button type="button" class="close" onclick="$('#commentModal').modal('hide');" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-
 
                 </div>
                 <div class="modal-body">
@@ -1419,7 +1425,6 @@
                             </div>
                         </div>
                     </div>
-                    </form>
 
                 </div>
             </div>
@@ -1427,6 +1432,12 @@
                     }
                 });
             }
+
+            function boy() {
+                $('#commentModal').modal('toggle');
+                $('#taskCommentPage').modal('toggle');
+                console.log("boy")
+        };
 
             function makeCommo(task_id) {
             $.ajax({

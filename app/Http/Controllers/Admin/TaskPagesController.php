@@ -82,6 +82,7 @@ class TaskPagesController extends Controller
         return view('pages.view_task');
     }
 
+
     public function letter_template(){
         return view('letter.letter_template');
     }
@@ -94,6 +95,26 @@ class TaskPagesController extends Controller
 
 
         return view('pages.send_email');
+    }
+
+    public function taskComments(Request $request, $id)
+    {
+        $tasks_details =  Task::with('category')
+        ->with('assinged_tos')
+        ->with('manager')
+        ->with('status')
+        ->with('project')
+        ->with('comments')
+        ->with('comments')
+        ->findOrFail($id);
+        $tasks =  Task::all();
+        $users = User::all();
+        $projects = Project::with('tasks')
+        ->with('team_members')
+        ->with('team_members')
+        ->get();
+        $clients = Client::all();
+        return view('pages.task_comments', compact('tasks', 'id','users', 'clients', 'projects', 'tasks_details'));
     }
 
 

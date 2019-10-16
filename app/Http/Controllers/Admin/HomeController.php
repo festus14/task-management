@@ -126,4 +126,10 @@ class HomeController
 
         return view('theme.laravel.dashboard', compact('tasks', 'projects', 'users', 'clients', 'events', 'categories', 'assinged_tos', 'managers', 'statuses', 'projects_sub_type'));
     }
+
+
+    // public function taskComments(){
+    //     return view('pages.task_comments', compact('tasks', 'projects', 'users', 'clients', 'events', 'categories', 'assinged_tos', 'managers', 'statuses', 'projects_sub_type'));
+    // }
+
 }
