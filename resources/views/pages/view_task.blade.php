@@ -1238,10 +1238,6 @@
                                     <input type="hidden" class="form-control" id="project-list_doc" name="project_id" value="${data.data.project_id}">
                                 </div>
 
-                                <div class="form-group col-md-3">
-                                    <input type="hidden" class="form-control" id="client-list" name="client_id" value="${data.data.client_id}">
-                                </div>
-
                             </div>
                         </form>
 
@@ -1252,9 +1248,11 @@
 
             <div class="modal fade" id="commentModal" tabindex="-1" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
-</div>
+        </div>
             `
-
+            document.getElementById('client-list').value = data.data.client_id;
+            document.getElementById('doc-task-id').value = data.data.id;
+            document.getElementById('project-list_doc').value = data.data.project_id;
 
                 },
 

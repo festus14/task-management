@@ -4,16 +4,18 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectReportRequest;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\UpdateProjectReportRequest;
 use App\ProjectReport;
 use Illuminate\Http\Request;
 
 class ProjectReportApiController extends Controller
 {
+    use MediaUploadingTrait;
     public function index()
     {
         try {
-            $projectReports = ProjectReport::all();
+            $projectReports = ProjectReport::with('getuploadsAttribute')->with('project')->with('client')->get();
             return response()->json(['data' => $projectReports], 200);
         }
         catch(\Exception $e){

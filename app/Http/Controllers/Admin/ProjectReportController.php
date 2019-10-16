@@ -45,7 +45,7 @@ class ProjectReportController extends Controller
             $projectReport->addMedia(storage_path('tmp/uploads/' . $request->input('uploads')))->toMediaCollection('uploads');
         }
 
-        return redirect()->route('admin.project-reports.index');
+        return redirect()->back();
     }
 
     public function edit(ProjectReport $projectReport)
@@ -75,7 +75,7 @@ class ProjectReportController extends Controller
             $projectReport->uploads->delete();
         }
 
-        return redirect()->route('admin.project-reports.index');
+        return redirect()->back();
     }
 
     public function show(ProjectReport $projectReport)
