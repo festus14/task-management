@@ -21,6 +21,7 @@ class PayrollLetter extends Model
 
     protected $fillable = [
         'date',
+        'type_id',
         'client_id',
         'project_id',
         'staff_name',
@@ -34,6 +35,11 @@ class PayrollLetter extends Model
         'company_short_name',
         'other_services_charges',
     ];
+
+    public function type()
+    {
+        return $this->belongsTo(LetterType::class, 'type_id');
+    }
 
     public function client()
     {
@@ -53,5 +59,10 @@ class PayrollLetter extends Model
     public function setDateAttribute($value)
     {
         $this->attributes['date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(ServicesFee::class);
     }
 }

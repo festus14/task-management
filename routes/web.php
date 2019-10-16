@@ -156,7 +156,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Payrollletters
     Route::delete('payroll-letters/destroy', 'PayrollLetterController@massDestroy')->name('payroll-letters.massDestroy');
     Route::resource('payroll-letters', 'PayrollLetterController');
-
+    // Servicesfees
+    Route::delete('services-fees/destroy', 'ServicesFeesController@massDestroy')->name('services-fees.massDestroy');
+    Route::resource('services-fees', 'ServicesFeesController');
 
 
     Route::get('create_project', 'ProjectPagesController@createProject')->name('create_project');

@@ -403,7 +403,7 @@
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
             <div id="pf9" class="pf w0 h0" data-page-no="9">
-                <div class="pc pc9 w0 h0"><img class="bi x18 ye4 wa h12" alt="" src="{{ asset('js/account_letter/bg9.png') }} />
+                <div class="pc pc9 w0 h0"><img class="bi x18 ye4 wa h12" alt="" src="{{ asset('js/account_letter/bg9.png') }}" />
                     <div class="c x0 y23 w0 h6">
                         <div class="t m0 x5 h7 y24 ff3 fs1 fc0 sc0 ls0 ws0">Attention: <span class="contact_person">{Contact Person}</span></div>
                         <div class="t m0 x5 h8 y25 ff1 fs1 fc0 sc0 ls0 ws0 job_title">{Job Title}</div>

@@ -2,15 +2,14 @@
 
 namespace App;
 
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class LetterType extends Model
+class ServicesFee extends Model
 {
-    use SoftDeletes, Auditable;
+    use SoftDeletes;
 
-    public $table = 'letter_types';
+    public $table = 'services_fees';
 
     protected $dates = [
         'created_at',
@@ -20,13 +19,17 @@ class LetterType extends Model
 
     protected $fillable = [
         'name',
+        'amount',
+        'details',
+        'currency',
         'created_at',
         'updated_at',
         'deleted_at',
+        'currency_rate',
     ];
 
     public function payrollLetters()
     {
-        return $this->hasMany(PayrollLetter::class, 'type_id', 'id');
+        return $this->belongsToMany(PayrollLetter::class);
     }
 }

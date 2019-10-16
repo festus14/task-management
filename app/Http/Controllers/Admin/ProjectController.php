@@ -3,23 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Client;
+use App\Document;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use App\Mail\SendMailToProjectTeamMembers;
 use App\Project;
 use App\ProjectType;
-use App\TaskStatus;
 use App\User;
-use App\ProjectSubType;
-use Illuminate\Support\Facades\Mail;
+use Gate;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        abort_unless(\Gate::allows('project_access'), 403);
+        abort_if(Gate::denies('project_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $projects = Project::all();
 
@@ -28,59 +28,30 @@ class ProjectController extends Controller
 
     public function create()
     {
-        abort_unless(\Gate::allows('project_create'), 403);
+        abort_if(Gate::denies('project_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $project_types = ProjectType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-        $project_subtypes = ProjectSubType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $managers = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $team_members = User::all()->pluck('name', 'id');
+        $team_members = Document::all()->pluck('name', 'id');
 
-        return view('admin.projects.create', compact('clients', 'project_types','project_subtypes', 'managers', 'team_members'));
+        return view('admin.projects.create', compact('clients', 'project_types', 'managers', 'team_members'));
     }
 
     public function store(StoreProjectRequest $request)
     {
-        abort_unless(\Gate::allows('project_create'), 403);
-
         $project = Project::create($request->all());
         $project->team_members()->sync($request->input('team_members', []));
-        $team_members = $project->team_members;
 
-        try {
-             Mail::send('theme.laravel.mails.notifications.send_mail_to_project_team_members', compact('team_members'),
-                 function ($message)
-                use ($project) {
-                $message->from('payslip@ipaysuite.com', 'Task Management');
-                if(count($project->team_members) > 0 ){
-                    $message->to($project->manager->email, $project->manager->name);
-                   foreach ($project->team_members as $member){
-                       $message->to($member->email, $member->name);
-                   }
-                }
-//                $message->cc('dennis.ogbeide@stransact.com', 'HR');
-                $message->cc('tunde.awopegba@stransact.com', 'App Admin');
-                $message->cc('festusomole14@gmail.com', 'App Tester');
-//                $message->cc('yomi.salawu@stransact.com', 'Partner');
-                $message->subject('New Project Created ' . now());
-            });
-//            Mail::to($project->manager->email)
-//                ->cc($team)
-//                ->send(new SendMailToProjectTeamMembers($team));
-            return redirect()->route('admin.projects.index');
-        } catch (\Exception $e) {
-            return redirect()->route('admin.projects.index');
-        }
-
-
+        return redirect()->route('admin.projects.index');
     }
 
     public function edit(Project $project)
     {
-        abort_unless(\Gate::allows('project_edit'), 403);
+        abort_if(Gate::denies('project_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -88,21 +59,15 @@ class ProjectController extends Controller
 
         $managers = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $statuses = TaskStatus::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-        $project_subtypes = ProjectSubType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-
-        $team_members = User::all()->pluck('name', 'id');
+        $team_members = Document::all()->pluck('name', 'id');
 
         $project->load('client', 'project_type', 'manager', 'team_members');
 
-        return view('admin.projects.edit', compact('clients', 'project_types', 'managers', 'project_subtypes','statuses', 'team_members', 'project'));
+        return view('admin.projects.edit', compact('clients', 'project_types', 'managers', 'team_members', 'project'));
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        abort_unless(\Gate::allows('project_edit'), 403);
-
         $project->update($request->all());
         $project->team_members()->sync($request->input('team_members', []));
 
@@ -111,7 +76,7 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        abort_unless(\Gate::allows('project_show'), 403);
+        abort_if(Gate::denies('project_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $project->load('client', 'project_type', 'manager', 'team_members');
 
@@ -120,7 +85,7 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
-        abort_unless(\Gate::allows('project_delete'), 403);
+        abort_if(Gate::denies('project_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $project->delete();
 
@@ -131,6 +96,6 @@ class ProjectController extends Controller
     {
         Project::whereIn('id', request('ids'))->delete();
 
-        return response(null, 204);
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

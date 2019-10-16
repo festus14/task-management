@@ -19,6 +19,10 @@ class StorePayrollLetterRequest extends FormRequest
     public function rules()
     {
         return [
+            'type_id'            => [
+                'required',
+                'integer',
+            ],
             'client_id'          => [
                 'required',
                 'integer',
@@ -37,8 +41,11 @@ class StorePayrollLetterRequest extends FormRequest
             'company_short_name' => [
                 'required',
             ],
-            'staff_name'         => [
-                'required',
+            'services.*'         => [
+                'integer',
+            ],
+            'services'           => [
+                'array',
             ],
         ];
     }

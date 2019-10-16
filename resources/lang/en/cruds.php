@@ -467,6 +467,10 @@ return [
             'fees_footer_helper'            => '',
             'other_services_charges'        => 'Other Services Charges',
             'other_services_charges_helper' => '',
+            'services'                      => 'Services',
+            'services_helper'               => '',
+            'type'                          => 'Type',
+            'type_helper'                   => '',
         ],
     ],
     'servicesFee'       => [
@@ -489,6 +493,8 @@ return [
             'updated_at_helper'    => '',
             'deleted_at'           => 'Deleted at',
             'deleted_at_helper'    => '',
+            'details'              => 'Details',
+            'details_helper'       => '',
         ],
     ],
 ];

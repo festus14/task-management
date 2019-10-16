@@ -1522,6 +1522,8 @@ function displayAddPsubtypeOut() {
                                     </div>
                                 </div>
 
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -1535,19 +1537,14 @@ function displayAddPsubtypeOut() {
                     document.getElementById('client').value = data.data.client_id;
             },
 
-                error: function (data) {
-                    console.log('Error:', data);
+            error: function (data) {
+                console.log('Error:', data);
+            }
 
-
-                }
-
-            })
-
-
+        })
 
 
     }
-
 
                 function projectComments(project_id) {
                     $.ajax({
