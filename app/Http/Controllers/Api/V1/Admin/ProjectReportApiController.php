@@ -15,7 +15,10 @@ class ProjectReportApiController extends Controller
     public function index()
     {
         try {
-            $projectReports = ProjectReport::with('getuploadsAttribute')->with('project')->with('client')->get();
+            $projectReports = ProjectReport::with('project')
+                ->with('client')
+                ->with('media_report')
+                ->get();
             return response()->json(['data' => $projectReports], 200);
         }
         catch(\Exception $e){
@@ -46,9 +49,13 @@ class ProjectReportApiController extends Controller
         }
     }
 
-    public function show(ProjectReport $projectReport)
+    public function show($id)
     {
         try {
+            $projectReport= ProjectReport::with('project')
+                ->with('client')
+                ->with('media_report')
+                ->findOrFail($id);
             return response()->json(['data' => $projectReport], 200);
         }
         catch(\Exception $e){

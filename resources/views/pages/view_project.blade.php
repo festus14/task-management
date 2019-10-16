@@ -1811,8 +1811,6 @@ function displayAddPsubtypeOut() {
             }
 
             function submitEditProjectType(typeId) {
-
-                console.log("babanla")
                 $.ajax({
                     type: "PUT",
                     data: $('#editProtypeform').serialize(),

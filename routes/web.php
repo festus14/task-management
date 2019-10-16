@@ -2,11 +2,12 @@
 Auth::routes(['register' => false]);
 
 Route::get('/', function () { return redirect('/admin'); });
+Route::get('/home', function () { return redirect('/admin'); });
 Route::get('/testing', 'TestingController@index')->name('testing');
+Route::get('/test', 'Admin\HomeController@test')->name('test');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
 
     Route::get('/', 'HomeController@index')->name('home');
-
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
 
     Route::resource('permissions', 'PermissionsController');
@@ -172,5 +173,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('view_task', 'TaskPagesController@viewTask')->name('view_task');
     Route::get('letter_template', 'TaskPagesController@letter_template')->name('letter_template');
 
+    Route::get('/task-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
+    Route::post('/task-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
+    // list all lfm routes here...
 
+
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/task-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
+    Route::post('/task-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
+    // list all lfm routes here...
 });

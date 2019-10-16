@@ -5,6 +5,7 @@ use Collective\Html\HtmlFacade;
 use Collective\Html\HtmlServiceProvider;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageServiceProvider;
+use UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider;
 
 return [
 
@@ -167,6 +168,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 

@@ -57,46 +57,46 @@ class Project extends Model
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id')->withTrashed();
     }
 
     public function project_type()
     {
-        return $this->belongsTo(ProjectType::class, 'project_type_id');
+        return $this->belongsTo(ProjectType::class, 'project_type_id')->withTrashed();
     }
     public function manager()
     {
-        return $this->belongsTo(User::class, 'manager_id');
+        return $this->belongsTo(User::class, 'manager_id')->withTrashed();
     }
 
     public function team_members()
     {
-        return $this->belongsToMany(User::class, 'user_project');
+        return $this->belongsToMany(User::class, 'user_project')->withTrashed();
     }
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'project_id', 'id');
+        return $this->hasMany(Task::class, 'project_id', 'id')->withTrashed();
     }
 
     public function status()
     {
-        return $this->belongsTo(TaskStatus::class, 'status_id');
+        return $this->belongsTo(TaskStatus::class, 'status_id')->withTrashed();
     }
     public function project_subtype()
     {
-        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id');
+        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id')->withTrashed();
     }
     public function documents()
     {
-        return $this->hasMany(Document::class, 'project_id', 'id');
+        return $this->hasMany(Document::class, 'project_id', 'id')->withTrashed();
     }
     public function comments()
     {
-        return $this->hasMany(ProjectComment::class, 'project_id', 'id');
+        return $this->hasMany(ProjectComment::class, 'project_id', 'id')->withTrashed();
     }
     public function reports()
     {
-        return $this->hasMany(ProjectReport::class, 'project_id', 'id');
+        return $this->hasMany(ProjectReport::class, 'project_id', 'id')->withTrashed();
     }
 }

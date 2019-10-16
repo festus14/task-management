@@ -65,7 +65,6 @@ class HomeController
     ];
     public function index(Request $request)
     {
-
         $projects = Project::with('tasks')
             ->with('team_members')
             ->with('team_members')
@@ -125,5 +124,9 @@ class HomeController
         }
 
         return view('theme.laravel.dashboard', compact('tasks', 'projects', 'users', 'clients', 'events', 'categories', 'assinged_tos', 'managers', 'statuses', 'projects_sub_type'));
+    }
+
+    public function test(Request $request){
+        return view('admin.payrollLetters.tinymc');
     }
 }

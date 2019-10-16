@@ -41,21 +41,25 @@ class TaskDocument extends Model implements HasMedia
 
     public function project()
     {
-        return $this->belongsTo(Project::class, 'project_id');
+        return $this->belongsTo(Project::class, 'project_id')->withTrashed();
     }
 
     public function task()
     {
-        return $this->belongsTo(Task::class, 'task_id');
+        return $this->belongsTo(Task::class, 'task_id')->withTrashed();
     }
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id')->withTrashed();
     }
 
     public function getdocumentAttribute()
     {
         return $this->getMedia('document')->last();
+    }
+    public function  media_report(){
+        return $this->hasMany(MyMedia::class, 'model_id')
+            ->where('media.model_type', '=','App\TaskDocument');
     }
 }
