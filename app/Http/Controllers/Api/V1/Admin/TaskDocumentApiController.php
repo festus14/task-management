@@ -14,7 +14,10 @@ class TaskDocumentApiController extends Controller
     public function index()
     {
         try {
-            $taskDocuments = TaskDocument::all();
+            $taskDocuments = TaskDocument::with('project')
+                ->with('client')
+                ->with('task')
+                ->with('media_report')->get();
             return response()->json(['data' => $taskDocuments], 200);
         }
         catch(\Exception $e){
@@ -84,9 +87,14 @@ class TaskDocumentApiController extends Controller
         }
     }
 
-    public function show(TaskDocument $taskDocument)
+    public function show($id)
     {
         try {
+            $taskDocument= TaskDocument::with('project')
+                ->with('client')
+                ->with('task')
+                ->with('media_report')
+                ->findOrFail($id);
             return response()->json(['data'=>$taskDocument], 200);
         }
         catch(\Exception $e){

@@ -17,6 +17,7 @@
         "laravelcollective/html": "^5.8",
         "nuovo/spreadsheet-reader": "^0.5.11",
         "spatie/laravel-medialibrary": "^7.0.0",
+        "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

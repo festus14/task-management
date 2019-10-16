@@ -37,11 +37,16 @@ class Document extends Model implements HasMedia
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id')->withTrashed();
     }
 
     public function project()
     {
-        return $this->belongsTo(Project::class, 'project_id');
+        return $this->belongsTo(Project::class, 'project_id')->withTrashed();
+    }
+
+    public function  media_report(){
+        return $this->hasMany(MyMedia::class, 'model_id')
+            ->where('media.model_type', '=','App\Document');
     }
 }

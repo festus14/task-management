@@ -86,7 +86,7 @@ class DocumentsApiController extends Controller
     {
 
         try {
-            $document = Document::with('project')->with('client')->findOrFail($id);
+            $document = Document::with('project')->with('task')->with('client')->with('media_report')->findOrFail($id);
             return response()->json(['data' => $document], 200);
         }
         catch(\Exception $e){
