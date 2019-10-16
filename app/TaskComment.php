@@ -50,6 +50,6 @@ class TaskComment extends Model
     }
     public function commentreply()
     {
-        return $this->belongsTo(TaskCommentReply::class, 'task_comment_id', 'id');
+        return $this->hasMany(TaskCommentReply::class, 'task_comment_id');
     }
 }
