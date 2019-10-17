@@ -1430,7 +1430,11 @@ function displayAddPsubtypeOut() {
                                                         <td>${item.name}</td>
                                                         <td>${item.version}</td>
                                                         <td>${item.created_at}</td>
-                                                        <td></td>
+                                                        <td>
+                                                            <a href="http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
+                                                                View file
+                                                            </a>
+                                                        </td>
                                                         <td>
                                                             <form action="{{ url('/admin/documents/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                                 <input type="hidden" name="_method" value="DELETE">
@@ -1499,6 +1503,7 @@ function displayAddPsubtypeOut() {
                                                         <th style="text-align: center;">#</th>
                                                         <th>Report</th>
                                                         <th>Date Created</th>
+                                                        <th>File</th>
                                                         <th>Tools</th>
                                                     </tr>
                                                 </thead>
@@ -1508,6 +1513,11 @@ function displayAddPsubtypeOut() {
                                                         <td></td>
                                                         <td>${item.project_report}</td>
                                                         <td>${item.created_at}</td>
+                                                        <td>
+                                                            <a href="http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
+                                                                View file
+                                                            </a>
+                                                        </td>
                                                         <td>
                                                             <form action="{{ url('admin/project-reports/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                                 <input type="hidden" name="_method" value="DELETE">

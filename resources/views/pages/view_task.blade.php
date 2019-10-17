@@ -1223,7 +1223,11 @@
                                                         <td></td>
                                                         <td>${item.name}</td>
                                                         <td>${item.document_type}</td>
-                                                        <td>${item.comment}</td>
+                                                        <td>
+                                                            <a href="http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
+                                                                View file
+                                                            </a>
+                                                        </td>
                                                         <td>${item.created_at}</td>
                                                         <td>
                                                             <form action="{{ url('/admin/task-documents/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
