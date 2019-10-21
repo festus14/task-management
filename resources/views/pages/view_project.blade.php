@@ -682,7 +682,7 @@
         @section('javascript')
             <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/project_scripts/projecttype_subtype.js') }}"></script>
+            @include('pages.js.project_type_sub_type_js')
             <script type="text/javascript" src="{{ asset('js/project_scripts/view_project.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/project_tools.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/projectComment.js') }}"></script>
@@ -763,8 +763,7 @@
                     },
                     init: function () {
                 @if(isset($document) && $document->file)
-                        var files =
-                            {!! json_encode($document->file) !!}
+                        var files = {!! json_encode($document->file) !!}
                             for (var i in files) {
                             var file = files[i]
                             this.options.addedfile.call(this, file)
