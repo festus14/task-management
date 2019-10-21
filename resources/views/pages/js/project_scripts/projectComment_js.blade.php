@@ -1,8 +1,8 @@
 <script>
-    function postComment(){
-        $.ajax({
+    function postComment() {
+    $.ajax({
         type: "POST",
-        url: "{{ url('/api/v1/task-comments') }}",
+        url: "/api/v1/task-comments",
         data: $('#makeCommentForm').serialize(),
         success: function(data) {
             swal({
@@ -26,10 +26,10 @@
         }
 
     });
-    }
+}
 
-    function deleteComment(comment_id){
-        swal({
+function deleteComment(comment_id) {
+    swal({
         title: "Are you sure?",
         text: "This comment will be deleted!",
         icon: "warning",
@@ -40,7 +40,7 @@
         if (willDelete) {
             $.ajax({
                 type: "DELETE",
-                url: "{{ url('/api/v1/task-comments') }}" + "/" + comment_id,
+                url: '/api/v1/task-comments' + '/' + comment_id,
                 success: function(data) {
                     swal("Deleted!", "Comment successfully deleted.", "success");
                     $('#taskCommentModal').modal('hide');
@@ -56,10 +56,10 @@
         }
 
     });
-    }
+}
 
-    function deleteReply(reply_id){
-        swal({
+function deleteReply(reply_id) {
+    swal({
         title: "Are you sure?",
         text: "This reply will be deleted!",
         icon: "warning",
@@ -70,7 +70,7 @@
         if (willDelete) {
             $.ajax({
                 type: "DELETE",
-                url: "{{ url('/api/v1/task-comment-replies') }}" + "/" + reply_id,
+                url: '/api/v1/task-comment-replies' + '/' + reply_id,
                 success: function(data) {
                     swal("Deleted!", "Reply successfully deleted.", "success");
                 },
@@ -84,131 +84,131 @@
         }
 
     });
-    }
+}
 
-    var date = new Date();
-    var formattedDate = (date.toString().slice(0, 25));
+var date = new Date();
+var formattedDate = (date.toString().slice(0, 25));
 
-            function addComment() {
+function addComment() {
     // data.map((elem, i) => {
-        var commentMade;
-        commentMade = document.getElementById("commentText").value;
-        let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
-                                <div class="m-messenger__message m-messenger__message--out">
+    var commentMade;
+    commentMade = document.getElementById("commentText").value;
+    let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
+                            <div class="m-messenger__message m-messenger__message--out">
 
-                                    <div class="m-messenger__message-body">
-                                        <div class="m-messenger__message-arrow"></div>
-                                        <div class="m-messenger__message-content">
-                                        <div class="m-messenger__message-username">
-                                        <span style="color: #0c2a7a; margin-right:30px"><strong>${commentUser}</strong></span>
-                                        <span class="datee" style="float: right; color: #0c2a7a;">${formattedDate}</span>
-                                    </div>
-                                    <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
-                                        ${commentMade}
-                                    </div>
-
+                                <div class="m-messenger__message-body">
+                                    <div class="m-messenger__message-arrow"></div>
+                                    <div class="m-messenger__message-content">
+                                    <div class="m-messenger__message-username">
+                                    <span style="color: #0c2a7a; margin-right:30px"><strong>${userName}</strong></span>
+                                    <span class="datee" style="float: right; color: #0c2a7a;">${formattedDate}</span>
                                 </div>
+                                <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
+                                    ${commentMade}
+                                </div>
+
                             </div>
-                            <div class="m-messenger__message-pic">
-                            <img src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" alt="" class="mCS_img_loaded">
                         </div>
-                        </div>
-                    </div>`
-
-        document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
-
-    }
-
-    function addReply(id) {
-            $.ajax({
-            type: "POST",
-            url: "{{ url('/api/v1/task-comment-replies') }}",
-            data: $('#replyForm').serialize(),
-            success: function(data) {
-                swal({
-                    title: "Success!",
-                    text: "Reply made!",
-                    icon: "success",
-                    confirmButtonColor: "#DD6B55",
-                });
-            },
-            error: function(error) {
-                swal({
-                    title: "Reply failed",
-                    text: "Please check the missing fields!",
-                    icon: "error",
-                    confirmButtonColor: "#fc3",
-                    confirmButtonText: "OK",
-                });
-            }
-
-        });
-        parentComment = document.getElementById(`${id}replydiv`);
-        childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
-        <div class="m-messenger__message m-messenger__message--out">
-
-            <div class="m-messenger__message-body">
-                <div class="m-messenger__message-arrow"></div>
-                <div class="m-messenger__message-content">
-                <div class="m-messenger__message-username">
-                <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
-                <span class="datee" style="float: right; color: #0c2a7a">2019-08-25 16:58:51</span>
-
+                        <div class="m-messenger__message-pic">
+                        <img src="../../metro/assets/app/media/img/users/user3.jpg" alt="" class="mCS_img_loaded">
                     </div>
-
-                    <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-
-                        <spans style="width: 250px"> ${document.getElementById(`${id}replyTextId`).value} </span>
-                                </p>
                     </div>
-                    </br>
-                </div>
-            </div>
-            <div class="m-messenger__message-pic">
-            <img alt="" src="{{ url('././metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-        </div>
-        </div>
-    </div>`
-        parentComment.innerHTML = parentComment.innerHTML + childComment;
-        document.getElementById(`${id}replyTextId`).value = "";
+                </div>`
 
-    }
+    document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
 
-    function populateReply(id) {
-    console.log("here")
-        $.ajax({
-                type: "GET",
-                url: "{{ url('/api/v1/task-comments') }}" + "/" + id,
-                success: function (data) {
-    parentComment = document.getElementsByclass('replyCommentBody');
-    childComment = data.data.commentreply.map(elem=>`<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
-    <div class="m-messenger__message m-messenger__message--out">
+}
 
-        <div class="m-messenger__message-body">
-            <div class="m-messenger__message-arrow"></div>
-            <div class="m-messenger__message-content">
-            <div class="m-messenger__message-username">
-            <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
-            <span class="datee" style="float: right; color: #0c2a7a">2019-08-25 16:58:51</span>
+function addReply(id) {
+    $.ajax({
+        type: "POST",
+        url: "/api/v1/task-comment-replies",
+        data: $('#replyForm').serialize(),
+        success: function(data) {
+            swal({
+                title: "Success!",
+                text: "Reply made!",
+                icon: "success",
+                confirmButtonColor: "#DD6B55",
+            });
+        },
+        error: function(error) {
+            swal({
+                title: "Reply failed",
+                text: "Please check the missing fields!",
+                icon: "error",
+                confirmButtonColor: "#fc3",
+                confirmButtonText: "OK",
+            });
+        }
 
-                </div>
-
-                <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-
-                    ${elem.task_comment_reply}
-                            </p>
-                </div>
-                </br>
-            </div>
-        </div>
-        <div class="m-messenger__message-pic">
-        <img alt="" src="{{ asset('../..metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-    </div>
-    </div>
-    </div>`);
-    parentComment.innerHTML = parentComment.innerHTML + childComment;
-    document.getElementById(`${id}replyTextId`).value = "";
-    }
     });
-    }
+    parentComment = document.getElementById(`${id}replydiv`);
+    childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
+       <div class="m-messenger__message m-messenger__message--out">
+
+           <div class="m-messenger__message-body">
+               <div class="m-messenger__message-arrow"></div>
+               <div class="m-messenger__message-content">
+               <div class="m-messenger__message-username">
+               <span style="float: left; color: #24262b;"><strong>${userName}</strong></span>
+               <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
+
+                   </div>
+
+                   <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
+
+                    <spans style="width: 250px"> ${document.getElementById(`${id}replyTextId`).value} </span>
+                             </p>
+                   </div>
+                   </br>
+               </div>
+           </div>
+           <div class="m-messenger__message-pic">
+           <img alt="" src="../../metro/assets/app/media/img/users/user3.jpgs" class="mCS_img_loaded"/>
+       </div>
+       </div>
+   </div>`
+       parentComment.innerHTML = parentComment.innerHTML + childComment;
+       document.getElementById(`${id}replyTextId`).value = "";
+
+}
+
+function populateReply(id) {
+console.log("here")
+    $.ajax({
+            type: "GET",
+            url: "{{ url('/api/v1/task-comments') }}" + "/" + id,
+            success: function (data) {
+   parentComment = document.getElementsByclass('replyCommentBody');
+   childComment = data.data.commentreply.map(elem=>`<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
+   <div class="m-messenger__message m-messenger__message--out">
+
+       <div class="m-messenger__message-body">
+           <div class="m-messenger__message-arrow"></div>
+           <div class="m-messenger__message-content">
+           <div class="m-messenger__message-username">
+           <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
+           <span class="datee" style="float: right; color: #0c2a7a">2019-08-25 16:58:51</span>
+
+               </div>
+
+               <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
+
+                 ${elem.task_comment_reply}
+                         </p>
+               </div>
+               </br>
+           </div>
+       </div>
+       <div class="m-messenger__message-pic">
+       <img alt="" src="{{ asset('../..metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+   </div>
+   </div>
+</div>`);
+   parentComment.innerHTML = parentComment.innerHTML + childComment;
+   document.getElementById(`${id}replyTextId`).value = "";
+}
+});
+}
 </script>

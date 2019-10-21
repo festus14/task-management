@@ -1450,7 +1450,7 @@
                                 <div class="m-messenger__message-arrow"></div>
                                 <div class="m-messenger__message-content">
                                 <div class="m-messenger__message-username">
-                                <span style="float: left; color: #0c2a7a;"><strong>Dammy</strong></span>
+                                <span style="float: left; color: #0c2a7a;"><strong>${replies.reply_by.name}</strong></span>
                                 <span class="datee" style="float: right; color:#0c2a7a">${replies.created_at}</span>
 
                                     </div>
@@ -1531,21 +1531,23 @@
                     }
                 });
             }
+       var userName = "{{ Auth::user()->name}}"
+       var userId = {{ Auth::user()->id}}
 
-                    var commentUser;
+       console.log(userName, userId)
+
         function makeComment(task_id) {
             $.ajax({
                 type: "GET",
                 url: '{{ url("/api/v1/tasks") }}'+ "/" + task_id,
                 success: function(data) {
-                    commentUser = data.data.manager.name;
                     let makecommentModal = document.getElementById('makeCommentBodyId');
                     makecommentModal.innerHTML = `
                     <form id="makeCommentForm" enctype="multipart/form-data">
                                                                         @csrf
                                                                     <div class="modal-body">
                                                                         <textarea class="form-control goat" name="comments" id="commentText" rows="4 " required></textarea>
-                                                                        <input type="hidden" id="user" name="user_id" value="${data.data.manager_id}">
+                                                                        <input type="hidden" id="user" name="user_id" value="${userId}">
                                                                         <input type="hidden" id="task" name="task_id" value="${data.data.id}">
                                                                         <input type="hidden" id="client" name="client_id" value="${data.data.client_id}">
                                                                         <input type="hidden" id="project" name="project_id" value="${data.data.project_id}">
