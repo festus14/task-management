@@ -132,6 +132,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('/client_dashboard', 'ClientDashboardPagesController@clientDashboard')->name('client_dashoard');
 
+    Route::get('/view_single_client/{id}', 'ClientDashboardPagesController@viewSingleClient')->name('view_single_client');
+
     Route::get('/create_task', 'TaskPagesController@createTask')->name('create_task');
 
     Route::get('/create_project', 'ProjectPagesController@createProject')->name('create_project');

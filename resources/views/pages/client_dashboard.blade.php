@@ -30,7 +30,6 @@
         font-family:Arial;
         font-size:15px;
         font-weight:bold;
-        padding:6px 11px;
         text-decoration:none;
         text-shadow:0px 1px 0px #ffffff;
         }
@@ -1070,7 +1069,16 @@
                                                                 <td>${item.name}</td>
                                                                 <td>${item.version}</td>
                                                                 <td>${item.created_at}</td>
-                                                                <td></td>
+                                                                <td>
+                                                                    <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                    <!-- <iframe
+                                                                        src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
+                                                                        style="width:600px; height:500px;" frameborder="0">
+                                                                    </iframe> -->
+
+                                                                        View file
+                                                                    </a>
+                                                                </td>
                                                             </tr>`
                                                         )+`
                                                 </table>
@@ -1093,17 +1101,24 @@
                                                 <input type="textOne" id="myInputOne" onkeyup="searchProjectReport()" placeholder="Search for report.." title="Type in a report">
                                                 <table id="myTableOne">
                                                     <tr class="header">
-                                                        <th>Name</th>
-                                                        <th>Document Type</th>
+                                                        <th>Report</th>
+                                                        <th>Date Created</th>
                                                         <th>File</th>
-                                                        <th>Date Uploaded</th>
                                                     </tr>
                                                     `+ data.data.reports.map(item =>
                                                     `<tr>
-                                                        <td>${item.name}</td>
-                                                        <td>${item.document_type}</td>
-                                                        <td></td>
+                                                        <td>${item.project_report}</td>
                                                         <td>${item.created_at}</td>
+                                                        <td>
+                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                <!-- <iframe
+                                                                    src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
+                                                                    style="width:600px; height:500px;" frameborder="0">
+                                                                </iframe> -->
+
+                                                                View file
+                                                            </a>
+                                                        </td>
                                                     </tr>`
                                                     )+`
                                                 </table>
@@ -1406,13 +1421,22 @@
                                                         <th>Name</th>
                                                         <th>Document Type</th>
                                                         <th>File</th>
-                                                        <th>Date Uploaded</th>
+                                                        <th>Date Created</th>
                                                     </tr>
                                                     `+ data.data.documents.map(item =>
                                                         `<tr>
                                                             <td>${item.name}</td>
-                                                            <td>${item.document_type}</td>
-                                                            <td></td>
+                                                            <td style="text-align: center;">${item.document_type}</td>
+                                                            <td>
+                                                                <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                <!-- <iframe
+                                                                    src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
+                                                                    style="width:600px; height:500px;" frameborder="0">
+                                                                </iframe> -->
+
+                                                                    View file
+                                                                </a>
+                                                            </td>
                                                             <td>${item.created_at}</td>
                                                         </tr>`
                                                     )+`
@@ -1768,7 +1792,12 @@
                                 <a onclick="editClient(${datum.id})" class="btn myButton" href="#" data-toggle="modal" data-target="#editClientModalBody">
                                     <i class="fa fa-pencil" style="color:black;"><span style="font-weight:100;"></span></i>
                                 </a>
-                                <a onclick="deleteClient(${datum.id})" class=" myButton" href="#"> <i class="fa fa-trash" style="color:black; margin-left: -5px;"></i></a>
+                                <a onclick="deleteClient(${datum.id})" class="btn myButton" href="#">
+                                    <i class="fa fa-trash" style="color:black;"></i>
+                                </a>
+                                <a href="{{ url('admin/view_single_client/${datum.id}') }}" class="btn myButton">
+                                    <i class="fa fa-eye" style="color:black;"></i>
+                                </a>
                             </div>
                             <div class="m-widget24__item">
                                 <div class="body-header" style="">

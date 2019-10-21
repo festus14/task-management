@@ -42,8 +42,37 @@ class ClientDashboardPagesController extends Controller
         return view('pages.client_dashboard', compact('projects', 'tasks'));
     }
 
-    public function createClient(){
-        return view('pages.create_client');
+    public function viewSingleClient(Request $request, $client_id){
+
+        $projects =  Project::where('client_id', $client_id)
+        ->with('status')
+        ->with('client')
+        ->with('manager')
+        ->with('project_type')
+        ->with('team_members')
+        ->with('tasks')
+        ->with('status')
+        ->with('project_subtype')
+        ->get();
+
+        $tasks = Task::where('client_id', $client_id)->with('client')
+        ->with('status')
+        ->with('manager')
+        ->with('assinged_tos')
+        ->with('category')
+        ->get();
+
+        // $clients = Client::where('client_id', $client_id)->with('name')
+        // ->with('email')
+        // ->with('phone')
+        // ->with('status')
+        // ->with('address')
+        // ->with('phone')
+        // ->with('expiry_date')
+        // ->with('date_of_engagement')
+        // ->get();
+
+        return view('pages.view_single_client', compact('projects', 'tasks'));
     }
 
 }
