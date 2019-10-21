@@ -87,7 +87,8 @@ function deleteReply(reply_id){
 
 var date = new Date();
 var formattedDate = (date.toString().slice(0, 25));
-        function addComment() {
+
+function addComment() {
 // data.map((elem, i) => {
     var commentMade;
     commentMade = document.getElementById("commentText").value;
@@ -98,8 +99,8 @@ var formattedDate = (date.toString().slice(0, 25));
                                     <div class="m-messenger__message-arrow"></div>
                                     <div class="m-messenger__message-content">
                                     <div class="m-messenger__message-username">
-                                    <span style="color: black; margin-right:30px"><strong>${commentUser}</strong></span>
-                                    <span class="datee" style="float: right; color: black;">${formattedDate}</span>
+                                    <span style="color: #0c2a7a; margin-right:30px"><strong>${commentUser}</strong></span>
+                                    <span class="datee" style="float: right; color: #0c2a7a;">${formattedDate}</span>
                                 </div>
                                 <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
                                     ${commentMade}

@@ -9,7 +9,7 @@
     <div class="card-body">
         <form action="{{ route("admin.task-comment-replies.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="form-group {{ $errors->has('task_comment_id') ? 'has-error' : '' }}">
+            <div class="form-group {{poer $errors->has('task_comment_id') ? 'has-error' : '' }}">
                 <label for="task_comment">{{ trans('cruds.taskCommentReply.fields.task_comment') }}*</label>
                 <select name="task_comment_id" id="task_comment" class="form-control select2" required>
                     @foreach($task_comments as $id => $task_comment)

@@ -1120,12 +1120,13 @@
             }
 
 
-
+            var taskName;
             function displayTaskInfo(task_id) {
                 $.ajax({
                     type: "GET",
                     url: "{{ url('/api/v1/tasks') }}" + "/" + task_id,
                     success: function (data) {
+                         taskName = data.data.name;
                         let moreInfo = document.getElementById("moreInfo")
                         moreInfo.innerHTML = `<div class="modal fade" id="moreTaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
@@ -1145,7 +1146,7 @@
                                                                 <i class="flaticon-list-2"> </i>
                                                             </span>
                                                     <h3 class="m-portlet__head-text">
-                                                        ${data.data.name} Info
+                                                        ${data.data.name}
                                                     </h3>
                                                 </div>
                                             </div>
@@ -1386,7 +1387,7 @@
                                 </div>
                                 <div class="m-card-profile__details">
                                     <span class="m-card-profile__name">
-                                                        Task name
+                                        ${taskName}
                                                     </span>
                                 </div>
                             </div>
@@ -1431,8 +1432,8 @@
                                                                 <div class="m-messenger__message-arrow"></div>
                                                                     <div class="m-messenger__message-content">
                                                                         <div class="m-messenger__message-username">
-                                                                            <span class="secondary" style="margin-right:30px; color: black;"><strong>${elem.user.name}</strong></span>
-                                                                            <span id="datee" style="float: right; color: black;">${elem.created_at}</span>
+                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.user.name}</strong></span>
+                                                                            <span id="datee" style="float: right; color: #6f727d;">${elem.created_at}</span>
                                                                         </div>
                                                                         <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:20px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                         ${elem.comments}
@@ -1446,8 +1447,8 @@
                                 <div class="m-messenger__message-arrow"></div>
                                 <div class="m-messenger__message-content">
                                 <div class="m-messenger__message-username">
-                                <span style="float: left; color: black;"><strong>Dammy</strong></span>
-                                <span class="datee" style="float: right; color:black">${replies.created_at}</span>
+                                <span style="float: left; color: #0c2a7a;"><strong>Dammy</strong></span>
+                                <span class="datee" style="float: right; color:#0c2a7a">${replies.created_at}</span>
 
                                     </div>
 

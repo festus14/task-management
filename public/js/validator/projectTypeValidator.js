@@ -2,7 +2,7 @@ function validateProjectType() {
     var allProjectTyess;
     $.ajax({
         type: "GET",
-        url: '/api/v1/project-types',
+        url: "{{url('/api/v1/project-types')}}",
         async: false,
         success: function(data) {
             allProjectTyess = data;
@@ -83,7 +83,7 @@ function validateProjectSubType() {
     var allProjectSubTyess;
     $.ajax({
         type: "GET",
-        url: '/api/v1/project-sub-types',
+        url: "{{url('/api/v1/project-sub-types')}}",
         async: false,
         success: function(data) {
             allProjectSubTyess = data;
@@ -143,7 +143,7 @@ function validateProjectSubTypeOut() {
     var allProjectSubTyess;
     $.ajax({
         type: "GET",
-        url: "/api/v1/project-sub-types",
+        url: "{{url('/api/v1/project-sub-types')}}",
         async: false,
         success: function(data) {
             allProjectSubTyess = data;

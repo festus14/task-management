@@ -682,7 +682,7 @@
         @section('javascript')
             <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/project_scripts/projectType_subtype.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/project_scripts/projecttype_subtype.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/view_project.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/project_tools.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/projectComment.js') }}"></script>
@@ -1387,11 +1387,13 @@ function editProject(project_id) {
 }
 
         // Function for rendering the more info modal
+        var projectName;
     function displayProjectInfo(proID) {
         $.ajax({
             type: "GET",
             url: '{{ url("/api/v1/projects/") }}' + "/" + proID,
             success: function (data) {
+                projectName = data.data.name;
                 let moreInfo = document.getElementById("moreInfo")
                 moreInfo.innerHTML = `<div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="box-sizing: border-box;">
                     <div class="modal-dialog modal-dialog-centered" style="max-width: 80%; min-width: 500px;" role="document">
@@ -1410,7 +1412,7 @@ function editProject(project_id) {
                                                     <i class="flaticon-info"> </i>
                                                 </span>
                                                 <h3 class="m-portlet__head-text">
-                                                    More info
+                                                    ${data.data.name}
                                                 </h3>
                                             </div>
                                         </div>
@@ -1729,7 +1731,7 @@ function editProject(project_id) {
                                 </div>
                                 <div class="m-card-profile__details">
                                     <span class="m-card-profile__name">
-                                                        Task name
+                                            ${projectName}
                                                     </span>
                                 </div>
                             </div>
@@ -1774,8 +1776,8 @@ function editProject(project_id) {
                                                                 <div class="m-messenger__message-arrow"></div>
                                                                     <div class="m-messenger__message-content">
                                                                         <div class="m-messenger__message-username">
-                                                                            <span class="secondary" style="margin-right:30px; color: black;"><strong>${elem.user.name}</strong></span>
-                                                                            <span id="datee" style="float: right; color: black;">${elem.created_at}</span>
+                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.user.name}</strong></span>
+                                                                            <span id="datee" style="float: right; color: #6f727d;">${elem.created_at}</span>
                                                                         </div>
                                                                         <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:20px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                         ${elem.comments}
@@ -1789,8 +1791,8 @@ function editProject(project_id) {
                                 <div class="m-messenger__message-arrow"></div>
                                 <div class="m-messenger__message-content">
                                 <div class="m-messenger__message-username">
-                                <span style="float: left; color: black;"><strong>Dammy</strong></span>
-                                <span class="datee" style="float: right; color:black">${replies.created_at}</span>
+                                <span style="float: left; color: #0c2a7a;"><strong>Dammy</strong></span>
+                                <span class="datee" style="float: right; color:#0c2a7a;">${replies.created_at}</span>
 
                                     </div>
 
