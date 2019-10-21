@@ -99,7 +99,7 @@ var formattedDate = (date.toString().slice(0, 25));
                                     <div class="m-messenger__message-arrow"></div>
                                     <div class="m-messenger__message-content">
                                     <div class="m-messenger__message-username">
-                                    <span style="color: #0c2a7a; margin-right:30px"><strong>${commentUser}</strong></span>
+                                    <span style="color: #0c2a7a; margin-right:30px"><strong>${userName}</strong></span>
                                     <span class="datee" style="float: right; color: #0c2a7a;">${formattedDate}</span>
                                 </div>
                                 <div class="m-messenger__message-text" style="  min-width: 250px; max-width: 440px; max-height: 4000px;">
@@ -150,8 +150,8 @@ var formattedDate = (date.toString().slice(0, 25));
                <div class="m-messenger__message-arrow"></div>
                <div class="m-messenger__message-content">
                <div class="m-messenger__message-username">
-               <span style="float: left; color: #24262b;"><strong>Dammy</strong></span>
-               <span class="datee" style="float: right; color: #0c2a7a">2019-08-25 16:58:51</span>
+               <span style="float: left; color: #24262b;"><strong>${userName}</strong></span>
+               <span class="datee" style="float: right; color: #0c2a7a">${formattedDate}</span>
 
                    </div>
 
@@ -164,7 +164,7 @@ var formattedDate = (date.toString().slice(0, 25));
                </div>
            </div>
            <div class="m-messenger__message-pic">
-           <img alt="" src="../../metro/assets/app/media/img/users/user3.jpg" class="mCS_img_loaded"/>
+           <img alt="" src="../../metro/assets/app/media/img/users/user3.jpgs" class="mCS_img_loaded"/>
        </div>
        </div>
    </div>`
