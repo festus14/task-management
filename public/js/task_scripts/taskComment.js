@@ -109,7 +109,7 @@ function addComment() {
                             </div>
                         </div>
                         <div class="m-messenger__message-pic">
-                        <img src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" alt="" class="mCS_img_loaded">
+                        <img src="../../metro/assets/app/media/img/users/user3.jpg" alt="" class="mCS_img_loaded">
                     </div>
                     </div>
                 </div>`
@@ -164,7 +164,7 @@ function addComment() {
                </div>
            </div>
            <div class="m-messenger__message-pic">
-           <img alt="" src="{{ url('././metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+           <img alt="" src="../../metro/assets/app/media/img/users/user3.jpg" class="mCS_img_loaded"/>
        </div>
        </div>
    </div>`
