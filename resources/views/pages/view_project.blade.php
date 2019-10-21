@@ -682,7 +682,7 @@
         @section('javascript')
             <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/project_scripts/projectType_subtype.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/project_scripts/projecttype_subtype.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/view_project.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/project_tools.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/project_scripts/projectComment.js') }}"></script>
@@ -1247,6 +1247,7 @@ function editProject(project_id) {
         success: function(data) {
             var projData = data;
             let editProjectBody = document.getElementById('editProjectBody');
+            console.log(projData.team_members);
             editProjectBody.innerHTML = `
                         <div class="col-md-12 ">
                             <form id="editProjectform" enctype="multipart/form-data">
