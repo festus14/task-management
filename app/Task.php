@@ -92,7 +92,7 @@ class Task extends Model
     }
 
     public function documents(){
-        return $this->hasMany(TaskDocument::class, 'task_id' , 'id');
+        return $this->hasMany(TaskDocument::class, 'task_id' , 'id')->with('media_report');
         // I deleted the withTrashed method here - Festus
     }
     public function comments(){

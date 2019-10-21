@@ -7,44 +7,13 @@
 @section('sub_header', 'Documents')
 
 @section('content')
-<form action="" method="POST" enctype="multipart/form-data">
-            @csrf
-    <div class="row">
-        <div class="col-sm-6 col-md-6">
-            <div class="form-group">
-                    <label for="client-list">Select Client</label>
-                    <select id="client-list" class="selectDesign form-control"></select>
-                </div>
+    <iframe
+        src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
+        style="width:600px; height:500px;" frameborder="0">
+    </iframe>
 
-                <div class="form-group mt-3">
-                    <label for="document-name">Document Name</label>
-                    <input type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
-                </div>
-
-            <div class="form-group mt-4">
-                    <input style="background: #f1f1f1" type="file" name="files[]" multiple />
-            </div>
-
-        </div>
-        <div class="col-sm-6 col-md-6">
-                <div class="form-group">
-                    <label for="project-list">Project Name</label>
-                    <select id="project-list" class="selectDesign form-control"></select>
-                </div>
-
-                <div class="form-group">
-                    <label for="task-list">Version</label>
-                    <input type="text" class="form-control" id="version" placeholder="Enter Version">
-                    </div>
-
-            </div>
-
-            <div class="col-md-2 form-group mt-2">
-                    <button type="submit" class="btn btn-block center-block" style="background-color:#8a2a2b; color:white;">Submit</button>
-                </div>
-    </div>
-</form>
-
+    {{-- http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name} --}}
+    {{-- 5da73d2465e0d_Sample-Engagement-Letter-for-Payroll-Mgt-Services.pdf --}}
 @endsection
 
 @section('javascript')

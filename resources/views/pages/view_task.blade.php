@@ -455,13 +455,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('/admin/task-documents') }}" onsubmit="" id="taskDocumentForm" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('/admin/task-documents') }}" onsubmit="addDocFunction()" id="taskDocumentForm" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
 
                             <div class="form-group col-sm-6 col-md-6">
                                 <label for="document-name">Document Name</label>
-                                <input name="name" type="text" class="form-control" id="document-name" placeholder="Enter Document Name">
+                                <input name="name" type="text" class="form-control" id="document-name" placeholder="Enter Document Name" required>
                                 @if($errors->has('name'))
                                     <p class="help-block">
                                         {{ $errors->first('name') }}
@@ -474,7 +474,7 @@
 
                             <div class="form-group col-sm-6 col-md-6">
                                 <label for="document_type">Document Type</label>
-                                <select id="document_type" name="document_type" class="form-control" required="">
+                                <select id="document_type" name="document_type" class="form-control" required>
                                     <option value="" disabled="" selected="">Please select</option>
                                     <option value="1">Word</option>
                                     <option value="2">PDF</option>
@@ -547,6 +547,18 @@
 <script type="text/javascript" src="{{ asset('js/task_scripts/task_tools.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/task_scripts/taskComment.js') }}"></script>
 <script>
+
+    function addDocFunction(){
+        swal({
+            title: "Success!",
+            text: "Document Added!",
+            icon: "success",
+            confirmButtonText: "OK",
+        });
+        window.setTimeout(function(){
+            location.reload();
+        }, 2500);
+    }
 
     $(document).ready(function() {
             getTaskCategoryAjaxDT();
@@ -1207,7 +1219,7 @@
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 65%; min-width: 500px;" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="documentModalLongTitle">Project Documents</h5>
+                            <h5 class="modal-title" id="documentModalLongTitle">Task Documents</h5>
                             <button type="button" class="close" onclick="$('#documentModal').modal('hide');" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -1242,7 +1254,7 @@
                                 </div>
                                 <div class="m-portlet__body">
                                     <div class="m-portlet">
-                                        <table id="kt_table_single_project_documents" class="table table-striped table-hover" style="width: 100%;">
+                                        <table id="kt_table_single_task_documents" class="table table-striped table-hover" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th style="text-align:center">#</th>
@@ -1258,18 +1270,27 @@
                                                     `<tr>
                                                         <td></td>
                                                         <td>${item.name}</td>
-                                                        <td>${item.document_type}</td>
-                                                        <td>${item.comment}</td>
+                                                        <td style="text-align: center;">${item.document_type}</td>
+                                                        <td>
+                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                            <!-- <iframe
+                                                                src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
+                                                                style="width:600px; height:500px;" frameborder="0">
+                                                            </iframe> -->
+
+                                                                View file
+                                                            </a>
+                                                        </td>
                                                         <td>${item.created_at}</td>
                                                         <td>
-                                                            <form action="{{ url('/admin/task-documents/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                            <form id="deleteTaskDocForm" style="display: inline-block;">
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                                <input type="submit" class="btn btn-xs btn-danger" onclick="deleteTaskDoc(${item.id})" value="{{ trans('global.delete') }}">
                                                             </form>
                                                         </td>
                                                     </tr>`
-                                                ) +`
+                                                ) + `
                                             </tbody>
                                         </table>
                                     </div>
@@ -1303,16 +1324,40 @@
 
     }
 
+    function deleteTaskDoc(doc_id){
+        swal({
+        title: "Are you sure?",
+        text: "This document will be deleted!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: '/admin/task-documents' + '/' + doc_id,
+                    success: function(data) {
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        window.setTimeout(function() {
+                            $("#kt_table_single_task_documents").DataTable().ajax.reload();
+                        }, 2400);
+                    },
+
+                    error: function(data) {
+                        swal("Delete failed", "Please try again", "error");
+                    }
+
+                });
+            } else {
+                swal("Cancelled", "Delete cancelled", "error");
+            }
+
+        });
+    }
+
         function documentDTCall(project_id){
             $(document).ready(function() {
-                $('#kt_table_single_project_documents').DataTable();
-            } );
-        }
-
-
-        function reportDTCall(project_id){
-            $(document).ready(function() {
-                $('#kt_table_single_project_reports').DataTable();
+                $('#kt_table_single_task_documents').DataTable();
             } );
         }
 

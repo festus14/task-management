@@ -547,12 +547,12 @@
                             </button>
                     </div>
                     <div class="modal-body">
-                            <form id="addProjectReportForm" action="{{ url('admin/project-reports') }}" method="POST" enctype="multipart/form-data">
+                            <form id="addProjectReportForm" onsubmit="addDocFunction()" action="{{ url('admin/project-reports') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="form-group {{ $errors->has('project_report') ? 'has-error' : '' }} col-md-12">
                                         <label for="project_report">{{ trans('cruds.projectReport.fields.project_report') }}</label>
-                                        <textarea id="project_report" name="project_report" class="form-control">{{ old('project_report', isset($projectReport) ? $projectReport->project_report : '') }}</textarea>
+                                        <textarea id="project_report" name="project_report" class="form-control" required>{{ old('project_report', isset($projectReport) ? $projectReport->project_report : '') }}</textarea>
                                         @if($errors->has('project_report'))
                                             <p class="help-block">
                                                 {{ $errors->first('project_report') }}
@@ -607,7 +607,7 @@
                                 </button>
                         </div>
                         <div class="modal-body">
-                                <form action="{{ url('admin/documents') }}" id="createDocForm" method="POST" enctype="multipart/form-data">
+                                <form action="{{ url('admin/documents') }}" onsubmit="addDocFunction()" id="createDocForm" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
 
@@ -857,6 +857,18 @@ function displayAddPsubtype() {
     });
 }
 
+        function addDocFunction(){
+            swal({
+                title: "Success!",
+                text: "Document Added!",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+            window.setTimeout(function(){
+                location.reload();
+            }, 2500);
+        }
+
 function displayAddPsubtypeOut() {
     $("#subtypemainModal").modal('show');
     $.ajax({
@@ -1070,11 +1082,11 @@ function displayAddPsubtypeOut() {
             <div class="col-md-12 ">
                 <form id="addProjectForm" enctype="multipart/form-data">
                     @csrf
-                            <div class="row col-md-12">
-                                <div class="col-md-6 form-group mt-3">
-                                    <label>Select Client</label>
-                                    <select id="client-list" name="client_id" class="form-control required">
-                                        <option value="" selected></option>
+                    <div class="row col-md-12">
+                        <div class="col-md-6 form-group mt-3">
+                            <label>Select Client</label>
+                            <select id="client-list" name="client_id" class="form-control required">
+                                <option value="" selected></option>
         ` +
                         data.clients.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
                         `
@@ -1559,7 +1571,16 @@ function editProject(project_id) {
                                                         <td>${item.name}</td>
                                                         <td>${item.version}</td>
                                                         <td>${item.created_at}</td>
-                                                        <td></td>
+                                                        <td>
+                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                            <!-- <iframe
+                                                                src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
+                                                                style="width:600px; height:500px;" frameborder="0">
+                                                            </iframe> -->
+
+                                                                View file
+                                                            </a>
+                                                        </td>
                                                         <td>
                                                             <form action="{{ url('/admin/documents/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                                 <input type="hidden" name="_method" value="DELETE">
@@ -1625,6 +1646,7 @@ function editProject(project_id) {
                                                         <th style="text-align: center;">#</th>
                                                         <th>Report</th>
                                                         <th>Date Created</th>
+                                                        <th>File</th>
                                                         <th>Tools</th>
                                                     </tr>
                                                 </thead>
@@ -1634,6 +1656,16 @@ function editProject(project_id) {
                                                         <td></td>
                                                         <td>${item.project_report}</td>
                                                         <td>${item.created_at}</td>
+                                                        <td>
+                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                            <!-- <iframe
+                                                                src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
+                                                                style="width:600px; height:500px;" frameborder="0">
+                                                            </iframe> -->
+
+                                                                View file
+                                                            </a>
+                                                        </td>
                                                         <td>
                                                             <form action="{{ url('admin/project-reports/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                                 <input type="hidden" name="_method" value="DELETE">
