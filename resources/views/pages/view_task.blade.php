@@ -1289,7 +1289,7 @@
                                                             </form>
                                                         </td>
                                                     </tr>`
-                                                ) + `
+                                                ) +`
                                             </tbody>
                                         </table>
                                     </div>
