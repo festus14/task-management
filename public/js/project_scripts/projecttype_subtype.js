@@ -259,7 +259,7 @@ function filterSubtype() {
         url: '/api/v1/project-types' + "/" + typeVal,
         success: function(data) {
             document.getElementById('projectSubtypeId1').innerHTML = `
-<option value="" selected></option> ` +
+    <option value="" selected></option> ` +
                 data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
                 `
 `
