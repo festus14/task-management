@@ -67,6 +67,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('projects/destroy', 'ProjectController@massDestroy')->name('projects.massDestroy');
 
     Route::resource('projects', 'ProjectController');
+    Route::get('/my-projects', 'ProjectController@myProjects');
 
     Route::delete('project-comments/destroy', 'ProjectCommentsController@massDestroy')->name('project-comments.massDestroy');
 
@@ -91,6 +92,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('tasks/destroy', 'TaskController@massDestroy')->name('tasks.massDestroy');
 
     Route::resource('tasks', 'TaskController');
+    Route::get('my-tasks', 'TaskController@myTasks');
 
     Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
 
@@ -121,7 +123,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('project-reports/destroy', 'ProjectReportController@massDestroy')->name('project-reports.massDestroy');
 
     Route::resource('project-reports', 'ProjectReportController');
-
+    Route::get('/my-reports', 'ProjectReportController@myReports');
     Route::post('project-reports/media', 'ProjectReportController@storeMedia')->name('project-reports.storeMedia');
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
@@ -162,6 +164,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Servicesfees
     Route::delete('services-fees/destroy', 'ServicesFeesController@massDestroy')->name('services-fees.massDestroy');
     Route::resource('services-fees', 'ServicesFeesController');
+    Route::get('/create-services', 'ServicesFeesController@createService')->name('services-fees.createServices');
+
 
 
     Route::get('create_project', 'ProjectPagesController@createProject')->name('create_project');
