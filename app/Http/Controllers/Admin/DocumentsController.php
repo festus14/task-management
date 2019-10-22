@@ -55,7 +55,7 @@ class DocumentsController extends Controller
 
         $clients = Client::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $projects = Project::all()->pluck('comments', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $projects = Project::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $document->load('client', 'project');
 

@@ -216,18 +216,9 @@
                     <div class="t m0 xc hc y85 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Extraction of Trial Balance </span></div>
                     <div class="t m0 xc hc y86 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Preparation of Management Reports</span></div>
                     <div class="t m0 xc hc y87 ff5 fs0 fc0 sc0 ls0 ws0"><span class="_ _7"> </span><span class="ff1">Sending of Monthly Management Reports and Bank Reconciliation Statement</span></div>
-                    <div class="t m0 x3 h3 y88 ff2 fs0 fc0 sc0 ls0 ws0">B.<span class="_ _a"> </span>Payroll Management Services</div>
-                    <div class="t m0 xb h2 y89 ff1 fs0 fc0 sc0 ls0 ws0">i)<span class="_ _b"> </span>Ascertain employee’s annual emoluments</div>
-                    <div class="t m0 xb h2 y8a ff1 fs0 fc0 sc0 ls0 ws0">ii)<span class="_ _0"> </span>Obtain monthly variation instructions from you for your various employees</div>
-                    <div class="t m0 xb h2 y8b ff1 fs0 fc0 sc0 ls0 ws0">iii)<span class="_ _5"> </span>Processing the monthly payroll of the employees (Nigerian staff and Expatriate) of the </div>
-                    <div class="t m0 xe h2 y8c ff1 fs0 fc0 sc0 ls0 ws0">Company</div>
-                    <div class="t m0 xb h2 y8d ff1 fs0 fc0 sc0 ls0 ws0">iv)<span class="_ _5"> </span>Compute other employee-related obligations such as Pension, ITF, NHF and NSITF </div>
-                    <div class="t m0 xe h2 y8e ff1 fs0 fc0 sc0 ls0 ws0">contributions and advice on the amount payable</div>
-                    <div class="t m0 xb h2 y8f ff1 fs0 fc0 sc0 ls0 ws0">v)<span class="_ _0"> </span>Generate reports with respect to net salaries payable; PAYE tax payable; Pension </div>
-                    <div class="t m0 xe h2 y90 ff1 fs0 fc0 sc0 ls0 ws0">Contribution, ITF, NHF and NSITF contributions</div>
-                    <div class="t m0 xb h2 y91 ff1 fs0 fc0 sc0 ls0 ws0">vi)<span class="_ _5"> </span>Generate payslips based on approved payroll report</div>
-                    <div class="t m0 xb h2 y92 ff1 fs0 fc0 sc0 ls0 ws0">vii)<span class="_ _c"> </span>Send payslips to individual employees electronically</div>
-                    <div class="t m0 xb h2 y93 ff1 fs0 fc0 sc0 ls0 ws0">viii)<span class="_ _7"> </span>Generate payroll journal report for finance department use</div>
+                    @foreach($payrollLetter->services as $service)
+                        {{ $service->details }}
+                    @endforeach
                 </div>
                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
             </div>
@@ -462,12 +453,12 @@
         setElementValue("id", "business_add_three", "Address three");
         setElementValue("id", "prospective_client", "Tunde Awopegba");
         setElementValue("id", "designated_position", "Partner");
-        setElementValue("id", "staff_name", "Chieto Chiedu");
-        setElementValue("class", "date", "02/10/2019");
-        setElementValue("class", "job_title", "Auditing");
-        setElementValue("class", "company_name", "Stransact Comany");
-        setElementValue("class", "contact_person", "Festus Omole");
-        setElementValue("class", "summary", "SUMMARYSUMMARYSUMMARY");
+        setElementValue("id", "staff_name", "{{ $payrollLetter->staff_name }}");
+        setElementValue("class", "date", "{{ $payrollLetter->date }}");
+        setElementValue("class", "job_title", "{{ $payrollLetter->type->name }}");
+        setElementValue("class", "company_name", "{{ $payrollLetter->client->name }}");
+        setElementValue("class", "contact_person", "{{ $payrollLetter->contact_person }}");
+        setElementValue("class", "summary", "{{ $payrollLetter->client_summary }}");
     </script>
 </body>
 

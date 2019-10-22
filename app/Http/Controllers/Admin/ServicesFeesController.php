@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyServicesFeeRequest;
 use App\Http\Requests\StoreServicesFeeRequest;
 use App\Http\Requests\UpdateServicesFeeRequest;
+use App\Project;
 use App\ServicesFee;
+use App\Task;
+use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,8 +29,46 @@ class ServicesFeesController extends Controller
     public function create()
     {
         abort_if(Gate::denies('services_fee_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $projects = Project::with('tasks')
+            ->with('team_members')
+            ->with('team_members')
+            ->get();
 
-        return view('admin.servicesFees.create');
+        $tasks = Task::with('client')
+            ->with('project_sub_type')
+            ->with('project')
+            ->with('status')
+            ->with('manager')
+            ->with('assinged_tos')
+            ->with('category')
+            ->get();
+
+        $users = User::all();
+
+        $clients = Client::all();
+        return view('admin.servicesFees.create_services',compact('tasks', 'projects', 'users', 'clients'));
+    }
+    public function createService()
+    {
+        abort_if(Gate::denies('services_fee_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $projects = Project::with('tasks')
+            ->with('team_members')
+            ->with('team_members')
+            ->get();
+
+        $tasks = Task::with('client')
+            ->with('project_sub_type')
+            ->with('project')
+            ->with('status')
+            ->with('manager')
+            ->with('assinged_tos')
+            ->with('category')
+            ->get();
+
+        $users = User::all();
+
+        $clients = Client::all();
+        return view('admin.servicesFees.create_services', compact('tasks', 'projects', 'users', 'clients'));
     }
 
     public function store(StoreServicesFeeRequest $request)

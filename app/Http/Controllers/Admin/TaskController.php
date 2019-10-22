@@ -13,6 +13,8 @@ use App\Task;
 use App\TaskStatus;
 use App\TastCategory;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class TaskController extends Controller
 {
@@ -96,6 +98,23 @@ class TaskController extends Controller
         $task->load('category', 'assinged_tos', 'manager', 'status', 'project', 'client');
 
         return view('admin.tasks.show', compact('task'));
+    }
+    public function myTasks(Request $request)
+    {
+        abort_unless(\Gate::allows('task_show'), 403);
+        $tasks = Task::whereHas('assinged_tos',
+            function ($query) {
+                $query->where('id', 2);
+            })->get();
+
+        $tasks->load('category', 'assinged_tos', 'manager', 'status', 'project', 'client');
+        $clients = Client::all();
+        $projects = Project::with('tasks')
+            ->with('team_members')
+            ->with('team_members')
+            ->get();
+
+        return view('theme.laravel.task.index', compact('tasks', 'clients', 'projects'));
     }
 
     public function destroy(Task $task)

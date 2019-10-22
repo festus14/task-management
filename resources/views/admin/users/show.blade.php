@@ -30,6 +30,9 @@
                         <th>
                             {{ trans('cruds.user.fields.picture') }}
                         </th>
+                        <td>
+                           <img src="{{ url($user->picture->url) }}" alt="profile Picture" width="200px">
+                        </td>
                     </tr>
                     <tr>
                         <th>

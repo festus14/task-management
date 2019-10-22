@@ -10,6 +10,7 @@ use App\Http\Requests\StoreProjectReportRequest;
 use App\Http\Requests\UpdateProjectReportRequest;
 use App\Project;
 use App\ProjectReport;
+use http\Env\Request;
 
 class ProjectReportController extends Controller
 {
@@ -86,6 +87,13 @@ class ProjectReportController extends Controller
 
         return view('admin.projectReports.show', compact('projectReport'));
     }
+
+    public function myReports(Request $request)
+    {
+        abort_unless(\Gate::allows('project_report_show'), 403);
+        return redirect()->back();
+    }
+
 
     public function destroy(ProjectReport $projectReport)
     {
