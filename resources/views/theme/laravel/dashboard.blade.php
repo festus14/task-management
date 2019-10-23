@@ -359,9 +359,6 @@
                             <th>Client</th>
                             <th>Status</th>
                             <th>Manager</th>
-                            <th>Project</th>
-                            <th>Project Subtype</th>
-                            <th>Category</th>
                             <th>Starting</th>
                             <th>Ending</th>
                         </tr>
@@ -375,9 +372,6 @@
                                 <td>{{ $task->client->name or '' }}</td>
                                 <td>{{ $task->status_id or '' }}</td>
                                 <td>{{ $task->manager->email }}</td>
-                                <td>{{ $task->project->name or '' }}</td>
-                                <td>{{ $task->project_sub_type->name or '' }}</td>
-                                <td>{{ $task->category->name or '' }}</td>
                                 <td>{{ $task->starting_date }}</td>
                                 <td>{{ $task->ending_date }}</td>
                             </tr>
