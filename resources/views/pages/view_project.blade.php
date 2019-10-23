@@ -680,12 +680,12 @@
 
 
         @section('javascript')
-            <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
-            @include('pages.js.project_type_sub_type_js')
-            <script type="text/javascript" src="{{ asset('js/project_scripts/view_project.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/project_scripts/project_tools.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/project_scripts/projectComment.js') }}"></script>
+        @include('pages.js.validator.projectValidator_js')
+        @include('pages.js.validator.projectTypeValidator_js')
+        @include('pages.js.project_scripts.view_project_js')
+        @include('pages.js.project_scripts.project_tools_js')
+        @include('pages.js.project_scripts.projectComment_js')
+        @include('pages.js.project_scripts.projecttype_subtype_js')
             <script>
                 // Function for implementing dropezone for project report
                     Dropzone.options.uploadsDropzone = {
@@ -1238,14 +1238,13 @@ function displayAddPsubtypeOut() {
 var editProjectData;
 
 function editProject(project_id) {
-
-
     $.ajax({
         type: "GET",
         url: "/api/v1/project_create",
         success: function(data) {
             var projData = data;
             let editProjectBody = document.getElementById('editProjectBody');
+            console.log(projData.team_members);
             editProjectBody.innerHTML = `
                         <div class="col-md-12 ">
                             <form id="editProjectform" enctype="multipart/form-data">
@@ -1304,7 +1303,7 @@ function editProject(project_id) {
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label for="edit-teammembers">Team members</label><br>
-                                        <select multiple="multiple" class="form-control select2" id="edit-teammembers" name="team_members[]" style="width:100%;"required>
+                                        <select onchange="loggingData()" multiple="multiple" class="form-control select2" id="edit-teammembers" name="team_members[]" style="width:100%;" required>
                                             ` +
                 projData.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
                 `
@@ -1319,6 +1318,8 @@ function editProject(project_id) {
                             </form>
                         </div>
                         `
+
+
             var allEditors = document.querySelectorAll('.ckeditor');
             for (var i = 0; i < allEditors.length; ++i) {
                 ClassicEditor.create(allEditors[i]);
@@ -1362,12 +1363,15 @@ function editProject(project_id) {
         }
 
     })
+
+
+
     $.ajax({
         type: "GET",
         url: "/api/v1/projects/" + project_id,
         success: function(data) {
             editProjectData = data.data;
-            let team_members = editProjectData.team_members.map(elem => elem.name)
+            let team_members = editProjectData.team_members;
             $('#edit-client_list').val(editProjectData.client_id + "");
             $('#edit-project_name').val(editProjectData.name);
             $('#edit-manager_id').val(editProjectData.manager_id + "");
@@ -1376,6 +1380,15 @@ function editProject(project_id) {
             $('#edit-starting-date').val(editProjectData.starting_date);
             $('#edit-Deadline').val(editProjectData.deadline);
             $('#edit-teammembers').val(team_members);
+
+            console.log(team_members)
+            for(let i = 0; i<team_members.length; i++){
+                option = document.createElement('option');
+                option.setAttribute('value', team_members[i].id);
+                // option.value = team_members[i].id;
+                option.setAttribute('selected', true);
+                document.getElementById('edit-teammembers').appendChild(option);
+            }
         },
 
         error: function(data) {
@@ -1384,6 +1397,11 @@ function editProject(project_id) {
 
     })
 }
+
+function loggingData(){
+        console.log($('#edit-teammembers').val())
+        console.log('It changed')
+    }
 
         // Function for rendering the more info modal
         var projectName;

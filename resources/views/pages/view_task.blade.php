@@ -538,14 +538,17 @@
 @endsection
 @section('javascript')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/validator/taskValidator.js') }}"></script>
+
+@include('pages.js.validator.taskValidator_js')
+@include('pages.js.task_scripts.view_task_js')
+@include('pages.js.task_scripts.task_category_js')
+@include('pages.js.task_scripts.task_status_js')
+@include('pages.js.task_scripts.task_tools_js')
+@include('pages.js.task_scripts.taskComment_js')
+
+
 <script src="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ asset('js/task_scripts/view_task.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/task_scripts/task_category.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/task_scripts/task_status.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/task_scripts/task_tools.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/task_scripts/taskComment.js') }}"></script>
 <script>
 
     function addDocFunction(){

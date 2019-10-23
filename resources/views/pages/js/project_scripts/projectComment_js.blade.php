@@ -1,4 +1,5 @@
-function postComment(){
+<script>
+  function postComment(){
     $.ajax({
     type: "POST",
     url: "/api/v1/project-comments",
@@ -100,3 +101,5 @@ var formattedDate = (date.toString().slice(0, 25));
 
     document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
 }
+
+</script>

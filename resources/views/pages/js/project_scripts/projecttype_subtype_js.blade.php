@@ -3,7 +3,6 @@
         $.ajax({
             type: "POST",
             url: "{{ url('/api/v1/project-types') }}",
-            {{--// url: '{{ url("/api/v1/project-types") }}',--}}
             data: $('#addprojtypeform1').serialize(),
             success: function(data) {
 
@@ -42,14 +41,14 @@
 
                 $.ajax({
                     type: "GET",
-                    url: '{{ url('/api/v1/project_create') }}',
+                    url: "{{ url('/api/v1/project_create') }}",
                     success: function(data) {
                         document.getElementById('projTypeBody1').innerHTML = `
-        <option value="" selected></option>
-        ` +
+            <option value="" selected></option>
+            ` +
                             data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
                             `
-        `
+            `
                     }
                 });
 
@@ -81,7 +80,7 @@
         let formdata = $('#editProjectform').serialize();
         $.ajax({
             type: "PUT",
-            url: '{{url('/api/v1/projects')}}' + '/' + proID,
+            url: "{{ url('/api/v1/projects') }}" + "/" + proID,
             data: formdata,
             success: function(data) {
                 swal({
@@ -115,7 +114,7 @@
     function submitEditProjectSubtypeForm(sub_id) {
         $.ajax({
             type: "PUT",
-            url: '{{ url('/api/v1/project-sub-types') }}' + '/' + sub_id,
+            url: "{{ url('/api/v1/project-sub-types') }}" + "/" + sub_id,
             data: $('#editProjectSubtypeForm').serialize(),
             success: function(data) {
 
@@ -149,20 +148,20 @@
     function addProjectSubtypeX() {
         $.ajax({
             type: "POST",
-            url: '{{ url('/api/v1/project-sub-types') }}',
+            url: "{{ url('/api/v1/project-sub-types') }}",
             data: $('#addprojsubtypeform2').serialize(),
             success: function(data) {
 
                 $.ajax({
                     type: "GET",
-                    url: '{{ url('/api/v1/project_create') }}',
+                    url: "{{ url('/api/v1/project_create') }}",
                     success: function(data) {
                         document.getElementById('projTypeBody1').innerHTML = `
-            <option value="" selected></option>
-            ` +
+                <option value="" selected></option>
+                ` +
                             data.project_types.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
                             `
-            `
+                `
                     }
                 });
 
@@ -195,7 +194,7 @@
     function addProjectSubtypeXOut() {
         $.ajax({
             type: "POST",
-            url: '{{ url('/api/v1/project-sub-types') }}',
+            url: "{{ url('/api/v1/project-sub-types') }}",
             data: $('#addprojsubtypeform2').serialize(),
             success: function(data) {
                 swal({
@@ -228,7 +227,7 @@
     function addProjectSubtype() {
         $.ajax({
             type: "POST",
-            url: '{{ url('/api/v1/project-sub-types') }}',
+            url: "{{ url('/api/v1/project-sub-types') }}",
             data: $('#addprojSubtypeform1').serialize(),
             success: function() {
                 swal({
@@ -257,18 +256,18 @@
         let typeVal = document.getElementById("projTypeBody1").value;
         $.ajax({
             type: "GET",
-            url: '{{ url('/api/v1/project-types') }}' + "/" + typeVal,
+            url: "{{ url('/api/v1/project-types') }}" + "/" + typeVal,
             success: function(data) {
                 document.getElementById('projectSubtypeId1').innerHTML = `
-    <option value="" selected></option> ` +
+        <option value="" selected></option> ` +
                     data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
                     `
-`
+    `
             },
             error: function(data) {
                 `
-<option value="" selected></option>
-`
+    <option value="" selected></option>
+    `
             }
         });
     }
@@ -277,18 +276,18 @@
         let typeVal = document.getElementById("edit-projtypeboy").value;
         $.ajax({
             type: "GET",
-            url: '{{ url('/api/v1/project-types') }}' + "/" + typeVal,
+            url: "{{ url('/api/v1/project-types') }}" + "/" + typeVal,
             success: function(data) {
                 document.getElementById('edit-project_subtype_id').innerHTML = `
-<option value="" selected></option> ` +
+    <option value="" selected></option> ` +
                     data.data.project_sub_type.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
                     `
-`
+    `
             },
             error: function(data) {
                 `
-<option value="" selected></option>
-`
+    <option value="" selected></option>
+    `
             }
         });
     }
@@ -305,7 +304,7 @@
             if (willDelete) {
                 $.ajax({
                     type: "DELETE",
-                    url: '{{ url('/api/v1/project-types') }}' + '/' + proID,
+                    url: "{{ url('/api/v1/project-types') }}" + "/" + proID,
                     success: function(data) {
                         swal("Deleted!", "Project type successfully deleted.", "success");
                         window.setTimeout(function() {
@@ -336,7 +335,7 @@
             if (willDelete) {
                 $.ajax({
                     type: "DELETE",
-                    url: '{{ url('/api/v1/project-sub-types') }}' + '/' + proID,
+                    url: "{{ url('/api/v1/project-sub-types') }}" + "/" + proID,
                     success: function(data) {
                         swal("Deleted!", "Project subtype successfully deleted.", "success");
                         window.setTimeout(function() {
@@ -366,7 +365,7 @@
             e.preventDefault();
             $.ajax({
                 type: "POST",
-                url: '{{ url('/api/v1/project-types') }}',
+                url: "{{ url('/api/v1/project-types') }}",
                 data: $('#addprojtypeform1').serialize(),
                 success: function(response, data) {
                     alert("Project-type created");

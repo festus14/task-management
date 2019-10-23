@@ -1,95 +1,97 @@
-function postComment(){
+
+<script>
+    function postComment() {
     $.ajax({
-    type: "POST",
-    url: "/api/v1/task-comments",
-    data: $('#makeCommentForm').serialize(),
-    success: function(data) {
-        swal({
-            title: "Success!",
-            text: "Comment made!",
-            icon: "success",
-            confirmButtonColor: "#DD6B55",
-        });
-        addComment()
-        $('#msgModal').modal('hide')
+        type: "POST",
+        url: "/api/v1/task-comments",
+        data: $('#makeCommentForm').serialize(),
+        success: function(data) {
+            swal({
+                title: "Success!",
+                text: "Comment made!",
+                icon: "success",
+                confirmButtonColor: "#DD6B55",
+            });
+            addComment()
+            $('#msgModal').modal('hide')
 
-    },
-    error: function(error) {
-        swal({
-            title: "Comment failed",
-            text: "Please check the missing fields!",
-            icon: "error",
-            confirmButtonColor: "#fc3",
-            confirmButtonText: "OK",
-        });
-    }
+        },
+        error: function(error) {
+            swal({
+                title: "Comment failed",
+                text: "Please check the missing fields!",
+                icon: "error",
+                confirmButtonColor: "#fc3",
+                confirmButtonText: "OK",
+            });
+        }
 
-});
+    });
 }
 
-function deleteComment(comment_id){
+function deleteComment(comment_id) {
     swal({
-    title: "Are you sure?",
-    text: "This comment will be deleted!",
-    icon: "warning",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-}).then((willDelete) => {
-    if (willDelete) {
-        $.ajax({
-            type: "DELETE",
-            url: '/api/v1/task-comments' + '/' + comment_id,
-            success: function(data) {
-                swal("Deleted!", "Comment successfully deleted.", "success");
-                $('#taskCommentModal').modal('hide');
-                $('#taskCommentModal').modal('show');
-            },
-            error: function(data) {
-                swal("Delete failed", "Please try again", "error");
-            }
+        title: "Are you sure?",
+        text: "This comment will be deleted!",
+        icon: "warning",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: '/api/v1/task-comments' + '/' + comment_id,
+                success: function(data) {
+                    swal("Deleted!", "Comment successfully deleted.", "success");
+                    $('#taskCommentModal').modal('hide');
+                    $('#taskCommentModal').modal('show');
+                },
+                error: function(data) {
+                    swal("Delete failed", "Please try again", "error");
+                }
 
-        });
-    } else {
-        swal("Cancelled", "Delete cancelled", "error");
-    }
+            });
+        } else {
+            swal("Cancelled", "Delete cancelled", "error");
+        }
 
-});
+    });
 }
 
-function deleteReply(reply_id){
+function deleteReply(reply_id) {
     swal({
-    title: "Are you sure?",
-    text: "This reply will be deleted!",
-    icon: "warning",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-}).then((willDelete) => {
-    if (willDelete) {
-        $.ajax({
-            type: "DELETE",
-            url: '/api/v1/task-comment-replies' + '/' + reply_id,
-            success: function(data) {
-                swal("Deleted!", "Reply successfully deleted.", "success");
-            },
-            error: function(data) {
-                swal("Delete failed", "Please try again", "error");
-            }
+        title: "Are you sure?",
+        text: "This reply will be deleted!",
+        icon: "warning",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: '/api/v1/task-comment-replies' + '/' + reply_id,
+                success: function(data) {
+                    swal("Deleted!", "Reply successfully deleted.", "success");
+                },
+                error: function(data) {
+                    swal("Delete failed", "Please try again", "error");
+                }
 
-        });
-    } else {
-        swal("Cancelled", "Delete cancelled", "error");
-    }
+            });
+        } else {
+            swal("Cancelled", "Delete cancelled", "error");
+        }
 
-});
+    });
 }
 
 var date = new Date();
 var formattedDate = (date.toString().slice(0, 25));
 
 function addComment() {
-// data.map((elem, i) => {
+    // data.map((elem, i) => {
     var commentMade;
     commentMade = document.getElementById("commentText").value;
     let Commenthtml = `<div class="m-messenger__wrapper commguy" style="padding-right: 10px; padding-left: 10px;">
@@ -118,8 +120,8 @@ function addComment() {
 
 }
 
-   function addReply(id) {
-        $.ajax({
+function addReply(id) {
+    $.ajax({
         type: "POST",
         url: "/api/v1/task-comment-replies",
         data: $('#replyForm').serialize(),
@@ -142,8 +144,8 @@ function addComment() {
         }
 
     });
-       parentComment = document.getElementById(`${id}replydiv`);
-       childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
+    parentComment = document.getElementById(`${id}replydiv`);
+    childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
        <div class="m-messenger__message m-messenger__message--out">
 
            <div class="m-messenger__message-body">
@@ -211,3 +213,4 @@ console.log("here")
 });
 }
 
+</script>
