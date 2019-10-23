@@ -1,5 +1,4 @@
-<script>
-  function postComment(){
+function postComment(){
     $.ajax({
     type: "POST",
     url: "/api/v1/project-comments",
@@ -42,13 +41,11 @@ function deleteComment(comment_id){
             type: "DELETE",
             url: '/api/v1/project-comments' + '/' + comment_id,
             success: function(data) {
-                console.log("worked"+comment_id)
                 swal("Deleted!", "Comment successfully deleted.", "success");
                 $('#projectCommentModal').modal('hide');
                 $('#projectCommentModal').modal('show');
             },
             error: function(data) {
-        console.log("failed"+comment_id)
                 swal("Delete failed", "Please try again", "error");
             }
 
@@ -103,5 +100,3 @@ var formattedDate = (date.toString().slice(0, 25));
 
     document.getElementById("mCSB_3_container").innerHTML = document.getElementById("mCSB_3_container").innerHTML + Commenthtml
 }
-
-</script>

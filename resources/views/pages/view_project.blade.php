@@ -677,8 +677,6 @@
             </div>
 
         @endsection
-
-
         @section('javascript')
         @include('pages.js.validator.projectValidator_js')
         @include('pages.js.validator.projectTypeValidator_js')
@@ -686,6 +684,7 @@
         @include('pages.js.project_scripts.project_tools_js')
         @include('pages.js.project_scripts.projectComment_js')
         @include('pages.js.project_scripts.projecttype_subtype_js')
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
             <script>
                 // Function for implementing dropezone for project report
                     Dropzone.options.uploadsDropzone = {
@@ -1792,7 +1791,7 @@ function loggingData(){
                                                                 <div class="m-messenger__message-arrow"></div>
                                                                     <div class="m-messenger__message-content">
                                                                         <div class="m-messenger__message-username">
-                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>Dont forget</strong></span>
+                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.user.name}</strong></span>
                                                                             <span id="datee" style="float: right; color: #6f727d;">${elem.created_at}</span>
                                                                         </div>
                                                                         <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:20px; max-height: 4000px; display: flex; flex-direction: column;">
@@ -1801,7 +1800,6 @@ function loggingData(){
                                                                             <div id="actionTaken" class="actionTaken" style="flex-wrap: wrap; border-radius: 10px;align-self: flex-end; text-align: right;">
                                                                                         <span class="pull-right" style="margin-bottom:2px; font-weight: 600; ">Action required</span> <br/>
                                                                                     <div style=" padding: 7px; border-radius: 7px; color: white; background-color: #b8bab9;">
-
 
                                                                                         <span>${elem.action_required}</span>
 

@@ -1464,7 +1464,7 @@
                                                 </p>
                                     </div>
                                         </br>
-                                    <i class="fa fa-trash" onclick="deleteReply(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px; color:black;"></i>
+                                    <i class="fa fa-trash" onclick="deleteReply(${replies.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px; color:black;"></i>
 
                                 </div>
                             </div>
