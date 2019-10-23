@@ -17,7 +17,7 @@
             @csrf
             @method('PUT')
             <textarea name="draft">
-                <div class="page" style="background: #FFFFFF;display: block; margin: 30px 10%; margin-bottom: 0.5cm; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5); width: 21cm; min-height: 29.7cm;">
+            <div class="page" style="background: #FFFFFF;display: block; margin: 30px 10%; margin-bottom: 0.5cm; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5); width: 21cm; min-height: 29.7cm;">
                 <img src="{{ url('/metro/letters/banner.jpg') }}" style="width: 100%">
                 <div style="padding: 0 20px">
                     <p>&nbsp;</p>
@@ -196,7 +196,7 @@
                     <p>Position: _____________________________________________</p>
                 </div>
             </div>
-            </textarea>
+        </textarea>
             <div>
                 <input class="btn btn-danger" type="submit" name="submitbtn" value="{{ trans('global.save') }}">
             </div>

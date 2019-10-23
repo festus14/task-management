@@ -57,46 +57,46 @@ class Project extends Model
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'client_id')->withTrashed();
+        return $this->belongsTo(Client::class, 'client_id');
     }
 
     public function project_type()
     {
-        return $this->belongsTo(ProjectType::class, 'project_type_id')->withTrashed();
+        return $this->belongsTo(ProjectType::class, 'project_type_id');
     }
     public function manager()
     {
-        return $this->belongsTo(User::class, 'manager_id')->withTrashed();
+        return $this->belongsTo(User::class, 'manager_id');
     }
 
     public function team_members()
     {
-        return $this->belongsToMany(User::class, 'user_project')->withTrashed();
+        return $this->belongsToMany(User::class, 'user_project');
     }
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'project_id', 'id')->with('assinged_tos')->withTrashed();
+        return $this->hasMany(Task::class, 'project_id', 'id')->with('assinged_tos');
     }
 
     public function status()
     {
-        return $this->belongsTo(TaskStatus::class, 'status_id')->withTrashed();
+        return $this->belongsTo(TaskStatus::class, 'status_id');
     }
     public function project_subtype()
     {
-        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id')->withTrashed();
+        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id');
     }
     public function documents()
     {
-        return $this->hasMany(Document::class, 'project_id', 'id')->withTrashed();
+        return $this->hasMany(Document::class, 'project_id', 'id');
     }
     public function comments()
     {
-        return $this->hasMany(ProjectComment::class, 'project_id', 'id')->with('user')->withTrashed();
+        return $this->hasMany(ProjectComment::class, 'project_id', 'id')->with('user');
     }
     public function reports()
     {
-        return $this->hasMany(ProjectReport::class, 'project_id', 'id')->withTrashed();
+        return $this->hasMany(ProjectReport::class, 'project_id', 'id');
     }
 }
