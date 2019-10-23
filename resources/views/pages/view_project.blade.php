@@ -1590,11 +1590,7 @@ function loggingData(){
                                                         <td>${item.version}</td>
                                                         <td>${item.created_at}</td>
                                                         <td>
-                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                            <!-- <iframe
-                                                                src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                style="width:600px; height:500px;" frameborder="0">
-                                                            </iframe> -->
+
 
                                                                 View file
                                                             </a>
@@ -1729,7 +1725,7 @@ function loggingData(){
             console.log("here")
             $.ajax({
                     type: "GET",
-                    url: "{{ url('/api/v1/task-comments') }}",
+                    url: "{{ url('/api/v1/projects') }}" +"/"+proj_id,
                     success: function (data) {
                         let commentbody = document.getElementById('commentFiller');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
@@ -1785,7 +1781,7 @@ function loggingData(){
                                                     <br>
                                                     <span id="filler"> </span>
                                                         ` +
-                                                data.data.map(elem => `
+                                                data.data.comments.map(elem => `
                                                     <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                                         <div class="m-messenger__message m-messenger__message--in">
                                                             <div class="m-messenger__message-pic">
@@ -1795,62 +1791,30 @@ function loggingData(){
                                                                 <div class="m-messenger__message-arrow"></div>
                                                                     <div class="m-messenger__message-content">
                                                                         <div class="m-messenger__message-username">
-                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.user.name}</strong></span>
+                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>Dont forget</strong></span>
                                                                             <span id="datee" style="float: right; color: #6f727d;">${elem.created_at}</span>
                                                                         </div>
                                                                         <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:20px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                         ${elem.comments}
 
-                                                                            <div id="${elem.id}replydiv" class="replyCommentBody" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
-                                                                                ${elem.commentreply.map(replies=>`
-                                                                                    <div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
-                        <div class="m-messenger__message m-messenger__message--out">
+                                                                            <div id="actionTaken" class="actionTaken" style="flex-wrap: wrap; border-radius: 10px;align-self: flex-end; text-align: right;">
+                                                                                        <span class="pull-right" style="margin-bottom:2px; font-weight: 600; ">Action required</span> <br/>
+                                                                                    <div style=" padding: 7px; border-radius: 7px; color: white; background-color: #b8bab9;">
 
-                            <div class="m-messenger__message-body">
-                                <div class="m-messenger__message-arrow"></div>
-                                <div class="m-messenger__message-content">
-                                <div class="m-messenger__message-username">
-                                <span style="float: left; color: #0c2a7a;"><strong>${replies.reply_by.name}</strong></span>
-                                <span class="datee" style="float: right; color:#0c2a7a;">${replies.created_at}</span>
 
-                                    </div>
+                                                                                        <span>${elem.action_required}</span>
 
-                                    <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-
-                                        ${replies.task_comment_reply}
-                                                </p>
-                                    </div>
-                                        </br>
-                                    <i class="fa fa-trash" onclick="deleteReply(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px; color:black;"></i>
-
-                                </div>
-                            </div>
-                            <div class="m-messenger__message-pic">
-                            <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-                        </div>
-                        </div>
-                    </div>`)}
+                                                                                    </div>
                                                                             </div>
-                                                                            <br>
-                                                                        <i class="fa fa-trash" onclick="deleteComment(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px;"></i>
-                                                                        <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
-
-                                                                        <div class="collapse" id="${elem.id}collapseReply">
-                                                                            <br>
-                                                                            <form id="replyForm" enctype="multipart/form-data">
-                                                                                @csrf
-                                                                                <input type="hidden" id="task_comment_id" name="task_comment_id" value="${data.data.id}">
-                                                                                <textarea class="form-control" name="task_comment_reply" id="${elem.id}replyTextId" rows="1" style="width: 100%" required>{{ old('task_comment_reply', isset($taskCommentReply) ? $taskCommentReply->task_comment_reply : '') }}</textarea>
-                                                                                <input type="hidden" id="reply_by_id" name="reply_by_id" value="${data.data.id}">
-                                                                                <input type="button" class="m-btn--pill btn btn-primary" onclick="addReply(${elem.id})" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;" value="Reply">
-                                                                            </form>
                                                                         </div>
+                                                                            <br>
+
+                                                                    <i class="fa fa-trash" onclick="deleteComment(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:2px;"></i>
                                                                     </div>
 
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
                                                     `)
                                                     +`
@@ -1869,7 +1833,7 @@ function loggingData(){
                                         <div class="m-messenger__seperator "></div>
                                         <div class="m-messenger__form " style="width: 100%;">
                                             <div class="m-messenger__form-controls ">
-                                                <button type="button" onclick="makeComment(${proj_id})" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#msgModal" style="margin-left: 72%; margin-bottom: 25px;">
+                                                <button type="button" onclick="makeComment(${proj_id})" class="m-btn--pill btn pull-right" data-toggle="modal" data-target="#msgModal" style="margin-left: 72%; background-color: #312b8e; color: white; margin-bottom: 25px;">
                                                                 Make Comment
                                                               </button>
                                                               <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1886,7 +1850,6 @@ function loggingData(){
                         </div>
                     </div>
                 </div>
-                </div>
                         `
                     }
                 });
@@ -1901,14 +1864,16 @@ function loggingData(){
                     commentUser = data.data.manager.name;
                     let makecommentModal = document.getElementById('makeCommentBodyId');
                     makecommentModal.innerHTML = `
-                    <form id="makeCommentForm" enctype="multipart/form-data">
+                                            <form id="makeCommentForm" enctype="multipart/form-data">
                                                                         @csrf
                                                                     <div class="modal-body">
-                                                                        <textarea class="form-control goat" name="comments" id="commentText" rows="4 " required></textarea>
-                                                                        <input type="hidden" id="user" name="user_id" value="${data.data.manager_id}">
-                                                                        <input type="hidden" id="task" name="task_id" value="${data.data.id}">
+                                                                        <input type="hidden" id="user" name="user_id" value="${userId}">
+                                                                        <input type="hidden" id="project" name="project_id" value="${proj_id}">
                                                                         <input type="hidden" id="client" name="client_id" value="${data.data.client_id}">
-                                                                        <input type="hidden" id="project" name="project_id" value="${data.data.project_id}">
+                                                                        Comment
+                                                                        <textarea class="form-control goat" name="comments" id="commentText" rows="4 " required></textarea><br>
+                                                                        Action required
+                                                                        <textarea  class="form-control" id="action_required" name="action_required"rows="1" required"></textarea>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <input type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#msgModal').modal('hide');" value="Close">
