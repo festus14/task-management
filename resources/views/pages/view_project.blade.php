@@ -1379,16 +1379,15 @@ function editProject(project_id) {
             $('#edit-project_subtype_id').val(editProjectData.project_subtype_id + "");
             $('#edit-starting-date').val(editProjectData.starting_date);
             $('#edit-Deadline').val(editProjectData.deadline);
-            $('#edit-teammembers').val(team_members);
+            // $('#edit-teammembers').val(team_members);
 
             console.log(team_members)
-            for(let i = 0; i<team_members.length; i++){
-                option = document.createElement('option');
-                option.setAttribute('value', team_members[i].id);
-                // option.value = team_members[i].id;
-                option.setAttribute('selected', true);
-                document.getElementById('edit-teammembers').appendChild(option);
-            }
+            // for(let i = 0; i<team_members.length; i++){
+            //     option = document.createElement('option');
+            //     // option.value = team_members[i].id;
+            //     option.setAttribute('selected', true);
+            //     document.getElementById('edit-teammembers').appendChild(option);
+            // }
         },
 
         error: function(data) {
