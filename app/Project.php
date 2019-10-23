@@ -89,7 +89,7 @@ class Project extends Model
     }
     public function documents()
     {
-        return $this->hasMany(Document::class, 'project_id', 'id');
+        return $this->hasMany(Document::class, 'project_id', 'id')->with('media_report');
     }
     public function comments()
     {
@@ -97,6 +97,6 @@ class Project extends Model
     }
     public function reports()
     {
-        return $this->hasMany(ProjectReport::class, 'project_id', 'id');
+        return $this->hasMany(ProjectReport::class, 'project_id', 'id')->with('media_report');
     }
 }
