@@ -1365,6 +1365,9 @@
             } );
         }
 
+       var userName = "{{ Auth::user()->name}}"
+       var userId = {{ Auth::user()->id}}
+
         function taskCommentTester(task_id){
             console.log("here")
             $.ajax({
@@ -1479,9 +1482,9 @@
                                                                             <br>
                                                                             <form id="replyForm" enctype="multipart/form-data">
                                                                                 @csrf
-                                                                                <input type="hidden" id="task_comment_id" name="task_comment_id" value="${data.data.id}">
-                                                                                <textarea class="form-control" name="task_comment_reply" id="${elem.id}replyTextId" rows="1" style="width: 100%" required>{{ old('task_comment_reply', isset($taskCommentReply) ? $taskCommentReply->task_comment_reply : '') }}</textarea>
-                                                                                <input type="hidden" id="reply_by_id" name="reply_by_id" value="${data.data.id}">
+                                                                                <input type="hidden" name="task_comment_id" id="task_comment_id" value="${elem.id}">
+                                                                                <textarea class="form-control" name="task_comment_reply" id="${elem.id}replyTextId" rows="1" style="width: 100%" required></textarea>
+                                                                                <input type="hidden" name="reply_by_id" id="reply_by_id" value="${userId}">
                                                                                 <input type="button" class="m-btn--pill btn btn-primary" onclick="addReply(${elem.id})" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;" value="Reply">
                                                                             </form>
                                                                         </div>
@@ -1531,8 +1534,6 @@
                     }
                 });
             }
-       var userName = "{{ Auth::user()->name}}"
-       var userId = {{ Auth::user()->id}}
 
        console.log(userName, userId)
 

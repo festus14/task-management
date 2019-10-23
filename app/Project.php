@@ -55,7 +55,6 @@ class Project extends Model
         $this->attributes['deadline'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
-        // I deleted withTrashed associated with with most of the return (Festus)
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id')->withTrashed();
@@ -63,7 +62,7 @@ class Project extends Model
 
     public function project_type()
     {
-        return $this->belongsTo(ProjectType::class, 'project_type_id');
+        return $this->belongsTo(ProjectType::class, 'project_type_id')->withTrashed();
     }
     public function manager()
     {
@@ -77,7 +76,7 @@ class Project extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'project_id', 'id');
+        return $this->hasMany(Task::class, 'project_id', 'id')->with('assinged_tos')->withTrashed();
     }
 
     public function status()
@@ -86,18 +85,18 @@ class Project extends Model
     }
     public function project_subtype()
     {
-        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id');
+        return $this->belongsTo(ProjectSubType::class, 'project_subtype_id')->withTrashed();
     }
     public function documents()
     {
-        return $this->hasMany(Document::class, 'project_id')->with('media_report');
+        return $this->hasMany(Document::class, 'project_id', 'id')->withTrashed();
     }
     public function comments()
     {
-        return $this->hasMany(ProjectComment::class, 'project_id', 'id')->withTrashed();
+        return $this->hasMany(ProjectComment::class, 'project_id', 'id')->with('user')->withTrashed();
     }
     public function reports()
     {
-        return $this->hasMany(ProjectReport::class, 'project_id', 'id')->with('media_report');
+        return $this->hasMany(ProjectReport::class, 'project_id', 'id')->withTrashed();
     }
 }

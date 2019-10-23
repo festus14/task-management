@@ -14,7 +14,7 @@ class ProjectCommentsApiController extends Controller
     public function index()
     {
         try {
-            $projectComments = ProjectComment::all();
+            $projectComments = ProjectComment::with('user')->with('client')->with('project')->get();
             return response()->json(['data' => $projectComments], 200);
         }
         catch(\Exception $e){
@@ -69,6 +69,7 @@ class ProjectCommentsApiController extends Controller
     public function show(ProjectComment $projectComment)
     {
         try {
+            $projectComment->load('user', 'project', 'client');
             return response()->json(['data' => $projectComment], 200);
         }
         catch(\Exception $e){

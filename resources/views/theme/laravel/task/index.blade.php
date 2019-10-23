@@ -1,5 +1,5 @@
 
-@extends('layouts.metro')
+@extends('layouts.inner')
 @section('title')
     <title>Task</title>
 @endsection

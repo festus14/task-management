@@ -96,8 +96,8 @@
                                                     <div class="m-card-user m-card-user--skin-dark">
                                                         <div class="m-card-user__pic">
                                                             <img
-                                                                src="{{ url('metro/assets/app/media/img/users/user4.jpg') }}"
-                                                                class="m--img-rounded m--marginless" alt=""/>
+                                                                src="{{ url(Auth::user()->picture->url) }}"
+                                                                class="m--img-rounded m--marginless" alt="Picture"/>
                                                         </div>
                                                         <div class="m-card-user__details">
                                                             <span class="m-card-user__name m--font-weight-500">
@@ -121,7 +121,7 @@
                                                                 </span>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="{{ url('/admin') }}" class="m-nav__link">
+                                                                <a href="{{ url('/admin/users/'. Auth::id()) }}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-profile-1"></i>
                                                                     <span class="m-nav__link-title">
                                                                         <span class="m-nav__link-wrap">
@@ -137,7 +137,7 @@
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="{{ url('/admin') }}" class="m-nav__link">
+                                                                <a href="{{ url('/admin/my-tasks') }}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-profile-1"></i>
                                                                     <span class="m-nav__link-title">
                                                                         <span class="m-nav__link-wrap">
@@ -153,7 +153,7 @@
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="{{ url('/admin') }}" class="m-nav__link">
+                                                                <a href="{{ url('/admin/my-projects') }}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-share"></i>
                                                                     <span class="m-nav__link-text">
                                                                         Projects
@@ -161,10 +161,10 @@
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="profile.html" class="m-nav__link">
+                                                                <a href="{{ url('/admin/my-reports') }}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-chat-1"></i>
                                                                     <span class="m-nav__link-text">
-                                                                        Messages
+                                                                       Reports 
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -470,7 +470,7 @@
                                                              data-max-height="380" data-mobile-max-height="200">
                                                             <div class="m-nav-grid m-nav-grid--skin-light">
                                                                 <div class="m-nav-grid__row">
-                                                                    <a href="#" class="m-nav-grid__item">
+                                                                    <a href="{{ route('admin.view_project') }}" class="m-nav-grid__item">
                                                                         <i class="m-nav-grid__icon flaticon-file"></i>
                                                                         <span class="m-nav-grid__text">
                                                                             Generate Report
@@ -484,7 +484,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div class="m-nav-grid__row">
-                                                                    <a href="#" class="m-nav-grid__item">
+                                                                    <a href="{{ route('admin.view_task') }}" class="m-nav-grid__item">
                                                                         <i class="m-nav-grid__icon flaticon-folder"></i>
                                                                         <span class="m-nav-grid__text">
                                                                             Create New Task
@@ -900,8 +900,13 @@
 				<i class="la la-close"></i>
 			</span>
         <ul id="m_quick_sidebar_tabs" class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
+            <li class="nav-item m-tabs__item active">
+                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_client" role="tab">
+                    Clients
+                </a>
+            </li>
             <li class="nav-item m-tabs__item">
-                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_messenger"
+                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_messenger"
                    role="tab">
                     Messages
                 </a>
@@ -918,7 +923,34 @@
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
+            <div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_client" role="tabpanel">
+                <div class="m-list-timeline">
+                    <div class="m-list-timeline__group">
+                        <div class="m-list-timeline__heading">
+                            List of Clients
+                        </div>
+                        <div class="m-list-timeline__items">
+                            @if(count($clients) > 0)
+                                @foreach($clients as $client)
+                                    <div class="m-list-timeline__item">
+                                        <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                        <a href="{{ url('/admin/clients/'. $client->id) }}"  target="_blank" class="m-list-timeline__text" style="@if($client->status === '1') color:green; @else color: red; @endif">
+                                            {{ $client->name }}
+                                            <span class="m-badge m-badge--warning m-badge--wide">
+											Project ({{ count($client->projects) }})
+										</span>
+                                        </a>
+                                        <span class="m-list-timeline__time">
+										{{ $client->date_of_engagement }}
+									</span>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
                 <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
                     <div class="m-messenger__messages">
                         <div class="m-messenger__wrapper">
@@ -1097,7 +1129,7 @@
                 <div class="m-list-settings">
                     <div class="m-list-settings__group">
                         <div class="m-list-settings__heading">
-                            General Settings
+                            Change Password
                         </div>
                         <div class="m-list-settings__item">
 								<span class="m-list-settings__item-label">
@@ -1112,123 +1144,19 @@
 									</span>
 								</span>
                         </div>
-                        <div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Site Tracking
-								</span>
-                            <span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-                        </div>
-                        <div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									SMS Alerts
-								</span>
-                            <span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-                        </div>
-                        <div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Backup Storage
-								</span>
-                            <span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-                        </div>
-                        <div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Audit Logs
-								</span>
-                            <span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" checked="checked" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-                        </div>
                     </div>
                     <div class="m-list-settings__group">
                         <div class="m-list-settings__heading">
-                            System Settings
+                            Notification Settings
                         </div>
                         <div class="m-list-settings__item">
 								<span class="m-list-settings__item-label">
-									System Logs
-								</span>
-                            <span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-                        </div>
-                        <div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Error Reporting
-								</span>
-                            <span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-                        </div>
-                        <div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Applications Logs
-								</span>
-                            <span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-                        </div>
-                        <div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Backup Servers
+									Email Notifications
 								</span>
                             <span class="m-list-settings__item-control">
 									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
 										<label>
 											<input type="checkbox" checked="checked" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-                        </div>
-                        <div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Audit Logs
-								</span>
-                            <span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
 											<span></span>
 										</label>
 									</span>
@@ -1596,19 +1524,19 @@
 <script src="{{ asset('metro/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datatables/buttons.colVis.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('metro/assets/vendors/custom/datetimepicker/moment-with-locales.min.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/decoupled-document/ckeditor.js"></script>
-<script>
-    DecoupledEditor
-        .create( document.querySelector( '#editor' ) )
-        .then( editor => {
-            const toolbarContainer = document.querySelector( '#toolbar-container' );
+{{--<script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/decoupled-document/ckeditor.js"></script>--}}
+{{--<script>--}}
+{{--    DecoupledEditor--}}
+{{--        .create( document.querySelector( '#editor' ) )--}}
+{{--        .then( editor => {--}}
+{{--            const toolbarContainer = document.querySelector( '#toolbar-container' );--}}
 
-            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
+{{--            toolbarContainer.appendChild( editor.ui.view.toolbar.element );--}}
+{{--        } )--}}
+{{--        .catch( error => {--}}
+{{--            console.error( error );--}}
+{{--        } );--}}
+{{--</script>--}}
 <script src="{{ asset('metro/assets/vendors/custom/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <!--end::Page Vendors -->
 {{--<script src="{{ asset('js/main.js') }}"></script>--}}
@@ -1622,10 +1550,10 @@
     $(document).ready(function () {
         window._token = $('meta[name="csrf-token"]').attr('content');
 
-        var allEditors = document.querySelectorAll('.ckeditor');
-        for (var i = 0; i < allEditors.length; ++i) {
-            ClassicEditor.create(allEditors[i]);
-        }
+        // var allEditors = document.querySelectorAll('.ckeditor');
+        // for (var i = 0; i < allEditors.length; ++i) {
+        //     ClassicEditor.create(allEditors[i]);
+        // }
 
         moment.updateLocale('en', {
             week: {dow: 1} // Monday is the first day of the week
