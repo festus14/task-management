@@ -29,7 +29,8 @@ class ProjectCommentsApiController extends Controller
              [
                  'user_id' => 'required|integer',
                  'project_id' => 'required|integer',
-                 'client_id' => 'required|integer'
+                 'client_id' => 'required|integer',
+                 'comments' =>  'required'
              ]
          );
         if ($validator->fails()) {
