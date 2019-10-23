@@ -680,12 +680,12 @@
 
 
         @section('javascript')
-            <script type="text/javascript" src="{{ asset('js/validator/projectValidator.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/validator/projectTypeValidator.js') }}"></script>
-            @include('pages.js.project_type_sub_type_js')
-            <script type="text/javascript" src="{{ asset('js/project_scripts/view_project.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/project_scripts/project_tools.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/project_scripts/projectComment.js') }}"></script>
+        @include('pages.js.validator.projectValidator_js')
+        @include('pages.js.validator.projectTypeValidator_js')
+        @include('pages.js.project_scripts.view_project_js')
+        @include('pages.js.project_scripts.project_tools_js')
+        @include('pages.js.project_scripts.projectComment_js')
+        @include('pages.js.project_scripts.projecttype_subtype_js')
             <script>
                 // Function for implementing dropezone for project report
                     Dropzone.options.uploadsDropzone = {
@@ -1238,14 +1238,13 @@ function displayAddPsubtypeOut() {
 var editProjectData;
 
 function editProject(project_id) {
-
-
     $.ajax({
         type: "GET",
         url: "/api/v1/project_create",
         success: function(data) {
             var projData = data;
             let editProjectBody = document.getElementById('editProjectBody');
+            console.log(projData.team_members);
             editProjectBody.innerHTML = `
                         <div class="col-md-12 ">
                             <form id="editProjectform" enctype="multipart/form-data">
@@ -1304,7 +1303,7 @@ function editProject(project_id) {
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label for="edit-teammembers">Team members</label><br>
-                                        <select multiple="multiple" class="form-control select2" id="edit-teammembers" name="team_members[]" style="width:100%;"required>
+                                        <select onchange="loggingData()" multiple="multiple" class="form-control select2" id="edit-teammembers" name="team_members[]" style="width:100%;" required>
                                             ` +
                 projData.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
                 `
@@ -1319,6 +1318,8 @@ function editProject(project_id) {
                             </form>
                         </div>
                         `
+
+
             var allEditors = document.querySelectorAll('.ckeditor');
             for (var i = 0; i < allEditors.length; ++i) {
                 ClassicEditor.create(allEditors[i]);
@@ -1362,12 +1363,15 @@ function editProject(project_id) {
         }
 
     })
+
+
+
     $.ajax({
         type: "GET",
         url: "/api/v1/projects/" + project_id,
         success: function(data) {
             editProjectData = data.data;
-            let team_members = editProjectData.team_members.map(elem => elem.name)
+            let team_members = editProjectData.team_members;
             $('#edit-client_list').val(editProjectData.client_id + "");
             $('#edit-project_name').val(editProjectData.name);
             $('#edit-manager_id').val(editProjectData.manager_id + "");
@@ -1376,6 +1380,15 @@ function editProject(project_id) {
             $('#edit-starting-date').val(editProjectData.starting_date);
             $('#edit-Deadline').val(editProjectData.deadline);
             $('#edit-teammembers').val(team_members);
+
+            console.log(team_members)
+            for(let i = 0; i<team_members.length; i++){
+                option = document.createElement('option');
+                option.setAttribute('value', team_members[i].id);
+                // option.value = team_members[i].id;
+                option.setAttribute('selected', true);
+                document.getElementById('edit-teammembers').appendChild(option);
+            }
         },
 
         error: function(data) {
@@ -1384,6 +1397,11 @@ function editProject(project_id) {
 
     })
 }
+
+function loggingData(){
+        console.log($('#edit-teammembers').val())
+        console.log('It changed')
+    }
 
         // Function for rendering the more info modal
         var projectName;
@@ -1573,11 +1591,7 @@ function editProject(project_id) {
                                                         <td>${item.version}</td>
                                                         <td>${item.created_at}</td>
                                                         <td>
-                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                            <!-- <iframe
-                                                                src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                style="width:600px; height:500px;" frameborder="0">
-                                                            </iframe> -->
+
 
                                                                 View file
                                                             </a>
@@ -1712,7 +1726,7 @@ function editProject(project_id) {
             console.log("here")
             $.ajax({
                     type: "GET",
-                    url: "{{ url('/api/v1/task-comments') }}",
+                    url: "{{ url('/api/v1/projects') }}" +"/"+proj_id,
                     success: function (data) {
                         let commentbody = document.getElementById('commentFiller');
                         // let probSubtypeBody = document.getElementById('subtypeModalBody');
@@ -1768,7 +1782,7 @@ function editProject(project_id) {
                                                     <br>
                                                     <span id="filler"> </span>
                                                         ` +
-                                                data.data.map(elem => `
+                                                data.data.comments.map(elem => `
                                                     <div class="m-messenger__wrapper commguy" style="padding-right: 10px; display:flex; flex-wrap: flex; padding-left: 10px;">
                                                         <div class="m-messenger__message m-messenger__message--in">
                                                             <div class="m-messenger__message-pic">
@@ -1778,62 +1792,30 @@ function editProject(project_id) {
                                                                 <div class="m-messenger__message-arrow"></div>
                                                                     <div class="m-messenger__message-content">
                                                                         <div class="m-messenger__message-username">
-                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.user.name}</strong></span>
+                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>Dont forget</strong></span>
                                                                             <span id="datee" style="float: right; color: #6f727d;">${elem.created_at}</span>
                                                                         </div>
                                                                         <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:20px; max-height: 4000px; display: flex; flex-direction: column;">
                                                                                         ${elem.comments}
 
-                                                                            <div id="${elem.id}replydiv" class="replyCommentBody" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
-                                                                                ${elem.commentreply.map(replies=>`
-                                                                                    <div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
-                        <div class="m-messenger__message m-messenger__message--out">
+                                                                            <div id="actionTaken" class="actionTaken" style="flex-wrap: wrap; border-radius: 10px;align-self: flex-end; text-align: right;">
+                                                                                        <span class="pull-right" style="margin-bottom:2px; font-weight: 600; ">Action required</span> <br/>
+                                                                                    <div style=" padding: 7px; border-radius: 7px; color: white; background-color: #b8bab9;">
 
-                            <div class="m-messenger__message-body">
-                                <div class="m-messenger__message-arrow"></div>
-                                <div class="m-messenger__message-content">
-                                <div class="m-messenger__message-username">
-                                <span style="float: left; color: #0c2a7a;"><strong>${replies.reply_by.name}</strong></span>
-                                <span class="datee" style="float: right; color:#0c2a7a;">${replies.created_at}</span>
 
-                                    </div>
+                                                                                        <span>${elem.action_required}</span>
 
-                                    <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
-
-                                        ${replies.task_comment_reply}
-                                                </p>
-                                    </div>
-                                        </br>
-                                    <i class="fa fa-trash" onclick="deleteReply(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px; color:black;"></i>
-
-                                </div>
-                            </div>
-                            <div class="m-messenger__message-pic">
-                            <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-                        </div>
-                        </div>
-                    </div>`)}
+                                                                                    </div>
                                                                             </div>
-                                                                            <br>
-                                                                        <i class="fa fa-trash" onclick="deleteComment(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px;"></i>
-                                                                        <i class="fa fa-reply" data-toggle="collapse" id="kkk" aria-hidden="true" data-target="#${elem.id}collapseReply" aria-expanded="false" aria-controls="collapseReply" style="display:flex; justify-content: flex-end;"></i>
-
-                                                                        <div class="collapse" id="${elem.id}collapseReply">
-                                                                            <br>
-                                                                            <form id="replyForm" enctype="multipart/form-data">
-                                                                                @csrf
-                                                                                <input type="hidden" id="task_comment_id" name="task_comment_id" value="${data.data.id}">
-                                                                                <textarea class="form-control" name="task_comment_reply" id="${elem.id}replyTextId" rows="1" style="width: 100%" required>{{ old('task_comment_reply', isset($taskCommentReply) ? $taskCommentReply->task_comment_reply : '') }}</textarea>
-                                                                                <input type="hidden" id="reply_by_id" name="reply_by_id" value="${data.data.id}">
-                                                                                <input type="button" class="m-btn--pill btn btn-primary" onclick="addReply(${elem.id})" data-toggle="collapse" data-target="#${elem.id}collapseReply" style="margin-top: 5px; float: right;" value="Reply">
-                                                                            </form>
                                                                         </div>
+                                                                            <br>
+
+                                                                    <i class="fa fa-trash" onclick="deleteComment(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:2px;"></i>
                                                                     </div>
 
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
                                                     `)
                                                     +`
@@ -1852,7 +1834,7 @@ function editProject(project_id) {
                                         <div class="m-messenger__seperator "></div>
                                         <div class="m-messenger__form " style="width: 100%;">
                                             <div class="m-messenger__form-controls ">
-                                                <button type="button" onclick="makeComment(${proj_id})" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#msgModal" style="margin-left: 72%; margin-bottom: 25px;">
+                                                <button type="button" onclick="makeComment(${proj_id})" class="m-btn--pill btn pull-right" data-toggle="modal" data-target="#msgModal" style="margin-left: 72%; background-color: #312b8e; color: white; margin-bottom: 25px;">
                                                                 Make Comment
                                                               </button>
                                                               <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1869,7 +1851,6 @@ function editProject(project_id) {
                         </div>
                     </div>
                 </div>
-                </div>
                         `
                     }
                 });
@@ -1884,14 +1865,16 @@ function editProject(project_id) {
                     commentUser = data.data.manager.name;
                     let makecommentModal = document.getElementById('makeCommentBodyId');
                     makecommentModal.innerHTML = `
-                    <form id="makeCommentForm" enctype="multipart/form-data">
+                                            <form id="makeCommentForm" enctype="multipart/form-data">
                                                                         @csrf
                                                                     <div class="modal-body">
-                                                                        <textarea class="form-control goat" name="comments" id="commentText" rows="4 " required></textarea>
-                                                                        <input type="hidden" id="user" name="user_id" value="${data.data.manager_id}">
-                                                                        <input type="hidden" id="task" name="task_id" value="${data.data.id}">
+                                                                        <input type="hidden" id="user" name="user_id" value="${userId}">
+                                                                        <input type="hidden" id="project" name="project_id" value="${proj_id}">
                                                                         <input type="hidden" id="client" name="client_id" value="${data.data.client_id}">
-                                                                        <input type="hidden" id="project" name="project_id" value="${data.data.project_id}">
+                                                                        Comment
+                                                                        <textarea class="form-control goat" name="comments" id="commentText" rows="4 " required></textarea><br>
+                                                                        Action required
+                                                                        <textarea  class="form-control" id="action_required" name="action_required"rows="1" required"></textarea>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <input type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#msgModal').modal('hide');" value="Close">
