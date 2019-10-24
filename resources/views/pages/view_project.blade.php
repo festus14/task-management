@@ -796,7 +796,6 @@
             </script>
 
             <script>
-
         var userName = "{{ Auth::user()->name}}"
         var userId = {{ Auth::user()->id}}
                 $(document).ready(function () {
