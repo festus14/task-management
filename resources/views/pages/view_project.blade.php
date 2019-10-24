@@ -1240,11 +1240,10 @@ var editProjectData;
 function editProject(project_id) {
     $.ajax({
         type: "GET",
-        url: "/api/v1/project_create",
+        url: "{{ url('/api/v1/project_create') }}",
         success: function(data) {
             var projData = data;
             let editProjectBody = document.getElementById('editProjectBody');
-            console.log(projData.team_members);
             editProjectBody.innerHTML = `
                         <div class="col-md-12 ">
                             <form id="editProjectform" enctype="multipart/form-data">
@@ -1365,13 +1364,14 @@ function editProject(project_id) {
     })
 
 
-
+    // Given the fields in the edit form defult values
     $.ajax({
         type: "GET",
-        url: "/api/v1/projects/" + project_id,
+        url: "{{ url('/api/v1/projects') }}" + "/" + project_id,
         success: function(data) {
             editProjectData = data.data;
             let team_members = editProjectData.team_members;
+            console.log(team_members)
             $('#edit-client_list').val(editProjectData.client_id + "");
             $('#edit-project_name').val(editProjectData.name);
             $('#edit-manager_id').val(editProjectData.manager_id + "");
@@ -1379,15 +1379,14 @@ function editProject(project_id) {
             $('#edit-project_subtype_id').val(editProjectData.project_subtype_id + "");
             $('#edit-starting-date').val(editProjectData.starting_date);
             $('#edit-Deadline').val(editProjectData.deadline);
-            // $('#edit-teammembers').val(team_members);
-
-            console.log(team_members)
-            // for(let i = 0; i<team_members.length; i++){
-            //     option = document.createElement('option');
-            //     // option.value = team_members[i].id;
-            //     option.setAttribute('selected', true);
-            //     document.getElementById('edit-teammembers').appendChild(option);
-            // }
+            for(let i = 0; i<team_members.length; i++){
+                option = document.createElement('option');
+                option.value = team_members[i].id;
+                option.setAttribute('value', team_members[i].id);
+                option.innerHTML = team_members[i].name
+                option.setAttribute('selected', true);
+                document.getElementById('edit-teammembers').appendChild(option);
+            }
         },
 
         error: function(data) {

@@ -542,9 +542,9 @@
 @endsection
 
 @section('javascript')
+@include('pages.js.validator.clientValidtor_js')
+@include('pages.js.client_scripts.createClient_js')
 
-<script type="text/javascript" src="{{ asset('js/validator/clientValidtor.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/client_scripts/createClient.js') }}"></script>
 {{-- <script type="text/javascript" src="{{ asset('js/client_scripts/editClient.js') }}"></script> --}}
 {{-- <script type="text/javascript" src="{{ asset('js/client_scripts/displayClientCard.js') }}"></script> --}}
 {{-- <script type="text/javascript" src="{{ asset('js/client_scripts/deleteClient.js') }}"></script> --}}

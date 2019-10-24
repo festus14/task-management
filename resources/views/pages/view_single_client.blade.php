@@ -9,7 +9,8 @@
 @section('css')
 
 @endsection
-
+{{ $num = 1 }}
+{{ $num2 = 1 }}
 @section('content')
 
 <div class="card">
@@ -105,7 +106,7 @@
                 @if(count($projects) > 0)
                     @foreach ($projects as $project)
                         <tr>
-                            <td>{{ $project->id }}</td>
+                            <td> {{ $num }} </td>
                             <td>{{ $project->name }}</td>
                             <td>{{ $project->manager->email }}</td>
                             {{-- <td>
@@ -118,8 +119,8 @@
                                 @endif
                             </td> --}}
                             <td>{{ $project->deadline }}</td>
-
                         </tr>
+                        {{ $num++ }}
                     @endforeach
                 @endif
             </tbody>
@@ -133,6 +134,7 @@
     <div class="card-header">
         Client Task
     </div>
+
     <div class="row card-body">
         <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -149,7 +151,7 @@
                 @if(count($tasks) > 0)
                     @foreach ($tasks as $task)
                         <tr>
-                            <td>{{ $task->id }}</td>
+                            <td>{{ $num2 }}</td>
                             <td>{{ $task->name }}</td>
                             <td>{{ $task->manager->email }}</td>
                             {{-- <td>
@@ -164,6 +166,7 @@
                             <td>{{ $task->ending_date }}</td>
 
                         </tr>
+                        {{ $num2++ }}
                     @endforeach
                 @endif
             </tbody>
