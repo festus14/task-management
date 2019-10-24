@@ -177,6 +177,7 @@
     {{ trans('global.back_to_list') }}
 </a>
 
-
-
+@endsection
+@section('javascript')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @endsection

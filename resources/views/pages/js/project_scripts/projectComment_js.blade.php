@@ -260,7 +260,7 @@ var formattedDate = (date.toString().slice(0, 25));
                             </div>
                         </div>
                         <div class="m-messenger__message-pic">
-                        <img src="../../metro/assets/app/media/img/users/user3.jpg" alt="" class="mCS_img_loaded">
+                        <img src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}" alt="" class="mCS_img_loaded">
                     </div>
                     </div>
                 </div>`
