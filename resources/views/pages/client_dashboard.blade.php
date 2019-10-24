@@ -542,6 +542,7 @@
 @endsection
 
 @section('javascript')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @include('pages.js.validator.clientValidtor_js')
 @include('pages.js.client_scripts.createClient_js')
 

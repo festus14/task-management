@@ -36,7 +36,7 @@ class ClientController extends Controller
     {
         $client = Client::create($request->all());
 
-        return redirect()->route('admin.clients.index');
+        return redirect()->back();
     }
 
     public function edit(Client $client)
@@ -50,7 +50,7 @@ class ClientController extends Controller
     {
         $client->update($request->all());
 
-        return redirect()->route('admin.clients.index');
+        return redirect()->back();
     }
 
     public function show(Client $client)
