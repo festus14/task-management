@@ -96,7 +96,11 @@
                                                     <div class="m-card-user m-card-user--skin-dark">
                                                         <div class="m-card-user__pic">
                                                             <img
-                                                            src="{{ asset('metro/assets/app/media/img/users/user3.jpg') }}"
+                                                                @if(! Auth::user()->picture == null)
+                                                                src="{{ url(Auth::user()->picture->url) }}"
+                                                                @else
+                                                                    src="metro/assets/app/media/img/users/user4.jpg"
+                                                                @endif
                                                                 class="m--img-rounded m--marginless" alt="Picture"/>
                                                         </div>
                                                         <div class="m-card-user__details">
@@ -164,7 +168,7 @@
                                                                 <a href="{{ url('/admin/my-reports') }}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-chat-1"></i>
                                                                     <span class="m-nav__link-text">
-                                                                       Reports
+                                                                       Reports 
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -560,7 +564,7 @@
                                                     <span class="m-menu__link-title">
                                                         <span class="m-menu__link-wrap">
                                                             <span class="m-menu__link-text">
-                                                               Client dashboard
+                                                               Client Management
                                                             </span>
                                                             <span class="m-menu__link-badge">
                                                                 <span class="m-badge m-badge--success">{{ count($clients) }}
@@ -605,7 +609,7 @@
                                                             <a href="{{ url('admin/view_project') }}" class="m-menu__link ">
                                                                 <i class="m-menu__link-icon flaticon-map"></i>
                                                                 <span class="m-menu__link-text">
-                                                                    Project dashboard
+                                                                    Project management
                                                                     <span class="m-menu__link-badge">
                                                                         <span class="m-badge m-badge--success">{{ count($projects) }}
                                                                     </span>
@@ -647,7 +651,7 @@
                                                     <span class="m-menu__link-title">
                                                         <span class="m-menu__link-wrap">
                                                             <span class="m-menu__link-text">
-                                                               Task dashboard
+                                                               Task Management
                                                             </span>
                                                             <span class="m-menu__link-badge">
                                                                 <span class="m-badge m-badge--success">{{ count($tasks) }}
