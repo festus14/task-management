@@ -1415,10 +1415,6 @@
                             }
                         },]
                     });
-
-
-
-
                 })
 
                 function printError(elemId, hintMsg) {
