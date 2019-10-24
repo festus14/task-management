@@ -164,11 +164,12 @@ function displayAddPsubtypeOut() {
     }
 
     function submitEditProjectForm(proID) {
-        let formdata = $('#editProjectform').serialize();
+        let formData = $('#editProjectform').serialize();
+        console.log(formData)
         $.ajax({
             type: "PUT",
             url: "{{ url('/api/v1/projects') }}" + "/" + proID,
-            data: formdata,
+            data: formData,
             success: function(data) {
                 swal({
                     title: "Success!",
