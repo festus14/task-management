@@ -123,7 +123,7 @@ function addComment() {
 function addReply(id) {
     $.ajax({
         type: "POST",
-        url: "/api/v1/task-comment-replies",
+        url: "/api/v1/task-comment-replies" +"/"+ id,
         data: $('#replyForm').serialize(),
         success: function(data) {
             swal({
@@ -132,18 +132,7 @@ function addReply(id) {
                 icon: "success",
                 confirmButtonColor: "#DD6B55",
             });
-        },
-        error: function(error) {
-            swal({
-                title: "Reply failed",
-                text: "Please check the missing fields!",
-                icon: "error",
-                confirmButtonColor: "#fc3",
-                confirmButtonText: "OK",
-            });
-        }
 
-    });
     parentComment = document.getElementById(`${id}replydiv`);
     childComment = `<div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
        <div class="m-messenger__message m-messenger__message--out">
@@ -172,6 +161,18 @@ function addReply(id) {
    </div>`
        parentComment.innerHTML = parentComment.innerHTML + childComment;
        document.getElementById(`${id}replyTextId`).value = "";
+        },
+        error: function(error) {
+            swal({
+                title: "Reply failed",
+                text: "Please check the missing fields!",
+                icon: "error",
+                confirmButtonColor: "#fc3",
+                confirmButtonText: "OK",
+            });
+        }
+
+    });
 
 }
 
