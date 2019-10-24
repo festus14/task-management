@@ -169,7 +169,7 @@
         }
 
         //  Edit Project form
-var editProjectData;
+        var editProjectData;
 var allProjectMembers;
 function editProject(project_id) {
     $.ajax({

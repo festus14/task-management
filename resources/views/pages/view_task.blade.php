@@ -1744,6 +1744,7 @@
 
                 //Edit Task
                 var editData;
+                var allTaskMembers;
             function editTaskMain(task_id) {
 
                     $.ajax({
@@ -1751,6 +1752,8 @@
                         url: "{{ url('/api/v1/create_task') }}",
                         success: function(data){
                             var allData = data.data;
+                            allTaskMembers =allData.assinged_tos;
+                            console.log(allTaskMembers)
                         let editTaskBody = document.getElementById('editTaskBody');
                         editTaskBody.innerHTML = `
                             <div class="modal-body">
@@ -1854,15 +1857,30 @@
                         url: "{{ url('/api/v1/tasks/') }}" + "/" + task_id,
                         success: function(data){
                             editData = data.data;
+                            console.log(editData.assinged_tos)
+                            let team_members = editData.assinged_tos;
                             $('#edit-create-task').val(editData.name);
                             $('#edit-client-list').val(editData.client_id + "");
                             $('#edit-project-list').val(editData.project_id + "");
                             $('#edit-task-status').val(editData.status_id + "");
                             $('#edit-manager').val(editData.manager_id + "");
                             $('#edit-task-category').val(editData.category_id + "");
-                            $('#edit_assinged_tos').val(editData.assinged_tos + "");
                             $('#edit-starting-date').val(editData.starting_date);
                             $('#edit-deadline').val(editData.ending_date);
+                            // $('#edit_assinged_tos').val(editData.assinged_tos + "");
+
+                            for(let i = 0; i<allTaskMembers.length; i++){
+                                option = document.createElement('option');
+                                option.setAttribute('value', allTaskMembers[i].id + "");
+                                option.innerHTML = allTaskMembers[i].name
+                                for(let j = 0; j<team_members.length; j++){
+                                    if(allTaskMembers[i].id === team_members[j].id){
+                                        option.setAttribute('selected', true);
+                                    }
+                                }
+
+                                document.getElementById('edit-edit_assinged_tos').appendChild(option);
+                            }
                         },
 
                         error: function (data) {

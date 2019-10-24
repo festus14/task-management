@@ -1432,7 +1432,7 @@
 </div>
 <!-- end::Scroll Top -->
 <!-- begin::Quick Nav -->
-
+{{-- Modal for creating client --}}
 <div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 400px;" role="document">
         <div class="modal-content">
@@ -1444,64 +1444,122 @@
             </div>
             <div id="createClientModalBody" class="modal-body col-md-12">
                 <div class="col-md-12 ">
-                    <form class="form" id="clientForm" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row col-md-12">
-                            <div class="col-md-6 form-group mt-3">
-                                <label for="company-name">Company Name</label>
-                                <input type="text" name="name" class="form-control" id="company-name" required>
-                            </div>
+                        <form class="form" onsubmit="createCliento()" id="clientForm" action="{{ route("admin.clients.store") }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row col-md-12">
+                                <div class="col-md-6 form-group mt-3 {{ $errors->has('name') ? 'has-error' : '' }}">
+                                    <label for="name">{{ trans('cruds.client.fields.name') }}*</label>
+                                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($client) ? $client->name : '') }}" required>
 
-                            <div class="col-md-6 form-group mt-3">
-                                <label for="status">Status</label>
-                                <select id="status" name="status" class="form-control">
-                                    <option value="" disabled="" selected="">Please select</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                            </div>
-
-
-                        </div>
-                        <div class="row col-md-12">
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="date-of-eng">Date Of Engagement</label>
-                                    <input type="text" id="date-of-eng" name="date_of_engagement" class="form-control date" required>
+                                    @if($errors->has('name'))
+                                        <p class="help-block">
+                                            {{ $errors->first('name') }}
+                                        </p>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('cruds.client.fields.name_helper') }}
+                                    </p>
                                 </div>
 
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="expiry-date">Expiry Date</label>
-                                    <input type="text" id="expiry-date" name="expiry_date" class="form-control date" required>
-                                </div>
-
-                                <div class="col-md-4 form-group mt-3">
-                                    <label for="phone-num">Phone Number</label>
-                                    <input type="" name="phone" class="form-control" id="phone-num" required>
-                                </div>
-
-                            </div>
-                            <div class="row col-md-12 ">
-
-                                <div class="col-md-6 form-group mt-3">
-                                    <label for="address">Address</label>
-                                    <input type="text" name="address" class="form-control" id="address" placeholder="" required>
-                                </div>
-
-                                <div class="col-md-6 form-group mt-3">
-                                    <label for="email">Email</label>
-                                    <input type="email" name="email" class="form-control" id="email" required>
+                                <div class="col-md-6 form-group {{ $errors->has('status') ? 'has-error' : '' }} mt-3">
+                                        <label for="status">{{ trans('cruds.client.fields.status') }}</label>
+                                        <select id="status" name="status" class="form-control" required>
+                                            <option value="" disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                            @foreach(App\Client::STATUS_SELECT as $key => $label)
+                                                <option value="{{ $key }}" {{ old('status', null) === (string)$key ? 'selected' : '' }}>{{ $label }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if($errors->has('status'))
+                                            <p class="help-block">
+                                                {{ $errors->first('status') }}
+                                            </p>
+                                        @endif
                                 </div>
 
 
                             </div>
-                            <div class="row col-md-12 ">
-                                <div class="col-md-3 form-group mt-3">
-                                <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="createCliento()" value="{{ trans('global.create') }}">
+                            <div class="row col-md-12">
+
+                                    <div class="col-md-4 form-group {{ $errors->has('date_of_engagement') ? 'has-error' : '' }} mt-3">
+                                        <label for="date_of_engagement">{{ trans('cruds.client.fields.date_of_engagement') }}</label>
+                                        <input required type="text" id="date_of_engagement" name="date_of_engagement" class="form-control date" value="{{ old('date_of_engagement', isset($client) ? $client->date_of_engagement : '') }}">
+                                        @if($errors->has('date_of_engagement'))
+                                            <p class="help-block">
+                                                {{ $errors->first('date_of_engagement') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.client.fields.date_of_engagement_helper') }}
+                                        </p>
+                                    </div>
+
+
+                                    <div class="col-md-4 form-group {{ $errors->has('expiry_date') ? 'has-error' : '' }} mt-3">
+                                        <label for="expiry_date">{{ trans('cruds.client.fields.expiry_date') }}</label>
+                                        <input required type="text" id="expiry_date" name="expiry_date" class="form-control date" value="{{ old('expiry_date', isset($client) ? $client->expiry_date : '') }}">
+                                        @if($errors->has('expiry_date'))
+                                            <p class="help-block">
+                                                {{ $errors->first('expiry_date') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.client.fields.expiry_date_helper') }}
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-4 form-group {{ $errors->has('phone') ? 'has-error' : '' }} mt-3">
+                                            <label for="phone">{{ trans('cruds.client.fields.phone') }}</label>
+                                            <input required type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', isset($client) ? $client->phone : '') }}">
+
+                                        @if($errors->has('phone'))
+                                            <p class="help-block">
+                                                {{ $errors->first('phone') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.client.fields.phone_helper') }}
+                                        </p>
+                                    </div>
+
                                 </div>
-                            </div>
-                        </form>
+                                <div class="row col-md-12 ">
+
+                                    <div class="col-md-6 form-group {{ $errors->has('address') ? 'has-error' : '' }} mt-3">
+                                            <label for="address">{{ trans('cruds.client.fields.address') }}</label>
+                                            <input required type="text" id="address" name="address" class="form-control" value="{{ old('address', isset($client) ? $client->address : '') }}">
+
+                                        @if($errors->has('address'))
+                                            <p class="help-block">
+                                                {{ $errors->first('address') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.client.fields.address_helper') }}
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-6 form-group {{ $errors->has('email') ? 'has-error' : '' }} mt-3">
+                                            <label for="email">{{ trans('cruds.client.fields.email') }}</label>
+                                            <input required type="email" id="email" name="email" class="form-control" value="{{ old('email', isset($client) ? $client->email : '') }}">
+
+                                        @if($errors->has('email'))
+                                            <p class="help-block">
+                                                {{ $errors->first('email') }}
+                                            </p>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.client.fields.email_helper') }}
+                                        </p>
+                                    </div>
+
+
+                                </div>
+                                <div class="row col-md-12 ">
+                                    <div class="col-md-3 form-group mt-3">
+                                    <input class="btn btn-danger" type="submit" style="background-color:#8a2a2b; color:white;"  value="{{ trans('global.create') }}">
+                                    </div>
+                                </div>
+                            </form>
                     </div>
 
 
@@ -1546,7 +1604,10 @@
 
 
 @yield('javascript')
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+
     $(document).ready(function () {
         window._token = $('meta[name="csrf-token"]').attr('content');
 
@@ -1588,39 +1649,18 @@
         $('.select2').select2();
     });
 
-//Posting-Create client
-function createCliento(){
-                let formData = $('#clientForm').serialize();
-                $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                    });
-                $.ajax({
-                    type: "POST",
-                    url: '{{ url("/api/v1/clients") }}',
-                    data: formData,
-
-                    success: function (data) {
-                        $('#createClientModal').modal('hide');
-                        swal({
-                            title: "Success!",
-                            text: "Client Added!",
-                            icon: "success",
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "OK",
-                        });
-                        window.setTimeout(function(){
-                            location.reload();
-                        }, 3000)
-
-                    },
-                    error: function (data) {
-                    swal("Client creation failed", "Please check missing fields", "error");
-                }
-                });
-            }
-
+    //Posting-Create client
+        function createCliento(){
+            swal({
+                title: "Success!",
+                text: "Client Added!",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+            window.setTimeout(function(){
+                location.reload();
+            }, 2500);
+        }
 </script>
 <!--end::Page Snippets -->
 </body>

@@ -1,7 +1,6 @@
 <script>
     // Delete Task Function
     deleteSingleTask = (taskID) => {
-
         swal({
             title: "Are you sure?",
             text: "Everything relating to this task will be lost!",
