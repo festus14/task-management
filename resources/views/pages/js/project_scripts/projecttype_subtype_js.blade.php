@@ -80,7 +80,7 @@
         let formData = $('#editProjectform').serialize();
         console.log(formData)
         $.ajax({
-            type: "PUT",
+            type: "PATCH",
             url: "{{ url('/api/v1/projects') }}" + "/" + proID,
             data: formData,
             success: function(data) {
