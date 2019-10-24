@@ -1438,7 +1438,7 @@
                                                                 <div class="m-messenger__message-arrow"></div>
                                                                     <div class="m-messenger__message-content">
                                                                         <div class="m-messenger__message-username">
-                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.user.name}</strong></span>
+                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.id} / ${elem.user.name}</strong></span>
                                                                             <span id="datee" style="float: right; color: #6f727d;">${elem.created_at}</span>
                                                                         </div>
                                                                         <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:20px; max-height: 4000px; display: flex; flex-direction: column;">
@@ -1464,7 +1464,7 @@
                                                 </p>
                                     </div>
                                         </br>
-                                    <i class="fa fa-trash" onclick="deleteReply(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px; color:black;"></i>
+                                    <i class="fa fa-trash" onclick="deleteReply(${replies.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px; color:black;"></i>
 
                                 </div>
                             </div>
@@ -1512,7 +1512,7 @@
                                         <div class="m-messenger__seperator "></div>
                                         <div class="m-messenger__form " style="width: 100%;">
                                             <div class="m-messenger__form-controls ">
-                                                <button type="button" onclick="makeComment(${task_id})" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#msgModal" style="margin-left: 72%; margin-bottom: 25px;">
+                                                <button type="button" onclick="makeComment(${task_id})" class="m-btn--pill btn btn-primary pull-right" data-toggle="modal" data-target="#msgModal" style="margin-left: 72%; margin-right: 5%; margin-bottom: 25px;">
                                                                 Make Comment
                                                               </button>
                                                               <div class="modal fade" id="makecommentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1534,8 +1534,6 @@
                     }
                 });
             }
-
-       console.log(userName, userId)
 
         function makeComment(task_id) {
             $.ajax({
