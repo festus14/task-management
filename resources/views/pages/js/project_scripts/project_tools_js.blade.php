@@ -407,4 +407,124 @@
             }
         });
     }
+
+    function addDocFunction(){
+            swal({
+                title: "Success!",
+                text: "Document Added!",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+            window.setTimeout(function(){
+                location.reload();
+            }, 2500);
+        }
+
+ // Function for implementing dropezone for project report
+ Dropzone.options.uploadsDropzone = {
+                    url: '{{ route('admin.project-reports.storeMedia') }}',
+                    maxFilesize: 20, // MB
+                    maxFiles: 1,
+                    addRemoveLinks: true,
+                    headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    params: {
+                    size: 20
+                    },
+                    success: function (file, response) {
+                    $('#addProjectReportForm').find('input[name="uploads"]').remove()
+                    $('#addProjectReportForm').append('<input type="hidden" name="uploads" value="' + response.name + '">')
+                    },
+                    removedfile: function (file) {
+                    file.previewElement.remove()
+                    $('#addProjectReportForm').find('input[name="uploads"]').remove()
+                    this.options.maxFiles = this.options.maxFiles + 1
+                    },
+                    init: function () {
+                @if(isset($projectReport) && $projectReport->uploads)
+                    var file = {!! json_encode($projectReport->uploads) !!}
+                        this.options.addedfile.call(this, file)
+                    file.previewElement.classList.add('dz-complete')
+                    $('#addProjectReportForm').append('<input type="hidden" name="uploads" value="' + file.file_name + '">')
+                    this.options.maxFiles = this.options.maxFiles - 1
+                @endif
+                    },
+                    error: function (file, response) {
+                        if ($.type(response) === 'string') {
+                            var message = response //dropzone sends it's own error messages in string
+                        } else {
+                            var message = response.errors.file
+                        }
+                        file.previewElement.classList.add('dz-error')
+                        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                        _results = []
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            node = _ref[_i]
+                            _results.push(node.textContent = message)
+                        }
+
+                        return _results
+                    }
+                }
+
+                // Function for implementing dropezone for create document
+                var uploadedFileMap = {}
+                Dropzone.options.fileDropzone = {
+                    url: '{{ route('admin.documents.storeMedia') }}',
+                    maxFilesize: 10, // MB
+                    addRemoveLinks: true,
+                    headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    params: {
+                    size: 10
+                    },
+                    success: function (file, response) {
+                    $('#createDocForm').append('<input type="hidden" name="file[]" value="' + response.name + '">')
+                    uploadedFileMap[file.name] = response.name
+                    },
+                    removedfile: function (file) {
+                    file.previewElement.remove()
+                    var name = ''
+                    if (typeof file.file_name !== 'undefined') {
+                        name = file.file_name
+                    } else {
+                        name = uploadedFileMap[file.name]
+                    }
+                    $('#createDocForm').find('input[name="file[]"][value="' + name + '"]').remove()
+                    },
+                    init: function () {
+                @if(isset($document) && $document->file)
+                        var files = {!! json_encode($document->file) !!}
+                            for (var i in files) {
+                            var file = files[i]
+                            this.options.addedfile.call(this, file)
+                            file.previewElement.classList.add('dz-complete')
+                            $('#createDocForm').append('<input type="hidden" name="file[]" value="' + file.file_name + '">')
+                            }
+                @endif
+                    },
+                    error: function (file, response) {
+                        if ($.type(response) === 'string') {
+                            var message = response //dropzone sends it's own error messages in string
+                        } else {
+                            var message = response.errors.file
+                        }
+                        file.previewElement.classList.add('dz-error')
+                        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                        _results = []
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            node = _ref[_i]
+                            _results.push(node.textContent = message)
+                        }
+
+                        return _results
+                    }
+                }
+
+                function closeReportModal(){
+                    document.getElementById('project_report').value = "";
+                    $('#addReportModal').modal('hide');
+                }
 </script>

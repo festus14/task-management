@@ -581,92 +581,27 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"
-                                    data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
-                                    <a href="#" class="m-menu__link m-menu__toggle">
+                                <li class="m-menu__item" data-redirect="true" aria-haspopup="true">
+                                    <a href="{{ url('admin/view_project') }}" class="m-menu__link">
                                         <span class="m-menu__item-here"></span>
                                         <span class="m-menu__link-text">
                                             Projects
                                         </span>
-                                        <i class="m-menu__hor-arrow la la-angle-down"></i>
+
                                         <i class="m-menu__ver-arrow la la-angle-right"></i>
                                     </a>
-                                    <div class="m-menu__submenu  m-menu__submenu--fixed m-menu__submenu--left"
-                                         style="width:280px">
-                                        <span class="m-menu__arrow m-menu__arrow--adjust"></span>
-                                        <div class="m-menu__subnav">
-                                            <ul class="m-menu__content">
-                                                <li class="m-menu__item">
-                                                    <h4 class="m-menu__heading m-menu__toggle">
-                                                    </h4>
-                                                    <ul class="m-menu__inner">
-                                                        <li class="m-menu__item " data-redirect="true"
-                                                            aria-haspopup="true">
-                                                            <a href="{{ url('admin/view_project') }}" class="m-menu__link ">
-                                                                <i class="m-menu__link-icon flaticon-map"></i>
-                                                                <span class="m-menu__link-text">
-                                                                    Project dashboard
-                                                                    <span class="m-menu__link-badge">
-                                                                        <span class="m-badge m-badge--success">{{ count($projects) }}
-                                                                    </span>
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                            <a href="inner.html" class="m-menu__link ">
-                                                                <i class="m-menu__link-icon flaticon-user"></i>
-                                                                <span class="m-menu__link-text">
-                                                                    shabalaba
-                                                                </span>
-                                                            </a>
-                                                        </li>
 
-                                                    </ul>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </li>
-                                <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"
-                                    data-menu-submenu-toggle="click" aria-haspopup="true">
-                                    <a href="#" class="m-menu__link m-menu__toggle">
+                                <li class="m-menu__item" data-redirect="true" aria-haspopup="true">
+                                    <a href="{{ url('admin/view_task') }}" class="m-menu__link">
                                         <span class="m-menu__item-here"></span>
                                         <span class="m-menu__link-text">
                                             Tasks
                                         </span>
-                                        <i class="m-menu__hor-arrow la la-angle-down"></i>
+
                                         <i class="m-menu__ver-arrow la la-angle-right"></i>
                                     </a>
-                                    <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-                                        <span class="m-menu__arrow m-menu__arrow--adjust"></span>
-                                        <ul class="m-menu__subnav">
-                                            <li class="m-menu__item " aria-haspopup="true">
-                                                <a href="{{ url('admin/view_task') }}" class="m-menu__link ">
-                                                    <i class="m-menu__link-icon flaticon-users"></i>
-                                                    <span class="m-menu__link-title">
-                                                        <span class="m-menu__link-wrap">
-                                                            <span class="m-menu__link-text">
-                                                               Task dashboard
-                                                            </span>
-                                                            <span class="m-menu__link-badge">
-                                                                <span class="m-badge m-badge--success">{{ count($tasks) }}
-                                                                </span>
-                                                            </span>
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                <a href="inner.html" class="m-menu__link " id="" data-toggle="modal" data-target="#createClientModal">
-                                                    <i class="m-menu__link-icon flaticon-add"></i>
-                                                    <span class="m-menu__link-text">
-                                                        Something
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+
                                 </li>
                                 <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel m-menu__item--more m-menu__item--icon-only"
                                     data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">

@@ -41,6 +41,10 @@
     });
     }
 
+    let addProjSubTypeId = document.getElementById('addProjSubTypeId');
+                    addProjSubTypeId.addEventListener("click", displayAddPsubtypeOut);
+
+
 function displayAddPsubtypeOut() {
     $("#subtypemainModal").modal('show');
     $.ajax({
@@ -313,6 +317,48 @@ function displayAddPsubtypeOut() {
 
         });
     }
+
+
+
+                // Add project type Post
+                function addProjectType() {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: '{{ url("/api/v1/project-types") }}',
+                        data: $('#addprojTtypeform2').serialize(),
+                        success: function (data) {
+
+                            swal({
+                                title: "Success!",
+                                text: "Project-type created!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            $('#AddProjecModalla').modal('hide');
+                            document.getElementById('projTypeId').value = "";
+                                window.setTimeout(function() {
+                                    $("#kt_table_project_type").DataTable().ajax.reload();
+                                }, 2300)
+
+                        },
+                        error: function (error) {
+                            swal({
+                                title: "Project-type creation failed!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                        }
+
+                    });
+                }
+
 
     // Add project Sub type Post
     function addProjectSubtype() {

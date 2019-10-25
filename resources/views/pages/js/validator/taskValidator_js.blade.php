@@ -51,16 +51,22 @@
         } else if (taskName) {
             taskName = taskName.toUpperCase();
 
-            for (let i = 0; i < allTasks.data.length; i++) {
-                if (allTasks.data[i].name.toUpperCase() === taskName) {
-                    printError("nameErr", "Task name already exists");
-                    nameErr = true;
-                    break;
-                } else {
-                    printError("nameErr", "");
-                    nameErr = false;
-                }
+            if(allTasks.data.length==0){
+                printError("nameErr", "");
+                        nameErr = false;
             }
+            else{
+                for (let i = 0; i < allTasks.data.length; i++) {
+                    if (allTasks.data[i].name.toUpperCase() === taskName) {
+                        printError("nameErr", "Task name already exists");
+                        nameErr = true;
+                        break;
+                    } else {
+                        printError("nameErr", "");
+                        nameErr = false;
+                    }
+                }
+        }
 
         }
 
@@ -257,16 +263,21 @@
         } else if (categoryName) {
             categoryName = categoryName.toUpperCase();
 
-            for (let i = 0; i < allTaskCategories.data.length; i++) {
-                if (allTaskCategories.data[i].name.toUpperCase() === categoryName) {
-                    printError("categoryNameErr", "Task category already exists");
-                    categoryNameErr = true;
-                    break;
-                } else {
-                    printError("categoryNameErr", "");
+            if(allTaskCategories.data.length==0){
+                printError("categoryNameErr", "");
                     categoryNameErr = false;
-                }
             }
+            else{
+                for (let i = 0; i < allTaskCategories.data.length; i++) {
+                    if (allTaskCategories.data[i].name.toUpperCase() === categoryName) {
+                        printError("categoryNameErr", "Task category already exists");
+                        categoryNameErr = true;
+                        break;
+                    } else {
+                        printError("categoryNameErr", "");
+                        categoryNameErr = false;
+                    }
+                }
 
         }
 
@@ -408,16 +419,22 @@
         } else if (taskStatus) {
             taskStatus = taskStatus.toUpperCase();
 
-            for (let i = 0; i < allTaskStatuses.data.length; i++) {
-                if (allTaskStatuses.data[i].name.toUpperCase() === taskStatus) {
-                    printError("taskStatusErr", "Task status already exists");
-                    taskStatusErr = true;
-                    break;
-                } else {
-                    printError("taskStatusErr", "");
-                    taskStatusErr = false;
-                }
+            if(allTaskStatuses.data.length==0){
+                printError("taskStatusErr", "");
+                taskStatusErr = false;
             }
+            else{
+                for (let i = 0; i < allTaskStatuses.data.length; i++) {
+                    if (allTaskStatuses.data[i].name.toUpperCase() === taskStatus) {
+                        printError("taskStatusErr", "Task status already exists");
+                        taskStatusErr = true;
+                        break;
+                    } else {
+                        printError("taskStatusErr", "");
+                        taskStatusErr = false;
+                    }
+                }
+        }
 
         }
 

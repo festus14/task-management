@@ -57,6 +57,11 @@
         } else if (companyName) {
             companyName = companyName.toUpperCase();
 
+            if(allClients.data.length==0){
+                printError("companyErr", "");
+                companyErr = false;
+            }
+            else{
             for (let i = 0; i < allClients.data.length; i++) {
                 if (allClients.data[i].name.toUpperCase() === companyName) {
                     printError("companyErr", "Company already exists");

@@ -58,16 +58,22 @@
         } else if (projectName) {
             projectName = projectName.toUpperCase();
 
-            for (let i = 0; i < allProjects.data.length; i++) {
-                if (allProjects.data[i].name.toUpperCase() === projectName) {
-                    printError("nameErr", "Project name already exists");
-                    nameErr = true;
-                    break;
-                } else {
-                    printError("nameErr", "");
+            if(allProjects.data.length==0){
+                printError("nameErr", "");
                     nameErr = false;
-                }
             }
+            else{
+                for (let i = 0; i < allProjects.data.length; i++) {
+                    if (allProjects.data[i].name.toUpperCase() === projectName) {
+                        printError("nameErr", "Project name already exists");
+                        nameErr = true;
+                        break;
+                    } else {
+                        printError("nameErr", "");
+                        nameErr = false;
+                    }
+            }
+        }
 
         }
 

@@ -30,16 +30,22 @@
         } else if (projectType) {
             projectType = projectType.toUpperCase();
 
-            for (let i = 0; i < allProjectTyess.data.length; i++) {
-                if (allProjectTyess.data[i].name.toUpperCase() === projectType) {
-                    printError("projectTypeErr", "Project type already exists");
-                    projectTypeErr = true;
-                    break;
-                } else {
-                    printError("projectTypeErr", "");
+            if(allProjectTyess.data.length==0){
+                printError("projectTypeErr", "");
                     projectTypeErr = false;
-                }
             }
+            else{
+                for (let i = 0; i < allProjectTyess.data.length; i++) {
+                    if (allProjectTyess.data[i].name.toUpperCase() === projectType) {
+                        printError("projectTypeErr", "Project type already exists");
+                        projectTypeErr = true;
+                        break;
+                    } else {
+                        printError("projectTypeErr", "");
+                        projectTypeErr = false;
+                    }
+                }
+        }
 
         }
 
@@ -116,16 +122,22 @@
         } else if (projectSubType) {
             projectSubType = projectSubType.toUpperCase();
 
-            for (let i = 0; i < allProjectSubTyess.data.length; i++) {
-                if (allProjectSubTyess.data[i].name.toUpperCase() === projectSubType) {
-                    printError("projectSubTypeErr", "Project subtype already exists");
-                    projectSubTypeErr = true;
-                    break;
-                } else {
-                    printError("projectSubTypeErr", "");
-                    projectSubTypeErr = false;
-                }
+            if(allProjectSubTyess.data.length==0){
+                printError("projectSubTypeErr", "");
+                        projectSubTypeErr = false;
             }
+            else{
+                for (let i = 0; i < allProjectSubTyess.data.length; i++) {
+                    if (allProjectSubTyess.data[i].name.toUpperCase() === projectSubType) {
+                        printError("projectSubTypeErr", "Project subtype already exists");
+                        projectSubTypeErr = true;
+                        break;
+                    } else {
+                        printError("projectSubTypeErr", "");
+                        projectSubTypeErr = false;
+                    }
+                }
+        }
 
         }
 
@@ -176,16 +188,22 @@
         } else if (projectSubType) {
             projectSubType = projectSubType.toUpperCase();
 
-            for (let i = 0; i < allProjectSubTyess.data.length; i++) {
-                if (allProjectSubTyess.data[i].name.toUpperCase() === projectSubType) {
-                    printError("projectSubTypeErr", "Project subtype already exists");
-                    projectSubTypeErr = true;
-                    break;
-                } else {
-                    printError("projectSubTypeErr", "");
-                    projectSubTypeErr = false;
-                }
+            if(allProjectSubTyess.data.length==0){
+                printError("projectSubTypeErr", "");
+                        projectSubTypeErr = false;
             }
+            else{
+                for (let i = 0; i < allProjectSubTyess.data.length; i++) {
+                    if (allProjectSubTyess.data[i].name.toUpperCase() === projectSubType) {
+                        printError("projectSubTypeErr", "Project subtype already exists");
+                        projectSubTypeErr = true;
+                        break;
+                    } else {
+                        printError("projectSubTypeErr", "");
+                        projectSubTypeErr = false;
+                    }
+                }
+        }
 
         }
 
