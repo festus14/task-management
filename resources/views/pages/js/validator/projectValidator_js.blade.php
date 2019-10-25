@@ -1,5 +1,6 @@
 <script>
     function validateCreateProjectForm() {
+        console.log("It got to the validator")
         // Retrieving the values of form elements
         let clientlist = $('#client-list').val();
         let projectSublist = $('#projectSubtypeId1').val();
@@ -108,14 +109,15 @@
         // Prevent the form from being submitted if there are any errors
 
         if ((clientErr || projTypeErr || projSubErr || nameErr || managerErr || membersErr || startErr || endErr) == true) {
+            console.log("The alternate point for create function call")
             return false;
         } else {
+            console.log("The point of create function call")
             createProject();
         }
     };
 
     function validateEditProjectForm(project_id) {
-        console.log('here')
             // Retrieving the values of form elements
         let editClientlist = $('#client_list').val();
         let editProjectSublist = $('#project_subtype_id').val();

@@ -1275,15 +1275,23 @@
                                                         <td></td>
                                                         <td>${item.name}</td>
                                                         <td style="text-align: center;">${item.document_type}</td>
-                                                        <td>
-                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                            <!-- <iframe
-                                                                src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                style="width:600px; height:500px;" frameborder="0">
-                                                            </iframe> -->
+                                                        <td>` +
+                                                            let mimeType = item.mime_type;
+                                                            if(mimeType === 'application/pdf'){
+                                                               `
+                                                               <a href="{{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
+                                                                    View file
+                                                                </a>
+                                                               `
+                                                            }else{
+                                                                `
+                                                                <a href="http://docs.google.com/gview?url={{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                    View file
+                                                                </a>
+                                                                `
+                                                            }
+                                                         + `
 
-                                                                View file
-                                                            </a>
                                                         </td>
                                                         <td>${item.created_at}</td>
                                                         <td>

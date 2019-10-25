@@ -186,11 +186,24 @@
                                                         <td>${item.name}</td>
                                                         <td>${item.version}</td>
                                                         <td>${item.created_at}</td>
-                                                        <td>
+                                                        <td>` +
+                                                            let mimeType = item.mime_type;
+                                                            if(mimeType === 'application/pdf'){
+                                                               `
+                                                               <a href="{{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
+                                                                    View file
+                                                                </a>
+                                                               `
+                                                            }else{
+                                                                `
+                                                                <a href="http://docs.google.com/gview?url={{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                    View file
+                                                                </a>
+                                                                `
+                                                            }
+                                                         + `
 
-
-                                                                View file
-                                                            </a>
+                                                        </td>
                                                         </td>
                                                         <td>
                                                             <form action="{{ url('/admin/documents/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
@@ -267,15 +280,23 @@
                                                         <td></td>
                                                         <td>${item.project_report}</td>
                                                         <td>${item.created_at}</td>
-                                                        <td>
-                                                            <a href="http://docs.google.com/gview?url={{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                            <!-- <iframe
-                                                                src="http://docs.google.com/gview?url={{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                style="width:600px; height:500px;" frameborder="0">
-                                                            </iframe> -->
+                                                        <td>` +
+                                                            let mimeType = item.mime_type;
+                                                            if(mimeType === 'application/pdf'){
+                                                               `
+                                                               <a href="{{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
+                                                                    View file
+                                                                </a>
+                                                               `
+                                                            }else{
+                                                                `
+                                                                <a href="http://docs.google.com/gview?url={{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                    View file
+                                                                </a>
+                                                                `
+                                                            }
+                                                         + `
 
-                                                                View file
-                                                            </a>
                                                         </td>
                                                         <td>
                                                             <form action="{{ url('admin/project-reports/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
