@@ -811,7 +811,6 @@
                     $('#loading').show();
                 });
 
-
         function addDocFunction(){
             swal({
                 title: "Success!",

@@ -187,10 +187,7 @@
                                                         <td>${item.version}</td>
                                                         <td>${item.created_at}</td>
                                                         <td>
-
-
-                                                                View file
-                                                            </a>
+                                                        </td>
                                                         </td>
                                                         <td>
                                                             <form action="{{ url('/admin/documents/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
@@ -268,14 +265,6 @@
                                                         <td>${item.project_report}</td>
                                                         <td>${item.created_at}</td>
                                                         <td>
-                                                            <!-- <a href="http://docs.google.com/gview?url={{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                            <!-- <iframe
-                                                                src="http://docs.google.com/gview?url={{ storage_path().'/' }}${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                style="width:600px; height:500px;" frameborder="0">
-                                                            </iframe> -->
-
-                                                                View file
-                                                            </a> -->
                                                         </td>
                                                         <td>
                                                             <form action="{{ url('admin/project-reports/${item.id}') }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
