@@ -136,7 +136,7 @@ class TaskApiController extends Controller
 
             $projects = Task::with('documents')
                 ->with('status')->findOrFail($task);
-            return response()->json(['data'=>$projects], 200);
+            return response()->json(['data'=>$projects], 200)->with('media_report');
         }
         catch(\Exception $e){
             return response()->json(['data'=>[]], 401);

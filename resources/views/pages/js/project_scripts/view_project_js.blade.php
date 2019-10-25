@@ -169,16 +169,16 @@
         }
 
         //  Edit Project form
-var editProjectData;
-
+        var editProjectData;
+var allProjectMembers;
 function editProject(project_id) {
     $.ajax({
         type: "GET",
         url: "/api/v1/project_create",
         success: function(data) {
             var projData = data;
+            allProjectMembers = projData.team_members;
             let editProjectBody = document.getElementById('editProjectBody');
-            console.log(projData.team_members);
             editProjectBody.innerHTML = `
                         <div class="col-md-12 ">
                             <form id="editProjectform" enctype="multipart/form-data">
@@ -238,9 +238,7 @@ function editProject(project_id) {
                                     <div class="col-md-6 form-group">
                                         <label for="edit-teammembers">Team members</label><br>
                                         <select onchange="loggingData()" multiple="multiple" class="form-control select2" id="edit-teammembers" name="team_members[]" style="width:100%;" required>
-                                            ` +
-                projData.team_members.map(elem => `<option value="${elem.id}">${elem.name}</option>`) +
-                `
+
                                         </select>
                                     </div>
 
@@ -300,12 +298,14 @@ function editProject(project_id) {
 
 
 
+    // Giving the fields in the edit form default values
     $.ajax({
         type: "GET",
-        url: "/api/v1/projects/" + project_id,
+        url: "{{ url('/api/v1/projects') }}" + "/" + project_id,
         success: function(data) {
             editProjectData = data.data;
             let team_members = editProjectData.team_members;
+
             $('#edit-client_list').val(editProjectData.client_id + "");
             $('#edit-project_name').val(editProjectData.name);
             $('#edit-manager_id').val(editProjectData.manager_id + "");
@@ -313,14 +313,17 @@ function editProject(project_id) {
             $('#edit-project_subtype_id').val(editProjectData.project_subtype_id + "");
             $('#edit-starting-date').val(editProjectData.starting_date);
             $('#edit-Deadline').val(editProjectData.deadline);
-            $('#edit-teammembers').val(team_members);
 
-            console.log(team_members)
-            for(let i = 0; i<team_members.length; i++){
+            for(let i = 0; i<allProjectMembers.length; i++){
                 option = document.createElement('option');
-                option.setAttribute('value', team_members[i].id);
-                // option.value = team_members[i].id;
-                option.setAttribute('selected', true);
+                option.setAttribute('value', allProjectMembers[i].id + "");
+                option.innerHTML = allProjectMembers[i].name
+                for(let j = 0; j<team_members.length; j++){
+                    if(allProjectMembers[i].id === team_members[j].id){
+                        option.setAttribute('selected', true);
+                    }
+                }
+
                 document.getElementById('edit-teammembers').appendChild(option);
             }
         },
@@ -334,11 +337,12 @@ function editProject(project_id) {
 
 function loggingData(){
         console.log($('#edit-teammembers').val())
-        console.log('It changed')
     }
 
     // post to the create proj table
     const createProject = () => {
+
+        console.log('Got to the create function')
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -349,7 +353,7 @@ function loggingData(){
             url: "{{ url('/api/v1/projects') }}",
             data: $('#addProjectForm').serialize(),
             success: function(data) {
-
+                console.log('Got to the success posting function')
                 swal({
                     title: "Success!",
                     text: "Project Created!",

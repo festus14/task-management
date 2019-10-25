@@ -278,7 +278,7 @@
                         categoryNameErr = false;
                     }
                 }
-
+            }
         }
 
         // if (categoryName == "") {
