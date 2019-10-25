@@ -1,4 +1,37 @@
 <script>
+         var editStatusData;
+            function editTaskStatusModal(taskStatusId){
+                $.ajax({
+                        type: "GET",
+                        url: "{{ url('/api/v1/task-statuses') }}" + "/" + taskStatusId,
+                        success: function(data){
+                            editStatusData = data.data;
+                            $('#editStatusInput').val(editStatusData.name);
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+
+                    })
+                let editTaskModalBody = document.getElementById('editTaskStatusBody');
+                editTaskModalBody.innerHTML = `
+                <form id="editTaskStatusform" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="create-task">Status name</label>
+                            <input type="text" class="form-control" id="editStatusInput" name="name" placeholder="" value="" required>
+                            <div class="error" id="editTaskStatusErr"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="$('#editTaskStatusModal').modal('hide');">Close</button>
+                        <input class="btn btn-danger" type="button" style="background-color:#8a2a2b; color:white;" onclick="validateEditStatus(${taskStatusId})" value="Update">
+                    </div>
+                </form>
+                `
+            }
+
     function submitEditTaskStatus(taskStatusId) {
         $.ajax({
             type: "PUT",

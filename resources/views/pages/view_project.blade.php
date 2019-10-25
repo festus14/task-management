@@ -811,11 +811,6 @@
                     $('#loading').show();
                 });
 
-
-                let addProjSubTypeId = document.getElementById('addProjSubTypeId');
-                    addProjSubTypeId.addEventListener("click", displayAddPsubtypeOut);
-
-
         function addDocFunction(){
             swal({
                 title: "Success!",
@@ -1424,3 +1419,4 @@
     </div>
 
 @endsection
+

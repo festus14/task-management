@@ -41,26 +41,21 @@
         });
         }
 
-    function displayAddPsubtypeOut() {
-        $("#subtypemainModal").modal('show');
-        $.ajax({
-            type: "GET",
-            url: '{{ url("/api/v1/project-types") }}',
-            success: function (data) {
-                let subtypemainModalBody = document.getElementById('subtypemainModalBody');
-                subtypemainModalBody.innerHTML = `
-            <form id="addprojsubtypeform2" enctype="multipart/form-data">
-                @csrf
-                    <div  class="modal-body">
+    let addProjSubTypeId = document.getElementById('addProjSubTypeId');
+                    addProjSubTypeId.addEventListener("click", displayAddPsubtypeOut);
 
-                        <div class="form-group">
-                            <label for="project-type">Select Project Type</label>
-                            <select id="project-type" name="project_type_id" class="selectDesign form-control">
-                                <option value="" selected></option>
-                                    ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
-                        </select>
-                        <div class="error" id="projectTTTypeErr"></div>
-                    </div>
+
+function displayAddPsubtypeOut() {
+    $("#subtypemainModal").modal('show');
+    $.ajax({
+        type: "GET",
+        url: '{{ url("/api/v1/project-types") }}',
+        success: function (data) {
+            let subtypemainModalBody = document.getElementById('subtypemainModalBody');
+            subtypemainModalBody.innerHTML = `
+        <form id="addprojsubtypeform2" enctype="multipart/form-data">
+            @csrf
+                <div  class="modal-body">
 
                     <div class="form-group">
                         <label for="create-task">Subtype Name</label>
@@ -440,6 +435,45 @@
         })
 
     }
+
+    // Add project type Post
+    function addProjectType() {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: '{{ url("/api/v1/project-types") }}',
+                        data: $('#addprojTtypeform2').serialize(),
+                        success: function (data) {
+
+                            swal({
+                                title: "Success!",
+                                text: "Project-type created!",
+                                icon: "success",
+                                confirmButtonColor: "#DD6B55",
+                                // confirmButtonText: "OK",
+                            });
+                            $('#AddProjecModalla').modal('hide');
+                            document.getElementById('projTypeId').value = "";
+                                window.setTimeout(function() {
+                                    $("#kt_table_project_type").DataTable().ajax.reload();
+                                }, 2300)
+
+                        },
+                        error: function (error) {
+                            swal({
+                                title: "Project-type creation failed!",
+                                icon: "error",
+                                confirmButtonColor: "#fc3",
+                                confirmButtonText: "OK",
+                            });
+                        }
+
+                    });
+                }
 
     //Edit Project Type
     var editProjectTypeData;
