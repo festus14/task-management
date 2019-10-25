@@ -270,7 +270,7 @@ class ProjectApiController extends Controller
 
         } catch (\Exception $e) {
 
-            return response()->json(['data' => [], 'error' => $e->getMessage()], 400);
+            return response()->json(['data' => [], 'error' => $e->getMessage()], 400)->with('media_report');
 
         }
 

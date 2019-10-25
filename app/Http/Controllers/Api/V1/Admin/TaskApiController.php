@@ -139,7 +139,7 @@ class TaskApiController extends Controller
             return response()->json(['data'=>$projects], 200);
         }
         catch(\Exception $e){
-            return response()->json(['data'=>[]], 401);
+            return response()->json(['data'=>[]], 401)->with('media_report');
         }
     }
     public function destroy(Task $task)
