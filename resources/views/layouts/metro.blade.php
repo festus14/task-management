@@ -133,9 +133,6 @@
                                                                                 My Profile
                                                                             </span>
                                                                             <span class="m-nav__link-badge">
-                                                                                <span
-                                                                                    class="m-badge m-badge--success">2</span>
-                                                                            </span>
                                                                         </span>
                                                                     </span>
                                                                 </a>
@@ -150,7 +147,7 @@
                                                                             </span>
                                                                             <span class="m-nav__link-badge">
                                                                                 <span
-                                                                                    class="m-badge m-badge--success">2</span>
+                                                                                    class="m-badge m-badge--success">{{ count($task) }}</span>
                                                                             </span>
                                                                         </span>
                                                                     </span>
@@ -161,6 +158,10 @@
                                                                     <i class="m-nav__link-icon flaticon-share"></i>
                                                                     <span class="m-nav__link-text">
                                                                         Projects
+                                                                    </span>
+                                                                    <span class="m-nav__link-badge">
+                                                                                <span
+                                                                                    class="m-badge m-badge--success">{{ count($project) }}</span>
                                                                     </span>
                                                                 </a>
                                                             </li>

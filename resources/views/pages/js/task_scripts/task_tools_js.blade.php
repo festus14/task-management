@@ -206,43 +206,6 @@
 
     }
 
-        // Delete single task document
-        function deleteTaskDocument(docID) {
-            swal({
-                title: "Are you sure?",
-                text: "Everything relating to this document will be lost!",
-                icon: "warning",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        type: "DELETE",
-                        url: "{{ url('/admin/documents/destroy')}}" + "/" + docID,
-                        success: function(data) {
-                            swal("Deleted!", "Document has been successfully deleted.", "success");
-                            window.setTimeout(function() {
-                                location.reload();
-                            }, 2500);
-                        },
-                        error: function(data) {
-                            swal("Delete failed", "Please try again", "error");
-                        }
-
-                    });
-                } else {
-                    swal("Cancelled", "Delete cancelled", "error");
-                }
-
-            });
-        }
-
         // Delete Task Report
         function deleteTaskReport(repID) {
             swal({
