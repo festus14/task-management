@@ -1202,7 +1202,7 @@
                                                                 <div class="m-messenger__message-arrow"></div>
                                                                     <div class="m-messenger__message-content">
                                                                         <div class="m-messenger__message-username">
-                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.id} / ${elem.user.name}</strong></span>
+                                                                            <span class="secondary" style="margin-right:30px; color: #6f727d;"><strong>${elem.user.name}</strong></span>
                                                                             <span id="datee" style="float: right; color: #6f727d;">${elem.created_at}</span>
                                                                         </div>
                                                                         <div class="m-messenger__message-text" id="comContent" style="  max-width: 450px; min-height:20px; max-height: 4000px; display: flex; flex-direction: column;">
@@ -1244,7 +1244,7 @@
 
                                                                         <div class="collapse" id="${elem.id}collapseReply">
                                                                             <br>
-                                                                            <form id="replyForm" enctype="multipart/form-data">
+                                                                            <form id="${elem.id}replyForm" enctype="multipart/form-data">
                                                                                 @csrf
                                                                                 <input type="hidden" name="task_comment_id" id="task_comment_id" value="${elem.id}">
                                                                                 <textarea class="form-control" name="task_comment_reply" id="${elem.id}replyTextId" rows="1" style="width: 100%" required></textarea>

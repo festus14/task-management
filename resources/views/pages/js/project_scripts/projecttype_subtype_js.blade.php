@@ -56,6 +56,14 @@ function displayAddPsubtypeOut() {
         <form id="addprojsubtypeform2" enctype="multipart/form-data">
             @csrf
                 <div  class="modal-body">
+                    <div class="form-group">
+                            <label for="project-type">Select Project Type</label>
+                            <select id="project-type" name="project_type_id" class="selectDesign form-control">
+                                <option value="" selected></option>
+                                    ${data.data.map(elem => `<option value="${elem.id}">${elem.name}</option>`)}
+                        </select>
+                        <div class="error" id="projectTTTypeErr"></div>
+                    </div>
 
                     <div class="form-group">
                         <label for="create-task">Subtype Name</label>
