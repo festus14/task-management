@@ -9,6 +9,9 @@
 @section('css')
 
 @endsection
+{{-- @php ($num = 1) --}}
+@if ($num = 0) @endif
+@if ($num2 = 0) @endif
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -96,7 +99,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Manager</th>
-                        {{-- <th>Members</th> --}}
+                        <th>Members</th>
                         <th>Ending Date</th>
                     </tr>
                 </thead>
@@ -105,18 +108,19 @@
                     @if(count($projects) > 0)
                         @foreach ($projects as $project)
                             <tr>
-                                <td>  </td>
+                                <td> {{ ++$num }} </td>
                                 <td>{{ $project->name }}</td>
                                 <td>{{ $project->manager->email }}</td>
-                                {{-- <td>
+                                <td>
                                     @if(!$project->team_members == null)
                                     @foreach ($project->team_members as $member)
-                                            {{ $member->name .' ('. $member->email. ')' }}
+                                            {{ $member->email }}
+                                            <br>
                                     @endforeach
                                     @else
                                     No member
                                     @endif
-                                </td> --}}
+                                </td>
                                 <td>{{ $project->deadline }}</td>
                             </tr>
                         @endforeach
@@ -140,7 +144,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Manager</th>
-                        {{-- <th>Members</th> --}}
+                        <th>Members</th>
                         <th>Ending Date</th>
                     </tr>
                 </thead>
@@ -149,18 +153,19 @@
                     @if(count($tasks) > 0)
                         @foreach ($tasks as $task)
                             <tr>
-                                <td></td>
+                                <td>{{ ++$num2 }}</td>
                                 <td>{{ $task->name }}</td>
                                 <td>{{ $task->manager->email }}</td>
-                                {{-- <td>
+                                <td>
                                     @if(!$task->team_members == null)
                                         @foreach ($task->team_members as $member)
-                                            {{ $member->name .' ('. $member->email. ')' }}
+                                            {{ $member->email }}
+                                            <br>
                                         @endforeach
                                         @else
                                         No member
                                     @endif
-                                </td> --}}
+                                </td>
                                 <td>{{ $task->ending_date }}</td>
 
                             </tr>

@@ -153,15 +153,20 @@
                                                         <td></td>
                                                         <td>${item.name}</td>
                                                         <td style="text-align: center;">${item.document_type}</td>
-                                                        <td>
-                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                            <!-- <iframe
-                                                                src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                style="width:600px; height:500px;" frameborder="0">
-                                                            </iframe> -->
-
-                                                                View file
-                                                            </a>
+                                                        <td>`+
+                                                            (item.media_report[0].mime_type === 'application/pdf' ?
+                                                                `
+                                                                <a href="{{ storage_path('app/public').'/' }}/${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
+                                                                   View file
+                                                                </a
+                                                            `
+                                                            :
+                                                                `
+                                                                <a href="http://docs.google.com/gview?url={{ storage_path('app/public').'/' }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                    View file
+                                                                </a>
+                                                            `)
+                                                        +`
                                                         </td>
                                                         <td>${item.created_at}</td>
                                                         <td>

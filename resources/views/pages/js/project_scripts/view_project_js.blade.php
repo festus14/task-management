@@ -341,8 +341,7 @@ function loggingData(){
 
     // post to the create proj table
     const createProject = () => {
-
-        console.log('Got to the create function')
+        console.log($('#addProjectForm').serialize())
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
