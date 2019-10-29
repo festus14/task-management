@@ -154,14 +154,18 @@
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="{{ url('/admin/my-projects') }}" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-share"></i>
-                                                                    <span class="m-nav__link-text">
-                                                                        Projects
-                                                                    </span>
-                                                                    <span class="m-nav__link-badge">
+                                                                <a href="{{ url('/admin/my-tasks') }}" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon flaticon-profile-1"></i>
+                                                                    <span class="m-nav__link-title">
+                                                                        <span class="m-nav__link-wrap">
+                                                                            <span class="m-nav__link-text">
+                                                                                Projects
+                                                                            </span>
+                                                                            <span class="m-nav__link-badge">
                                                                                 <span
-                                                                                    class="m-badge m-badge--success">{{ count($project) }}</span>
+                                                                                    class="m-badge m-badge--success">{{ count($projects) }}</span>
+                                                                            </span>
+                                                                        </span>
                                                                     </span>
                                                                 </a>
                                                             </li>
