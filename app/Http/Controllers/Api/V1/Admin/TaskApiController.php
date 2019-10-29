@@ -32,7 +32,6 @@ class TaskApiController extends Controller
                 ->with('category')
                 ->with('documents')
                 ->with('comments')
-                ->with('reports')
                 ->get();
             return response()->json(['data' => $tasks], 200);
         } catch (\Exception $e) {
