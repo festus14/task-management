@@ -147,7 +147,7 @@
                                                                             </span>
                                                                             <span class="m-nav__link-badge">
                                                                                 <span
-                                                                                    class="m-badge m-badge--success">{{ count($task) }}</span>
+                                                                                    class="m-badge m-badge--success">{{ \App\Task::all()->count() }}</span>
                                                                             </span>
                                                                         </span>
                                                                     </span>
@@ -163,7 +163,7 @@
                                                                             </span>
                                                                             <span class="m-nav__link-badge">
                                                                                 <span
-                                                                                    class="m-badge m-badge--success">{{ count($projects) }}</span>
+                                                                                    class="m-badge m-badge--success">{{ \App\Project::all()->count() }}</span>
                                                                             </span>
                                                                         </span>
                                                                     </span>
@@ -572,7 +572,7 @@
                                                                Client Management
                                                             </span>
                                                             <span class="m-menu__link-badge">
-                                                                <span class="m-badge m-badge--success">{{ count($clients) }}
+                                                                <span class="m-badge m-badge--success">{{ \App\Client::all()->count() }}
                                                                 </span>
                                                             </span>
                                                         </span>
