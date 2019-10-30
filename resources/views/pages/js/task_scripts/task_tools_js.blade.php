@@ -152,7 +152,7 @@
                                                     `<tr>
                                                         <td></td>
                                                         <td>${item.name}</td>
-                                                        <td style="text-align: center;">${item.document_type}</td>
+                                                        <td style="text-align: center;">${switch_doc_type(item.document_type)}</td>
                                                         <td>`+
                                                             (item.media_report[0].mime_type === 'application/pdf' ?
                                                                 `
@@ -183,17 +183,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--end::Portlet-->
                         </div>
                     </div>
                 </div>
                 </div>
-
-
-
-
-
-
             `
             document.getElementById('client-list').value = data.data.client_id;
             document.getElementById('doc-task-id').value = data.data.id;
@@ -408,5 +401,20 @@
 
             return _results
         }
+        }
+        function switch_doc_type(type) {
+            switch (type) {
+                case 1:
+                    return 'Word';
+                case 2:
+                    return 'PDF';
+                case 3:
+                    return 'Excel';
+                case 4:
+                    return 'Text';
+                default:
+                    return 'Unknown'
+
+            }
         }
 </script>
