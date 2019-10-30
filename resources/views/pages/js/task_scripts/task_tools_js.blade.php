@@ -404,13 +404,13 @@
         }
         function switch_doc_type(type) {
             switch (type) {
-                case 1:
+                case '1':
                     return 'Word';
-                case 2:
+                case '2':
                     return 'PDF';
-                case 3:
+                case '3':
                     return 'Excel';
-                case 4:
+                case '4':
                     return 'Text';
                 default:
                     return 'Unknown'
