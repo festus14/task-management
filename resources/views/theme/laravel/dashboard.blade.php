@@ -120,7 +120,7 @@
                                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <span class="m-widget24__change">Completed</span>
-                            <span class="m-widget24__number">{{ ($tasks->where('status_id', 4)->count() * 100)/ count($projects) }}%</span>
+                            <span class="m-widget24__number">@if(count($projects) > 0) {{ ($tasks->where('status_id', 4)->count() * 100)/ count($projects) }} @else 0 @endif %</span>
                         </div>
                     </div>
                     <!--end::New Feedbacks-->
