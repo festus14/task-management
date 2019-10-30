@@ -91,7 +91,9 @@ class ProjectReportController extends Controller
     public function myReports(Request $request)
     {
         abort_unless(\Gate::allows('project_report_show'), 403);
-        return redirect()->back();
+        $projectReports = ProjectReport::all();
+
+        return view('admin.projectReports.index', compact('projectReports'));
     }
 
 

@@ -123,7 +123,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('project-reports/destroy', 'ProjectReportController@massDestroy')->name('project-reports.massDestroy');
 
     Route::resource('project-reports', 'ProjectReportController');
-    Route::get('/my-reports', 'ProjectReportController@myReports');
+    Route::get('my-reports', 'ProjectReportController@myReports');
     Route::post('project-reports/media', 'ProjectReportController@storeMedia')->name('project-reports.storeMedia');
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
