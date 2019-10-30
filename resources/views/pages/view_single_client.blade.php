@@ -51,7 +51,7 @@
                                 {{ trans('cruds.client.fields.status') }}
                             </th>
                             <td>
-                                {{ $client->status }}
+                                @if($client->status == 1) {{ 'Active Client' }} @elseif($client->status == 0) {{ 'Proposed Client' }} @endif
                             </td>
                         </tr>
                         <tr>
