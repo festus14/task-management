@@ -23,8 +23,8 @@
                                 </div>
                                 <div class="m-card-profile__details">
                                     <span class="m-card-profile__name">
-                                            ${projectName}
-                                                    </span>
+                                        ${projectName}
+                                    </span>
                                 </div>
                             </div>
 
@@ -131,13 +131,14 @@
                 });
             }
 
-                    var commentUser;
+
         function makeComment(proj_id) {
+            console.log(proj_id);
             $.ajax({
                 type: "GET",
-                url: '{{ url("/api/v1/tasks") }}'+ "/" + proj_id,
+                url: '{{ url("/api/v1/projects") }}'+ "/" + proj_id,
                 success: function(data) {
-                    commentUser = data.data.manager.name;
+                    console.log("the data "+ data);
                     let makecommentModal = document.getElementById('makeCommentBodyId');
                     makecommentModal.innerHTML = `
                                             <form id="makeCommentForm" enctype="multipart/form-data">
@@ -153,7 +154,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <input type="button" id="closeModal" class="m-btn--pill btn btn-secondary" onclick="$('#msgModal').modal('hide');" value="Close">
-                                                                        <input type="button" class="m-btn--pill btn btn-primary" onclick="$('#msgModal').modal('hide'), postComment()" value="Comment">
+                                                                        <input type="button" class="m-btn--pill btn" style="background-color: #312b8e; color: white;" onclick="$('#msgModal').modal('hide'), postComment()" value="Comment">
                                                                     </div>
                                                                     </form>
 
@@ -247,8 +248,8 @@ var formattedDate = (date.toString().slice(0, 25));
                                 </div>
                                 <div style="max-width: 440px; max-height: 4000px;">
                                     <div id="actionTaken" class="actionTaken" style="flex-wrap: wrap; border-radius: 10px;align-self: flex-end; text-align: right;">
-                                    <span class="pull-right" style="margin-bottom:2px; font-weight: 600; ">Action required</span> <br/>
-                                         <div style=" padding: 7px; border-radius: 7px; color: white; background-color: #5e669b;">
+                                    <span class="pull-right" style="margin-bottom:2px; font-weight: 200; ">Action required</span> <br/>
+                                         <div style=" padding: 7px; border-radius: 7px; color: white; background-color: #6471c6;">
 
 
                                 <span>${action_required}</span>

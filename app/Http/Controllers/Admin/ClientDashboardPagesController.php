@@ -62,16 +62,6 @@ class ClientDashboardPagesController extends Controller
         ->with('category')
         ->get();
 
-        // $clients = Client::where('client_id', $client_id)->with('name')
-        // ->with('email')
-        // ->with('phone')
-        // ->with('status')
-        // ->with('address')
-        // ->with('phone')
-        // ->with('expiry_date')
-        // ->with('date_of_engagement')
-        // ->get();
-
         return view('pages.view_single_client', compact('projects', 'tasks'));
     }
 

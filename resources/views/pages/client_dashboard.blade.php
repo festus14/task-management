@@ -572,7 +572,6 @@
                     type: "GET",
                     url: "{{ url('/api/v1/clients') }}",
                     success: function(data){
-                        console.log(data)
                     let editClientBody = document.getElementById('editClientBody');
                     editClientBody.innerHTML = `
                             <div class="col-md-12 ">

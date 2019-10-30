@@ -123,9 +123,10 @@ function addComment() {
 function addReply(id) {
     $.ajax({
         type: "POST",
-        url: "/api/v1/task-comment-replies" +"/"+ id,
-        data: $('#replyForm').serialize(),
+        url: "/api/v1/task-comment-replies",
+        data: $(`#${id}replyForm`).serialize(),
         success: function(data) {
+
             swal({
                 title: "Success!",
                 text: "Reply made!",

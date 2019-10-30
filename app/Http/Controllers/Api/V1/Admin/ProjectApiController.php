@@ -266,11 +266,11 @@ class ProjectApiController extends Controller
 
             $documents = Document::where('project_id', $project->id)->get();
 
-            return response()->json(['data' => $documents], 200);
+            return response()->json(['data' => $documents], 200)->with('media_report');
 
         } catch (\Exception $e) {
 
-            return response()->json(['data' => [], 'error' => $e->getMessage()], 400);
+            return response()->json(['data' => [], 'error' => $e->getMessage()], 400)->with('media_report');
 
         }
 
