@@ -78,7 +78,6 @@
                                 {{ $client->phone }}
                             </td>
                         </tr>
-                        @endif
                     </tbody>
                 </table>
             </div>
