@@ -22,13 +22,12 @@
             <div>
                 <table class="table table-bordered table-striped table-hover">
                     <tbody>
-                        @if(count($projects) > 0)
                         <tr>
                             <th>
                                 {{ trans('cruds.client.fields.name') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->name }}
+                                {{ $client->name }}
                             </td>
                         </tr>
                         <tr>
@@ -36,7 +35,7 @@
                                 {{ trans('cruds.client.fields.address') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->address }}
+                                {{ $client->address }}
                             </td>
                         </tr>
                         <tr>
@@ -44,7 +43,7 @@
                                 {{ trans('cruds.client.fields.date_of_engagement') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->date_of_engagement }}
+                                {{ $client->date_of_engagement }}
                             </td>
                         </tr>
                         <tr>
@@ -52,7 +51,7 @@
                                 {{ trans('cruds.client.fields.status') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->status }}
+                                {{ $client->status }}
                             </td>
                         </tr>
                         <tr>
@@ -60,7 +59,7 @@
                                 {{ trans('cruds.client.fields.expiry_date') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->expiry_date }}
+                                {{ $client->expiry_date }}
                             </td>
                         </tr>
                         <tr>
@@ -68,7 +67,7 @@
                                 {{ trans('cruds.client.fields.email') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->email }}
+                                {{ $client->email }}
                             </td>
                         </tr>
                         <tr>
@@ -76,7 +75,7 @@
                                 {{ trans('cruds.client.fields.phone') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->phone }}
+                                {{ $client->phone }}
                             </td>
                         </tr>
                         @endif
