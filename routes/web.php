@@ -153,6 +153,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/project_dashboard', 'TaskPagesController@projectDashboard')->name('project_dashboard');
 
     Route::get('/project_subtype', 'ProjectPagesController@projectSubtype')->name('project_subtype');
+    Route::get('/preview/{id}', 'DocumentsController@preview')->name('preview');
 
     // Lettertypes
     Route::delete('letter-types/destroy', 'LetterTypeController@massDestroy')->name('letter-types.massDestroy');
