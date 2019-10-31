@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
 
-                                        <div onclick="taskCommentTester(${data.data.id})" class="card">
+                                        <div onclick="taskCommentFunction(${data.data.id})" class="card">
                                             <div class="card-header" id="headingFour">
                                                 <h6 style="cursor: pointer" class="mb-0">
                                                     <span class="" id="commentTrigger" data-toggle="modal" data-target="#taskCommentModal">
