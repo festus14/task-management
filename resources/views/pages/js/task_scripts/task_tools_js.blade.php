@@ -152,16 +152,21 @@
                                                     `<tr>
                                                         <td></td>
                                                         <td>${item.name}</td>
-                                                        <td style="text-align: center;">${item.document_type}</td>
-                                                        <td>
-                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                            <!-- <iframe
-                                                                src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                style="width:600px; height:500px;" frameborder="0">
-                                                            </iframe> -->
-
-                                                                View file
-                                                            </a>
+                                                        <td style="text-align: center;">${switch_doc_type(item.document_type)}</td>
+                                                        <td>`+
+                                                            (item.media_report[0].mime_type === 'application/pdf' ?
+                                                                `
+                                                                <a href="{{ url('app/public').'/' }}/${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
+                                                                   View file
+                                                                </a
+                                                            `
+                                                            :
+                                                                `
+                                                                <a href="https://view.officeapps.live.com/op/embed.aspx?src={{ url('/storage/app/public') }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                    View file
+                                                                </a>
+                                                            `)
+                                                        +`
                                                         </td>
                                                         <td>${item.created_at}</td>
                                                         <td>
@@ -178,17 +183,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--end::Portlet-->
                         </div>
                     </div>
                 </div>
                 </div>
-
-
-
-
-
-
             `
             document.getElementById('client-list').value = data.data.client_id;
             document.getElementById('doc-task-id').value = data.data.id;
@@ -358,50 +356,65 @@
         }
 
         Dropzone.options.documentDropzone = {
-        url: '{{ route('admin.task-documents.storeMedia') }}',
-        maxFilesize: 20, // MB
-        maxFiles: 1,
-        addRemoveLinks: true,
-        headers: {
-        'X-CSRF-TOKEN': "{{ csrf_token() }}"
-        },
-        params: {
-        size: 20
-        },
-        success: function (file, response) {
-        $('form').find('input[name="document"]').remove()
-        $('form').append('<input type="hidden" name="document" value="' + response.name + '">')
-        },
-        removedfile: function (file) {
-        file.previewElement.remove()
-        $('form').find('input[name="document"]').remove()
-        this.options.maxFiles = this.options.maxFiles + 1
-        },
-        init: function () {
-            @if(isset($taskDocument) && $taskDocument->document)
-            var file = {!! json_encode($taskDocument->document) !!}
-                this.options.addedfile.call(this, file)
-            file.previewElement.classList.add('dz-complete')
-            $('form').append('<input type="hidden" name="document" value="' + file.file_name + '">')
-            this.options.maxFiles = this.options.maxFiles - 1
+            url: '{{ route('admin.task-documents.storeMedia') }}',
+            maxFilesize: 20, // MB
+            maxFiles: 1,
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            params: {
+                size: 20
+            },
+            success: function (file, response) {
+                $('form').find('input[name="document"]').remove()
+                $('form').append('<input type="hidden" name="document" value="' + response.name + '">')
+            },
+            removedfile: function (file) {
+                file.previewElement.remove()
+                $('form').find('input[name="document"]').remove()
+                this.options.maxFiles = this.options.maxFiles + 1
+            },
+            init: function () {
+                @if(isset($taskDocument) && $taskDocument->document)
+                var file = {!! json_encode($taskDocument->document) !!}
+                    this.options.addedfile.call(this, file)
+                file.previewElement.classList.add('dz-complete')
+                $('form').append('<input type="hidden" name="document" value="' + file.file_name + '">')
+                this.options.maxFiles = this.options.maxFiles - 1
 
-                @endif
+                    @endif
             },
             error: function (file, response) {
-            if ($.type(response) === 'string') {
-                var message = response //dropzone sends it's own error messages in string
-            } else {
-                var message = response.errors.file
-            }
-            file.previewElement.classList.add('dz-error')
-            _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
-            _results = []
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                node = _ref[_i]
-                _results.push(node.textContent = message)
-            }
+                if ($.type(response) === 'string') {
+                    var message = response //dropzone sends it's own error messages in string
+                } else {
+                    var message = response.errors.file
+                }
+                file.previewElement.classList.add('dz-error')
+                _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                _results = []
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i]
+                    _results.push(node.textContent = message)
+                }
 
-            return _results
-        }
+                return _results
+            }
+        };
+        function switch_doc_type(type) {
+            switch (type) {
+                case '1':
+                    return 'Word';
+                case '2':
+                    return 'PDF';
+                case '3':
+                    return 'Excel';
+                case '4':
+                    return 'Text';
+                default:
+                    return 'Unknown'
+
+            }
         }
 </script>

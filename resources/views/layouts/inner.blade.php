@@ -167,7 +167,12 @@
                                                                             </span>
                                                                             <span class="m-nav__link-badge">
                                                                                 <span
-                                                                                    class="m-badge m-badge--success">2</span>
+                                                                                    class="m-badge m-badge--success">
+                                                                                    {{ \App\Task::whereHas('assinged_tos',
+                                                                                        function ($query)  {
+                                                                                            $query->where('id', Auth::id());
+                                                                                        })->count() }}
+                                                                                </span>
                                                                             </span>
                                                                         </span>
                                                                     </span>
@@ -182,15 +187,19 @@
                                                                                 Projects
                                                                             </span>
                                                                             <span class="m-nav__link-badge">
-                                                                                <span
-                                                                                    class="m-badge m-badge--success">2</span>
+                                                                                <span class="m-badge m-badge--success">
+                                                                                    {{ \App\Project::whereHas('team_members',
+                                                                                        function ($query)  {
+                                                                                            $query->where('id', Auth::id());
+                                                                                        })->count() }}
+                                                                                </span>
                                                                             </span>
                                                                         </span>
                                                                     </span>
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="{{ url('/admin/my-reports') }}" class="m-nav__link">
+                                                                <a href="{{ url('/admin/project-reports') }}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon flaticon-chat-1"></i>
                                                                     <span class="m-nav__link-text">
                                                                        Reports

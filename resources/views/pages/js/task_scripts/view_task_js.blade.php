@@ -178,13 +178,14 @@
 
                 //Edit Task
                 var editData;
+                var allTaskMembers;
             function editTaskMain(task_id) {
-
                     $.ajax({
                         type: "GET",
                         url: "{{ url('/api/v1/create_task') }}",
                         success: function(data){
                             var allData = data.data;
+                            allTaskMembers = allData.assinged_tos;
                         let editTaskBody = document.getElementById('editTaskBody');
                         editTaskBody.innerHTML = `
                             <div class="modal-body">
@@ -249,7 +250,7 @@
                                             <label for="edit-edit_assinged_tos">Assign task to</label>
                                                 <br>
                                             <select style="width: 100%" name="assinged_tos[]" id="edit-edit_assinged_tos" multiple="multiple" required class="form-control select2">
-                                                ${Object.keys(allData.assinged_tos).map((key, index) => `<option value="${key}">${allData.assinged_tos[key]}</option>`)}
+
                                             </select>
                                             <div class="error" id="editAssignedTosErr"></div>
                                         </div>
@@ -294,9 +295,29 @@
                             $('#edit-task-status').val(editData.status_id + "");
                             $('#edit-manager').val(editData.manager_id + "");
                             $('#edit-task-category').val(editData.category_id + "");
-                            $('#edit_assinged_tos').val(editData.assinged_tos + "");
                             $('#edit-starting-date').val(editData.starting_date);
                             $('#edit-deadline').val(editData.ending_date);
+
+                            let allKeysArr = Object.keys(allTaskMembers);
+                            let allValuesArr = Object.values(allTaskMembers);
+                            let team_members = editData.assinged_tos;
+
+                            console.log(allKeysArr)
+                            console.log(team_members)
+
+                            for(let i = 0; i<allKeysArr.length; i++){
+                                option = document.createElement('option');
+                                option.setAttribute('value', allKeysArr[i]);
+                                option.innerHTML = allValuesArr[i];
+                                for(let j = 0; j<team_members.length; j++){
+                                    if(allKeysArr[i] == team_members[j].id){
+                                        option.setAttribute('selected', true);
+                                    }
+                                }
+
+                                document.getElementById('edit-edit_assinged_tos').appendChild(option);
+                            }
+
                         },
 
                         error: function (data) {

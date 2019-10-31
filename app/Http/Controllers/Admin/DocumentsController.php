@@ -105,6 +105,15 @@ class DocumentsController extends Controller
         return back();
     }
 
+    public function preview(Document $document)
+    {
+        abort_unless(\Gate::allows('document_show'), 403);
+
+        $document->load('client', 'project');
+
+        return view('admin.documents.show', compact('document'));
+    }
+
     public function massDestroy(MassDestroyDocumentRequest $request)
     {
         Document::whereIn('id', request('ids'))->delete();

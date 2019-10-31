@@ -23,8 +23,8 @@
                                 </div>
                                 <div class="m-card-profile__details">
                                     <span class="m-card-profile__name">
-                                            ${projectName}
-                                                    </span>
+                                        ${projectName}
+                                    </span>
                                 </div>
                             </div>
 

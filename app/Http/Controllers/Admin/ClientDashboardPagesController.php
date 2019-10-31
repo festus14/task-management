@@ -44,6 +44,7 @@ class ClientDashboardPagesController extends Controller
 
     public function viewSingleClient(Request $request, $client_id){
 
+        $client = Client::findOrFail($client_id);
         $projects =  Project::where('client_id', $client_id)
         ->with('status')
         ->with('client')
@@ -62,7 +63,7 @@ class ClientDashboardPagesController extends Controller
         ->with('category')
         ->get();
 
-        return view('pages.view_single_client', compact('projects', 'tasks'));
+        return view('pages.view_single_client', compact('projects', 'tasks', 'client'));
     }
 
 }

@@ -9,6 +9,9 @@
 @section('css')
 
 @endsection
+{{-- @php ($num = 1) --}}
+@if ($num = 0) @endif
+@if ($num2 = 0) @endif
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -19,13 +22,12 @@
             <div>
                 <table class="table table-bordered table-striped table-hover">
                     <tbody>
-                        @if(count($projects) > 0)
                         <tr>
                             <th>
                                 {{ trans('cruds.client.fields.name') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->name }}
+                                {{ $client->name }}
                             </td>
                         </tr>
                         <tr>
@@ -33,7 +35,7 @@
                                 {{ trans('cruds.client.fields.address') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->address }}
+                                {{ $client->address }}
                             </td>
                         </tr>
                         <tr>
@@ -41,7 +43,7 @@
                                 {{ trans('cruds.client.fields.date_of_engagement') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->date_of_engagement }}
+                                {{ $client->date_of_engagement }}
                             </td>
                         </tr>
                         <tr>
@@ -49,7 +51,7 @@
                                 {{ trans('cruds.client.fields.status') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->status }}
+                                @if($client->status == 1) {{ 'Active Client' }} @elseif($client->status == 0) {{ 'Proposed Client' }} @endif
                             </td>
                         </tr>
                         <tr>
@@ -57,7 +59,7 @@
                                 {{ trans('cruds.client.fields.expiry_date') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->expiry_date }}
+                                {{ $client->expiry_date }}
                             </td>
                         </tr>
                         <tr>
@@ -65,7 +67,7 @@
                                 {{ trans('cruds.client.fields.email') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->email }}
+                                {{ $client->email }}
                             </td>
                         </tr>
                         <tr>
@@ -73,10 +75,9 @@
                                 {{ trans('cruds.client.fields.phone') }}
                             </th>
                             <td>
-                                {{ $projects[0]->client->phone }}
+                                {{ $client->phone }}
                             </td>
                         </tr>
-                        @endif
                     </tbody>
                 </table>
             </div>
@@ -96,7 +97,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Manager</th>
-                        {{-- <th>Members</th> --}}
+                        <th>Members</th>
                         <th>Ending Date</th>
                     </tr>
                 </thead>
@@ -105,18 +106,19 @@
                     @if(count($projects) > 0)
                         @foreach ($projects as $project)
                             <tr>
-                                <td>  </td>
+                                <td> {{ ++$num }} </td>
                                 <td>{{ $project->name }}</td>
                                 <td>{{ $project->manager->email }}</td>
-                                {{-- <td>
+                                <td>
                                     @if(!$project->team_members == null)
                                     @foreach ($project->team_members as $member)
-                                            {{ $member->name .' ('. $member->email. ')' }}
+                                            {{ $member->email }}
+                                            <br>
                                     @endforeach
                                     @else
                                     No member
                                     @endif
-                                </td> --}}
+                                </td>
                                 <td>{{ $project->deadline }}</td>
                             </tr>
                         @endforeach
@@ -140,7 +142,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Manager</th>
-                        {{-- <th>Members</th> --}}
+                        <th>Members</th>
                         <th>Ending Date</th>
                     </tr>
                 </thead>
@@ -149,18 +151,19 @@
                     @if(count($tasks) > 0)
                         @foreach ($tasks as $task)
                             <tr>
-                                <td></td>
+                                <td>{{ ++$num2 }}</td>
                                 <td>{{ $task->name }}</td>
                                 <td>{{ $task->manager->email }}</td>
-                                {{-- <td>
+                                <td>
                                     @if(!$task->team_members == null)
                                         @foreach ($task->team_members as $member)
-                                            {{ $member->name .' ('. $member->email. ')' }}
+                                            {{ $member->email }}
+                                            <br>
                                         @endforeach
                                         @else
                                         No member
                                     @endif
-                                </td> --}}
+                                </td>
                                 <td>{{ $task->ending_date }}</td>
 
                             </tr>

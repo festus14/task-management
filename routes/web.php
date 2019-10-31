@@ -7,7 +7,7 @@ Route::get('/testing', 'TestingController@index')->name('testing');
 Route::get('/test', 'Admin\HomeController@test')->name('test');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
 
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'ClientDashboardPagesController@clientDashboard')->name('home');
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
 
     Route::resource('permissions', 'PermissionsController');
@@ -123,7 +123,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('project-reports/destroy', 'ProjectReportController@massDestroy')->name('project-reports.massDestroy');
 
     Route::resource('project-reports', 'ProjectReportController');
-    Route::get('/my-reports', 'ProjectReportController@myReports');
+    Route::get('my-reports', 'ProjectReportController@myReports');
     Route::post('project-reports/media', 'ProjectReportController@storeMedia')->name('project-reports.storeMedia');
 
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
@@ -153,6 +153,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/project_dashboard', 'TaskPagesController@projectDashboard')->name('project_dashboard');
 
     Route::get('/project_subtype', 'ProjectPagesController@projectSubtype')->name('project_subtype');
+    Route::get('/preview/{id}', 'DocumentsController@preview')->name('preview');
 
     // Lettertypes
     Route::delete('letter-types/destroy', 'LetterTypeController@massDestroy')->name('letter-types.massDestroy');

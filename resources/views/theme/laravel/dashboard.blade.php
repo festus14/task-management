@@ -96,11 +96,11 @@
                             <div class="progress m-progress--sm">
                                 <div class="progress-bar m--bg-brand" role="progressbar"
                                      style="width: {{ ($projects->where('status_id', 4)->count() * 100)/ count($projects) }}%;"
-                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                     aria-valuenow="@if(count($projects) > 0) {{ ($projects->where('status_id', 4)->count() * 100)/ count($projects) }} @else 0 @endif" aria-valuemin="0" aria-valuemax="100">
                                 </div>
                             </div>
                             <span class="m-widget24__change">Completed</span>
-                            <span class="m-widget24__number">{{ ($projects->where('status_id', 4)->count() * 100)/ count($projects) }}%</span>
+                            <span class="m-widget24__number">@if(count($projects) > 0) {{ ($projects->where('status_id', 4)->count() * 100)/ count($projects) }} @else 0 @endif %</span>
                         </div>
                     </div>
                     <!--end::Total Profit-->
@@ -116,11 +116,11 @@
                             <div class="m--space-10"></div>
                             <div class="progress m-progress--sm">
                                 <div class="progress-bar m--bg-info" role="progressbar"
-                                     style="width: {{ ($tasks->where('status_id', 4)->count() * 100)/ count($projects) }}%;"
-                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                     style="width: {{ ($tasks->where('status_id', 4)->count() * 100) / count($projects) }}%;"
+                                     aria-valuenow="@if(count($tasks) > 0 && $tasks->where('status_id', 4)->count() > 0) {{ ($tasks->where('status_id', 4)->count() * 100)/ count($tasks) }} @else 0 @endif" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <span class="m-widget24__change">Completed</span>
-                            <span class="m-widget24__number">{{ ($tasks->where('status_id', 4)->count() * 100)/ count($projects) }}%</span>
+                            <span class="m-widget24__number">@if(count($tasks) > 0 && $tasks->where('status_id', 4)->count() > 0) {{ ($tasks->where('status_id', 4)->count() * 100)/ count($tasks) }} @else 0 @endif %</span>
                         </div>
                     </div>
                     <!--end::New Feedbacks-->

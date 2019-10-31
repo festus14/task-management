@@ -554,6 +554,7 @@
     var userId = {{ Auth::user()->id}}
 
     function addDocFunction(){
+        console.log($('#taskDocumentForm').serialize())
         swal({
             title: "Success!",
             text: "Document Added!",
