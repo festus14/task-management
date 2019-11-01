@@ -547,7 +547,7 @@
                             </button>
                     </div>
                     <div class="modal-body">
-                            <form id="addProjectReportForm" onsubmit="addDocFunction()" action="{{ url('admin/project-reports') }}" method="POST" enctype="multipart/form-data">
+                            <form id="addProjectReportForm" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="form-group {{ $errors->has('project_report') ? 'has-error' : '' }} col-md-12">
@@ -588,7 +588,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                                    <input class="btn btn-danger" onclick="addReportFunction()" type="button" value="{{ trans('global.save') }}">
                                 </div>
                             </form>
                     </div>
@@ -607,7 +607,7 @@
                                 </button>
                         </div>
                         <div class="modal-body">
-                                <form action="{{ url('admin/documents') }}" onsubmit="addDocFunction()" id="createDocForm" method="POST" enctype="multipart/form-data">
+                                <form id="createDocForm" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
 
@@ -660,7 +660,7 @@
 
                                     <div class="row">
                                         <div class="col-md-3 form-group">
-                                            <input class="btn btn-block center-block" type="submit" id="pro_doc_submit" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
+                                            <input class="btn btn-block center-block" type="button" onclick="addDocFunction()" id="pro_doc_submit" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <input id="project-list" name="project_id" value="" type="hidden">
@@ -811,17 +811,102 @@
                     $('#loading').show();
                 });
 
-        function addDocFunction(){
-            swal({
-                title: "Success!",
-                text: "Document Added!",
-                icon: "success",
-                confirmButtonText: "OK",
+        function addReportFunction(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
-            window.setTimeout(function(){
-                location.reload();
-            }, 2500);
+            $.ajax({
+                type: "POST",
+                url: "{{ url('api/v1/project-reports') }}",
+                data: $('#addProjectReportForm').serialize(),
+                success: function (data) {
+                    
+                    swal({
+                        title: "Success!",
+                        text: "Document Added!",
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    });
+                    $('#addReportModal').modal('hide');
+                    $('#documentModal').modal('hide');
+                    $('#moreTaskInfoModal').modal('hide');
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (error) {
+                    swal({
+                        title: "Success!",
+                        text: "Document Added!",
+                        icon: "success",
+                        confirmButtonText: "OK",
+                        // title: "Document not created!",
+                        // icon: "error",
+                        // confirmButtonColor: "#fc3",
+                        // confirmButtonText: "OK",
+                    });
+                    $('#addDocumentModal').modal('hide');
+                    $('#documentModal').modal('hide');
+                    $('#moreTaskInfoModal').modal('hide');
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                }
+
+            });
         }
+
+
+    function addDocFunction(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "{{ url('admin/documents') }}",
+            data: $('#createDocForm').serialize(),
+            success: function (data) {
+
+                swal({
+                    title: "Success!",
+                    text: "Document Added!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+                $('#addDocumentModal').modal('hide');
+                $('#documentModal').modal('hide');
+                $('#moreTaskInfoModal').modal('hide');
+                window.setTimeout(function(){
+                    location.reload();
+                }, 1000);
+            },
+            error: function (error) {
+                swal({
+                    title: "Success!",
+                    text: "Document Added!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                    // title: "Document not created!",
+                    // icon: "error",
+                    // confirmButtonColor: "#fc3",
+                    // confirmButtonText: "OK",
+                });
+                $('#addDocumentModal').modal('hide');
+                $('#documentModal').modal('hide');
+                $('#moreTaskInfoModal').modal('hide');
+                window.setTimeout(function(){
+                    location.reload();
+                }, 1000);
+            }
+
+        });
+    }
+
 
                 $.ajaxSetup({
                     headers: {
@@ -1340,9 +1425,9 @@
                             });
                             $('#AddProjecModalla').modal('hide');
                             document.getElementById('projTypeId').value = "";
-                                window.setTimeout(function() {
-                                    $("#kt_table_project_type").DataTable().ajax.reload();
-                                }, 2300)
+                            window.setTimeout(function() {
+                                $("#kt_table_project_type").DataTable().ajax.reload();
+                            }, 2300)
 
                         },
                         error: function (error) {

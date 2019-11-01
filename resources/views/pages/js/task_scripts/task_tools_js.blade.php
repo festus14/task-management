@@ -24,8 +24,8 @@
                                             <div class="m-portlet__head-caption">
                                                 <div class="m-portlet__head-title">
                                                     <span class="m-portlet__head-icon">
-                                                                <i class="flaticon-list-2"> </i>
-                                                            </span>
+                                                        <i class="flaticon-list-2"> </i>
+                                                    </span>
                                                     <h3 class="m-portlet__head-text">
                                                         ${data.data.name}
                                                     </h3>
@@ -135,7 +135,7 @@
                                     </div>
                                 </div>
                                 <div class="m-portlet__body">
-                                    <div class="m-portlet">
+                                    <div id="taskDocDiv" class="m-portlet">
                                         <table id="kt_table_single_task_documents" class="table table-striped table-hover" style="width: 100%;">
                                             <thead>
                                                 <tr>
@@ -151,29 +151,17 @@
                                                 `+ data.data.documents.map(item =>
                                                     `<tr>
                                                         <td></td>
-                                                        <td>${item.name}</td>
+                                                        <td style="text-align: center;">${item.name}</td>
                                                         <td style="text-align: center;">${switch_doc_type(item.document_type)}</td>
-                                                        <td>`+
-                                                            (item.media_report[0].mime_type === 'application/pdf' ?
-                                                                `
-                                                                <a href="{{ url('app/public').'/' }}/${item.media_report[0].id}/${item.media_report[0].file_name}" target="_blank">
-                                                                   View file
-                                                                </a
-                                                            `
-                                                            :
-                                                                `
-                                                                <a href="https://view.officeapps.live.com/op/embed.aspx?src={{ url('/storage/app/public') }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                                    View file
-                                                                </a>
-                                                            `)
-                                                        +`
+                                                        <td>
+                                                            <a href="https://view.officeapps.live.com/op/embed.aspx?src={{ url('/storage/app/public') }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
+                                                                View file
+                                                            </a>
                                                         </td>
                                                         <td>${item.created_at}</td>
                                                         <td>
                                                             <form id="deleteTaskDocForm" style="display: inline-block;">
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <input type="submit" class="btn btn-xs btn-danger" onclick="deleteTaskDoc(${item.id})" value="{{ trans('global.delete') }}">
+                                                                <input type="button" class="btn btn-xs btn-danger" onclick="deleteTaskDoc(${item.id}, ${item.task_id})" value="Delete">
                                                             </form>
                                                         </td>
                                                     </tr>`

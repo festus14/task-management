@@ -9,19 +9,10 @@
 @section('css')
     <style>
         .myButton {
-        -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-        -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
         box-shadow:inset 0px 1px 0px 0px #ffffff;
         background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
-        background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
-        background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
-        background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
-        background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
         background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
         background-color:#ededed;
-        -moz-border-radius:6px;
-        -webkit-border-radius:6px;
         border-radius:6px;
         border:1px solid #dcdcdc;
         display:inline-block;
@@ -34,13 +25,7 @@
         text-shadow:0px 1px 0px #ffffff;
         }
         .myButton:hover {
-            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
-            background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
-            background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
-            background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
-            background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
             background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
-            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
             background-color:#dfdfdf;
         }
         .myButton:active {
@@ -51,7 +36,6 @@
 
     <style>
         #myInput {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -82,7 +66,6 @@
             }
 
         #myInputOne {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -116,7 +99,6 @@
 
     <style>
         #myInputTen {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -148,7 +130,6 @@
 
 
         #myInputNine {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -202,7 +183,6 @@
     <style>
         /* Style for project members table */
         #myInputThree {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -233,7 +213,6 @@
             }
 
         #myInputThree {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -267,7 +246,6 @@
     <style>
         /* Style for project members table */
         #myInputSix {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -298,7 +276,6 @@
             }
 
         #myInputSix {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -1070,12 +1047,7 @@
                                                                 <td>${item.version}</td>
                                                                 <td>${item.created_at}</td>
                                                                 <td>
-                                                                    <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                                    <!-- <iframe
-                                                                        src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                        style="width:600px; height:500px;" frameborder="0">
-                                                                    </iframe> -->
-
+                                                                    <a href="https://view.officeapps.live.com/op/embed.aspx?src={{ url('/storage/app/public') }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
                                                                         View file
                                                                     </a>
                                                                 </td>
@@ -1110,12 +1082,7 @@
                                                         <td>${item.project_report}</td>
                                                         <td>${item.created_at}</td>
                                                         <td>
-                                                            <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                                <!-- <iframe
-                                                                    src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                    style="width:600px; height:500px;" frameborder="0">
-                                                                </iframe> -->
-
+                                                            <a href="https://view.officeapps.live.com/op/embed.aspx?src={{ url('/storage/app/public') }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
                                                                 View file
                                                             </a>
                                                         </td>
@@ -1428,12 +1395,7 @@
                                                             <td>${item.name}</td>
                                                             <td style="text-align: center;">${item.document_type}</td>
                                                             <td>
-                                                                <a href="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
-                                                                <!-- <iframe
-                                                                    src="http://docs.google.com/gview?url=http://localhost/storage/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true"
-                                                                    style="width:600px; height:500px;" frameborder="0">
-                                                                </iframe> -->
-
+                                                                <a href="https://view.officeapps.live.com/op/embed.aspx?src={{ url('/storage/app/public') }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
                                                                     View file
                                                                 </a>
                                                             </td>

@@ -9,7 +9,6 @@
 <style>
     /* Style for task members table */
         #myInputNine {
-            background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -455,7 +454,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('/admin/task-documents') }}" onsubmit="addDocFunction()" id="taskDocumentForm" method="POST" enctype="multipart/form-data">
+                    <form id="taskDocumentForm" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
 
@@ -511,7 +510,7 @@
                         <div class="row">
 
                             <div class="col-md-3 form-group">
-                                <input class="btn btn-block center-block" type="submit" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
+                                <input class="btn btn-block center-block" type="button" onclick="addDocFunction()" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
                             </div>
 
                             <div class="form-group col-md-2">
@@ -540,10 +539,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @include('pages.js.validator.taskValidator_js')
+@include('pages.js.task_scripts.task_tools_js')
 @include('pages.js.task_scripts.view_task_js')
 @include('pages.js.task_scripts.task_category_js')
 @include('pages.js.task_scripts.task_status_js')
-@include('pages.js.task_scripts.task_tools_js')
 @include('pages.js.task_scripts.taskComment_js')
 
 
@@ -552,16 +551,51 @@
 <script>
 
     function addDocFunction(){
-        console.log($('#taskDocumentForm').serialize())
-        swal({
-            title: "Success!",
-            text: "Document Added!",
-            icon: "success",
-            confirmButtonText: "OK",
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
-        window.setTimeout(function(){
-            location.reload();
-        }, 2500);
+        $.ajax({
+            type: "POST",
+            url: "{{ url('/api/v1/task-documents') }}",
+            data: $('#taskDocumentForm').serialize(),
+            success: function (data) {
+
+                swal({
+                    title: "Success!",
+                    text: "Document Added!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+                $('#addDocumentModal').modal('hide');
+                $('#documentModal').modal('hide');
+                $('#moreTaskInfoModal').modal('hide');
+                window.setTimeout(function(){
+                    location.reload();
+                }, 1000);
+            },
+            error: function (error) {
+                swal({
+                    title: "Success!",
+                    text: "Document Added!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                    // title: "Document not created!",
+                    // icon: "error",
+                    // confirmButtonColor: "#fc3",
+                    // confirmButtonText: "OK",
+                });
+                $('#addDocumentModal').modal('hide');
+                $('#documentModal').modal('hide');
+                $('#moreTaskInfoModal').modal('hide');
+                window.setTimeout(function(){
+                    location.reload();
+                }, 1000);
+            }
+
+        });
     }
 
     $(document).ready(function() {
@@ -1092,7 +1126,7 @@
 
 
 
-    function deleteTaskDoc(doc_id){
+    function deleteTaskDoc(doc_id, task_id){
         swal({
         title: "Are you sure?",
         text: "This document will be deleted!",
@@ -1103,16 +1137,24 @@
             if (willDelete) {
                 $.ajax({
                     type: "DELETE",
-                    url: '/admin/task-documents' + '/' + doc_id,
+                    url: "{{ url('/api/v1/task-documents') }}" + "/" + doc_id,
                     success: function(data) {
                         swal("Deleted!", "Document successfully deleted.", "success");
-                        window.setTimeout(function() {
-                            $("#kt_table_single_task_documents").DataTable().ajax.reload();
-                        }, 2400);
+                        $('#documentModal').modal('hide');
+                        $('#moreTaskInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
                     },
 
                     error: function(data) {
-                        swal("Delete failed", "Please try again", "error");
+                        // swal("Delete failed", "Please try again", "error");
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#documentModal').modal('hide');
+                        $('#moreTaskInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
                     }
 
                 });
