@@ -702,7 +702,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                <a href="inner.html" class="m-menu__link ">
+                                <a href="{{ url('admin/system-calendar') }}" class="m-menu__link ">
                                     <i class="m-menu__link-icon flaticon-calendar"></i>
                                     <span class="m-menu__link-text">
                                             Calendar

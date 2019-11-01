@@ -2,13 +2,11 @@
 <script>
 
     function taskCommentFunction(task_id){
-            console.log("here")
             $.ajax({
                     type: "GET",
                     url: "{{ url('/api/v1/tasks') }}" + "/" + task_id,
                     success: function (data) {
                         let commentbody = document.getElementById('commentFiller');
-                        // let probSubtypeBody = document.getElementById('subtypeModalBody');
                         commentbody.innerHTML = `
                         <div class="m-content">
                         <div class="row">
@@ -78,34 +76,34 @@
                                                                                         ${elem.comments}
 
                                                                             <div id="${elem.id}replydiv" class="replyCommentBody" style="width: 80%; flex-wrap: wrap; padding-bottom:5px; align-self: flex-end; text-align: right;">
-                                                                                ${elem.commentreply.map(replies=>`
+                                                                                ${elem.commentreply.filter(rep => rep.deleted_at===null).map(replies=>`
                                                                                     <div class="m-messenger__wrapper" style=" margin-top:9px; padding-right: 10px; padding-left: 10px;">
-                        <div class="m-messenger__message m-messenger__message--out">
+                                                            <div class="m-messenger__message m-messenger__message--out">
 
-                            <div class="m-messenger__message-body">
-                                <div class="m-messenger__message-arrow"></div>
-                                <div class="m-messenger__message-content">
-                                <div class="m-messenger__message-username">
-                                <span style="float: left; color: #0c2a7a;"><strong>${replies.reply_by.name}</strong></span>
-                                <span class="datee" style="float: right; color:#0c2a7a">${replies.created_at}</span>
+                                                                <div class="m-messenger__message-body">
+                                                                    <div class="m-messenger__message-arrow"></div>
+                                                                    <div class="m-messenger__message-content">
+                                                                    <div class="m-messenger__message-username">
+                                                                    <span style="float: left; color: #0c2a7a;"><strong>${replies.reply_by.name}</strong></span>
+                                                                    <span class="datee" style="float: right; color:#0c2a7a">${replies.created_at}</span>
 
-                                    </div>
+                                                                        </div>
 
-                                    <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
+                                                                        <div class="m-messenger__message-text" style="min-width: 250px; word-wrap: break-word; max-width: 320px; text-align: left; max-height: 4000px;">  <p> </br>
 
-                                        ${replies.task_comment_reply}
-                                                </p>
-                                    </div>
-                                        </br>
-                                    <i class="fa fa-trash" onclick="deleteReply(${replies.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px; color:black;"></i>
+                                                                            ${replies.task_comment_reply}
+                                                                                    </p>
+                                                                        </div>
+                                                                            </br>
+                                                                        <i class="fa fa-trash" onclick="deleteReply(${replies.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px; color:black;"></i>
 
-                                </div>
-                            </div>
-                            <div class="m-messenger__message-pic">
-                            <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
-                        </div>
-                        </div>
-                    </div>`)}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="m-messenger__message-pic">
+                                                                <img alt="" src="{{ url('metro/assets/app/media/img/users/user3.jpg') }}" class="mCS_img_loaded"/>
+                                                            </div>
+                                                            </div>
+                                                        </div>`)}
                                                                             </div>
                                                                             <br>
                                                                         <i class="fa fa-trash" onclick="deleteComment(${elem.id})" style="display:flex; justify-content: flex-end; margin-bottom:5px;"></i>
