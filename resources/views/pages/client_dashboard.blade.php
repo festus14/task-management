@@ -8,9 +8,31 @@
 
 @section('css')
     <style>
+
+        /* For mobile phones: */
+        [class*="col-"] {
+            width: 100%;
+            max-width: 100%;
+            min-width: 100%;
+        }
+
+        @media only screen and (min-width: 600px) {
+            /* For tablets: */
+            .col-s-3 {width: 25%;}
+            .col-s-4 {width: 33.33%;}
+            .col-s-6 {width: 50%; max-width: 44%;}
+            .col-s-12 {width: 100%; max-width: 100%;}
+        }
+
+        @media only screen and (min-width: 768px) {
+        /* For desktop: */
+            .col-3 {width: 25%;}
+            .col-4 {width: 33.33%;}
+            .col-6 {width: 50%; max-width: 44%;}
+            .col-12 {width: 100%; max-width: 100%;}
+        }
         .myButton {
         box-shadow:inset 0px 1px 0px 0px #ffffff;
-        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
         background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
         background-color:#ededed;
         border-radius:6px;
@@ -1752,7 +1774,7 @@
 
                     data.data.map((datum, i) => {
                     clientCard.innerHTML = clientCard.innerHTML + `
-                    <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12" style="min-height: 300px; postion:relative; padding: 2%; border: 1px solid #dfdfdf; border-radius: 6%; margin-bottom: 2%; margin-right: 2%; max-width: 44%; box-sizing: border-box;">
+                    <div class="col-6 col-s-6" style="min-height: 300px; postion:relative; padding: 2%; border: 1px solid #dfdfdf; border-radius: 6%; margin-bottom: 2%; margin-right: 2%; box-sizing: border-box;">
                         <div class="m-widget24">
                             <div style= margin-bottom:4%;>
                             <div style="display: inline-block;" class="pull-right">
@@ -1786,7 +1808,7 @@
                                     <p>${datum.phone}</p>
                                 </div>
                             </div>
-                                <div id="clientBtns" style="position: absolute; bottom: 0; margin-bottom: 5px; margin-top: 5px;">
+                                <div id="clientBtns" style="position: absolute; bottom: 5%; margin-bottom: 5px; margin-top: 5px;">
                                     <button onclick ="getClientProjects(${datum.id})"  class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
                                             data-toggle="modal" data-target="#view_client_project${datum.id}">
                                         View Projects
