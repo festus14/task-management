@@ -10,7 +10,6 @@
     <style>
         .myButton {
         box-shadow:inset 0px 1px 0px 0px #ffffff;
-        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
         background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
         background-color:#ededed;
         border-radius:6px;
