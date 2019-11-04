@@ -31,6 +31,7 @@
             position:relative;
             top:1px;
         }
+
     </style>
 
     <style>
@@ -480,10 +481,13 @@
 
 
     <!-- Begin: List Client -->
-    <div class="m-content" >
+    <div class="m-content" id="yooo">
         <div class="m-portlet__body  m-portlet__body--no-padding" >
-            <div class="row m-row--no-padding m-row--col-separator-xl"  id="client-cards">
+            <div class="container">
+                <div class="row"  id="client-cards">
 
+
+                </div>
             </div>
         </div>
     </div>
@@ -1747,8 +1751,9 @@
 
                     data.data.map((datum, i) => {
                     clientCard.innerHTML = clientCard.innerHTML + `
-                    <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12" style="padding: 2%; border: 1px solid #dfdfdf; border-radius: 6%; margin-bottom: 2%; margin-right: 2%; max-width: 44%; box-sizing: border-box;">
+                    <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12" style="min-height: 300px; postion:relative; padding: 2%; border: 1px solid #dfdfdf; border-radius: 6%; margin-bottom: 2%; margin-right: 2%; max-width: 44%; box-sizing: border-box;">
                         <div class="m-widget24">
+                            <div style= margin-bottom:4%;>
                             <div style="display: inline-block;" class="pull-right">
                                 <a onclick="editClient(${datum.id})" class="btn myButton" href="#" data-toggle="modal" data-target="#editClientModalBody">
                                     <i class="fa fa-pencil" style="color:black;"><span style="font-weight:100;"></span></i>
@@ -1779,15 +1784,17 @@
                                     <p>${datum.email}</p>
                                     <p>${datum.phone}</p>
                                 </div>
-
-                                <button onclick ="getClientProjects(${datum.id})"  class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                        data-toggle="modal" data-target="#view_client_project${datum.id}">
-                                    View Projects
-                                </button>
-                                <button onclick ="getClientTasks(${datum.id})" class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
-                                        data-toggle="modal" data-target="#view_client_task${datum.id}">
-                                    View Tasks
-                                </button>
+                            </div>
+                                <div id="clientBtns" style="position: absolute; bottom: 0; margin-bottom: 5px; margin-top: 5px;">
+                                    <button onclick ="getClientProjects(${datum.id})"  class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                            data-toggle="modal" data-target="#view_client_project${datum.id}">
+                                        View Projects
+                                    </button>
+                                    <button onclick ="getClientTasks(${datum.id})" class="btn btn-sm m-btn--pill" style="background: #8a2a2b; color: white;"
+                                            data-toggle="modal" data-target="#view_client_task${datum.id}">
+                                        View Tasks
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
