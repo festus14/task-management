@@ -642,57 +642,70 @@
                                 </h4>
                                 <i class="m-menu__section-icon flaticon-more-v3"></i>
                             </li>
-                            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
-                                <a href="#" class="m-menu__link m-menu__toggle">
-                                    <i class="m-menu__link-icon flaticon-user"></i>
-                                    <span class="m-menu__link-text">
-                                            User Mgt
-                                        </span>
-                                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                </a>
-                                <div class="m-menu__submenu ">
-                                    <span class="m-menu__arrow"></span>
-                                    <ul class="m-menu__subnav">
-                                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
-                                            <span class="m-menu__link">
-                                                    <span class="m-menu__link-text">
-                                                        Permissions
-                                                    </span>
+                            @can('user_management_access')
+                                <li class="m-menu__item  m-menu__item--submenu {{ request()->is('admin/clients*') ? 'menu-open' : '' }} {{ request()->is('admin/client-portals*') ? 'menu-open' : '' }}"" aria-haspopup="true" data-menu-submenu-toggle="hover">
+                                    <a href="#" class="m-menu__link m-menu__toggle">
+                                        <i class="m-menu__link-icon flaticon-user"></i>
+                                        <span class="m-menu__link-text">
+                                                User Mgt
                                             </span>
-                                        </li>
-                                        <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                            <a href="inner.html" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                        <span></span>
-                                                    </i>
-                                                <span class="m-menu__link-text">
-                                                        Roles
-                                                    </span>
-                                            </a>
-                                        </li>
-                                        <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                            <a href="inner.html" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                        <span></span>
-                                                    </i>
-                                                <span class="m-menu__link-text">
-                                                        Users
-                                                    </span>
-                                            </a>
-                                        </li>
-                                        <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                            <a href="inner.html" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                        <span></span>
-                                                    </i>
-                                                <span class="m-menu__link-text">
-                                                        Register Member
-                                                    </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                                        <i class="m-menu__ver-arrow la la-angle-right"></i>
+                                    </a>
+                                    <div class="m-menu__submenu ">
+                                        <span class="m-menu__arrow"></span>
+                                        <ul class="m-menu__subnav">
+                                            @can('permission_access')
+                                                <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                                    <a href="{{ route("admin.permissions.index") }}" class="m-menu__link {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span></span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">
+                                                            Permissions
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('role_access')
+                                                <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                                    <a href="{{ route("admin.roles.index") }}" class="m-menu__link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                <span></span>
+                                                            </i>
+                                                        <span class="m-menu__link-text">
+                                                                Roles
+                                                            </span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('user_access')
+                                                <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                                    <a href="{{ route("admin.users.index") }}" class="m-menu__link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}"">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                <span></span>
+                                                            </i>
+                                                        <span class="m-menu__link-text">
+                                                                Users
+                                                            </span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('audit_log_access')
+                                                <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
+                                                    <a href="{{ route("admin.audit-logs.index") }}" class="m-menu__link {{ request()->is('admin/audit-logs') || request()->is('admin/audit-logs/*') ? 'active' : '' }}">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                <span></span>
+                                                            </i>
+                                                        <span class="m-menu__link-text">
+                                                                Audit Logs
+                                                            </span>
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endcan
                             <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" data-redirect="true">
                                 <a href="{{ url('/admin/client_dashboard') }}" class="m-menu__link m-menu__toggle">
                                     <i class="m-menu__link-icon flaticon-users"></i>
