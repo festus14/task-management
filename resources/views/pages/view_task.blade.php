@@ -461,6 +461,7 @@
                             <div class="form-group col-sm-6 col-md-6">
                                 <label for="document-name">Document Name</label>
                                 <input name="name" type="text" class="form-control" id="document-name" placeholder="Enter Document Name" required>
+                                <div class="error" id="documentNameErr"></div>
                                 @if($errors->has('name'))
                                     <p class="help-block">
                                         {{ $errors->first('name') }}
@@ -473,13 +474,14 @@
 
                             <div class="form-group col-sm-6 col-md-6">
                                 <label for="document_type">Document Type</label>
-                                <select id="document_type" name="document_type" class="form-control" required>
-                                    <option value="" disabled="" selected="">Please select</option>
+                                <select id="document_type" name="document_type" class="form-control">
+                                    <option value="" selected> </option>
                                     <option value="1">Word</option>
                                     <option value="2">PDF</option>
                                     <option value="3">Excel</option>
                                     <option value="4">Text</option>
                                 </select>
+                                <div class="error" id="documentTypeErr"></div>
                                 @if($errors->has('document_type'))
                                     <p class="help-block">
                                         {{ $errors->first('document_type') }}
@@ -495,6 +497,7 @@
                                 <div class="needsclick dropzone" id="document-dropzone">
 
                                 </div>
+                                <div class="error" id="dropZoneErr"></div>
                                 @if($errors->has('document'))
                                     <p class="help-block">
                                         {{ $errors->first('document') }}
@@ -510,7 +513,7 @@
                         <div class="row">
 
                             <div class="col-md-3 form-group">
-                                <input class="btn btn-block center-block" type="button" onclick="addDocFunction()" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
+                                <input class="btn btn-block center-block" type="button" onclick="validateTaskDocument()" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
                             </div>
 
                             <div class="form-group col-md-2">
@@ -539,6 +542,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @include('pages.js.validator.taskValidator_js')
+@include('pages.js.validator.documentValidator')
 @include('pages.js.task_scripts.task_tools_js')
 @include('pages.js.task_scripts.view_task_js')
 @include('pages.js.task_scripts.task_category_js')
@@ -576,7 +580,7 @@
                 $('#moreTaskInfoModal').modal('hide');
                 window.setTimeout(function(){
                     location.reload();
-                }, 1000);
+                }, 1200);
             },
             error: function (error) {
                 swal({
@@ -594,7 +598,7 @@
                 $('#moreTaskInfoModal').modal('hide');
                 window.setTimeout(function(){
                     location.reload();
-                }, 1000);
+                }, 1200);
             }
 
         });
