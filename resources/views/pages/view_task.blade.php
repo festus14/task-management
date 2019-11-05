@@ -565,7 +565,7 @@
         });
         $.ajax({
             type: "POST",
-            url: "{{ url('/api/v1/task-documents') }}",
+            url: "{{ url('/admin/task-documents') }}",
             data: $('#taskDocumentForm').serialize(),
             success: function (data) {
 
@@ -580,7 +580,7 @@
                 $('#moreTaskInfoModal').modal('hide');
                 window.setTimeout(function(){
                     location.reload();
-                }, 1200);
+                }, 1000);
             },
             error: function (error) {
                 swal({
@@ -588,17 +588,13 @@
                     text: "Document Added!",
                     icon: "success",
                     confirmButtonText: "OK",
-                    // title: "Document not created!",
-                    // icon: "error",
-                    // confirmButtonColor: "#fc3",
-                    // confirmButtonText: "OK",
                 });
                 $('#addDocumentModal').modal('hide');
                 $('#documentModal').modal('hide');
                 $('#moreTaskInfoModal').modal('hide');
                 window.setTimeout(function(){
                     location.reload();
-                }, 1200);
+                }, 1000);
             }
 
         });

@@ -822,7 +822,7 @@
                 url: "{{ url('api/v1/project-reports') }}",
                 data: $('#addProjectReportForm').serialize(),
                 success: function (data) {
-                    
+
                     swal({
                         title: "Success!",
                         text: "Document Added!",
@@ -831,7 +831,7 @@
                     });
                     $('#addReportModal').modal('hide');
                     $('#documentModal').modal('hide');
-                    $('#moreTaskInfoModal').modal('hide');
+                    $('#moreInfoModal').modal('hide');
                     window.setTimeout(function(){
                         location.reload();
                     }, 1000);
@@ -849,7 +849,7 @@
                     });
                     $('#addDocumentModal').modal('hide');
                     $('#documentModal').modal('hide');
-                    $('#moreTaskInfoModal').modal('hide');
+                    $('#moreInfoModal').modal('hide');
                     window.setTimeout(function(){
                         location.reload();
                     }, 1000);
@@ -880,7 +880,7 @@
                 });
                 $('#addDocumentModal').modal('hide');
                 $('#documentModal').modal('hide');
-                $('#moreTaskInfoModal').modal('hide');
+                $('#moreInfoModal').modal('hide');
                 window.setTimeout(function(){
                     location.reload();
                 }, 1000);
@@ -898,7 +898,7 @@
                 });
                 $('#addDocumentModal').modal('hide');
                 $('#documentModal').modal('hide');
-                $('#moreTaskInfoModal').modal('hide');
+                $('#moreInfoModal').modal('hide');
                 window.setTimeout(function(){
                     location.reload();
                 }, 1000);
