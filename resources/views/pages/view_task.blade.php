@@ -73,6 +73,17 @@
             #mCSB_3::-webkit-scrollbar-thumb {
             background: #888;
             }
+            @media screen and (max-width: 2600px){
+                #moreInfo{
+                 width: 100%;
+                 min-width: 100%;
+            }
+                #moreInfoInner{
+                 width: 100%;
+                 min-width: 100%;
+            }
+
+}
 </style>
 @endsection
 
@@ -257,7 +268,8 @@
 
 
     <!-- More Info Modal -->
-    <div id="moreInfo">
+
+    <div id="moreInfo" style="margin: auto;min-width: 70%;">
 
     </div>
 
@@ -542,7 +554,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @include('pages.js.validator.taskValidator_js')
-@include('pages.js.validator.documentValidator')
+@include('pages.js.validator.taskDocumentValidator')
 @include('pages.js.task_scripts.task_tools_js')
 @include('pages.js.task_scripts.view_task_js')
 @include('pages.js.task_scripts.task_category_js')

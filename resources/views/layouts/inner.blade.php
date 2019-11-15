@@ -553,28 +553,26 @@
                                             <span class="m-menu__arrow m-menu__arrow--adjust"></span>
                                             <ul class="m-menu__subnav">
                                                 <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="inner.html" class="m-menu__link ">
+                                                    <a href="{{ route('admin.payroll-letters.create') }}" class="m-menu__link ">
                                                         <i class="m-menu__link-icon flaticon-business"></i>
                                                         <span class="m-menu__link-text">
-																eCommerce
-															</span>
+                                                            Create Letter
+                                                        </span>
                                                     </a>
                                                 </li>
 
                                                 <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="inner.html" class="m-menu__link ">
+                                                    <a href="{{ route('admin.payroll-letters.index') }}" class="m-menu__link ">
                                                         <i class="m-menu__link-icon flaticon-graphic-2"></i>
                                                         <span class="m-menu__link-title">
-																<span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">
-																		Campaigns
-																	</span>
-                                                        <span class="m-menu__link-badge">
-																		<span class="m-badge m-badge--success">
-																			3
-																		</span>
-                                                        </span>
-                                                        </span>
+                                                            <span class="m-menu__link-wrap">
+                                                                <span class="m-menu__link-text">
+                                                                    List Letters
+                                                                </span>
+                                                                <span class="m-menu__link-badge">
+                                                                    <span class="m-badge m-badge--success">3</span>
+                                                                </span>
+                                                            </span>
                                                         </span>
                                                     </a>
                                                 </li>
@@ -656,7 +654,8 @@
                                         <ul class="m-menu__subnav">
                                             @can('permission_access')
                                                 <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                                    <a href="{{ route("admin.permissions.index") }}" class="m-menu__link {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
+
+                                                    <a href="{{ route('admin.permissions.index') }}" class="m-menu__link {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                             <span></span>
                                                         </i>
@@ -668,7 +667,7 @@
                                             @endcan
                                             @can('role_access')
                                                 <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                                    <a href="{{ route("admin.roles.index") }}" class="m-menu__link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
+                                                    <a href="{{ route('admin.roles.index') }}" class="m-menu__link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                                 <span></span>
                                                             </i>
@@ -680,7 +679,7 @@
                                             @endcan
                                             @can('user_access')
                                                 <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                                    <a href="{{ route("admin.users.index") }}" class="m-menu__link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}"">
+                                                    <a href="{{ route('admin.users.index') }}" class="m-menu__link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}"">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                                 <span></span>
                                                             </i>
@@ -692,7 +691,7 @@
                                             @endcan
                                             @can('audit_log_access')
                                                 <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                                    <a href="{{ route("admin.audit-logs.index") }}" class="m-menu__link {{ request()->is('admin/audit-logs') || request()->is('admin/audit-logs/*') ? 'active' : '' }}">
+                                                    <a href="{{ route('admin.audit-logs.index') }}" class="m-menu__link {{ request()->is('admin/audit-logs') || request()->is('admin/audit-logs/*') ? 'active' : '' }}">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                                 <span></span>
                                                             </i>
@@ -715,19 +714,19 @@
                                 </a>
                             </li>
                             <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                <a href="{{ url('admin/system-calendar') }}" class="m-menu__link ">
+                                <a href="{{ url('admin/view-calendar') }}" class="m-menu__link ">
                                     <i class="m-menu__link-icon flaticon-calendar"></i>
                                     <span class="m-menu__link-text">
-                                            Calendar
-                                        </span>
+                                        Calendar
+                                    </span>
                                 </a>
                             </li>
                             <li class="m-menu__item " aria-haspopup="true" data-redirect="true">
-                                <a href="inner.html" class="m-menu__link ">
+                                <a href="#" class="m-menu__link ">
                                     <i class="m-menu__link-icon flaticon-logout"></i>
                                     <span class="m-menu__link-text">
-                                            Logout
-                                        </span>
+                                        Logout
+                                    </span>
                                 </a>
                             </li>
                         </ul>
@@ -744,12 +743,11 @@
                                     @yield('header')
                                 </h3>
                                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-
                                     <li class="m-nav__item">
                                         <a href="" class="m-nav__link">
                                             <span class="m-nav__link-text">
-                                                    <strong>@yield('sub_header')</strong>
-                                                </span>
+                                                <strong>@yield('sub_header')</strong>
+                                            </span>
                                         </a>
                                     </li>
                                 </ul>
@@ -777,7 +775,7 @@
 							<span class="m-footer__copyright">
 								{{ date('Y') }} &copy; Strandact Services theme by
 								<a href="https://keenthemes.com" class="m-link">
-									Keenthemes
+									Keen themes
 								</a>
 							</span>
                     </div>
@@ -789,17 +787,17 @@
                                 </a>
                             </li>
                             <li class="m-nav__item">
-                                <a href="#" class="m-nav__link">
+                                <a href="https://stransact.us" class="m-nav__link">
                                     <span class="m-nav__link-text">Stransact LLP</span>
                                 </a>
                             </li>
                             <li class="m-nav__item">
-                                <a href="#" class="m-nav__link">
+                                <a href="https://stransact.com/ng" class="m-nav__link">
                                     <span class="m-nav__link-text">Stransact Partners</span>
                                 </a>
                             </li>
                             <li class="m-nav__item">
-                                <a href="#" class="m-nav__link">
+                                <a href="https://ipaysuite.com" class="m-nav__link">
                                     <span class="m-nav__link-text">
                                         iPaySuite
                                     </span>

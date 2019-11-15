@@ -10,7 +10,7 @@
                          taskName = data.data.name;
                         let moreInfo = document.getElementById("moreInfo")
                         moreInfo.innerHTML = `<div class="modal fade" id="moreTaskInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; min-width: 500px;" role="document">
+                        <div class="modal-dialog modal-dialog-centered" id="moreInfoInner" style="width: 70%; min-width: 70%;" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" onclick="$('#moreTaskInfoModal').modal('hide');" aria-label="Close">

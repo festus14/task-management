@@ -114,7 +114,7 @@
             <div class=" m-portlet__head-tools">
                 <ul class="m-portlet__nav">
                     <li class="m-portlet__nav-item">
-                        <a style="color:white; background-color: #8a2a2b;" id="addProjId"
+                        <a style="color:white; background-color: #8a2a2b; margin-top:3px;" id="addProjId"
                            class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal">
                                 <span>
                                     <i class="la la-plus"></i>
@@ -124,7 +124,7 @@
                                 </span>
                         </a>
                         <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air"
-                           id="projectTypeId" data-toggle="modal" data-target="#ProjTypeDatatable">
+                           id="projectTypeId" style="margin-bottom:3px;" data-toggle="modal" data-target="#ProjTypeDatatable">
                                 <span onclick="getProjetTypeDT();">
                                     <span>
                                         Project Type
@@ -614,6 +614,7 @@
                                         <div class="form-group col-sm-6 col-md-6">
                                             <label for="document-name">Document Name</label>
                                             <input type="text" class="form-control" id="document-name" name="name">
+                                            <div class="error" id="documentNameErr"></div>
                                             @if($errors->has('name'))
                                                 <p class="help-block">
                                                     {{ $errors->first('name') }}
@@ -627,6 +628,7 @@
                                         <div class="form-group col-sm-6 col-md-6">
                                             <label for="version">Version</label>
                                             <input type="text" class="form-control" id="version" placeholder="Enter Version" name="version">
+                                            <div class="error" id="documentVersionErr"></div>
                                             @if($errors->has('version'))
                                                 <p class="help-block">
                                                     {{ $errors->first('version') }}
@@ -660,7 +662,7 @@
 
                                     <div class="row">
                                         <div class="col-md-3 form-group">
-                                            <input class="btn btn-block center-block" type="button" onclick="addDocFunction()" id="pro_doc_submit" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
+                                            <input class="btn btn-block center-block" type="button" onclick="validateProjectDocument()" id="pro_doc_submit" value="{{ trans('global.save') }}" style="background-color:#8a2a2b; color:white;">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <input id="project-list" name="project_id" value="" type="hidden">
@@ -679,6 +681,7 @@
         @endsection
         @section('javascript')
         @include('pages.js.project_scripts.projecttype_subtype_js')
+        @include('pages.js.validator.projectDocumentValidator')
         @include('pages.js.validator.projectValidator_js')
         @include('pages.js.validator.projectTypeValidator_js')
         @include('pages.js.project_scripts.view_project_js')
@@ -796,6 +799,7 @@
             </script>
 
             <script>
+
         var userName = "{{ Auth::user()->name}}"
         var userId = {{ Auth::user()->id}}
                 $(document).ready(function () {
@@ -937,7 +941,7 @@
     }
 
 
-    function addDocFunction(){
+    function addProjectDocFunction(){
 
         $.ajaxSetup({
             headers: {
