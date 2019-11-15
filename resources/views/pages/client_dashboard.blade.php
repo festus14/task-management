@@ -377,7 +377,7 @@
 
                                         <div class="col-md-6 form-group {{ $errors->has('status') ? 'has-error' : '' }} mt-3">
                                                 <label for="status">{{ trans('cruds.client.fields.status') }}</label>
-                                                <select id="status" name="status" class="form-control" required>
+                                                <select id="status" name="status" class="form-control" frequired>
                                                     <option value="" disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
                                                     @foreach(App\Client::STATUS_SELECT as $key => $label)
                                                         <option value="{{ $key }}" {{ old('status', null) === (string)$key ? 'selected' : '' }}>{{ $label }}</option>
@@ -1066,6 +1066,7 @@
                                                             <th>Version</th>
                                                             <th>Date Created</th>
                                                             <th>File</th>
+                                                            <th>Tools</th>
                                                         </tr>
                                                         `+ data.data.documents.map(item =>
                                                             `<tr>
@@ -1076,6 +1077,11 @@
                                                                     <a href="https://view.officeapps.live.com/op/embed.aspx?src={{ url('/storage/app/public') }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
                                                                         View file
                                                                     </a>
+                                                                </td>
+                                                                <td>
+                                                                    <form id="deleteTaskDocForm" style="display: inline-block;">
+                                                                        <input type="button" class="btn btn-xs btn-danger" onclick="deleteTaskDoc(${item.id})" value="Delete">
+                                                                    </form>
                                                                 </td>
                                                             </tr>`
                                                         )+`
@@ -1102,6 +1108,7 @@
                                                         <th>Report</th>
                                                         <th>Date Created</th>
                                                         <th>File</th>
+                                                        <th>Tools</th>
                                                     </tr>
                                                     `+ data.data.reports.map(item =>
                                                     `<tr>
@@ -1111,6 +1118,11 @@
                                                             <a href="https://view.officeapps.live.com/op/embed.aspx?src={{ url('/storage/app/public') }}/${item.media_report[0].id}/${item.media_report[0].file_name}&embedded=true" target="_blank">
                                                                 View file
                                                             </a>
+                                                        </td>
+                                                        <td>
+                                                            <form style="display: inline-block;">
+                                                                <input type="button" class="btn btn-xs btn-danger" onclick="deleteProReport(${item.id})" value="Delete">
+                                                            </form>
                                                         </td>
                                                     </tr>`
                                                     )+`
@@ -1181,6 +1193,44 @@
                 }
            })
         }
+
+
+        function deleteTaskDoc(doc_id){
+        swal({
+        title: "Are you sure?",
+        text: "This document will be deleted!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('/api/v1/task-documents') }}" + "/" + doc_id,
+                    success: function(data) {
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#moreInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    },
+
+                    error: function(data) {
+                        // swal("Delete failed", "Please try again", "error");
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#moreInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    }
+
+                });
+            } else {
+                swal("Cancelled", "Delete cancelled", "error");
+            }
+
+        });
+    }
 
             // Search Through Project Documents FUnction
         function searchProjectDocument() {
@@ -1415,6 +1465,7 @@
                                                         <th>Document Type</th>
                                                         <th>File</th>
                                                         <th>Date Created</th>
+                                                        <th>Tools</th>
                                                     </tr>
                                                     `+ data.data.documents.map(item =>
                                                         `<tr>
@@ -1426,6 +1477,11 @@
                                                                 </a>
                                                             </td>
                                                             <td>${item.created_at}</td>
+                                                            <td>
+                                                            <form style="display: inline-block;">
+                                                                <input type="button" class="btn btn-xs btn-danger" onclick="deleteProDoc(${item.id})" value="Delete">
+                                                            </form>
+                                                        </td>
                                                         </tr>`
                                                     )+`
                                             </table>
@@ -1564,6 +1620,81 @@
                     location.reload();
                 }, 2500);
             }
+
+
+            function deleteProDoc(doc_id){
+        swal({
+        title: "Are you sure?",
+        text: "This document will be deleted!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('/admin/documents') }}" + "/" + doc_id,
+                    success: function(data) {
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#moreInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    },
+
+                    error: function(data) {
+                        // swal("Delete failed", "Please try again", "error");
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#moreInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    }
+
+                });
+            } else {
+                swal("Cancelled", "Delete cancelled", "error");
+            }
+
+        });
+    }
+
+     function deleteProReport(doc_id){
+        swal({
+        title: "Are you sure?",
+        text: "This report will be deleted!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('/admin/project-reports') }}" + "/" + doc_id,
+                    success: function(data) {
+                        swal("Deleted!", "Report successfully deleted.", "success");
+                        $('#moreInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    },
+
+                    error: function(data) {
+                        // swal("Delete failed", "Please try again", "error");
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#moreInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    }
+
+                });
+            } else {
+                swal("Cancelled", "Delete cancelled", "error");
+            }
+
+        });
+    }
 
             // Search Through Task Documents FUnction
         function searchTaskDocument() {

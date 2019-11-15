@@ -858,6 +858,84 @@
             });
         }
 
+        function deleteProDoc(doc_id){
+        swal({
+        title: "Are you sure?",
+        text: "This document will be deleted!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('/api/v1/documents') }}" + "/" + doc_id,
+                    success: function(data) {
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#documentModal').modal('hide');
+                        $('#moreInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    },
+
+                    error: function(data) {
+                        // swal("Delete failed", "Please try again", "error");
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#documentModal').modal('hide');
+                        $('#moreInfoModal ').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    }
+
+                });
+            } else {
+                swal("Cancelled", "Delete cancelled", "error");
+            }
+
+        });
+    }
+
+     function deleteProReport(doc_id){
+        swal({
+        title: "Are you sure?",
+        text: "This report will be deleted!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('/admin/project-reports') }}" + "/" + doc_id,
+                    success: function(data) {
+                        swal("Deleted!", "Report successfully deleted.", "success");
+                        $('#projectreportModal').modal('hide');
+                        $('#moreTaskInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    },
+
+                    error: function(data) {
+                        // swal("Delete failed", "Please try again", "error");
+                        swal("Deleted!", "Document successfully deleted.", "success");
+                        $('#projectreportModal').modal('hide');
+                        $('#moreTaskInfoModal').modal('hide');
+                        window.setTimeout(function(){
+                            location.reload();
+                        }, 1000);
+                    }
+
+                });
+            } else {
+                swal("Cancelled", "Delete cancelled", "error");
+            }
+
+        });
+    }
+
 
     function addDocFunction(){
 
