@@ -835,7 +835,7 @@
                     });
                     $('#addReportModal').modal('hide');
                     $('#documentModal').modal('hide');
-                    $('#moreTaskInfoModal').modal('hide');
+                    $('#moreInfoModal').modal('hide');
                     window.setTimeout(function(){
                         location.reload();
                     }, 1000);
@@ -853,7 +853,7 @@
                     });
                     $('#addDocumentModal').modal('hide');
                     $('#documentModal').modal('hide');
-                    $('#moreTaskInfoModal').modal('hide');
+                    $('#moreInfoModal').modal('hide');
                     window.setTimeout(function(){
                         location.reload();
                     }, 1000);
@@ -884,7 +884,7 @@
                 });
                 $('#addDocumentModal').modal('hide');
                 $('#documentModal').modal('hide');
-                $('#moreTaskInfoModal').modal('hide');
+                $('#moreInfoModal').modal('hide');
                 window.setTimeout(function(){
                     location.reload();
                 }, 1000);
@@ -902,7 +902,7 @@
                 });
                 $('#addDocumentModal').modal('hide');
                 $('#documentModal').modal('hide');
-                $('#moreTaskInfoModal').modal('hide');
+                $('#moreInfoModal').modal('hide');
                 window.setTimeout(function(){
                     location.reload();
                 }, 1000);

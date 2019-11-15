@@ -13,7 +13,7 @@
         [class*="col-"] {
             width: 100%;
             max-width: 100%;
-            min-width: 100%;
+
         }
 
         @media only screen and (min-width: 600px) {
