@@ -114,7 +114,7 @@
             <div class=" m-portlet__head-tools">
                 <ul class="m-portlet__nav">
                     <li class="m-portlet__nav-item">
-                        <a style="color:white; background-color: #8a2a2b;" id="addProjId"
+                        <a style="color:white; background-color: #8a2a2b; margin-top:3px;" id="addProjId"
                            class="btn m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal">
                                 <span>
                                     <i class="la la-plus"></i>
@@ -124,7 +124,7 @@
                                 </span>
                         </a>
                         <a class="btn btn-secondary m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air"
-                           id="projectTypeId" data-toggle="modal" data-target="#ProjTypeDatatable">
+                           id="projectTypeId" style="margin-bottom:3px;" data-toggle="modal" data-target="#ProjTypeDatatable">
                                 <span onclick="getProjetTypeDT();">
                                     <span>
                                         Project Type
