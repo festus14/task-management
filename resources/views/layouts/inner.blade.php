@@ -556,7 +556,7 @@
                                                     <a href="inner.html" class="m-menu__link ">
                                                         <i class="m-menu__link-icon flaticon-business"></i>
                                                         <span class="m-menu__link-text">
-																eCommerce
+																Payroll
 															</span>
                                                     </a>
                                                 </li>
@@ -567,7 +567,7 @@
                                                         <span class="m-menu__link-title">
 																<span class="m-menu__link-wrap">
 																	<span class="m-menu__link-text">
-																		Campaigns
+																		Accounts
 																	</span>
                                                         <span class="m-menu__link-badge">
 																		<span class="m-badge m-badge--success">
