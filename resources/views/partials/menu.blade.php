@@ -88,7 +88,6 @@
                     <li class="nav-item has-treeview {{ request()->is('admin/clients*') ? 'menu-open' : '' }} {{ request()->is('admin/client-portals*') ? 'menu-open' : '' }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw fas fa-box-open">
-
                             </i>
                             <p>
                                 <span>{{ trans('cruds.clientManagement.title') }}</span>
