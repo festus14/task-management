@@ -151,6 +151,10 @@ label {
     display: block;
 }
 
+.login-box{
+    margin-top: 0px;
+}
+
 .container-login100 {
     width: 100%;
     min-height: 100vh;
@@ -179,21 +183,21 @@ label {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.65);
+    /* background-color: rgba(0, 0, 0, 0.65); */
 }
 
-.wrap-login100 {
-    width: 470px;
+/* .wrap-login100 {
+    width: 500px;
     border-radius: 10px;
     overflow: hidden;
     background: transparent;
-}
+} */
 
 
 /* [ Form ] */
 
 .login100-form {
-    width: 100%;
+    width: 400px;
     border-radius: 25px;
     background-color: #fff;
     position: relative;

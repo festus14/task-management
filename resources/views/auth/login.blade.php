@@ -1,60 +1,42 @@
 @extends('layouts.app')
 @section('content')
 <div class="login-box">
-    <div class="login-logo">
-        <div class="login-logo">
-            <a href="#">
-                {{ trans('panel.site_title') }}
-            </a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-            @if(\Session::has('message'))
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <h4 style="font-family: 'Oswald', sans-serif;  margin-bottom: -30px;" class="login100-form-title p-b-41">
+                    Task Management System
+                </h4>
+                @if(\Session::has('message'))
                 <p class="alert alert-info">
                     {{ \Session::get('message') }}
                 </p>
-            @endif
-            <form action="{{ route('login') }}" method="POST">
-                {{ csrf_field() }}
-                <div class="form-group has-feedback">
-                    <div class="input-group">
-                        <input type="email" class="form-control" placeholder="{{ trans('global.login_email') }}" name="email">
+                @endif
+                <form action="{{ route('login') }}" method="POST" class="login100-form validate-form p-b-33">
+                        {{ csrf_field() }}
+                    <div class="wrap-input100 validate-input" data-validate="Enter email">
+                        <input class="input100" type="email" name="email" placeholder="{{ trans('global.login_email') }}" required>
+                        <span class="focus-input100" style="color: red;" data-placeholder="&#xe82a;"></span>
                     </div>
-                </div>
-                <div class="form-group has-feedback">
-                    <div class="input-group">
-                        <input type="password" class="form-control" placeholder="{{ trans('global.login_password') }}" name="password">
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <input class="input100 " type="password"  placeholder="{{ trans('global.login_password') }}" name="password" required>
+                        <span class="focus-input100" data-placeholder="&#xe80f;"></span>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                        <input type="checkbox" name="remember"> {{ trans('global.remember_me') }}
+
+                    <input id="logCheck" type="checkbox" name="remember"> <span style="margin-left: 25px;">Remember me </span>
+
+                    <div class="container-login100-form-btn m-t-32">
+                        <button type="submit" class="login100-form-btn">
+							Login
+						</button>
                     </div>
-                    <!-- /.col -->
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('global.login') }}</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
 
-
-
-            <p class="mb-1">
-                <a class="" href="{{ route('password.request') }}">
-                    {{ trans('global.forgot_password') }}
-                </a>
-            </p>
-            <p class="mb-0">
-
-            </p>
-            <p class="mb-1">
-
-            </p>
+                </form>
+                <a href="{{ route('password.request') }}" style="text-decoration: none; float: right; color: white; margin-right: 20px; text-align: right;">Forgot password?</a>
+            </div>
         </div>
-        <!-- /.login-card-body -->
     </div>
-</div>
-@endsection
+
+    <script src="js/main.js"></script>
+
+</html>
