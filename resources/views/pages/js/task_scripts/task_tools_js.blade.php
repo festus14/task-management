@@ -161,7 +161,7 @@
                                                         <td>${item.created_at}</td>
                                                         <td>
                                                             <form id="deleteTaskDocForm" style="display: inline-block;">
-                                                                <input type="button" class="btn btn-xs btn-danger" onclick="deleteTaskDoc(${item.id}, ${item.task_id})" value="Delete">
+                                                                <input type="button" class="btn btn-xs btn-danger" onclick="deleteTaskDoc(${item.id})" value="Delete">
                                                             </form>
                                                         </td>
                                                     </tr>`

@@ -1140,7 +1140,7 @@
 
 
 
-    function deleteTaskDoc(doc_id, task_id){
+    function deleteTaskDoc(doc_id){
         swal({
         title: "Are you sure?",
         text: "This document will be deleted!",
