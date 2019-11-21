@@ -1080,7 +1080,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <form id="deleteTaskDocForm" style="display: inline-block;">
-                                                                        <input type="button" class="btn btn-xs btn-danger" onclick="deleteTaskDoc(${item.id})" value="Delete">
+                                                                        <input type="button" class="btn btn-xs btn-danger" onclick="deleteProDoc(${item.id})" value="Delete">
                                                                     </form>
                                                                 </td>
                                                             </tr>`
@@ -1208,6 +1208,7 @@
                     type: "DELETE",
                     url: "{{ url('/api/v1/task-documents') }}" + "/" + doc_id,
                     success: function(data) {
+                        console.log('Here in success')
                         swal("Deleted!", "Document successfully deleted.", "success");
                         $('#moreInfoModal').modal('hide');
                         window.setTimeout(function(){
@@ -1479,7 +1480,7 @@
                                                             <td>${item.created_at}</td>
                                                             <td>
                                                             <form style="display: inline-block;">
-                                                                <input type="button" class="btn btn-xs btn-danger" onclick="deleteProDoc(${item.id})" value="Delete">
+                                                                <input type="button" class="btn btn-xs btn-danger" onclick="deleteTaskDoc(${item.id})" value="Delete">
                                                             </form>
                                                         </td>
                                                         </tr>`

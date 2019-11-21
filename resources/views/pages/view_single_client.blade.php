@@ -17,7 +17,7 @@
             left: 50%;
         }
 
-            #single-client-content {display:none;}
+        #single-client-content {display:none;}
 
     </style>
 
@@ -104,12 +104,12 @@
 
         <br />
 
-        <div class="card">
+        <div class="m-portlet" style="width: 100%;">
             <div class="card-header">
                 Client Projects
             </div>
-            <div class="row card-body">
-                <table class="table table-bordered table-striped table-hover">
+                <div class="m-portlet__body" style="overflow-x:auto;">
+                <table id="kt_project_datable" class="table table-striped table-hover" style="max-width: 100%">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -148,16 +148,16 @@
 
         <br />
 
-        <div class="card">
+        <div class="m-portlet" style="width: 100%;">
             <div class="card-header">
                 Client Task
             </div>
 
-            <div class="row card-body">
-                <table class="table table-bordered table-striped table-hover">
-                    <thead>
+            <div class="m-portlet__body" style="overflow-x:auto;">
+                    <table id="kt_task_datable" class="table table-striped table-hover" style="max-width: 100%">
+                    <thead >
                         <tr>
-                            <th>#</th>
+                            <th style="text-align:center">#</th>
                             <th>Name</th>
                             <th>Manager</th>
                             <th>Members</th>
@@ -189,6 +189,7 @@
                         @endif
                     </tbody>
                 </table>
+
             </div>
         </div>
         <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">
@@ -201,10 +202,16 @@
 
     $(function() {
         $("#loading").fadeOut(2000, function() {
-            $("#single-client-content").fadeIn(1000);        
+            $("#single-client-content").fadeIn(1000);
         });
     });
 
+    $(document).ready(function() {
+    $('#kt_task_datable').DataTable();
+    $('#kt_project_datable').DataTable();
+} );
+
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 @endsection
