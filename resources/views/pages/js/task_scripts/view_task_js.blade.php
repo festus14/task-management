@@ -76,7 +76,7 @@
                                         <div class="form-group">
                                             <label for="assign-task">Assign task to</label>
                                                 <br>
-                                            <select style="width: 100%" name="assinged_tos[]" id="assinged_tos" multiple="multiple" class="form-control select2" required>
+                                            <select multiple style="width: 100%" name="assinged_tos[]" id="assinged_tos" class="form-control select2" required>
                                                 ${Object.keys(data.data.assinged_tos).map((key, index) => `<option value="${key}">${data.data.assinged_tos[key]}</option>`)}
                                             </select>
                                             <div class="error" id="assignErr"></div>
@@ -444,10 +444,12 @@
 
     // post to the create Task table
     function postCreateTask() {
+        let formData = $('#addTaskform').serialize();
+        console.log(formData)
         $.ajax({
             type: "POST",
             url: "{{ url('/api/v1/tasks') }}",
-            data: $('#addTaskform').serialize(),
+            data: formData,
             success: function(response) {
                 $('#createTaskModal').modal('hide');
                 swal({
