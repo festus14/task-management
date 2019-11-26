@@ -58,7 +58,7 @@ body {
     border-radius: 40px;
 }
 
-.element-main input[type="submit"] {
+#resetSubmitBtn{
     font-size: 1em;
     color: #fff;
     background: linear-gradient(to right top, #212529, #182848, #182848, #8a2a2b, #8a2a2b);
@@ -73,7 +73,7 @@ body {
     margin: 1.5em auto 0;
 }
 
-.element-main input[type="submit"]:hover {
+#resetSubmitBtn:hover {
     background: #8a2a2b;
     border-width: 1px;
     border-color: #000;
@@ -99,12 +99,6 @@ body {
 @media(max-width:1280px) {
     .elelment h2 {
         margin-top: 1em;
-    }
-    .copy-right {
-        margin: 6em 0em 2em 0em;
-    }
-    .element-main {
-        width: 30%;
     }
 }
 
@@ -136,12 +130,6 @@ body {
         width: 80%;
         padding: 3em 1.5em;
     }
-    .copy-right {
-        margin: 5em 0em 2em 0em;
-    }
-    .copy-right p {
-        font-size: 0.9em;
-    }
 }
 
 @media(max-width:320px) {
@@ -166,13 +154,6 @@ body {
     .element-main input[type="text"] {
         font-size: 0.9em;
         padding: 0.8em 0.5em;
-    }
-    .copy-right {
-        margin: 3em 0em 2em 0em;
-    }
-    .copy-right p {
-        font-size: 0.85em;
-        padding: 0 4px;
     }
 }
 

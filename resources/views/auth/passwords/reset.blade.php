@@ -14,6 +14,7 @@
             <form method="POST" action="{{ route('password.request') }}">
                 {{ csrf_field() }}
                 <div>
+                    <p>cvdsvdmvslvsdcsm</p>
                     <input name="token" value="{{ $token }}" type="hidden">
                     <div class="form-group has-feedback">
                         <input type="email" name="email" class="form-control" required placeholder="{{ trans('global.login_email') }}">

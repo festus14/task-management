@@ -151,6 +151,10 @@ label {
     display: block;
 }
 
+.login-box{
+    margin-top: 0px;
+}
+
 .container-login100 {
     width: 100%;
     min-height: 100vh;
@@ -179,27 +183,27 @@ label {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.65);
+    /* background-color: rgba(0, 0, 0, 0.65); */
 }
 
-.wrap-login100 {
-    width: 470px;
+/* .wrap-login100 {
+    width: 500px;
     border-radius: 10px;
     overflow: hidden;
     background: transparent;
-}
+} */
 
 
 /* [ Form ] */
 
 .login100-form {
-    width: 100%;
+    width: 400px;
     border-radius: 25px;
     background-color: #fff;
     position: relative;
-    animation-name: loginform;
+    /* animation-name: loginform;
     animation-duration: 3s;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards; */
 }
 
 @keyframes loginform {
@@ -235,8 +239,8 @@ label {
     text-align: center;
     position: relative;
     animation-name: task;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
+    /* animation-duration: 1s;
+    animation-fill-mode: forwards; */
     display: block;
 }
 
@@ -274,10 +278,10 @@ label {
     height: 50px;
     background: transparent;
     padding: 0 10px 0 80px;
-    -webkit-transition: all 0.4s;
+    /* -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
-    transition: all 0.4s;
+    transition: all 0.4s; */
 }
 
 
@@ -394,10 +398,10 @@ label {
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     position: relative;
     z-index: 1;
-    -webkit-transition: all 0.4s;
+    /* -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
-    transition: all 0.4s;
+    transition: all 0.4s; */
 }
 
 .login100-form-btn::before {
@@ -412,10 +416,10 @@ label {
     top: 0;
     left: 0;
     opacity: 0;
-    -webkit-transition: all 0.4s;
+    /* -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
-    transition: all 0.4s;
+    transition: all 0.4s; */
 }
 
 .login100-form-btn:hover {
